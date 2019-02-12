@@ -6,14 +6,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.awt.Toolkit;
-import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -41,20 +38,15 @@ public class StartMenuController {
     private Text title;
 
     @FXML
-    void initialize() {
+    void initialize() throws Exception {
 
         double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
         double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 
         myPane.setPrefSize(WIDTH, HEIGHT);
 
-        Image background = new Image("resources/graphics/startMenuBackground.png", WIDTH, HEIGHT, false, false);
-        BackgroundImage backgroundImage = new BackgroundImage(background, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        final BackgroundImage backgroundImage = new BackgroundImage(new Image("resources/graphics/startMenuBackground.png", WIDTH, HEIGHT, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         myPane.setBackground(new Background(backgroundImage));
-
-        Media sound = new Media(new File("r/home/bertaga/Documents/Java/yggdrasil_raider/src/resources/sounds/startMenuMusic.wav").toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(sound);
-        mediaPlayer.play();
 
         title.setFont(new Font("Noto Sans CJK KR DemiLight", myPane.getPrefHeight() / 12));
         title.setFill(Color.GREEN);
@@ -66,6 +58,8 @@ public class StartMenuController {
 
         System.out.println(javafx.scene.text.Font.getFamilies());
 
+        MusicPlayer music = new MusicPlayer("src/resources/sounds/startMenuMusic.wav");
+        music.start();
 
         playButton.setPrefSize(myPane.getPrefWidth() / 3, myPane.getPrefHeight() / 9);
         playButton.setLayoutX((myPane.getPrefWidth() - playButton.getPrefWidth()) / 2);
