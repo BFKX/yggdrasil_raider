@@ -56,8 +56,6 @@ public class StartMenuController {
         title.setLayoutX(myPane.getPrefWidth() / 2 - title.getLayoutBounds().getWidth() / 2);
         title.setLayoutY(myPane.getPrefHeight()/12 + title.getLayoutBounds().getHeight() / 2);
 
-        System.out.println(javafx.scene.text.Font.getFamilies());
-
         MusicPlayer music = new MusicPlayer("src/resources/sounds/startMenuMusic.wav");
         music.start();
 
