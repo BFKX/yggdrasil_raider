@@ -16,7 +16,7 @@ public class Mapping {
         this.casemap = new Case [column] [line] ;
         for (int i =0 ; i<line ; i++ ) {
             for (int j = 0 ; j<column ; j++) {
-                this.casemap[i][j] = new Case() ;
+                this.casemap[i][j] = new Case(0,null , null) ;
             }
         }
     }

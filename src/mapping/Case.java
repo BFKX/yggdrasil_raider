@@ -3,21 +3,37 @@ import tools.Hitbox ;
 import javafx.scene.image.Image;
 
 public class Case {
-    int type ;
+    private int type ;
     private Image image ;
-    Hitbox hitbox ;
+    private Hitbox hitbox ;
 
-    public  Case () {
-        this.type = 0 ;
+    public Case(int type, Image image, Hitbox hitbox) {
+        this.type = type;
+        this.image = image;
+        this.hitbox = hitbox;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
     public void setImage(Image image) {
-        this.image = image ;
+        this.image = image;
+    }
+
+    public void setHitbox(Hitbox hitbox) {
+        this.hitbox = hitbox;
+    }
+
+    public int getType() {
+        return type;
     }
 
     public Image getImage() {
-        return this.image ;
+        return image;
     }
-    public
 
+    public Hitbox getHitbox() {
+        return hitbox;
+    }
 }

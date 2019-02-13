@@ -1,21 +1,18 @@
 package tools;
 
 public class Hitbox {
-    private Coordinate uL ;
-    private Coordinate uR;
-    private Coordinate bL ;
-    private Coordinate bR ;
+    private Coordinate origine ;
+    private double width ;
 
-    public Hitbox(Coordinate uL, Coordinate uR, Coordinate bL, Coordinate bR) {
-        this.uL = uL;
-        this.uR = uR;
-        this.bL = bL;
-        this.bR = bR;
+    public Hitbox(Coordinate origine, double width) {
+        this.origine = origine;
+        this.width = width;
     }
 
     public boolean collide (Hitbox hitbox) {
-        return ( this.origne
-
+        if ( this.origine.getX() - hitbox.origine.getX() < hitbox.width && this.origine.getY() - hitbox.origine.getY() < hitbox.height && hitbox.origine.getX() - this.origine.getX() < this.width && hitbox.origine.getY() - this.origine.getY() < this.height)
+            return true ;
+        return false ;
     }
 
 }
