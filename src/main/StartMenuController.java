@@ -68,8 +68,10 @@ public class StartMenuController {
         quitButton.setLayoutY(myPane.getPrefHeight() * 0.75 - quitButton.getPrefHeight() / 2);
 
         quitButton.setOnAction(new EventHandler<ActionEvent>() {
+
             @Override
             public void handle(ActionEvent e) {
+
                 System.exit(0);
             }
         });
@@ -77,6 +79,7 @@ public class StartMenuController {
         playButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
+
                 myText.setFont(new Font("Monospace", myPane.getPrefHeight() / 20));
                 myText.setText("Game launched");
                 myText.setFill(Color.INDIANRED);

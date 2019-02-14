@@ -12,13 +12,13 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        Parent root = FXMLLoader.load(getClass().getResource("startMenu.fxml"));
+        Parent startMenu = FXMLLoader.load(getClass().getResource("startMenu.fxml"));
 
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Yggdrasil Raider");
         primaryStage.setFullScreen(true);
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
 
-        primaryStage.setScene(new Scene(root));
+        primaryStage.setScene(new Scene(startMenu));
 
         primaryStage.show();
     }
