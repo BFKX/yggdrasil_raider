@@ -3,11 +3,7 @@ package main;
 import java.io.File;
 import java.io.IOException;
 
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.DataLine;
+import javax.sound.sampled.*;
 
 class MusicPlayer {
 
@@ -16,12 +12,28 @@ class MusicPlayer {
     DataLine.Info info;
     Clip audioClip;
 
-    MusicPlayer(String path) throws Exception{
+    MusicPlayer(String path) {
 
-        audioInputStream = AudioSystem.getAudioInputStream(new File(path));
+        try {
+            audioInputStream = AudioSystem.getAudioInputStream(new File(path));
+        } catch(Exception e) {
+
+            e.printStackTrace();
+            System.exit(1);
+        }
+
         format = audioInputStream.getFormat();
         info = new DataLine.Info(Clip.class, format);
-        audioClip = (Clip) AudioSystem.getLine(info);
+
+        try {
+
+            audioClip = (Clip) AudioSystem.getLine(info);
+        } catch(LineUnavailableException e) {
+
+            e.printStackTrace();
+            System.exit(1);
+        }
+
     }
 
     void start() throws Exception {
@@ -40,6 +52,7 @@ class MusicPlayer {
 
             System.out.println(e.getMessage());
             e.printStackTrace();
+            System.exit(1);
         }
     }
 }

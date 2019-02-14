@@ -11,16 +11,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.awt.Toolkit;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class StartMenuController {
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private Button playButton;
@@ -29,13 +21,13 @@ public class StartMenuController {
     private Button quitButton;
 
     @FXML
-    private AnchorPane myPane;
-
-    @FXML
-    private Text myText;
+    private AnchorPane pane;
 
     @FXML
     private Text title;
+
+    @FXML
+    private Text launchedIndicator;
 
     @FXML
     void initialize() throws Exception {
@@ -46,28 +38,28 @@ public class StartMenuController {
         MusicPlayer music = new MusicPlayer("src/resources/sounds/startMenuMusic.wav");
         music.start();
 
-        myPane.setPrefSize(WIDTH, HEIGHT);
+        pane.setPrefSize(WIDTH, HEIGHT);
 
         final BackgroundImage backgroundImage = new BackgroundImage(new Image("resources/graphics/startMenuBackground.png", WIDTH, HEIGHT, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-        myPane.setBackground(new Background(backgroundImage));
+        pane.setBackground(new Background(backgroundImage));
 
-        Font titleFont = Font.loadFont(StartMenuController.class.getResource("../resources/fonts/VIKING-N.TTF").toExternalForm(), myPane.getPrefHeight() / 12);
+        Font titleFont = Font.loadFont(StartMenuController.class.getResource("../resources/fonts/VIKING-N.TTF").toExternalForm(), pane.getPrefHeight() / 12);
 
         title.setFont(titleFont);
         title.setFill(Color.DARKORANGE);
         title.setStroke(Color.DARKRED);
-        title.setStrokeWidth(myPane.getPrefHeight() / 360);
+        title.setStrokeWidth(pane.getPrefHeight() / 360);
         title.setText("Yggdrasil Raider");
-        title.setLayoutX(myPane.getPrefWidth() / 2 - title.getLayoutBounds().getWidth() / 2);
-        title.setLayoutY(myPane.getPrefHeight()/12 + title.getLayoutBounds().getHeight() / 2);
+        title.setLayoutX(pane.getPrefWidth() / 2 - title.getLayoutBounds().getWidth() / 2);
+        title.setLayoutY(pane.getPrefHeight()/2 + title.getLayoutBounds().getHeight() / 2);
 
-        playButton.setPrefSize(myPane.getPrefWidth() / 3, myPane.getPrefHeight() / 9);
-        playButton.setLayoutX((myPane.getPrefWidth() - playButton.getPrefWidth()) / 2);
-        playButton.setLayoutY(myPane.getPrefHeight() * 0.25- playButton.getPrefHeight() / 2);
+        playButton.setPrefSize(pane.getPrefWidth() / 3, pane.getPrefHeight() / 9);
+        playButton.setLayoutX((pane.getPrefWidth() - playButton.getPrefWidth()) / 2);
+        playButton.setLayoutY(pane.getPrefHeight() * 0.25- playButton.getPrefHeight() / 2);
 
-        quitButton.setPrefSize(myPane.getPrefWidth() / 3, myPane.getPrefHeight() / 9);
-        quitButton.setLayoutX((myPane.getPrefWidth() - quitButton.getPrefWidth()) / 2);
-        quitButton.setLayoutY(myPane.getPrefHeight() * 0.75 - quitButton.getPrefHeight() / 2);
+        quitButton.setPrefSize(pane.getPrefWidth() / 3, pane.getPrefHeight() / 9);
+        quitButton.setLayoutX((pane.getPrefWidth() - quitButton.getPrefWidth()) / 2);
+        quitButton.setLayoutY(pane.getPrefHeight() * 0.75 - quitButton.getPrefHeight() / 2);
 
         quitButton.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -82,11 +74,11 @@ public class StartMenuController {
             @Override
             public void handle(ActionEvent e) {
 
-                myText.setFont(new Font("Monospace", myPane.getPrefHeight() / 20));
-                myText.setText("Game launched");
-                myText.setFill(Color.INDIANRED);
-                myText.setLayoutX((myPane.getPrefWidth() - myText.getLayoutBounds().getWidth()) / 2);
-                myText.setLayoutY((myPane.getPrefHeight() + myText.getLayoutBounds().getHeight()) / 2);
+                launchedIndicator.setFont(new Font("Monospace", pane.getPrefHeight() / 20));
+                launchedIndicator.setText("\\o/ GAME LAUNCHED \\o/");
+                launchedIndicator.setFill(Color.INDIANRED);
+                launchedIndicator.setLayoutX((pane.getPrefWidth() - launchedIndicator.getLayoutBounds().getWidth()) / 2);
+                launchedIndicator.setLayoutY((pane.getPrefHeight() / 6 + launchedIndicator.getLayoutBounds().getHeight()) / 2);
             }
         });
     }
