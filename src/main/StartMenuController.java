@@ -43,21 +43,23 @@ public class StartMenuController {
         double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
         double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 
+        MusicPlayer music = new MusicPlayer("src/resources/sounds/startMenuMusic.wav");
+        music.start();
+
         myPane.setPrefSize(WIDTH, HEIGHT);
 
         final BackgroundImage backgroundImage = new BackgroundImage(new Image("resources/graphics/startMenuBackground.png", WIDTH, HEIGHT, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         myPane.setBackground(new Background(backgroundImage));
 
-        title.setFont(new Font("Noto Sans CJK KR DemiLight", myPane.getPrefHeight() / 12));
-        title.setFill(Color.GREEN);
-        title.setStroke(Color.BLACK);
+        Font titleFont = Font.loadFont(StartMenuController.class.getResource("../resources/fonts/VIKING-N.TTF").toExternalForm(), myPane.getPrefHeight() / 12);
+
+        title.setFont(titleFont);
+        title.setFill(Color.DARKORANGE);
+        title.setStroke(Color.DARKRED);
         title.setStrokeWidth(myPane.getPrefHeight() / 360);
         title.setText("Yggdrasil Raider");
         title.setLayoutX(myPane.getPrefWidth() / 2 - title.getLayoutBounds().getWidth() / 2);
         title.setLayoutY(myPane.getPrefHeight()/12 + title.getLayoutBounds().getHeight() / 2);
-
-        MusicPlayer music = new MusicPlayer("src/resources/sounds/startMenuMusic.wav");
-        music.start();
 
         playButton.setPrefSize(myPane.getPrefWidth() / 3, myPane.getPrefHeight() / 9);
         playButton.setLayoutX((myPane.getPrefWidth() - playButton.getPrefWidth()) / 2);
