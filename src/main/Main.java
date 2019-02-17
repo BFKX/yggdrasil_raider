@@ -7,28 +7,28 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws Exception {
 
         primaryStage.setTitle("Yggdrasil Raider");
         primaryStage.setFullScreen(true);
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
 
-        Parent root;
-        try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("startMenuView.fxml"));
 
-            root = FXMLLoader.load(getClass().getResource("startMenu.fxml"));
-        } catch (IOException e) {
+        StartMenuController startMenuController = new StartMenuController();
 
-            e.printStackTrace();
-            return;
-        }
+        loader.setController(startMenuController);
 
-        primaryStage.setScene(new Scene(root));
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+
+        primaryStage.setScene(scene);
+
+        startMenuController.setScene(scene);
 
         primaryStage.show();
     }

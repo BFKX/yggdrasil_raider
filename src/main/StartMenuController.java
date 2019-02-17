@@ -3,6 +3,8 @@ package main;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
@@ -11,32 +13,27 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.awt.Toolkit;
+import java.io.IOException;
 
 public class StartMenuController {
 
-    @FXML
-    private Button playButton;
+    private Scene scene;
 
-    @FXML
-    private Button quitButton;
+    @FXML private Button playButton;
 
-    @FXML
-    private AnchorPane pane;
+    @FXML private Button quitButton;
 
-    @FXML
-    private Text title;
+    @FXML private AnchorPane pane;
 
-    @FXML
-    private Text launchedIndicator;
+    @FXML private Text title;
 
-    @FXML
-    void initialize() throws Exception {
-
-        double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-        double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+    @FXML void initialize() throws Exception {
 
         MusicPlayer music = new MusicPlayer("src/resources/sounds/startMenuMusic.wav");
         music.start();
+
+        double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+        double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 
         pane.setPrefSize(WIDTH, HEIGHT);
 
@@ -71,15 +68,32 @@ public class StartMenuController {
         });
 
         playButton.setOnAction(new EventHandler<ActionEvent>() {
+
             @Override
             public void handle(ActionEvent e) {
 
-                launchedIndicator.setFont(new Font("Monospace", pane.getPrefHeight() / 20));
-                launchedIndicator.setText("\\o/ GAME LAUNCHED \\o/");
-                launchedIndicator.setFill(Color.INDIANRED);
-                launchedIndicator.setLayoutX((pane.getPrefWidth() - launchedIndicator.getLayoutBounds().getWidth()) / 2);
-                launchedIndicator.setLayoutY((pane.getPrefHeight() / 6 + launchedIndicator.getLayoutBounds().getHeight()) / 2);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("gameView.fxml"));
+
+                GameController gameController = new GameController();
+                gameController.setScene(scene);
+
+                loader.setController(gameController);
+
+                try {
+
+                    scene.setRoot(loader.load());
+                } catch(IOException err) {
+
+                    err.printStackTrace();
+                    System.exit(1);
+                }
+
             }
         });
+    }
+
+    public void setScene(Scene scene) {
+
+        this.scene = scene;
     }
 }
