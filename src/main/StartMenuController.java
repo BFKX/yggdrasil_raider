@@ -29,7 +29,7 @@ public class StartMenuController {
 
     @FXML void initialize() throws Exception {
 
-        MusicPlayer music = new MusicPlayer("src/resources/sounds/startMenuMusic.wav");
+        MusicPlayer music = new MusicPlayer("src/resources/audio/startMenuMusic.wav");
         music.start();
 
         double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
@@ -37,10 +37,13 @@ public class StartMenuController {
 
         pane.setPrefSize(WIDTH, HEIGHT);
 
-        final BackgroundImage backgroundImage = new BackgroundImage(new Image("resources/graphics/startMenuBackground.png", WIDTH, HEIGHT, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        final BackgroundImage backgroundImage = new BackgroundImage(new Image("images/startMenuBackground.png", WIDTH,
+                HEIGHT, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         pane.setBackground(new Background(backgroundImage));
 
-        Font titleFont = Font.loadFont(StartMenuController.class.getResource("../resources/fonts/VIKING-N.TTF").toExternalForm(), pane.getPrefHeight() / 12);
+        Font titleFont = Font.loadFont(StartMenuController.class.getResource("../resources/fonts/VIKING-N.TTF").toExternalForm(),
+                pane.getPrefHeight() / 12);
 
         title.setFont(titleFont);
         title.setFill(Color.DARKORANGE);
@@ -78,6 +81,8 @@ public class StartMenuController {
                 gameController.setScene(scene);
 
                 loader.setController(gameController);
+
+                music.stop();
 
                 try {
 

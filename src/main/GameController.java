@@ -44,7 +44,7 @@ public class GameController {
         });
     }
 
-    public void setScene(Scene scene) {
+    void setScene(Scene scene) {
 
         this.scene = scene;
     }

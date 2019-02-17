@@ -36,7 +36,7 @@ public class Mapping {
 
         for ( int j = 0 ;  j<nbcolumn ; j++ ) {
 
-            addCase(j,0, 1, new Image("resources/graphics/ground.png"));
+            addCase(j,0, 1, new Image("images/ground.png"));
         }
     }
 
