@@ -3,12 +3,8 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.text.Text?>
-<AnchorPane fx:id="pane"
-            xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml" >
-
+<AnchorPane fx:id="game" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" >
     <children>
         <Text fx:id="text" />
     </children>
-
 </AnchorPane>

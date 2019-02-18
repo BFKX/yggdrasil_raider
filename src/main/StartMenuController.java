@@ -20,11 +20,8 @@ class StartMenuController {
     private Scene scene;
 
     @FXML private Button playButton;
-
     @FXML private Button quitButton;
-
-    @FXML private AnchorPane pane;
-
+    @FXML private AnchorPane startMenu;
     @FXML private Text title;
 
     @FXML void initialize() throws Exception {
@@ -35,31 +32,31 @@ class StartMenuController {
         double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
         double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 
-        pane.setPrefSize(WIDTH, HEIGHT);
+        startMenu.setPrefSize(WIDTH, HEIGHT);
 
         final BackgroundImage backgroundImage = new BackgroundImage(new Image("images/startMenuBackground.png", WIDTH,
                 HEIGHT, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-        pane.setBackground(new Background(backgroundImage));
+        startMenu.setBackground(new Background(backgroundImage));
 
         Font titleFont = Font.loadFont(StartMenuController.class.getResource("../resources/fonts/VIKING-N.TTF").toExternalForm(),
-                pane.getPrefHeight() / 12);
+                startMenu.getPrefHeight() / 12);
 
         title.setFont(titleFont);
         title.setFill(Color.DARKORANGE);
         title.setStroke(Color.DARKRED);
-        title.setStrokeWidth(pane.getPrefHeight() / 360);
+        title.setStrokeWidth(startMenu.getPrefHeight() / 360);
         title.setText("Yggdrasil Raider");
-        title.setLayoutX(pane.getPrefWidth() / 2 - title.getLayoutBounds().getWidth() / 2);
-        title.setLayoutY(pane.getPrefHeight()/2 + title.getLayoutBounds().getHeight() / 2);
+        title.setLayoutX(startMenu.getPrefWidth() / 2 - title.getLayoutBounds().getWidth() / 2);
+        title.setLayoutY(startMenu.getPrefHeight()/2 + title.getLayoutBounds().getHeight() / 2);
 
-        playButton.setPrefSize(pane.getPrefWidth() / 3, pane.getPrefHeight() / 9);
-        playButton.setLayoutX((pane.getPrefWidth() - playButton.getPrefWidth()) / 2);
-        playButton.setLayoutY(pane.getPrefHeight() * 0.25- playButton.getPrefHeight() / 2);
+        playButton.setPrefSize(startMenu.getPrefWidth() / 3, startMenu.getPrefHeight() / 9);
+        playButton.setLayoutX((startMenu.getPrefWidth() - playButton.getPrefWidth()) / 2);
+        playButton.setLayoutY(startMenu.getPrefHeight() * 0.25- playButton.getPrefHeight() / 2);
 
-        quitButton.setPrefSize(pane.getPrefWidth() / 3, pane.getPrefHeight() / 9);
-        quitButton.setLayoutX((pane.getPrefWidth() - quitButton.getPrefWidth()) / 2);
-        quitButton.setLayoutY(pane.getPrefHeight() * 0.75 - quitButton.getPrefHeight() / 2);
+        quitButton.setPrefSize(startMenu.getPrefWidth() / 3, startMenu.getPrefHeight() / 9);
+        quitButton.setLayoutX((startMenu.getPrefWidth() - quitButton.getPrefWidth()) / 2);
+        quitButton.setLayoutY(startMenu.getPrefHeight() * 0.75 - quitButton.getPrefHeight() / 2);
 
         quitButton.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -92,7 +89,6 @@ class StartMenuController {
                     err.printStackTrace();
                     System.exit(1);
                 }
-
             }
         });
     }
