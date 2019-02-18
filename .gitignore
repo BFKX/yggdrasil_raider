@@ -1,3 +1,4 @@
 out
 *.jar
 *.sh
+.idea/workspace.xml
