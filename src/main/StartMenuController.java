@@ -15,7 +15,7 @@ import javafx.scene.text.Text;
 import java.awt.Toolkit;
 import java.io.IOException;
 
-public class StartMenuController {
+class StartMenuController {
 
     private Scene scene;
 
@@ -97,7 +97,7 @@ public class StartMenuController {
         });
     }
 
-    public void setScene(Scene scene) {
+    void setScene(Scene scene) {
 
         this.scene = scene;
     }
