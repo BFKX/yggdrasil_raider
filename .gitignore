@@ -1,4 +1,4 @@
 out
 *.jar
 *.sh
-*/workspace.xml
+.idea/workspace.xml
