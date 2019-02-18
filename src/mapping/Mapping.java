@@ -1,6 +1,8 @@
 package mapping;
 
 import javafx.scene.image.Image;
+import tools.Coordinate;
+import tools.Hitbox;
 
 public class Mapping {
 
@@ -30,14 +32,15 @@ public class Mapping {
         this.map[i][j] = type ;
         this.casemap[i][j].setType(type);
         this.casemap[i][j].setImage(image);
+        this.casemap[i][j].setHitbox(new Hitbox(new Coordinate(i,j),255 , 255 ));
     }
 
     public void addGround() {
-
         for ( int j = 0 ;  j<nbcolumn ; j++ ) {
 
             addCase(j,0, 1, new Image("images/ground.png"));
         }
     }
+
 
 }
