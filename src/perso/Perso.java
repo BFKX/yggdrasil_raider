@@ -15,6 +15,7 @@ public class Perso {
     }
     public void Attaque() {
         Hitbox att = new Hitbox( new Coordinate(position.getX() + Height / 2 , position.getY() + Width + 20 ) , 10 ,10 ) ;  // cree une hitbox  devan le perso
+        System.out.println();
     }
 
 
