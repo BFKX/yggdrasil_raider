@@ -2,11 +2,13 @@ package main;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -26,6 +28,9 @@ class GameController extends Application {
     private final double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
     private boolean pause = false;
     private final Image pauseBackground;
+    private boolean pauseShown = false;
+    private Button resumeButton = new Button("Resume");
+    private Button quitButton = new Button("Quit");
 
     @FXML private Text text;
     @FXML private AnchorPane game;
@@ -34,12 +39,39 @@ class GameController extends Application {
 
         this.primaryStage = primaryStage;
 
-        this.pauseBackground = new Image("resources/images/menuBackground.png", WIDTH, HEIGHT, false, false);
+        this.pauseBackground = new Image("resources/images/menuBackground.png", WIDTH, HEIGHT, false, true);
     }
 
     @FXML void initialize() throws Exception {
 
         game.setPrefSize(WIDTH, HEIGHT);
+
+        resumeButton.setPrefSize(WIDTH / 3, HEIGHT / 9);
+        resumeButton.setLayoutX((WIDTH - resumeButton.getPrefWidth()) / 2);
+        resumeButton.setLayoutY(HEIGHT * 0.25- resumeButton.getPrefHeight() / 2);
+        resumeButton.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent e) {
+
+                pause = false;
+                pauseShown = false;
+                game.getChildren().remove(quitButton);
+                game.getChildren().remove(resumeButton);
+            }
+        });
+
+        quitButton.setPrefSize(WIDTH / 3, HEIGHT / 9);
+        quitButton.setLayoutX((WIDTH - resumeButton.getPrefWidth()) / 2);
+        quitButton.setLayoutY(HEIGHT * 0.75- resumeButton.getPrefHeight() / 2);
+        quitButton.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent e) {
+
+                System.exit(0);
+            }
+        });
 
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
@@ -48,6 +80,12 @@ class GameController extends Application {
                 if(e.getCode() == KeyCode.ESCAPE) {
 
                     pause = !pause;
+                    if(!pause) {
+
+                        pauseShown = false;
+                        game.getChildren().remove(quitButton);
+                        game.getChildren().remove(resumeButton);
+                    }
                 }
             }
         });
@@ -76,12 +114,15 @@ class GameController extends Application {
 
                     gc.setFill(Color.BLACK);
                     gc.fillRect(0, 0, WIDTH, HEIGHT);
-                } else {
+
+                    fpsm.update(now, gc);
+                } else if(!pauseShown){
 
                     gc.drawImage(pauseBackground, 0, 0);
+                    game.getChildren().add(quitButton);
+                    game.getChildren().add(resumeButton);
+                    pauseShown = true;
                 }
-
-                fpsm.update(now, gc);
             }
         }.start();
     }

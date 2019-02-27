@@ -4,21 +4,27 @@ import tools.Coordinate;
 import tools.Hitbox;
 import javafx.scene.input.KeyCode;
 
+import java.awt.Toolkit;
+
 
 public class Character {
-    private Coordinate position ;
-    private Hitbox hitbox ;
-    private double height ;
-    private double width ;
+
+    private Coordinate position;
+    private Hitbox hitbox;
+    private final double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 40;
+    private final double width = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 40;
 
     public Character(Coordinate position, Hitbox hitbox) {
+
         this.position = position;
-        this.hitbox = new Hitbox(position , height , width);
+        this.hitbox = new Hitbox(position, width, height);
     }
-    public void attaque() {
-        Hitbox att = new Hitbox( new Coordinate(position.getX() + height / 2 , position.getY() + width + 20 ) , 10 ,10 ) ;  // cree une hitbox  devan le character
-        System.out.println();
+
+    public void attack() {
+
+        Hitbox att = new Hitbox(new Coordinate(position.getX() + width / 2, position.getY() + height + 20 ), 10, 10 );
     }
+
     public void validatePosition(){
     }
 
