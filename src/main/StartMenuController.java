@@ -11,6 +11,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.awt.Toolkit;
 import java.io.IOException;
@@ -18,23 +19,28 @@ import java.io.IOException;
 class StartMenuController {
 
     private Scene scene;
+    private Stage primaryStage;
+    private final double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+    private final double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 
     @FXML private Button playButton;
     @FXML private Button quitButton;
     @FXML private AnchorPane startMenu;
     @FXML private Text title;
 
+    StartMenuController(Stage primaryStage) {
+
+        this.primaryStage = primaryStage;
+    }
+
     @FXML void initialize() throws Exception {
 
         MusicPlayer music = new MusicPlayer("src/resources/audio/startMenuMusic.wav");
         music.start();
 
-        double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-        double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-
         startMenu.setPrefSize(WIDTH, HEIGHT);
 
-        final BackgroundImage backgroundImage = new BackgroundImage(new Image("images/startMenuBackground.png", WIDTH,
+        final BackgroundImage backgroundImage = new BackgroundImage(new Image("images/menuBackground.png", WIDTH,
                 HEIGHT, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         startMenu.setBackground(new Background(backgroundImage));
@@ -74,7 +80,7 @@ class StartMenuController {
 
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("gameView.fxml"));
 
-                GameController gameController = new GameController();
+                GameController gameController = new GameController(primaryStage);
                 gameController.setScene(scene);
 
                 loader.setController(gameController);

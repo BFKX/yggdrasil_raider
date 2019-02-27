@@ -1,6 +1,5 @@
 package main;
 
-import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,7 +16,7 @@ public class Main extends Application {
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("startMenuView.fxml"));
-        StartMenuController startMenuController = new StartMenuController();
+        StartMenuController startMenuController = new StartMenuController(primaryStage);
         loader.setController(startMenuController);
         Parent root = loader.load();
         Scene scene = new Scene(root);
@@ -26,17 +25,6 @@ public class Main extends Application {
         startMenuController.setScene(scene);
 
         primaryStage.show();
-
-        new AnimationTimer() {
-
-            public void handle(long now) {
-
-                if(scene.getRoot().getId().equals("game")) {
-
-                    System.out.print('.');
-                }
-            }
-        }.start();
     }
 
     public static void main(String[] args) {

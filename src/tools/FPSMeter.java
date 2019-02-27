@@ -32,11 +32,11 @@ public class FPSMeter {
     
             long elapsedNanos = now - oldFrameTime;
             long elapsedNanosPerFrame = elapsedNanos / frameTimes.length;
-            double frameRate = 1000000000 / elapsedNanosPerFrame;
+            double frameRate = 1000000000. / elapsedNanosPerFrame;
 
             gc.setFill(Color.CHARTREUSE);
             gc.setFont(Font.font("Helvetica", FontWeight.BOLD, height / 50));
-            gc.fillText(Double.toString(frameRate), width / 1000, height / 60);
+            gc.fillText(Integer.toString((int)frameRate), width / 1000, height / 60);
 
             gc.setFill(fill);
             gc.setFont(font);
