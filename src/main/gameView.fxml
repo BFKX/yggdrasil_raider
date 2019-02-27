@@ -3,5 +3,4 @@
 <?import javafx.scene.layout.*?>
 
 <AnchorPane fx:id="game" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" >
-
 </AnchorPane>
