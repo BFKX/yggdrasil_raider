@@ -112,7 +112,7 @@ class GameController extends Application {
         game.getChildren().add(canvas);
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        Map map = new Map(1920/5, 1080/5);
+        Map map = new Map(190, 100);
         map.creatCave();
         //map.addGround();
 

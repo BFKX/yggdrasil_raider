@@ -39,7 +39,7 @@ public class Map {
 
     public void creatCave() {
         Cave cave = new Cave(columns, lines);
-        cave.randomFill(80);
+        cave.randomFill(10);
         for (int i = 0; i < 5; i++){
             cave.filtering();
         }

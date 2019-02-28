@@ -60,16 +60,11 @@ public class Cave {
         }
     }
     public void coloring(){
-        int k=5 ;
-        ArrayList <Integer> regionsise = new ArrayList<Integer>() ;
         for (int i= 0 ; i < width ; i++) {
             for(int j =0 ; j< height ; j++ ) {
                 if(mapcave[i][j] == 0 ){
-                    if (coloringRegion(i,j,k,0) <50) {
-                        coloringRegion(i,j,1,k);
-                    }
-                    else {
-                        regionsise.add(k);
+                    if (detection( i,j,2,0,0,30)) {
+                        remplacement(i,j,0,1);
                     }
                 }
             }
@@ -78,21 +73,40 @@ public class Cave {
     }
 
 
-    public int coloringRegion(int i , int j , int setvalue , int access ) {
-        mapcave[i][j] = setvalue;
-        int sum = 0 ;
+    public boolean detection(int i , int j , int setvalue , int access , int compteur , int limite ) {
+        mapcave[i][j] = setvalue ;
+        compteur++;
+        boolean retour = true ;
+        if (compteur < limite) {
+            for (int l = -1; l < 2; l++) {
+                for (int k = -1; k < 2; k++) {
+                    if (i + l >= 0 && i + l < width && j + k >= 0 && i + l < height) {
+                        if (mapcave[i + l][j + k] == access) {
+                            if (!(detection(i + l, j + k, setvalue, access, compteur, limite))){
+                                return false ;
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    public void remplacement (int i , int j , int origin , int end ) {
+        mapcave[i][j] = end;
         for (int l = -1; l < 2; l++) {
-            for(int k =-1 ; k<2 ; k++) {
-                if ( i+ l >= 0 && i+l < width && j+k >=0 && i+l < height ){
-                    if (mapcave[i + l][j + k] == access) {
-                        sum= sum + coloringRegion(i + l, j + k, setvalue, access);
+            for (int k = -1; k < 2; k++) {
+                if (i + l >= 0 && i + l < width && j + k >= 0 && i + l < height) {
+                    if (mapcave[i + l][j + k] == origin) {
+                        remplacement(i+l,j+k,origin,end);
                     }
                 }
             }
         }
-        return sum;
     }
-
 
 
     public void randomFill(int fillPurcentage) {
