@@ -10,24 +10,53 @@ public class Cave {
         this.width=width;
         this.height=height;
         this.mapcave = new int[width][height] ;
-
     }
 
     public void randomFill(long seed , int fillPurcentage){
         Random endseed = new Random(seed ) ;  //  crée une distribution aléatroi qui depend de la seed
         for (int i = 0 ; i < width ; i++) {
             for ( int j = 0 ; j<height ; j++){
-                if( endseed.nextInt() <fillPurcentage ) {
-                    mapcave[i][j] = 1;
+                if( i == 0 || i == width-1 || j== 0 || j== height-1 ) {
+                    mapcave[i][j] = 1 ;
                 }
-                else  {
+                else {
+                    if (endseed.nextInt() < fillPurcentage) {
+                        mapcave[i][j] = 1;
+                    } else {
+                        mapcave[i][j] = 0;
+                    }
+                }
+            }
+        }
+    }
+    public void filtering () {
+        int[][] sumtab = new int[width][height];
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                int sum = 0;
+                for (int k = -1; k < 2; k++) {
+                    for (int l = -1; l < 2; l++) {
+                        if (k != 0 || l != 0) {
+                            try {
+                                sum = sum + mapcave[i + k][j + l];   // a enlever plus tard fleme de gere les effet de bord
+                            } catch (IndexOutOfBoundsException e) { sum++;
+                            }
+                        }
+                    }
+                }
+                sumtab[i][j]=sum;
+            }
+        }
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                if (sumtab[i][j] > 4) {
+                    mapcave[i][j] = 1;
+                } else {
                     mapcave[i][j] = 0;
                 }
             }
         }
     }
-
-
     public void randomFill(int fillPurcentage) {
         randomFill(System.currentTimeMillis(),fillPurcentage);
     }

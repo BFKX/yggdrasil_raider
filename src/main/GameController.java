@@ -112,8 +112,9 @@ class GameController extends Application {
         game.getChildren().add(canvas);
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        Map map = new Map(16, 9);
-        map.addGround();
+        Map map = new Map(1920/5, 1080/5);
+        map.creatCave();
+        //map.addGround();
 
         new AnimationTimer() {
             long lastNow = 0;

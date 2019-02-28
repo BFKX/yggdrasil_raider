@@ -37,6 +37,16 @@ public class Map {
         this.mapCases[column][line].setHitbox(new Hitbox(new Coordinate(WIDTH * column / columns,HEIGHT * line / lines),WIDTH / columns,HEIGHT / lines));
     }
 
+    public void creatCave() {
+        Cave cave = new Cave(columns, lines);
+        cave.randomFill(80);
+        for (int i = 0; i < 5; i++){
+            cave.filtering();
+        }
+        System.out.println("end");
+        map = cave.getMapcave() ;
+    }
+
     public void addGround() {
         for (int column = 0; column < columns; column++ ) {
             addCase(column,lines - 1, 1, new Image("resources/images/ground.jpg"));
