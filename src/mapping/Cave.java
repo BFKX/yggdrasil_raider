@@ -1,4 +1,5 @@
 package mapping;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Cave {
@@ -51,12 +52,49 @@ public class Cave {
             for (int j = 0; j < height; j++) {
                 if (sumtab[i][j] > 4) {
                     mapcave[i][j] = 1;
-                } else {
+                }
+                if( sumtab[i][j]  < 4) {
                     mapcave[i][j] = 0;
                 }
             }
         }
     }
+    public void coloring(){
+        int k=5 ;
+        ArrayList <Integer> regionsise = new ArrayList<Integer>() ;
+        for (int i= 0 ; i < width ; i++) {
+            for(int j =0 ; j< height ; j++ ) {
+                if(mapcave[i][j] == 0 ){
+                    if (coloringRegion(i,j,k,0) <50) {
+                        coloringRegion(i,j,1,k);
+                    }
+                    else {
+                        regionsise.add(k);
+                    }
+                }
+            }
+        }
+
+    }
+
+
+    public int coloringRegion(int i , int j , int setvalue , int access ) {
+        mapcave[i][j] = setvalue;
+        int sum = 0 ;
+        for (int l = -1; l < 2; l++) {
+            for(int k =-1 ; k<2 ; k++) {
+                if ( i+ l >= 0 && i+l < width && j+k >=0 && i+l < height ){
+                    if (mapcave[i + l][j + k] == access) {
+                        sum= sum + coloringRegion(i + l, j + k, setvalue, access);
+                    }
+                }
+            }
+        }
+        return sum;
+    }
+
+
+
     public void randomFill(int fillPurcentage) {
         randomFill(System.currentTimeMillis(),fillPurcentage);
     }

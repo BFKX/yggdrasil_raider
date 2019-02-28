@@ -44,7 +44,9 @@ public class Map {
             cave.filtering();
         }
         System.out.println("end");
+        cave.coloring();
         map = cave.getMapcave() ;
+
     }
 
     public void addGround() {
