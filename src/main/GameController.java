@@ -48,8 +48,6 @@ class GameController extends Application {
     @FXML void initialize() throws Exception {
         game.setPrefSize(WIDTH, HEIGHT);
 
-        Paint blue = Color.MEDIUMBLUE;
-
         Font titleFont = Font.loadFont(StartMenuController.class.getResource("../resources/fonts/VIKING-N.TTF").toExternalForm(),
                 HEIGHT / 12);
 
@@ -63,7 +61,6 @@ class GameController extends Application {
         resumeButton.setPrefSize(WIDTH / 3, HEIGHT / 9);
         resumeButton.setLayoutX((WIDTH - resumeButton.getPrefWidth()) / 2);
         resumeButton.setLayoutY(HEIGHT * 0.25- resumeButton.getPrefHeight() / 2);
-        resumeButton.setBackground(new Background(new BackgroundFill(blue, null, null)));
         resumeButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -78,7 +75,6 @@ class GameController extends Application {
         quitButton.setPrefSize(WIDTH / 3, HEIGHT / 9);
         quitButton.setLayoutX((WIDTH - resumeButton.getPrefWidth()) / 2);
         quitButton.setLayoutY(HEIGHT * 0.75- resumeButton.getPrefHeight() / 2);
-        quitButton.setBackground(new Background(new BackgroundFill(blue, null, null)));
         quitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -112,7 +108,7 @@ class GameController extends Application {
         game.getChildren().add(canvas);
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        Map map = new Map(190, 100);
+        Map map = new Map(192, 108);
         map.creatCave();
         //map.addGround();
 
