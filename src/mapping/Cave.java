@@ -11,16 +11,14 @@ public class Cave {
         this.height=height;
         this.mapcave = new int[width][height] ;
     }
-
-    public void randomFill(long seed , int fillPurcentage){
-        Random pseudorendomseed = new Random(seed ) ;  //  crée une distribution aléatroi qui depend de la seed
-        for (int i = 0 ; i < width ; i++) {
-            for ( int j = 0 ; j<height ; j++){
-                if( i == 0 || i == width-1 || j== 0 || j== height-1 ) {
-                    mapcave[i][j] = 1 ;
-                }
-                else {
-                    if (pseudorendomseed.nextInt() < fillPurcentage) {
+    public void randomFill(long seed , int fillPurcentage) {
+        Random pseudorendomseed = new Random(seed);  //  crée une distribution aléatroi qui depend de la seed
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                if (i == 0 || i == width - 1 || j == 0 || j == height - 1) {
+                    mapcave[i][j] = 1;
+                } else {
+                    if (pseudorendomseed.nextInt(100) < fillPurcentage) {
                         mapcave[i][j] = 1;
                     } else {
                         mapcave[i][j] = 0;
@@ -33,17 +31,18 @@ public class Cave {
         int[][] filtred = new int[width][height];
         for (int i = 0; i < width; i++){
             for (int j = 0; j < height; j++) {
-                filtred[i][j] = crusAvgOneRange(i, j);
+                filtred[i][j] = fullAvgOneRange(i, j);
             }
         }
         return filtred ;
     }
+
     public void filtering(){
         applyfiltering(this.creatMapfiltering());
     }
     public void applyfiltering(int[][] mapfiltrering) { //appliquelefiltre
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
+        for (int i = 1; i < width-1; i++) {
+            for (int j = 1; j < height-1; j++) {
                 if (mapfiltrering[i][j] > 4) {
                     mapcave[i][j] = 1;
                 }
@@ -58,7 +57,7 @@ public class Cave {
         for (int k = -1; k < 2; k++) {
             for (int l = -1; l < 2; l++) {
                 if (k != 0 || l != 0) {
-                    if( i+k > 0 && i+k < width && j+l>0 && j+l<height ){
+                    if( i+k >=0  && i+k < width && j+l>=0 && j+l<height ){
                         sum = sum + mapcave[i + k][j + l];   // a enlever plus tard fleme de gere les effet de bord
                     }
                 }
@@ -72,10 +71,8 @@ public class Cave {
         for (int k = -1; k < 2; k++) {
             for (int l = -1; l < 2; l++) {
                 if ((k != 0 || l != 0) && (Math.abs(k) != Math.abs(l))) {
-                    try {
+                    if( i+k > 0 && i+k < width && j+l>0 && j+l<height ){
                         sum = sum + 2*mapcave[i + k][j + l];   // a enlever plus tard fleme de gere les effet de bord
-                    } catch (IndexOutOfBoundsException e) {
-                        sum++;
                     }
                 }
             }

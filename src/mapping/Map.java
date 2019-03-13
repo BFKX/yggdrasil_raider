@@ -39,12 +39,11 @@ public class Map {
 
     public void creatCave() {
         Cave cave = new Cave(columns, lines);
-        cave.randomFill(10);
-        for (int i = 0; i < 5; i++){
+        cave.randomFill(49);
+        for (int i = 0; i < 15; i++){
             cave.filtering();
         }
-        System.out.println("end");
-        cave.coloring();
+        //cave.coloring();
         map = cave.getMapcave() ;
 
     }
