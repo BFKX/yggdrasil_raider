@@ -1,12 +1,11 @@
 package mapping;
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Cave {
     private int [] [] mapcave  ;
     private int width ;
     private int height ;
-
+    public Cave() {}
     public Cave (int width , int height) {
         this.width=width;
         this.height=height;
@@ -14,14 +13,14 @@ public class Cave {
     }
 
     public void randomFill(long seed , int fillPurcentage){
-        Random endseed = new Random(seed ) ;  //  crée une distribution aléatroi qui depend de la seed
+        Random pseudorendomseed = new Random(seed ) ;  //  crée une distribution aléatroi qui depend de la seed
         for (int i = 0 ; i < width ; i++) {
             for ( int j = 0 ; j<height ; j++){
                 if( i == 0 || i == width-1 || j== 0 || j== height-1 ) {
                     mapcave[i][j] = 1 ;
                 }
                 else {
-                    if (endseed.nextInt() < fillPurcentage) {
+                    if (pseudorendomseed.nextInt() < fillPurcentage) {
                         mapcave[i][j] = 1;
                     } else {
                         mapcave[i][j] = 0;
@@ -30,36 +29,60 @@ public class Cave {
             }
         }
     }
-    public void filtering () {
-        int[][] sumtab = new int[width][height];
-        for (int i = 0; i < width; i++) {
+    public int[][] creatMapfiltering () {
+        int[][] filtred = new int[width][height];
+        for (int i = 0; i < width; i++){
             for (int j = 0; j < height; j++) {
-                int sum = 0;
-                for (int k = -1; k < 2; k++) {
-                    for (int l = -1; l < 2; l++) {
-                        if (k != 0 || l != 0) {
-                            try {
-                                sum = sum + mapcave[i + k][j + l];   // a enlever plus tard fleme de gere les effet de bord
-                            } catch (IndexOutOfBoundsException e) {
-                                sum++;
-                            }
-                        }
-                    }
-                }
-                sumtab[i][j]=sum;
+                filtred[i][j] = crusAvgOneRange(i, j);
             }
         }
+        return filtred ;
+    }
+    public void filtering(){
+        applyfiltering(this.creatMapfiltering());
+    }
+    public void applyfiltering(int[][] mapfiltrering) { //appliquelefiltre
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                if (sumtab[i][j] > 4) {
+                if (mapfiltrering[i][j] > 4) {
                     mapcave[i][j] = 1;
                 }
-                if( sumtab[i][j]  < 4) {
+                if( mapfiltrering[i][j]  < 4) {
                     mapcave[i][j] = 0;
                 }
             }
         }
     }
+    public int fullAvgOneRange(int i , int j ) { // filtre de range 1 dans toutes les directions
+        int sum = 0;
+        for (int k = -1; k < 2; k++) {
+            for (int l = -1; l < 2; l++) {
+                if (k != 0 || l != 0) {
+                    if( i+k > 0 && i+k < width && j+l>0 && j+l<height ){
+                        sum = sum + mapcave[i + k][j + l];   // a enlever plus tard fleme de gere les effet de bord
+                    }
+                }
+            }
+        }
+        return sum;
+
+    }
+    public int crusAvgOneRange(int i , int j) { // filtre en crois de range 1
+        int sum = 0;
+        for (int k = -1; k < 2; k++) {
+            for (int l = -1; l < 2; l++) {
+                if ((k != 0 || l != 0) && (Math.abs(k) != Math.abs(l))) {
+                    try {
+                        sum = sum + 2*mapcave[i + k][j + l];   // a enlever plus tard fleme de gere les effet de bord
+                    } catch (IndexOutOfBoundsException e) {
+                        sum++;
+                    }
+                }
+            }
+        }
+        return sum ;
+    }
+
     public void coloring(){
         for (int i= 0 ; i < width ; i++) {
             for(int j =0 ; j< height ; j++ ) {
@@ -77,7 +100,6 @@ public class Cave {
     public boolean detection(int i , int j , int setvalue , int access , int compteur , int limite ) {
         mapcave[i][j] = setvalue ;
         compteur++;
-        boolean retour = true ;
         if (compteur < limite) {
             for (int l = -1; l < 2; l++) {
                 for (int k = -1; k < 2; k++) {
@@ -109,10 +131,10 @@ public class Cave {
         }
     }
 
-
     public void randomFill(int fillPurcentage) {
         randomFill(System.currentTimeMillis(),fillPurcentage);
     }
+
 
     public int[][] getMapcave() {
         return mapcave;
