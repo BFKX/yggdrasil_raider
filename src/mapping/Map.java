@@ -37,9 +37,9 @@ public class Map {
         this.mapCases[column][line].setHitbox(new Hitbox(new Coordinate(WIDTH * column / columns,HEIGHT * line / lines),WIDTH / columns,HEIGHT / lines));
     }
 
-    public void creatCave() {
+    public void creatCave(int fillPercentage) {
         Cave cave = new Cave(columns, lines);
-        cave.randomFill(49);
+        cave.randomFill(fillPercentage);
         for (int i = 0; i < 15; i++){
             cave.filtering();
         }
