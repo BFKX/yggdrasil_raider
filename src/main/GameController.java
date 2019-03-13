@@ -10,15 +10,18 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import mapping.Map;
+import tools.Coordinate;
 import tools.FPSMeter;
+import character.Character;
+import tools.Hitbox;
 
 import java.awt.Toolkit;
 
@@ -34,6 +37,7 @@ class GameController extends Application {
     private Button resumeButton = new Button("Resume");
     private Button quitButton = new Button("Quit");
     private Text text = new Text("Pause");
+    private int fillPercentage = 50;
 
     @FXML private AnchorPane game;
 
@@ -81,15 +85,7 @@ class GameController extends Application {
 
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             public void handle(KeyEvent e) {
-                if(e.getCode() == KeyCode.ESCAPE) {
-                    pause = !pause;
-                    if(!pause) {
-                        pauseShown = false;
-                        game.getChildren().remove(quitButton);
-                        game.getChildren().remove(resumeButton);
-                        game.getChildren().remove(text);
-                    }
-                }
+
             }
         });
         start(this.primaryStage);
@@ -106,8 +102,28 @@ class GameController extends Application {
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         Map map = new Map(19*3, 11*3);
-        map.creatCave();
         //map.addGround();
+
+        Character charac = new Character(new Coordinate(WIDTH / 2, HEIGHT / 2), new Hitbox(new Coordinate(0, 0), 0, 0));
+
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            public void handle(KeyEvent e) {
+                switch(e.getCode()) {
+                    case R: map.creatCave(fillPercentage); break;
+                    case P: fillPercentage++; break;
+                    case M: fillPercentage--; break;
+                    case ESCAPE: pause = !pause;
+                        if(!pause) {
+                            pauseShown = false;
+                            game.getChildren().remove(quitButton);
+                            game.getChildren().remove(resumeButton);
+                            game.getChildren().remove(text);
+                        }
+                        break;
+                    default: charac.displacement(e.getCode());
+                }
+            }
+        });
 
         new AnimationTimer() {
             long lastNow = 0;
@@ -121,9 +137,15 @@ class GameController extends Application {
 
                     map.display(gc);
 
+                    charac.displayCharacter(gc);
+
                     fpsm.update(now, gc);
 
                     lastNow = now;
+
+                    gc.setFill(Color.CHARTREUSE);
+                    gc.setFont(Font.font("Helvetica", FontWeight.BOLD, HEIGHT / 50));
+                    gc.fillText(Integer.toString((int)fillPercentage), WIDTH - 25 * WIDTH / 1000, HEIGHT / 60);
                 } else if(!pauseShown && now - lastNow >= 15000000){
                     gc.drawImage(pauseBackground, 0, 0);
                     game.getChildren().add(quitButton);
