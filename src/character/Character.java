@@ -15,10 +15,8 @@ public class Character {
     private final double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 40;
 
     public Character(Coordinate position, Hitbox hitbox) {
-
         this.position = position;
         this.hitbox = new Hitbox(position, WIDTH, HEIGHT);
-        
     }
 
     public void attack() {
@@ -26,8 +24,7 @@ public class Character {
         Hitbox att = new Hitbox(new Coordinate(position.getX() + WIDTH / 2, position.getY() + HEIGHT + 20 ), 10, 10 );
     }
 
-    public void validatePosition(){
-        }
+    private void validatePosition(){
     }
 
     public void displacement(KeyCode code){

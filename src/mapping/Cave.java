@@ -40,7 +40,8 @@ public class Cave {
                         if (k != 0 || l != 0) {
                             try {
                                 sum = sum + mapcave[i + k][j + l];   // a enlever plus tard fleme de gere les effet de bord
-                            } catch (IndexOutOfBoundsException e) { sum++;
+                            } catch (IndexOutOfBoundsException e) {
+                                sum++;
                             }
                         }
                     }
