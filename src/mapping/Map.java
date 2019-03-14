@@ -17,7 +17,7 @@ public class Map {
     private final double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
     private final double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
     private Image ground = new Image("resources/images/ground.jpg");
-
+    private Image wall = new Image("resources/images/stone_brick_11.png");
     public Map(int columns, int lines) {
         this.lines = lines;
         this.columns = columns;
@@ -43,7 +43,7 @@ public class Map {
         for (int i = 0; i < 15; i++){
             cave.filtering();
         }
-        //cave.coloring();
+        cave.placeWall();
         map = cave.getMapcave() ;
 
     }
@@ -59,6 +59,8 @@ public class Map {
                     gc.setFill(Color.BLACK);
                 } else if(map[column][line] == 1){
                     gc.drawImage(ground, WIDTH * column / columns,HEIGHT * line / lines,WIDTH / columns,HEIGHT / lines);
+                }else if(map[column][line]==2){
+                    gc.drawImage(wall,WIDTH * column / columns,HEIGHT * line / lines,WIDTH / columns,HEIGHT / lines);
                 }
             }
         }

@@ -66,6 +66,15 @@ public class Cave extends Random {
         return sum;
 
     }
+    public void placeWall( ){
+        for ( int i = 1 ; i<width-1 ;i++){
+            for ( int j =1 ;  j < height-1 ; j++){
+                if (mapcave[i][j]==1 && mapcave[i][j+1]==0) {
+                    mapcave[i][j] = 2 ;
+                }
+            }
+        }
+    }
     public int crusAvgOneRange(int i , int j) { // filtre en crois de range 1
         int sum = 0;
         for (int k = -1; k < 2; k++) {
