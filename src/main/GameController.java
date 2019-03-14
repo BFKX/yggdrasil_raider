@@ -101,7 +101,7 @@ class GameController extends Application {
         game.getChildren().add(canvas);
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        Map map = new Map(19*3, 11*3);
+        Map map = new Map(19*5, 11*5);
         //map.addGround();
 
         Character charac = new Character(new Coordinate(WIDTH / 2, HEIGHT / 2), new Hitbox(new Coordinate(0, 0), 0, 0));

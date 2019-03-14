@@ -3,9 +3,6 @@ package mapping;
 
 import tools.Coordinate;
 
-import javax.swing.text.StyledEditorKit;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Random;
 
 public class Room  {
@@ -13,21 +10,21 @@ public class Room  {
     private Room south ;
     private Room east ;
     private Room west ;
-    private Random pseudorendomseed  ;
+    protected Random pseudoRandomList;
     private Coordinate origine ;
     private int width ;
     private int height;
     public Room(){}
-    public Room(Coordinate origine, int width , int height , Random pseudorendomseed) {
+    public Room(Coordinate origine, int width , int height , Random pseudoRandomList) {
         this.origine=origine;
         this.width=width;
         this.height=height;
-        this.pseudorendomseed=pseudorendomseed;
+        this.pseudoRandomList = pseudoRandomList;
     }
-    public Room(Coordinate origine , Random pseudorendomseed){
+    public Room(Coordinate origine , Random pseudoRandomList){
         this.origine = origine ;
-        this.height = pseudorendomseed.nextInt();
-        this.width = pseudorendomseed.nextInt();
+        this.height = pseudoRandomList.nextInt();
+        this.width = pseudoRandomList.nextInt();
     }
 
     public void placeRoom(Random pseudorendomseed){ // place une room a partire de la room actuel
@@ -100,12 +97,12 @@ public class Room  {
         this.west = west;
     }
 
-    public Random getPseudorendomseed() {
-        return pseudorendomseed;
+    public Random getPseudoRandomList() {
+        return pseudoRandomList;
     }
 
-    public void setPseudorendomseed(Random pseudorendomseed) {
-        this.pseudorendomseed = pseudorendomseed;
+    public void setPseudoRandomList(Random pseudoRandomList) {
+        this.pseudoRandomList = pseudoRandomList;
     }
 
     public Coordinate getOrigine() {

@@ -7,6 +7,7 @@ import tools.Coordinate;
 import tools.Hitbox;
 
 import java.awt.Toolkit;
+import java.util.Random;
 
 public class Map {
     private int[][] map;
@@ -22,7 +23,6 @@ public class Map {
         this.columns = columns;
         this.map = new int[columns][lines];
         this.mapCases = new Case[columns][lines];
-
         for (int i = 0; i < columns; i++ ) {
             for (int j = 0; j < lines; j++) {
                 this.mapCases[i][j] = new Case(0, null, null);
@@ -37,15 +37,20 @@ public class Map {
         this.mapCases[column][line].setHitbox(new Hitbox(new Coordinate(WIDTH * column / columns,HEIGHT * line / lines),WIDTH / columns,HEIGHT / lines));
     }
 
-    public void creatCave(int fillPrucentage) {
+    public void creatCave(int fillPurcentage) {
         Cave cave = new Cave(columns, lines);
-        cave.randomFill(fillPrucentage);
+        cave.randomFill(fillPurcentage);
         for (int i = 0; i < 15; i++){
             cave.filtering();
         }
         //cave.coloring();
         map = cave.getMapcave() ;
 
+    }
+    public void creatOppenroom(){
+        Oppenroom open = new Oppenroom(this.columns,this.lines,new Random(System.currentTimeMillis()));
+        open.addGround();
+        this.map=open.maproom;
     }
     public void display(GraphicsContext gc) {
         for (int column = 0; column < columns; column++ ) {
