@@ -6,13 +6,14 @@ public class Coordinate {
     private double y ;
 
     public Coordinate(double x, double y) {
-
         this.x = x;
         this.y = y;
     }
-    public Coordinate sum(int x , int y ){
+
+    public Coordinate sum(int x , int y ){ // add x to the first coordinate and y to the second one
         return new Coordinate(this.getX()+x , this.getY()+y) ;
     }
+
     public void setY(double y) {
 
         this.y = y;
@@ -32,7 +33,9 @@ public class Coordinate {
 
         return y;
     }
-
+    public boolean isValid(Coordinate orrigine, int height , int width ){ //return true if the coorinate is the rec betwin origine and orignie + height , width
+        return ( this.getX()>orrigine.getX() && this.getX() < orrigine.getX() + width  && this.getY()>orrigine.getY() && this.getY() < orrigine.getY()+ height );
+    }
     public String toString() {
         return "(" + x + "," + y + ")";
     }

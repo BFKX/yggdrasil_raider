@@ -23,7 +23,6 @@ public class Character {
     }
 
     public void attack() {
-
         Hitbox att = new Hitbox(new Coordinate(position.getX() + WIDTH / 2, position.getY() + HEIGHT + 20 ), 10, 10 );
     }
 
