@@ -1,7 +1,7 @@
 package mapping;
 import java.util.Random;
 
-public class Cave {
+public class Cave extends Random {
     private int [] [] mapcave  ;
     private int width ;
     private int height ;

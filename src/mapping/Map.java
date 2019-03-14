@@ -47,13 +47,6 @@ public class Map {
         map = cave.getMapcave() ;
 
     }
-
-    public void addGround() {
-        for (int column = 0; column < columns; column++ ) {
-            addCase(column,lines - 1, 1, new Image("resources/images/ground.jpg"));
-        }
-    }
-
     public void display(GraphicsContext gc) {
         for (int column = 0; column < columns; column++ ) {
             for (int line = 0; line < lines; line++) {
