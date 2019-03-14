@@ -14,9 +14,10 @@ public class Oppenroom extends Room {
             maproom[column][this.getWidth()] = 1 ;
         }
         int[][] temp = addRandomGround();
-        for(int i=0 ; i<5 ; i++ ){
+        for(int i=0 ; i<6 ; i++ ){
             temp= horizontalFiltering(temp);
         }
+
     }
     public int [][] addRandomGround(){
         int[] [] grounds = new int[this.getWidth()/10][this.getHeight()];
