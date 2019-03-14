@@ -35,6 +35,7 @@ public class Room  {
             if(this.north == null ){
                 int tempheight = pseudorendomseed.nextInt() ;
                 this.north=new Room(this.getOrigine().sum(0,tempheight),pseudorendomseed.nextInt(),tempheight,pseudorendomseed);
+                this.north.setSouth(this);
             }else {
                 this.north.placeRoom(pseudorendomseed);
             }
@@ -42,6 +43,7 @@ public class Room  {
         if (localisation == 1) {
             if(this.east == null ){
                 this.east=new Room(this.getOrigine().sum(this.width,0),pseudorendomseed.nextInt(),pseudorendomseed.nextInt(),pseudorendomseed);
+                this.east.setWest(this);
             }else {
                 this.east.placeRoom(pseudorendomseed);
             }
@@ -49,6 +51,7 @@ public class Room  {
         if (localisation == 2) {
             if(this.south == null ){
                 this.south=new Room(this.getOrigine().sum(0,this.height),pseudorendomseed.nextInt(),pseudorendomseed.nextInt(),pseudorendomseed);
+                this.south.setNorth(this);
             }else {
                 this.south.placeRoom(pseudorendomseed);
             }
@@ -57,6 +60,7 @@ public class Room  {
             if(this.west == null ){
                 int tempwidth = pseudorendomseed.nextInt() ;
                 this.west=new Room(this.getOrigine().sum(-1*tempwidth,0),tempwidth,pseudorendomseed.nextInt(),pseudorendomseed);
+                this.west.setEast(this);
             }else {
                 this.west.placeRoom(pseudorendomseed);
             }
