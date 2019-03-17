@@ -14,7 +14,7 @@ public class Room  {
     private Coordinate origine ;
     private int width ;
     private int height;
-    public Room(){}
+
     public Room(Coordinate origine, int width , int height , Random pseudoRandomList) {
         this.origine=origine;
         this.width=width;
@@ -128,4 +128,5 @@ public class Room  {
     public void setHeight(int height) {
         this.height = height;
     }
+
 }

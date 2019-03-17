@@ -1,24 +1,27 @@
 package mapping;
+import tools.Coordinate;
+
 import java.util.Random;
 
-public class Cave extends Random {
+public class Cave extends Room {
     private int [] [] mapcave  ;
     private int width ;
     private int height ;
-    public Cave() {}
-    public Cave (int width , int height) {
+
+    public Cave (int width , int height,Random pseudoRandomList) {
+        super (new Coordinate(0,0),width,height,pseudoRandomList);
         this.width=width;
         this.height=height;
         this.mapcave = new int[width][height] ;
+
     }
-    public void randomFill(long seed , int fillPurcentage) {
-        Random pseudorendomseed = new Random(seed);  //  crée une distribution aléatroi qui depend de la seed
+    public void randomFill(int fillPurcentage) {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 if (i == 0 || i == width - 1 || j == 0 || j == height - 1) {
                     mapcave[i][j] = 1;
                 } else {
-                    if (pseudorendomseed.nextInt(100) < fillPurcentage) {
+                    if (pseudoRandomList.nextInt(100) < fillPurcentage) {
                         mapcave[i][j] = 1;
                     } else {
                         mapcave[i][j] = 0;
@@ -64,13 +67,24 @@ public class Cave extends Random {
             }
         }
         return sum;
-
     }
     public void placeWall( ){
         for ( int i = 1 ; i<width-1 ;i++){
             for ( int j =1 ;  j < height-1 ; j++){
                 if (mapcave[i][j]==1 && mapcave[i][j+1]==0) {
                     mapcave[i][j] = 2 ;
+                }
+            }
+        }
+    }
+    public void placeTorch( ){
+        for ( int i = 1 ; i<width-1 ;i++){
+            for ( int j =1 ;  j < height-1 ; j++){
+                if (mapcave[i][j]==2 ) {
+                    if(pseudoRandomList.nextInt(20)==1){
+                        mapcave[i][j] = 3 ;
+
+                    }
                 }
             }
         }
@@ -88,6 +102,7 @@ public class Cave extends Random {
         }
         return sum ;
     }
+
 
     public void coloring(){
         for (int i= 0 ; i < width ; i++) {
@@ -135,10 +150,6 @@ public class Cave extends Random {
                 }
             }
         }
-    }
-
-    public void randomFill(int fillPurcentage) {
-        randomFill(System.currentTimeMillis(),fillPurcentage);
     }
 
 

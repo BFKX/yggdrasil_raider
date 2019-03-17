@@ -18,6 +18,8 @@ public class Map {
     private final double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
     private Image ground = new Image("resources/images/ground.jpg");
     private Image wall = new Image("resources/images/stone_brick_11.png");
+    private Image torch = new Image("resources/images/torch_2.png");
+    private Random pseudoRandomList ;
     public Map(int columns, int lines) {
         this.lines = lines;
         this.columns = columns;
@@ -38,12 +40,13 @@ public class Map {
     }
 
     public void creatCave(int fillPurcentage) {
-        Cave cave = new Cave(columns, lines);
+        Cave cave = new Cave(columns, lines,new Random(System.currentTimeMillis()));
         cave.randomFill(fillPurcentage);
         for (int i = 0; i < 15; i++){
             cave.filtering();
         }
         cave.placeWall();
+        cave.placeTorch();
         map = cave.getMapcave() ;
 
     }
@@ -61,6 +64,9 @@ public class Map {
                     gc.drawImage(ground, WIDTH * column / columns,HEIGHT * line / lines,WIDTH / columns,HEIGHT / lines);
                 }else if(map[column][line]==2){
                     gc.drawImage(wall,WIDTH * column / columns,HEIGHT * line / lines,WIDTH / columns,HEIGHT / lines);
+                }else if(map[column][line]==3){
+                    gc.drawImage(wall,WIDTH * column / columns,HEIGHT * line / lines,WIDTH / columns,HEIGHT / lines);
+                    gc.drawImage(torch,WIDTH * column / columns,HEIGHT * line / lines,WIDTH / columns,HEIGHT / lines);
                 }
             }
         }
