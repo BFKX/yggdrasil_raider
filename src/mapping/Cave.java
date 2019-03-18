@@ -167,10 +167,10 @@ public class Cave extends Room {
                         mapcave[i][j] = mapcave[i][j] +2 ;
                     }
                     if (mapcave[i][j+1]==0){//south
-                        mapcave[i][j] = mapcave[i][j] +5 ;
+                        mapcave[i][j] = mapcave[i][j]+5 ;
                     }
                     if (mapcave[i+1][j]==0){//east
-                        mapcave[i][j] = mapcave[i][j] +11 ;
+                        mapcave[i][j] = mapcave[i][j]+11 ;
                     }
 
                 }
