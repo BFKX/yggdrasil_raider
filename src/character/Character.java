@@ -2,11 +2,13 @@ package character;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import tools.CharacterActions;
 import tools.Coordinate;
 import tools.Hitbox;
 import javafx.scene.input.KeyCode;
 
 import java.awt.Toolkit;
+import java.util.HashMap;
 
 
 public class Character {
@@ -32,14 +34,28 @@ public class Character {
     private void validatePosition(){
     }
 
-    public void displacement(KeyCode code){
-        switch(code) {
-            case LEFT:  position.setX(position.getX() - 40); break;
-            case RIGHT: position.setX(position.getX() + 40); break;
-            case UP:    position.setY(position.getY() - 40); break;
-            case DOWN:  position.setY(position.getY() + 40); break;
-            default: break;
+    public HashMap<CharacterActions, Boolean> displacement(HashMap<CharacterActions, Boolean> inputs) {
+        if(inputs.get(CharacterActions.UP)) {
+            position.setY(position.getY() - 40);
         }
+        if(inputs.get(CharacterActions.DOWN)) {
+            position.setY(position.getY() + 40);
+        }
+        if(inputs.get(CharacterActions.LEFT)) {
+            position.setX(position.getX() - 40);
+        }
+        if(inputs.get(CharacterActions.RIGHT)) {
+            position.setX(position.getX() + 40);
+        }
+        if(inputs.get(CharacterActions.JUMP)) {
+            jump();
+            inputs.replace(CharacterActions.JUMP, false);
+        }
+        return inputs;
+    }
+
+    private void jump(){
+
     }
 
     public void displayCharacter(GraphicsContext gc) {

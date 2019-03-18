@@ -18,12 +18,15 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import mapping.Map;
+import tools.CharacterActions;
 import tools.Coordinate;
 import tools.FPSMeter;
 import character.Character;
 import tools.Hitbox;
 
 import java.awt.Toolkit;
+import java.util.HashMap;
+import java.util.LinkedList;
 
 class GameController extends Application {
 
@@ -38,12 +41,18 @@ class GameController extends Application {
     private Button quitButton = new Button("Quit");
     private Text text = new Text("Pause");
     private int fillPercentage = 50;
+    private HashMap<CharacterActions, Boolean> inputs = new HashMap<>();
 
     @FXML private AnchorPane game;
 
     GameController(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.pauseBackground = new Image("resources/images/menuBackground.png", WIDTH, HEIGHT, false, true);
+        inputs.put(CharacterActions.UP, false);
+        inputs.put(CharacterActions.DOWN, false);
+        inputs.put(CharacterActions.LEFT, false);
+        inputs.put(CharacterActions.RIGHT, false);
+        inputs.put(CharacterActions.JUMP, false);
     }
 
     @FXML void initialize() throws Exception {
@@ -120,7 +129,25 @@ class GameController extends Application {
                             game.getChildren().remove(text);
                         }
                         break;
-                    default: charac.displacement(e.getCode());
+                    case UP: inputs.replace(CharacterActions.UP, true); break;
+                    case DOWN: inputs.replace(CharacterActions.DOWN, true); break;
+                    case LEFT: inputs.replace(CharacterActions.LEFT, true); break;
+                    case RIGHT: inputs.replace(CharacterActions.RIGHT, true); break;
+                    case SPACE: inputs.replace(CharacterActions.JUMP, true); break;
+                    default:
+                }
+            }
+        });
+
+        scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent e) {
+                switch(e.getCode()) {
+                    case UP: inputs.replace(CharacterActions.UP, false); break;
+                    case DOWN: inputs.replace(CharacterActions.DOWN, false); break;
+                    case LEFT: inputs.replace(CharacterActions.LEFT, false); break;
+                    case RIGHT: inputs.replace(CharacterActions.RIGHT, false); break;
+                    default:
                 }
             }
         });
@@ -134,6 +161,8 @@ class GameController extends Application {
                 if(!pause && now - lastNow >= 15000000) {
                     gc.setFill(Color.BLACK);
                     gc.fillRect(0, 0, WIDTH, HEIGHT);
+
+                    inputs = charac.displacement(inputs);
 
                     map.display(gc);
 
