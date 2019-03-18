@@ -17,7 +17,7 @@ public class Map {
     private final double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
     private final double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
     private Image ground = new Image("resources/images/ground.jpg");
-    private Image wall = new Image("resources/images/stone_brick_11.png");
+    private Image wall = new Image("resources/images/sWall.png");
     private Image torch = new Image("resources/images/torch_2.png");
     private Random pseudoRandomList ;
     public Map(int columns, int lines) {
