@@ -159,8 +159,20 @@ public class Cave extends Room {
     public void placeWall( ){
         for ( int i = 1 ; i<width-1 ;i++){
             for ( int j =1 ;  j < height-1 ; j++){
-                if (mapcave[i][j]==1 && mapcave[i][j+1]==0) {
-                    mapcave[i][j] = 2 ;
+                if (mapcave[i][j]==1 ) {
+                    if (mapcave[i][j-1]==0){ //north
+                        mapcave[i][j] = mapcave[i][j]+1 ;
+                    }
+                    if (mapcave[i-1][j]==0){ //west
+                        mapcave[i][j] = mapcave[i][j] +2 ;
+                    }
+                    if (mapcave[i][j+1]==0){//south
+                        mapcave[i][j] = mapcave[i][j] +5 ;
+                    }
+                    if (mapcave[i+1][j]==0){//east
+                        mapcave[i][j] = mapcave[i][j] +9 ;
+                    }
+
                 }
             }
         }
