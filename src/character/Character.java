@@ -47,10 +47,6 @@ public class Character {
         if(inputs.get(CharacterActions.RIGHT)) {
             position.setX(position.getX() + 40);
         }
-        if(inputs.get(CharacterActions.JUMP)) {
-            jump();
-            inputs.replace(CharacterActions.JUMP, false);
-        }
         return inputs;
     }
 

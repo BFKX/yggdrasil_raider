@@ -52,7 +52,6 @@ class GameController extends Application {
         inputs.put(CharacterActions.DOWN, false);
         inputs.put(CharacterActions.LEFT, false);
         inputs.put(CharacterActions.RIGHT, false);
-        inputs.put(CharacterActions.JUMP, false);
     }
 
     @FXML void initialize() throws Exception {
@@ -133,7 +132,6 @@ class GameController extends Application {
                     case DOWN: inputs.replace(CharacterActions.DOWN, true); break;
                     case LEFT: inputs.replace(CharacterActions.LEFT, true); break;
                     case RIGHT: inputs.replace(CharacterActions.RIGHT, true); break;
-                    case SPACE: inputs.replace(CharacterActions.JUMP, true); break;
                     default:
                 }
             }

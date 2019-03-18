@@ -1,5 +1,5 @@
 package tools;
 
 public enum CharacterActions {
-    UP, DOWN, RIGHT, LEFT, JUMP;
+    UP, DOWN, RIGHT, LEFT;
 }
