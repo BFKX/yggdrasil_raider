@@ -67,7 +67,7 @@ public class Map {
                     case 3: sprite = sWall; break;
                     default: sprite = voidImage;
                 }
-                gc.drawImage(sprite, column * width, line * height,width,height)
+                gc.drawImage(sprite, column * width, line * height,width,height);
             }
         }
     }
