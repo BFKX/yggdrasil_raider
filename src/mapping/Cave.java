@@ -183,7 +183,7 @@ public class Cave extends Room {
             for ( int j =1 ;  j < height-1 ; j++){
                 if (mapcave[i][j]==2 ) {
                     if(pseudoRandomList.nextInt(20)==1){
-                        mapcave[i][j] = 3 ;
+                        mapcave[i][j] = -1 ;
 
                     }
                 }

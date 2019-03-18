@@ -53,7 +53,7 @@ public class Map {
             cave.filtering();
         }
         cave.placeWall();
-        cave.placeTorch();
+        //cave.placeTorch();
         map = cave.getMapcave() ;
     }
 
