@@ -56,15 +56,18 @@ public class Map {
         this.map=open.maproom;
     }
     public void display(GraphicsContext gc) {
+        Image sprite;
+        final double height = HEIGHT / lines;
+        final double width = WIDTH / columns;
         for (int column = 0; column < columns; column++ ) {
             for (int line = 0; line < lines; line++) {
-                if(map[column][line] == 1){
-                    gc.drawImage(voidImage, WIDTH * column / columns,HEIGHT * line / lines,WIDTH / columns,HEIGHT / lines);
-                }else if(map[column][line] == 2){
-                    gc.drawImage(sWall,WIDTH * column / columns,HEIGHT * line / lines,WIDTH / columns,HEIGHT / lines);
-                }else if(map[column][line] == 3){
-                    gc.drawImage(sWall,WIDTH * column / columns,HEIGHT * line / lines,WIDTH / columns,HEIGHT / lines);
+                switch(map[column][line]) {
+                    case 1: sprite = voidImage; break;
+                    case 2: sprite = sWall; break;
+                    case 3: sprite = sWall; break;
+                    default: sprite = voidImage;
                 }
+                gc.drawImage(sprite, column * width, line * height,width,height)
             }
         }
     }
