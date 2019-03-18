@@ -13,10 +13,12 @@ public class Character {
 
     private Coordinate position;
     private Hitbox hitbox;
+    double speedX = 0, speedY = 0;
     final private double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 40;
     final private double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 40;
     final private Image waitingSprite = new Image("resources/images/waitingCharacter.png");
     final private Image movingNorthSprite = new Image("resources/images/movingNorthCharacter.png");
+    private Image activeSprite = waitingSprite;
 
     public Character(Coordinate position, Hitbox hitbox) {
         this.position = position;
@@ -41,7 +43,7 @@ public class Character {
     }
 
     public void displayCharacter(GraphicsContext gc) {
-        gc.drawImage(waitingSprite, position.getX(), position.getY(), WIDTH, HEIGHT);
+        gc.drawImage(activeSprite, position.getX(), position.getY(), WIDTH, HEIGHT);
     }
 
     public Coordinate getPosition() {

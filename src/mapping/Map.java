@@ -17,6 +17,13 @@ public class Map {
     final private double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
     final private Image voidImage = new Image("resources/images/void.png");
     final private Image sWall = new Image("resources/images/sWall.png");
+    final private Image eWall = new Image("resources/images/eWall.png");
+    final private Image nWall = new Image("resources/images/nWall.png");
+    final private Image wWall = new Image("resources/images/wWall.png");
+    final private Image seWall = new Image("resources/images/seWall.png");
+    final private Image neWall = new Image("resources/images/neWall.png");
+    final private Image swWall = new Image("resources/images/swWall.png");
+    final private Image nwWall = new Image("resources/images/nwWall.png");
     final private Image ground = new Image("resources/images/ground.png");
     private Random pseudoRandomList ;
 
@@ -65,8 +72,14 @@ public class Map {
                 switch(map[column][line]) {
                     case 0: sprite = ground; break;
                     case 1: sprite = voidImage; break;
-                    case 2: sprite = sWall; break;
-                    case 3: sprite = sWall; break;
+                    case 2: sprite = nWall; break;
+                    case 3: sprite = wWall; break;
+                    case 4: sprite = nwWall; break;
+                    case 6: sprite = sWall; break;
+                    case 8: sprite = swWall; break;
+                    case 12: sprite = eWall; break;
+                    case 13: sprite = neWall; break;
+                    case 17: sprite = seWall; break;
                     default: sprite = voidImage;
                 }
                 gc.drawImage(sprite, column * width, line * height,width,height);
