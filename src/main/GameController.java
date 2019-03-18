@@ -42,7 +42,7 @@ class GameController extends Application {
     private Text text = new Text("Pause");
     private int fillPercentage = 50;
     private HashMap<CharacterActions, Boolean> inputs = new HashMap<>();
-
+    private boolean link = false;
     @FXML private AnchorPane game;
 
     GameController(Stage primaryStage) {
@@ -117,9 +117,10 @@ class GameController extends Application {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             public void handle(KeyEvent e) {
                 switch(e.getCode()) {
-                    case R: map.createCave(fillPercentage); break;
+                    case R: map.createCave(fillPercentage,link); break;
                     case P: fillPercentage++; break;
                     case M: fillPercentage--; break;
+                    case L: link = !link ; break;
                     case ESCAPE: pause = !pause;
                         if(!pause) {
                             pauseShown = false;

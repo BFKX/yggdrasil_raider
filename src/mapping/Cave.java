@@ -1,4 +1,5 @@
 package mapping;
+import main.Main;
 import tools.Coordinate;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ public class Cave extends Room {
     private int [] [] mapcave  ;
     private int width ;
     private int height ;
-    private ArrayList<ArrayList<Coordinate>> roomsborders ;
+    private ArrayList<ArrayList<Coordinate>> roomsborders =new ArrayList<ArrayList<Coordinate>>();
     public Cave (int width , int height,Random pseudoRandomList) {
         super (new Coordinate(0,0),width,height,pseudoRandomList);
         this.width=width;
@@ -86,14 +87,37 @@ public class Cave extends Room {
         }
         return sum ;
     }
+    public void placeWall( ){
+        for ( int i = 0 ; i<width ;i++){
+            for ( int j =0 ;  j < height ; j++){
+                if (mapcave[i][j]!=0 ) {
+                    if (j-1>0 && mapcave[i][j-1]==0  ){ //north
+                        mapcave[i][j] = mapcave[i][j]+1 ;
+                    }
+                    if (i-1>0 && mapcave[i-1][j]==0 ){ //west
+                        mapcave[i][j] = mapcave[i][j] +2 ;
+                    }
+                    if ( j+1 < this.height && mapcave[i][j+1]==0){//south
+                        mapcave[i][j] = mapcave[i][j]+5 ;
+                    }
+                    if ( i+1 <this.width && mapcave[i+1][j]==0){//east
+                        mapcave[i][j] = mapcave[i][j]+11 ;
+                    }
+
+                }
+            }
+        }
+    }
 
     public void findBorder(){
         for ( int i = 1 ; i<width-1 ;i++) {
             for (int j = 1; j < height - 1; j++) {
-                for (int k = -1; k < 2; k++) {
-                    for (int l = -1; l < 2; l++) {
-                        if ((k != 0 || l != 0 && mapcave[i+k][j+l]==0)){
-                            mapcave[i][j]=-1;
+                if(mapcave[i][j] == 1) {
+                    for (int k = -1; k < 2; k++) {
+                        for (int l = -1; l < 2; l++) {
+                            if ((k != 0 || l != 0 && mapcave[i + k][j + l] == 0)) {
+                                mapcave[i][j] = -1;
+                            }
                         }
                     }
                 }
@@ -101,14 +125,17 @@ public class Cave extends Room {
         }
     }
 
-    public int  findContour(){
-        int k = -1 ;
+    public int findContour(){
+        int k = -2 ;
         for ( int i = 1 ; i<width-1 ;i++) {
             for (int j = 1; j < height - 1; j++) {
                 if (mapcave[i][j]==-1) {
                     ArrayList<Coordinate> roomBorder= new ArrayList<Coordinate>();
                     k--;
-                    findminusone(i,j,k,roomBorder);
+                    findminusone(i,j,k,roomBorder,0 );
+                    for (Coordinate c : roomBorder){
+                        System.out.println(c.toString());
+                    }
                     roomsborders.add(roomBorder);
                 }
             }
@@ -116,16 +143,20 @@ public class Cave extends Room {
         return k ;
     }
 
-    public void findminusone(int i , int j, int val,ArrayList roomBorder){ //trouve les -1 lier les rajoute a roomborder et les tranforme en 1
+    public void findminusone(int i , int j, int val,ArrayList roomBorder,int compteur){ //trouve les -1 lier les rajoute a roomborder et les tranforme en 1
+        compteur++;
+        System.out.println(compteur);
         mapcave[i][j]=val;
         roomBorder.add(new Coordinate(i,j));
         for (int k = -1; k < 2; k++) {
             for (int l = -1; l < 2; l++) {
                 if(mapcave[i+k][j+l]==-1){
-                    findminusone(i+k,j+l,val,roomBorder);
+                    System.out.println("in"+  " i , j : " + (i+k) +"," + (j+l) );
+                    findminusone(i+k,j+l,val,roomBorder,compteur);
                 }
             }
         }
+        System.out.println("end");
     }
 
     private ArrayList<Coordinate> findConectionpoint(ArrayList<ArrayList<Coordinate>> roomsborders){ // retournes les coordonée des laison
@@ -156,28 +187,36 @@ public class Cave extends Room {
         }
     }
 
-    public void placeWall( ){
-        for ( int i = 0 ; i<width ;i++){
-            for ( int j =0 ;  j < height ; j++){
-                if (mapcave[i][j]==1 ) {
-                    if (j-1>0 && mapcave[i][j-1]==0  ){ //north
-                        mapcave[i][j] = mapcave[i][j]+1 ;
-                    }
-                    if (i-1>0 && mapcave[i-1][j]==0 ){ //west
-                        mapcave[i][j] = mapcave[i][j] +2 ;
-                    }
-                    if ( j+1 < this.height && mapcave[i][j+1]==0){//south
-                        mapcave[i][j] = mapcave[i][j]+5 ;
-                    }
-                    if ( i+1 <this.width && mapcave[i+1][j]==0){//east
-                        mapcave[i][j] = mapcave[i][j]+11 ;
-                    }
 
-                }
+    public  void creatLink(){
+        findBorder();
+        int k = findContour();
+        ArrayList<Coordinate> conectionpoints = findConectionpoint(roomsborders);
+        Iterator<Coordinate> it = conectionpoints.iterator();
+        while ( it.hasNext() ) {
+            Coordinate c1 =  it.next();
+            Coordinate c2 = it.next();
+            dig(c1,c2);
+        }
+
+    }
+    public void dig(Coordinate c1 , Coordinate c2 ) {
+        int vectX = (int )( c2.getX() - c1.getX()) ;
+        int vectY = (int )(c2.getY() - c1.getY()) ;
+        int norme = (int) Math.sqrt(Math.pow(vectX,2) + Math.pow(vectY,2));
+        vectX =  (vectX/(norme+1)) ;
+        vectY =  (vectY /(norme+1)) ;
+        Coordinate curent =  c1 ;
+        double k = Math.sqrt( c1.length(c2));
+        while (k+1>0) {
+            k--;
+            if((int)curent.getY()>0 && (int)curent.getY() < this.height && (int) curent.getX()>0&& (int) curent.getX() >this.width)
+            {
+                mapcave[(int) curent.getY()][(int) curent.getX()] = -5;
+                curent.sum(vectX, vectY);
             }
         }
     }
-
     public void placeTorch( ){
         for ( int i = 1 ; i<width-1 ;i++){
             for ( int j =1 ;  j < height-1 ; j++){

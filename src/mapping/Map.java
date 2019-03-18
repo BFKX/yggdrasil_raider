@@ -47,11 +47,14 @@ public class Map {
         this.mapCases[column][line].setHitbox(new Hitbox(new Coordinate(WIDTH * column / columns,HEIGHT * line / lines),WIDTH / columns,HEIGHT / lines));
     }
 
-    public void createCave(int fillPurcentage) {
+    public void createCave(int fillPurcentage, boolean link) {
         Cave cave = new Cave(columns, lines,new Random(System.currentTimeMillis()));
         cave.randomFill(fillPurcentage);
         for (int i = 0; i < 15; i++){
             cave.filtering();
+        }
+        if (link) {
+            cave.creatLink();
         }
         cave.placeWall();
         //cave.placeTorch();
