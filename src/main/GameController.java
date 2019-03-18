@@ -109,7 +109,7 @@ class GameController extends Application {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             public void handle(KeyEvent e) {
                 switch(e.getCode()) {
-                    case R: map.creatCave(fillPercentage); break;
+                    case R: map.createCave(fillPercentage); break;
                     case P: fillPercentage++; break;
                     case M: fillPercentage--; break;
                     case ESCAPE: pause = !pause;

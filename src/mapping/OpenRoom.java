@@ -4,9 +4,9 @@ import tools.Coordinate;
 
 import java.util.Random;
 
-public class Oppenroom extends Room {
+public class OpenRoom extends Room {
     int [][] maproom ;
-    public Oppenroom(int whidth , int height,Random pseudoRandomList) {
+    public OpenRoom(int whidth , int height, Random pseudoRandomList) {
         super (new Coordinate(0,0),whidth,height, pseudoRandomList);
         maproom = new int[this.getWidth()][this.getHeight()];
     }

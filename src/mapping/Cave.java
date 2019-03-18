@@ -45,6 +45,7 @@ public class Cave extends Room {
     public void filtering(){
         applyfiltering(this.creatMapfiltering());
     }
+
     public void applyfiltering(int[][] mapfiltrering) { //appliquelefiltre
         for (int i = 1; i < width-1; i++) {
             for (int j = 1; j < height-1; j++) {
@@ -57,6 +58,7 @@ public class Cave extends Room {
             }
         }
     }
+
     public int fullAvgOneRange(int i , int j ) { // filtre de range 1 dans toutes les directions
         int sum = 0;
         for (int k = -1; k < 2; k++) {
@@ -113,6 +115,7 @@ public class Cave extends Room {
         }
         return k ;
     }
+
     public void findminusone(int i , int j, int val,ArrayList roomBorder){ //trouve les -1 lier les rajoute a roomborder et les tranforme en 1
         mapcave[i][j]=val;
         roomBorder.add(new Coordinate(i,j));
@@ -146,6 +149,7 @@ public class Cave extends Room {
         }
         return liasoncoord;
     }
+
     public void displayconecteur(ArrayList<Coordinate> liaisoncoord){
         for(Coordinate c: liaisoncoord ){
             System.out.println(c.toString());
@@ -161,6 +165,7 @@ public class Cave extends Room {
             }
         }
     }
+
     public void placeTorch( ){
         for ( int i = 1 ; i<width-1 ;i++){
             for ( int j =1 ;  j < height-1 ; j++){

@@ -6,61 +6,62 @@ import tools.Coordinate;
 import java.util.Random;
 
 public class Room  {
-    private Room north ;
-    private Room south ;
-    private Room east ;
-    private Room west ;
+    private Room north;
+    private Room south;
+    private Room east;
+    private Room west;
     protected Random pseudoRandomList;
-    private Coordinate origine ;
-    private int width ;
+    private Coordinate origin;
+    private int width;
     private int height;
 
-    public Room(Coordinate origine, int width , int height , Random pseudoRandomList) {
-        this.origine=origine;
-        this.width=width;
-        this.height=height;
+    public Room(Coordinate origin, int width, int height, Random pseudoRandomList) {
+        this.origin = origin;
+        this.width = width;
+        this.height = height;
         this.pseudoRandomList = pseudoRandomList;
     }
-    public Room(Coordinate origine , Random pseudoRandomList){
-        this.origine = origine ;
+
+    public Room(Coordinate origin, Random pseudoRandomList){
+        this.origin = origin;
         this.height = pseudoRandomList.nextInt();
         this.width = pseudoRandomList.nextInt();
     }
 
-    public void placeRoom(Random pseudorendomseed){ // place une room a partire de la room actuel
-        int localisation = pseudorendomseed.nextInt(4);
-        if (localisation == 0){
+    public void placeRoom(Random pseudoRandomSeed){ // place une room a partire de la room actuel
+        int location = pseudoRandomSeed.nextInt(4);
+        if (location == 0){
             if(this.north == null ){
-                int tempheight = pseudorendomseed.nextInt() ;
-                this.north=new Room(this.getOrigine().sum(0,tempheight),pseudorendomseed.nextInt(),tempheight,pseudorendomseed);
+                int tempheight = pseudoRandomSeed.nextInt() ;
+                this.north=new Room(this.getOrigin().sum(0,tempheight),pseudoRandomSeed.nextInt(),tempheight,pseudoRandomSeed);
                 this.north.setSouth(this);
             }else {
-                this.north.placeRoom(pseudorendomseed);
+                this.north.placeRoom(pseudoRandomSeed);
             }
         }
-        if (localisation == 1) {
+        if (location == 1) {
             if(this.east == null ){
-                this.east=new Room(this.getOrigine().sum(this.width,0),pseudorendomseed.nextInt(),pseudorendomseed.nextInt(),pseudorendomseed);
+                this.east=new Room(this.getOrigin().sum(this.width,0),pseudoRandomSeed.nextInt(),pseudoRandomSeed.nextInt(),pseudoRandomSeed);
                 this.east.setWest(this);
             }else {
-                this.east.placeRoom(pseudorendomseed);
+                this.east.placeRoom(pseudoRandomSeed);
             }
         }
-        if (localisation == 2) {
+        if (location == 2) {
             if(this.south == null ){
-                this.south=new Room(this.getOrigine().sum(0,this.height),pseudorendomseed.nextInt(),pseudorendomseed.nextInt(),pseudorendomseed);
+                this.south=new Room(this.getOrigin().sum(0,this.height),pseudoRandomSeed.nextInt(),pseudoRandomSeed.nextInt(),pseudoRandomSeed);
                 this.south.setNorth(this);
             }else {
-                this.south.placeRoom(pseudorendomseed);
+                this.south.placeRoom(pseudoRandomSeed);
             }
         }
-        if (localisation == 3) {
+        if (location == 3) {
             if(this.west == null ){
-                int tempwidth = pseudorendomseed.nextInt() ;
-                this.west=new Room(this.getOrigine().sum(-1*tempwidth,0),tempwidth,pseudorendomseed.nextInt(),pseudorendomseed);
+                int tempwidth = pseudoRandomSeed.nextInt() ;
+                this.west=new Room(this.getOrigin().sum(-1*tempwidth,0),tempwidth,pseudoRandomSeed.nextInt(),pseudoRandomSeed);
                 this.west.setEast(this);
             }else {
-                this.west.placeRoom(pseudorendomseed);
+                this.west.placeRoom(pseudoRandomSeed);
             }
         }
     }
@@ -105,12 +106,12 @@ public class Room  {
         this.pseudoRandomList = pseudoRandomList;
     }
 
-    public Coordinate getOrigine() {
-        return origine;
+    public Coordinate getOrigin() {
+        return origin;
     }
 
-    public void setOrigine(Coordinate origine) {
-        this.origine = origine;
+    public void setOrigin(Coordinate origin) {
+        this.origin = origin;
     }
 
     public int getWidth() {
