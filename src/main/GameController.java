@@ -160,7 +160,8 @@ class GameController extends Application {
                     gc.setFill(Color.BLACK);
                     gc.fillRect(0, 0, WIDTH, HEIGHT);
 
-                    inputs = charac.displacement(inputs);
+                    charac.displacement(inputs);
+                    charac.update();
 
                     map.display(gc);
 

@@ -13,9 +13,17 @@ public class Coordinate {
     public Coordinate sum(int x , int y ){ // add x to the first coordinate and y to the second one
         return new Coordinate(this.getX()+x , this.getY()+y) ;
     }
+
+    public void add(double x, double y) {
+
+        this.x += x;
+        this.y += y;
+    }
+
     public double length(Coordinate auther ){
         return  (Math.pow((this.getX() - auther.getX()),2) + Math.pow((this.getY()-auther.getY()),2)) ;
     }
+
     public void setY(double y) {
 
         this.y = y;

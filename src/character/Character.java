@@ -5,7 +5,6 @@ import javafx.scene.image.Image;
 import tools.CharacterActions;
 import tools.Coordinate;
 import tools.Hitbox;
-import javafx.scene.input.KeyCode;
 
 import java.awt.Toolkit;
 import java.util.HashMap;
@@ -18,9 +17,16 @@ public class Character {
     double speedX = 0, speedY = 0;
     final private double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 40;
     final private double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 40;
-    final private Image waitingSprite = new Image("resources/images/waitingCharacter.png");
+    final private Image waitingCharacter = new Image("resources/images/waitingCharacter.png");
     final private Image movingNorthSprite = new Image("resources/images/movingNorthCharacter.png");
-    private Image activeSprite = waitingSprite;
+    final private Image movingSouthSprite = new Image("resources/images/movingSouthCharacter.png");
+    final private Image movingWestSprite = new Image("resources/images/movingWestCharacter.png");
+    final private Image movingEastSprite = new Image("resources/images/movingEastCharacter.png");
+    final private Image movingNorthEastSprite = new Image("resources/images/movingNorthEastCharacter.png");
+    final private Image movingSouthEastSprite = new Image("resources/images/movingSouthEastCharacter.png");
+    final private Image movingNorthWestSprite = new Image("resources/images/movingNorthWestCharacter.png");
+    final private Image movingSouthWestSprite = new Image("resources/images/movingSouthWestCharacter.png");
+    private Image activeSprite = waitingCharacter;
 
     public Character(Coordinate position, Hitbox hitbox) {
         this.position = position;
@@ -34,27 +40,54 @@ public class Character {
     private void validatePosition(){
     }
 
-    public HashMap<CharacterActions, Boolean> displacement(HashMap<CharacterActions, Boolean> inputs) {
-        if(inputs.get(CharacterActions.UP)) {
-            position.setY(position.getY() - 40);
+    public void displacement(HashMap<CharacterActions, Boolean> inputs) {
+        if(!(inputs.get(CharacterActions.UP) && inputs.get(CharacterActions.DOWN) || inputs.get(CharacterActions.LEFT) && inputs.get(CharacterActions.RIGHT))) {
+            if(inputs.get(CharacterActions.UP) && speedY > -15) {
+                speedY -= 3;
+            }
+            if(inputs.get(CharacterActions.DOWN) && speedY < 15) {
+                speedY += 3;
+            }
+            if(inputs.get(CharacterActions.LEFT) && speedX > -15) {
+                speedX -= 3;
+            }
+            if(inputs.get(CharacterActions.RIGHT) && speedX < 15) {
+                speedX += 3;
+            }
         }
-        if(inputs.get(CharacterActions.DOWN)) {
-            position.setY(position.getY() + 40);
+        if(!inputs.get(CharacterActions.UP) && !inputs.get(CharacterActions.DOWN)) {
+            speedY /= 2;
         }
-        if(inputs.get(CharacterActions.LEFT)) {
-            position.setX(position.getX() - 40);
+        if(!inputs.get(CharacterActions.RIGHT) && !inputs.get(CharacterActions.LEFT)) {
+            speedX /= 2;
         }
-        if(inputs.get(CharacterActions.RIGHT)) {
-            position.setX(position.getX() + 40);
-        }
-        return inputs;
     }
 
-    private void jump(){
-
+    public void update() {
+        position.add(speedX, speedY);
     }
 
     public void displayCharacter(GraphicsContext gc) {
+        if(speedY > 1 && speedX > 1) {
+            activeSprite = movingSouthEastSprite;
+        } else if(speedY > 1 && Math.abs(speedX) < 1) {
+            activeSprite = movingSouthSprite;
+        } else if(speedY > 1 && speedX < -1) {
+            activeSprite = movingSouthWestSprite;
+        } else if(speedY < -1 && speedX > 1) {
+            activeSprite = movingNorthEastSprite;
+        } else if(Math.abs(speedY) < 1 && speedX > 1) {
+            activeSprite = movingEastSprite;
+        } else if(speedY < -1 && Math.abs(speedX) < 1) {
+            activeSprite = movingNorthSprite;
+        } else if(speedY < -1 && speedX < -1) {
+            activeSprite = movingNorthWestSprite;
+        } else if(Math.abs(speedY) < 1 && speedX < -1) {
+            activeSprite = movingWestSprite;
+        } else if(Math.abs(speedY) < 1 && Math.abs(speedX) < 1) {
+            activeSprite = waitingCharacter;
+        }
+
         gc.drawImage(activeSprite, position.getX(), position.getY(), WIDTH, HEIGHT);
     }
 
