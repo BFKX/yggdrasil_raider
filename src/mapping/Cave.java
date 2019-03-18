@@ -112,11 +112,11 @@ public class Cave extends Room {
     public void findBorder(){
         for ( int i = 1 ; i<width-1 ;i++) {
             for (int j = 1; j < height - 1; j++) {
-                if(mapcave[i][j] == 1) {
+                if(mapcave[i][j] == 0) {
                     for (int k = -1; k < 2; k++) {
                         for (int l = -1; l < 2; l++) {
-                            if ((k != 0 || l != 0 && mapcave[i + k][j + l] == 0)) {
-                                mapcave[i][j] = -1;
+                            if ((k != 0 || l != 0 && mapcave[i + k][j + l] == 1)) {
+                                mapcave[i][j] = -25;
                             }
                         }
                     }
@@ -131,7 +131,6 @@ public class Cave extends Room {
             for (int j = 1; j < height - 1; j++) {
                 if (mapcave[i][j]==-1) {
                     ArrayList<Coordinate> roomBorder= new ArrayList<Coordinate>();
-                    k--;
                     findminusone(i,j,k,roomBorder,0 );
                     for (Coordinate c : roomBorder){
                         System.out.println(c.toString());
@@ -151,7 +150,7 @@ public class Cave extends Room {
         for (int k = -1; k < 2; k++) {
             for (int l = -1; l < 2; l++) {
                 if(mapcave[i+k][j+l]==-1){
-                    System.out.println("in"+  " i , j : " + (i+k) +"," + (j+l) );
+                    //System.out.println("in"+  " i , j : " + (i+k) +"," + (j+l) );
                     findminusone(i+k,j+l,val,roomBorder,compteur);
                 }
             }
@@ -160,18 +159,22 @@ public class Cave extends Room {
     }
 
     private ArrayList<Coordinate> findConectionpoint(ArrayList<ArrayList<Coordinate>> roomsborders){ // retournes les coordonée des laison
-
         ArrayList<Coordinate> liasoncoord= new ArrayList<Coordinate>(); // liste des plus peuties coordonée
-        for (ArrayList<Coordinate> temp : roomsborders){
-            double min=999999999 ; //gere plus tard le premier min
-            Coordinate c1max= null;
-            Coordinate c2max= null;
-            for(Coordinate c1 : temp){
-                for(Coordinate c2 : temp){
-                    if(c2.length(c1)<min){
-                        min=c2.length(c1);
-                        c1max=c1;
-                        c2max=c2;
+        Iterator<ArrayList<Coordinate>> it = roomsborders.iterator();
+        for (ArrayList<Coordinate> temp1 : roomsborders){
+            Coordinate c1max = null;
+            Coordinate c2max = null;
+            for (ArrayList<Coordinate> temp2 : roomsborders){
+                if( ! temp1.equals(temp2)) {
+                    double min = 999999999; //gere plus tard le premier min
+                    for (Coordinate c1 : temp1) {
+                        for (Coordinate c2 : temp2) {
+                            if (c2.length(c1) < min) {
+                                min = c2.length(c1);
+                                c1max = c1;
+                                c2max = c2;
+                            }
+                        }
                     }
                 }
             }
@@ -190,15 +193,18 @@ public class Cave extends Room {
 
     public  void creatLink(){
         findBorder();
-        int k = findContour();
+        /*  int k = findContour();
         ArrayList<Coordinate> conectionpoints = findConectionpoint(roomsborders);
         Iterator<Coordinate> it = conectionpoints.iterator();
         while ( it.hasNext() ) {
-            Coordinate c1 =  it.next();
+            Coordinate c1 = it.next();
             Coordinate c2 = it.next();
-            dig(c1,c2);
+            System.out.println(" c1: " + c1.toString() +"; c2 : " + c2.toString());
+            //dig(c1,c2);
+            mapcave[(int)c1.getX()][(int)c1.getY()] = -25 ;
+            mapcave[(int)c2.getX()][(int)c2.getY()] =-25;
         }
-
+    */
     }
     public void dig(Coordinate c1 , Coordinate c2 ) {
         int vectX = (int )( c2.getX() - c1.getX()) ;
