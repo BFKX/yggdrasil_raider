@@ -15,7 +15,7 @@ public class Character {
     private Hitbox hitbox;
     final private double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 40;
     final private double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 40;
-    final private Image image = new Image("resources/images/ground.jpg");
+    final private Image image = new Image("images/void.png");
 
     public Character(Coordinate position, Hitbox hitbox) {
         this.position = position;

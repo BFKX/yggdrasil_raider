@@ -16,8 +16,8 @@ public class Map {
     private int columns;
     private final double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
     private final double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-    private Image ground = new Image("resources/images/ground.jpg");
-    private Image wall = new Image("resources/images/sWall.png");
+    private Image voidImage = new Image("images/void.png");
+    private Image sWall = new Image("resources/images/sWall.png");
     private Image torch = new Image("resources/images/torch_2.png");
     private Random pseudoRandomList ;
     public Map(int columns, int lines) {
@@ -58,15 +58,12 @@ public class Map {
     public void display(GraphicsContext gc) {
         for (int column = 0; column < columns; column++ ) {
             for (int line = 0; line < lines; line++) {
-                if(map[column][line] == 0) {
-                    gc.setFill(Color.BLACK);
-                } else if(map[column][line] == 1){
-                    gc.drawImage(ground, WIDTH * column / columns,HEIGHT * line / lines,WIDTH / columns,HEIGHT / lines);
-                }else if(map[column][line]==2){
-                    gc.drawImage(wall,WIDTH * column / columns,HEIGHT * line / lines,WIDTH / columns,HEIGHT / lines);
-                }else if(map[column][line]==3){
-                    gc.drawImage(wall,WIDTH * column / columns,HEIGHT * line / lines,WIDTH / columns,HEIGHT / lines);
-                    gc.drawImage(torch,WIDTH * column / columns,HEIGHT * line / lines,WIDTH / columns,HEIGHT / lines);
+                if(map[column][line] == 1){
+                    gc.drawImage(voidImage, WIDTH * column / columns,HEIGHT * line / lines,WIDTH / columns,HEIGHT / lines);
+                }else if(map[column][line] == 2){
+                    gc.drawImage(sWall,WIDTH * column / columns,HEIGHT * line / lines,WIDTH / columns,HEIGHT / lines);
+                }else if(map[column][line] == 3){
+                    gc.drawImage(sWall,WIDTH * column / columns,HEIGHT * line / lines,WIDTH / columns,HEIGHT / lines);
                 }
             }
         }
