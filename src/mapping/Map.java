@@ -25,6 +25,7 @@ public class Map {
     final private Image swWall = new Image("resources/images/swWall.png");
     final private Image nwWall = new Image("resources/images/nwWall.png");
     final private Image ground = new Image("resources/images/ground.png");
+    final private Image red = new Image("resources/images/red.png");
     private Random pseudoRandomList ;
 
     public Map(int columns, int lines) {
@@ -70,6 +71,7 @@ public class Map {
         for (int column = 0; column < columns; column++ ) {
             for (int line = 0; line < lines; line++) {
                 switch(map[column][line]) {
+                    case -5: sprite = red; break;
                     case 0: sprite = ground; break;
                     case 1: sprite = voidImage; break;
                     case 2: sprite = nWall; break;
