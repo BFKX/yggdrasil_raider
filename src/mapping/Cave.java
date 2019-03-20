@@ -16,7 +16,6 @@ public class Cave extends Room {
         this.width=width;
         this.height=height;
         this.mapcave = new int[width][height] ;
-
     }
     public void randomFill(int fillPurcentage) {
         for (int i = 0; i < width; i++) {
@@ -113,12 +112,8 @@ public class Cave extends Room {
         for ( int i = 1 ; i<width-1 ;i++) {
             for (int j = 1; j < height - 1; j++) {
                 if(mapcave[i][j] == 0) {
-                    for (int k = -1; k < 2; k++) {
-                        for (int l = -1; l < 2; l++) {
-                            if ((k != 0 || l != 0 && mapcave[i + k][j + l] == 1)) {
-                                mapcave[i][j] = -25;
-                            }
-                        }
+                    if(mapcave[i-1][j]==1 || mapcave[i+1][j]==1||mapcave[i][j-1]==1|| mapcave[i+1][j+1]==1 ||mapcave[i-1][j-1]==1 || mapcave[i+1][j]==1|| mapcave[i-1][j+1]==1 || mapcave[i+1][j-1]==1  ) {
+                        mapcave[i][j] = -1;
                     }
                 }
             }
@@ -193,33 +188,33 @@ public class Cave extends Room {
 
     public  void creatLink(){
         findBorder();
-        /*  int k = findContour();
+        int k = findContour();
         ArrayList<Coordinate> conectionpoints = findConectionpoint(roomsborders);
         Iterator<Coordinate> it = conectionpoints.iterator();
         while ( it.hasNext() ) {
             Coordinate c1 = it.next();
             Coordinate c2 = it.next();
-            System.out.println(" c1: " + c1.toString() +"; c2 : " + c2.toString());
-            //dig(c1,c2);
-            mapcave[(int)c1.getX()][(int)c1.getY()] = -25 ;
-            mapcave[(int)c2.getX()][(int)c2.getY()] =-25;
+            //System.out.println(" c1: " + c1.toString() +"; c2 : " + c2.toString());
+            dig(c1,c2);
+            mapcave[(int)c1.getX()][(int)c1.getY()] = -25;
+            mapcave[(int)c2.getX()][(int)c2.getY()] = -25;
         }
-    */
     }
+
     public void dig(Coordinate c1 , Coordinate c2 ) {
-        int vectX = (int )( c2.getX() - c1.getX()) ;
-        int vectY = (int )(c2.getY() - c1.getY()) ;
+        double vectX = ( c2.getX() - c1.getX()) ;
+        double vectY = (c2.getY() - c1.getY()) ;
         int norme = (int) Math.sqrt(Math.pow(vectX,2) + Math.pow(vectY,2));
-        vectX =  (vectX/(norme+1)) ;
-        vectY =  (vectY /(norme+1)) ;
-        Coordinate curent =  c1 ;
-        double k = Math.sqrt( c1.length(c2));
-        while (k+1>0) {
-            k--;
-            if((int)curent.getY()>0 && (int)curent.getY() < this.height && (int) curent.getX()>0&& (int) curent.getX() >this.width)
-            {
-                mapcave[(int) curent.getY()][(int) curent.getX()] = -5;
-                curent.sum(vectX, vectY);
+        int vectXi =  Math.round ((float)(vectX/(norme+1)));
+        int vectYi =  Math.round ((float)(vectY /(norme+1)));
+        Coordinate current =  c1 ;
+        System.out.println(" c1: " + c1.toString() +"; c2 : " + c2.toString());
+        System.out.println("VectX: " + vectX + ';' + "VectY:" + vectY );
+        if(vectXi!=0 || vectYi != 0){
+        while (mapcave[Math.round((float)(current.getX()))][Math.round((float)(current.getY()))]!=0&& Math.round((float)(current.getX()))>0&& Math.round((float)(current.getY()))>0 && Math.round((float)(current.getX()))<height && Math.round((float)(current.getY()))<width) {
+            System.out.println("curx " + Math.round((float) current.getX()) + "cury" + Math.round((float) current.getY()));
+            mapcave[Math.round((float) current.getY())][Math.round((float) current.getX())] = -25;
+            current.sum(vectXi, vectYi);
             }
         }
     }

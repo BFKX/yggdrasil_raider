@@ -120,7 +120,7 @@ class GameController extends Application {
                     case R: map.createCave(fillPercentage,link); break;
                     case P: fillPercentage++; break;
                     case M: fillPercentage--; break;
-                    case L: link = !link ; break;
+                    case L: link = !link; break;
                     case ESCAPE: pause = !pause;
                         if(!pause) {
                             pauseShown = false;

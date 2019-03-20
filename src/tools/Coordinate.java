@@ -10,7 +10,7 @@ public class Coordinate {
         this.y = y;
     }
 
-    public Coordinate sum(int x , int y ){ // add x to the first coordinate and y to the second one
+    public Coordinate sum(double x , double y ){ // add x to the first coordinate and y to the second one
         return new Coordinate(this.getX()+x , this.getY()+y) ;
     }
 
