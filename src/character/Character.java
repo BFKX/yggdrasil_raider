@@ -14,9 +14,11 @@ public class Character {
 
     private Coordinate position;
     private Hitbox hitbox;
-    double speedX = 0, speedY = 0;
-    final private double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 40;
+    private double speedX = 0, speedY = 0;
+    final private double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 40;
     final private double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 40;
+    final private double speedLimitX = WIDTH / 5;
+    final private double speedLimitY = HEIGHT / 5;
     final private Image waitingCharacter = new Image("resources/images/waitingCharacter.png");
     final private Image movingNorthSprite = new Image("resources/images/movingNorthCharacter.png");
     final private Image movingSouthSprite = new Image("resources/images/movingSouthCharacter.png");
@@ -42,17 +44,17 @@ public class Character {
 
     public void displacement(HashMap<CharacterActions, Boolean> inputs) {
         if(!(inputs.get(CharacterActions.UP) && inputs.get(CharacterActions.DOWN) || inputs.get(CharacterActions.LEFT) && inputs.get(CharacterActions.RIGHT))) {
-            if(inputs.get(CharacterActions.UP) && speedY > -15) {
-                speedY -= 3;
+            if(inputs.get(CharacterActions.UP) && speedY > -speedLimitY) {
+                speedY -= speedLimitY / 10;
             }
-            if(inputs.get(CharacterActions.DOWN) && speedY < 15) {
-                speedY += 3;
+            if(inputs.get(CharacterActions.DOWN) && speedY < speedLimitY) {
+                speedY += speedLimitY / 10;
             }
-            if(inputs.get(CharacterActions.LEFT) && speedX > -15) {
-                speedX -= 3;
+            if(inputs.get(CharacterActions.LEFT) && speedX > -speedLimitX) {
+                speedX -= speedLimitX / 10;
             }
-            if(inputs.get(CharacterActions.RIGHT) && speedX < 15) {
-                speedX += 3;
+            if(inputs.get(CharacterActions.RIGHT) && speedX < speedLimitX) {
+                speedX += speedLimitX / 10;
             }
         }
         if(!inputs.get(CharacterActions.UP) && !inputs.get(CharacterActions.DOWN)) {
