@@ -108,6 +108,67 @@ public class Cave extends Room {
         }
     }
 
+    public void placeTorch( ){
+        for ( int i = 1 ; i<width-1 ;i++){
+            for ( int j =1 ;  j < height-1 ; j++){
+                if (mapcave[i][j]==2 ) {
+                    if(pseudoRandomList.nextInt(20)==1){
+                        mapcave[i][j] = -1 ;
+                    }
+                }
+            }
+        }
+    }
+
+    public void coloring(){
+        for (int i= 0 ; i < width ; i++) {
+            for(int j =0 ; j< height ; j++ ) {
+                if(mapcave[i][j] == 0 ){
+                    if (detection( i,j,2,0,0,30)) {
+                        remplacement(i,j,0,-25);
+                    }
+                }
+            }
+        }
+
+    }
+
+    public boolean detection(int i , int j , int setvalue , int access , int compteur , int limite ) {
+        mapcave[i][j] = setvalue ;
+        compteur++;
+        if (compteur < limite) {
+            for (int l = -1; l < 2; l++) {
+                for (int k = -1; k < 2; k++) {
+                    if (i + l >= 0 && i + l < width && j + k >= 0 && i + l < height) {
+                        if (mapcave[i + l][j + k] == access) {
+                            if (!(detection(i + l, j + k, setvalue, access, compteur, limite))){
+                                return false ;
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    public void remplacement (int i , int j , int origin , int end ) {
+        mapcave[i][j] = end;
+        for (int l = -1; l < 2; l++) {
+            for (int k = -1; k < 2; k++) {
+                if (i + l >= 0 && i + l < width && j + k >= 0 && i + l < height) {
+                    if (mapcave[i + l][j + k] == origin) {
+                        remplacement(i+l,j+k,origin,end);
+                    }
+                }
+            }
+        }
+    }
+
+    /* creation de lien entre les caviter
+     */
     public void findBorder(){
         for ( int i = 1 ; i<width-1 ;i++) {
             for (int j = 1; j < height - 1; j++) {
@@ -195,7 +256,7 @@ public class Cave extends Room {
             Coordinate c1 = it.next();
             Coordinate c2 = it.next();
             //System.out.println(" c1: " + c1.toString() +"; c2 : " + c2.toString());
-            dig(c1,c2);
+            //dig(c1,c2);
             mapcave[(int)c1.getX()][(int)c1.getY()] = -25;
             mapcave[(int)c2.getX()][(int)c2.getY()] = -25;
         }
@@ -211,72 +272,10 @@ public class Cave extends Room {
         System.out.println(" c1: " + c1.toString() +"; c2 : " + c2.toString());
         System.out.println("VectX: " + vectX + ';' + "VectY:" + vectY );
         if(vectXi!=0 || vectYi != 0){
-        while (mapcave[Math.round((float)(current.getX()))][Math.round((float)(current.getY()))]!=0&& Math.round((float)(current.getX()))>0&& Math.round((float)(current.getY()))>0 && Math.round((float)(current.getX()))<height && Math.round((float)(current.getY()))<width) {
-            System.out.println("curx " + Math.round((float) current.getX()) + "cury" + Math.round((float) current.getY()));
-            mapcave[Math.round((float) current.getY())][Math.round((float) current.getX())] = -25;
-            current.sum(vectXi, vectYi);
-            }
-        }
-    }
-    public void placeTorch( ){
-        for ( int i = 1 ; i<width-1 ;i++){
-            for ( int j =1 ;  j < height-1 ; j++){
-                if (mapcave[i][j]==2 ) {
-                    if(pseudoRandomList.nextInt(20)==1){
-                        mapcave[i][j] = -1 ;
-
-                    }
-                }
-            }
-        }
-    }
-
-
-
-    public void coloring(){
-        for (int i= 0 ; i < width ; i++) {
-            for(int j =0 ; j< height ; j++ ) {
-                if(mapcave[i][j] == 0 ){
-                    if (detection( i,j,2,0,0,30)) {
-                        remplacement(i,j,0,1);
-                    }
-                }
-            }
-        }
-
-    }
-
-
-    public boolean detection(int i , int j , int setvalue , int access , int compteur , int limite ) {
-        mapcave[i][j] = setvalue ;
-        compteur++;
-        if (compteur < limite) {
-            for (int l = -1; l < 2; l++) {
-                for (int k = -1; k < 2; k++) {
-                    if (i + l >= 0 && i + l < width && j + k >= 0 && i + l < height) {
-                        if (mapcave[i + l][j + k] == access) {
-                            if (!(detection(i + l, j + k, setvalue, access, compteur, limite))){
-                                return false ;
-                            }
-                        }
-                    }
-                }
-            }
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-    public void remplacement (int i , int j , int origin , int end ) {
-        mapcave[i][j] = end;
-        for (int l = -1; l < 2; l++) {
-            for (int k = -1; k < 2; k++) {
-                if (i + l >= 0 && i + l < width && j + k >= 0 && i + l < height) {
-                    if (mapcave[i + l][j + k] == origin) {
-                        remplacement(i+l,j+k,origin,end);
-                    }
-                }
+            while (mapcave[Math.round((float)(current.getX()))][Math.round((float)(current.getY()))]!=0&& Math.round((float)(current.getX()))>0&& Math.round((float)(current.getY()))>0 && Math.round((float)(current.getX()))<height && Math.round((float)(current.getY()))<width) {
+                System.out.println("curx " + Math.round((float) current.getX()) + "cury" + Math.round((float) current.getY()));
+                mapcave[Math.round((float) current.getY())][Math.round((float) current.getX())] = -25;
+                current.sum(vectXi, vectYi);
             }
         }
     }
