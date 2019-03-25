@@ -91,11 +91,6 @@ class GameController extends Application {
             }
         });
 
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            public void handle(KeyEvent e) {
-
-            }
-        });
         start(this.primaryStage);
     }
 
@@ -170,11 +165,11 @@ class GameController extends Application {
 
                     fpsm.update(now, gc);
 
-                    lastNow = now;
-
                     gc.setFill(Color.CHARTREUSE);
                     gc.setFont(Font.font("Helvetica", FontWeight.BOLD, HEIGHT / 50));
                     gc.fillText(Integer.toString((int)fillPercentage), WIDTH - 25 * WIDTH / 1000, HEIGHT / 60);
+
+                    lastNow = now;
                 } else if(!pauseShown && now - lastNow >= 15000000){
                     gc.drawImage(pauseBackground, 0, 0);
                     game.getChildren().add(quitButton);

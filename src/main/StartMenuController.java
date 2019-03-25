@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import tools.MusicPlayer;
 
 import java.awt.Toolkit;
 import java.io.IOException;
@@ -35,7 +36,7 @@ class StartMenuController {
 
     @FXML void initialize() throws Exception {
 
-        MusicPlayer music = new MusicPlayer("src/resources/audio/startMenuMusic.wav");
+        MusicPlayer music = new MusicPlayer("/resources/audio/startMenuMusic.wav");
         music.start();
 
         startMenu.setPrefSize(WIDTH, HEIGHT);
