@@ -56,7 +56,7 @@ public class Map {
         if (link) {
             cave.creatLink();
         }
-        //cave.placeWall();
+        cave.placeWall();
         //cave.placeTorch();
         map = cave.getMapcave() ;
     }
