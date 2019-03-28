@@ -54,9 +54,9 @@ public class Map {
             cave.filtering();
         }
         if (link) {
-            cave.creatLink();
+            cave.fillSmal();
         }
-        cave.placeWall();
+        //cave.placeWall();
         //cave.placeTorch();
         map = cave.getMapcave() ;
     }
@@ -74,7 +74,7 @@ public class Map {
         for (int column = 0; column < columns; column++ ) {
             for (int line = 0; line < lines; line++) {
                 switch(map[column][line]) {
-                    case -25: sprite = red; break;
+                    case 25: sprite = red; break;
                     case 0: sprite = ground; break;
                     case 1: sprite = voidImage; break;
                     case 2: sprite = nWall; break;

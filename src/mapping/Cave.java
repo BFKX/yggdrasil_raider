@@ -108,25 +108,92 @@ public class Cave extends Room {
         }
     }
 
-    public void placeTorch( ){
-        for ( int i = 1 ; i<width-1 ;i++){
-            for ( int j =1 ;  j < height-1 ; j++){
-                if (mapcave[i][j]==2 ) {
-                    if(pseudoRandomList.nextInt(20)==1){
-                        mapcave[i][j] = -1 ;
+    public void test(){
+        int nbPasage = -1 ;
+        for ( int j =1 ;  j < height-1 ; j++) {
+            for ( int i = 1 ; i<width-1 ;i++){
+                if(mapcave[i][j]==0 && mapcave[i+1][j]==1 || mapcave[i][j]==1 && mapcave[i+1][j]==0){
+                    nbPasage--;
+                }else if( nbPasage % 2 == -1 ){
+                    mapcave[i][j]=nbPasage;
+                }
+            }
+        }
+        int [] sum= new int [-(nbPasage)+1] ;
+        for ( int i = 1 ; i<width-1 ;i++) {
+            for (int j = 1; j < height - 1; j++) {
+                if(mapcave[i][j] < 0) {
+                    sum[-mapcave[i][j]]++;
+                }
+            }
+        }
+        for ( int i : sum){
+            System.out.println(i);
+        }
+        for ( int i = 1 ; i<width-1 ;i++) {
+            for (int j = 1; j < height - 1; j++) {
+                if(mapcave[i][j]<0 && sum[-mapcave[i][j]] < 50){
+                    mapcave[i][j]=25;
+                }else {
+                    if (-sum[mapcave[i][j]] != 0) {
+                        System.out.println(-sum[mapcave[i][j]]);
                     }
+                }
+            }
+        }
+    }
+    public int test2( int i , int j, int val , int compteur  ){
+        mapcave[i][j] = val ;
+        compteur ++ ;
+        for (int l = -1; l < 2; l++) {
+            for (int k = -1; k < 2; k++) {
+                if (i + l >= 0 && i + l < width && j + k >= 0 && i + l < height) {
+                    if (mapcave[i+l][j+k]!=1 && mapcave[i+l][j+k]!=val){
+                        compteur = compteur+test2(i+l , j+k , val , compteur);
+                    }
+                }
+            }
+        }
+        return compteur;
+    }
+    public  void fillSmal(){
+        int val = -1 ;
+        for ( int i = 1 ; i<width-1 ;i++) {
+            for (int j = 1; j < height - 1; j++) {
+                if(mapcave[i][j]==0){
+                    int compteur = test2(i,j,val,0);
+                    if ( compteur < 30 ) {
+                        remplacement(i, j, val, 25);
+                    }
+                    val--;
+                }
+             }
+        }
+        for ( int i = 1 ; i<width-1 ;i++) {
+            for (int j = 1; j < height - 1; j++) {
+                if (mapcave[i][j] < 0) {
+                    mapcave[i][j]=0;
                 }
             }
         }
     }
 
     public void coloring(){
+        int setvalue = -1 ;
         for (int i= 0 ; i < width ; i++) {
             for(int j =0 ; j< height ; j++ ) {
                 if(mapcave[i][j] == 0 ){
-                    if (detection( i,j,2,0,0,30)) {
-                        remplacement(i,j,0,-25);
+                    if (detection( i,j,setvalue,0,0,5)) {
+                        remplacement(i,j,0,25);
                     }
+                    setvalue -- ;
+                }
+            }
+        }
+        for (int i= 0 ; i < width ; i++) {
+            for (int j = 0; j < height; j++) {
+                if(mapcave[i][j] < 0  ){
+                    mapcave[i][j] = 0 ;
                 }
             }
         }
@@ -140,7 +207,7 @@ public class Cave extends Room {
             for (int l = -1; l < 2; l++) {
                 for (int k = -1; k < 2; k++) {
                     if (i + l >= 0 && i + l < width && j + k >= 0 && i + l < height) {
-                        if (mapcave[i + l][j + k] == access) {
+                        if (mapcave[i + l][j + k]  <= access) {
                             if (!(detection(i + l, j + k, setvalue, access, compteur, limite))){
                                 return false ;
                             }
@@ -149,8 +216,7 @@ public class Cave extends Room {
                 }
             }
             return true;
-        }
-        else{
+        }else{
             return false;
         }
     }
