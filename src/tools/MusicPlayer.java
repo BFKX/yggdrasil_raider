@@ -10,6 +10,11 @@ public class MusicPlayer {
 
     public MusicPlayer(String path) {
 
+        setPath(path);
+    }
+
+    public void setPath(String path) {
+
         player = new MediaPlayer(new Media(getClass().getResource(path).toString()));
 
         player.setOnEndOfMedia(new Runnable() {

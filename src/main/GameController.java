@@ -18,15 +18,12 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import mapping.Map;
-import tools.CharacterActions;
-import tools.Coordinate;
-import tools.FPSMeter;
+import tools.*;
 import character.Character;
-import tools.Hitbox;
 
 import java.awt.Toolkit;
 import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.concurrent.ThreadLocalRandom;
 
 class GameController extends Application {
 
@@ -39,10 +36,15 @@ class GameController extends Application {
     private boolean pauseShown = false;
     private Button resumeButton = new Button("Resume");
     private Button quitButton = new Button("Quit");
+    private Button muteButton = new Button("Mute");
     private Text text = new Text("Pause");
     private int fillPercentage = 50;
     private HashMap<CharacterActions, Boolean> inputs = new HashMap<>();
     private boolean link = false;
+    private MusicPlayer music = new MusicPlayer("/resources/audio/bgm_action_1.mp3");
+    private boolean musicStopped = false;
+    private int randomNum;
+    private String path;
     @FXML private AnchorPane game;
 
     GameController(Stage primaryStage) {
@@ -55,6 +57,8 @@ class GameController extends Application {
     }
 
     @FXML void initialize() throws Exception {
+        music.start();
+
         game.setPrefSize(WIDTH, HEIGHT);
 
         Font titleFont = Font.loadFont(StartMenuController.class.getResource("../resources/fonts/VIKING-N.TTF").toExternalForm(),
@@ -77,6 +81,7 @@ class GameController extends Application {
                 pauseShown = false;
                 game.getChildren().remove(quitButton);
                 game.getChildren().remove(resumeButton);
+                game.getChildren().remove(muteButton);
                 game.getChildren().remove(text);
             }
         });
@@ -88,6 +93,17 @@ class GameController extends Application {
             @Override
             public void handle(ActionEvent e) {
                 System.exit(0);
+            }
+        });
+
+        muteButton.setPrefSize(WIDTH / 9, HEIGHT / 9);
+        muteButton.setLayoutX(WIDTH - muteButton.getPrefWidth());
+        muteButton.setLayoutY(HEIGHT - muteButton.getPrefHeight());
+        muteButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                music.stop();
+                musicStopped = true;
             }
         });
 
@@ -112,7 +128,15 @@ class GameController extends Application {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             public void handle(KeyEvent e) {
                 switch(e.getCode()) {
-                    case R: map.createCave(fillPercentage,link); break;
+                    case R: map.createCave(fillPercentage,link);
+                    if(!musicStopped) {
+                        randomNum = ThreadLocalRandom.current().nextInt(1, 6);
+                        path = "/resources/audio/bgm_action_" + randomNum + ".mp3";
+                        music.stop();
+                        music.setPath(path);
+                        music.start();
+                    }
+                    break;
                     case P: fillPercentage++; break;
                     case M: fillPercentage--; break;
                     case L: link = !link; break;
@@ -121,6 +145,7 @@ class GameController extends Application {
                             pauseShown = false;
                             game.getChildren().remove(quitButton);
                             game.getChildren().remove(resumeButton);
+                            game.getChildren().remove(muteButton);
                             game.getChildren().remove(text);
                         }
                         break;
@@ -162,6 +187,7 @@ class GameController extends Application {
                     map.display(gc);
 
                     charac.displayCharacter(gc);
+                    charac.drawHitbox(gc);
 
                     fpsm.update(now, gc);
 
@@ -174,6 +200,7 @@ class GameController extends Application {
                     gc.drawImage(pauseBackground, 0, 0);
                     game.getChildren().add(quitButton);
                     game.getChildren().add(resumeButton);
+                    game.getChildren().add(muteButton);
                     game.getChildren().add(text);
                     pauseShown = true;
                 }
