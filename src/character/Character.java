@@ -35,8 +35,8 @@ public class Character {
         this.hitbox = new Hitbox(position, WIDTH, HEIGHT);
     }
 
-    public void attack() {
-        Hitbox att = new Hitbox(new Coordinate(position.getX() + WIDTH / 2, position.getY() + HEIGHT + 20 ), 10, 10 );
+    public void attack(GraphicsContext gc) {
+        Hitbox att = new Hitbox(new Coordinate(position.getX() + WIDTH, position.getY() + HEIGHT + 20 ), 10, 10 );
     }
 
     private void validatePosition(){
@@ -57,10 +57,10 @@ public class Character {
                 speedX += speedLimitX / 10;
             }
         }
-        if(!inputs.get(CharacterActions.UP) && !inputs.get(CharacterActions.DOWN)) {
+        if(!inputs.get(CharacterActions.UP) && !inputs.get(CharacterActions.DOWN) || inputs.get(CharacterActions.UP) && inputs.get(CharacterActions.DOWN)) {
             speedY /= 2;
         }
-        if(!inputs.get(CharacterActions.RIGHT) && !inputs.get(CharacterActions.LEFT)) {
+        if(!inputs.get(CharacterActions.RIGHT) && !inputs.get(CharacterActions.LEFT) || inputs.get(CharacterActions.RIGHT) && inputs.get(CharacterActions.LEFT)) {
             speedX /= 2;
         }
     }
@@ -99,5 +99,9 @@ public class Character {
 
     public void setPosition(Coordinate position) {
         this.position = position;
+    }
+
+    public void drawHitbox(GraphicsContext gc) {
+        hitbox.draw(gc);
     }
 }
