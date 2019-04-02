@@ -50,14 +50,13 @@ public class Map {
     public void createCave(int fillPurcentage, boolean link) {
         Cave cave = new Cave(columns, lines,new Random(System.currentTimeMillis()));
         cave.randomFill(fillPurcentage);
-        for (int i = 0; i < 15; i++){
+        for (int i = 0; i < 25; i++){
             cave.filtering();
         }
-        if (link) {
-            cave.fillSmal();
+        for (int i = 0; i < 15; i++){
+                cave.additiveFiltering();
         }
-        //cave.placeWall();
-        //cave.placeTorch();
+        cave.placeWall();
         map = cave.getMapcave() ;
     }
 

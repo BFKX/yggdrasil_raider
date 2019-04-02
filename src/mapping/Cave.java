@@ -144,18 +144,53 @@ public class Cave extends Room {
     }
     public int test2( int i , int j, int val , int compteur  ){
         mapcave[i][j] = val ;
-        compteur ++ ;
+        compteur ++;
         for (int l = -1; l < 2; l++) {
             for (int k = -1; k < 2; k++) {
-                if (i + l >= 0 && i + l < width && j + k >= 0 && i + l < height) {
+                if (i + l >= 0 && i + l < width && j + k >= 0 && j + k < height) {
                     if (mapcave[i+l][j+k]!=1 && mapcave[i+l][j+k]!=val){
-                        compteur = compteur+test2(i+l , j+k , val , compteur);
+                        try {
+                            compteur = compteur + test2(i + l, j + k, val, compteur);
+                        }
+                        catch (StackOverflowError e ){
+                            break;
+                        }
                     }
                 }
             }
         }
         return compteur;
     }
+    public  void additiveFiltering(){
+        int [][] temp = new int [width] [height] ;
+        for ( int i = 0 ; i<width ;i++) {
+            for (int j = 0; j < height ; j++) {
+                if(mapcave[i][j] == 0) {
+                    int sum = 0;
+                    for (int l = -2; l < 3; l++) {
+                        for (int k = -2; k < 3; k++) {
+                            if (i + l < width && j + k >= 0 && j + k < height && i + l>= 0 ) {
+                                sum=sum+mapcave[i+l][j+k];
+                            }
+                        }
+                    }
+                    if(sum>13) {
+                        temp[i][j] = 1 ;
+                    }else {
+                        temp[i][j]=mapcave[i][j];
+                    }
+                }else {
+                    temp[i][j]=mapcave[i][j];
+                }
+            }
+            }
+        for ( int i = 0 ; i<width;i++) {
+            for (int j = 0; j < height ; j++) {
+                mapcave[i][j]=temp[i][j];
+            }
+        }
+    }
+
     public  void fillSmal(){
         int val = -1 ;
         for ( int i = 1 ; i<width-1 ;i++) {
