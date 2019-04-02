@@ -10,7 +10,6 @@ import java.util.Random;
 
 public class Map {
     private int[][] map;
-    private Case[][] mapCases;
     private int lines;
     private int columns;
     final private double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
@@ -32,20 +31,9 @@ public class Map {
         this.lines = lines;
         this.columns = columns;
         this.map = new int[columns][lines];
-        this.mapCases = new Case[columns][lines];
-        for (int i = 0; i < columns; i++ ) {
-            for (int j = 0; j < lines; j++) {
-                this.mapCases[i][j] = new Case(0, null, null);
-            }
-        }
     }
 
-    private void addCase(int column, int line, int type, Image image) {
-        this.map[column][line] = type ;
-        this.mapCases[column][line].setType(type);
-        this.mapCases[column][line].setImage(image);
-        this.mapCases[column][line].setHitbox(new Hitbox(new Coordinate(WIDTH * column / columns,HEIGHT * line / lines),WIDTH / columns,HEIGHT / lines));
-    }
+
 
     public void createCave(int fillPurcentage, boolean link) {
         Cave cave = new Cave(columns, lines,new Random(System.currentTimeMillis()));
@@ -58,12 +46,6 @@ public class Map {
         }
         cave.placeWall();
         map = cave.getMapcave() ;
-    }
-
-    public void createOpenRoom(){
-        OpenRoom open = new OpenRoom(this.columns,this.lines,new Random(System.currentTimeMillis()));
-        open.addGround();
-        this.map=open.maproom;
     }
 
     public void display(GraphicsContext gc) {
