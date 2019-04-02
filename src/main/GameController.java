@@ -38,7 +38,7 @@ class GameController extends Application {
     private Button quitButton = new Button("Quit");
     private Button muteButton = new Button("Mute");
     private Text text = new Text("Pause");
-    private int fillPercentage = 50;
+    private int fillPercentage = 45;
     private HashMap<CharacterActions, Boolean> inputs = new HashMap<>();
     private boolean link = false;
     private MusicPlayer music = new MusicPlayer("/resources/audio/bgm_action_1.mp3");
@@ -120,7 +120,7 @@ class GameController extends Application {
         game.getChildren().add(canvas);
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        Map map = new Map(192, 108);
+        Map map = new Map(192, 108,fillPercentage);
         //map.addGround();
 
         Character charac = new Character(new Coordinate(WIDTH / 2, HEIGHT / 2), new Hitbox(new Coordinate(0, 0), 0, 0));
@@ -128,7 +128,7 @@ class GameController extends Application {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             public void handle(KeyEvent e) {
                 switch(e.getCode()) {
-                    case R: map.createCave(fillPercentage,link);
+                    case R: map.createCave(fillPercentage);
                     if(!musicStopped) {
                         randomNum = ThreadLocalRandom.current().nextInt(1, 6);
                         path = "/resources/audio/bgm_action_" + randomNum + ".mp3";
@@ -139,7 +139,7 @@ class GameController extends Application {
                     break;
                     case P: fillPercentage++; break;
                     case M: fillPercentage--; break;
-                    case L: link = !link; break;
+                    case L: break;
                     case ESCAPE: pause = !pause;
                         if(!pause) {
                             pauseShown = false;

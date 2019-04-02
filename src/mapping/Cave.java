@@ -1,9 +1,7 @@
 package mapping;
-import main.Main;
-import tools.Coordinate;
 
+import tools.Coordinate;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Random;
 
 public class Cave extends Room {
@@ -11,12 +9,22 @@ public class Cave extends Room {
     private int width ;
     private int height ;
     private ArrayList<ArrayList<Coordinate>> roomsborders =new ArrayList<ArrayList<Coordinate>>();
-    public Cave (int width , int height,Random pseudoRandomList) {
-        super (new Coordinate(0,0),width,height,pseudoRandomList);
+
+    public Cave (int width , int height,Random pseudoRandomList,int fillPurcentage) {
+        super (width,height,pseudoRandomList);
         this.width=width;
         this.height=height;
         this.mapcave = new int[width][height] ;
+        randomFill(fillPurcentage);
+        for (int i = 0; i < 25; i++){
+            filtering();
+        }
+        for (int i = 0; i < 25; i++){
+            additiveFiltering();
+        }
+        placeWall();
     }
+
     public void randomFill(int fillPurcentage) {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
@@ -32,6 +40,7 @@ public class Cave extends Room {
             }
         }
     }
+
     public int[][] creatMapfiltering () {
         int[][] filtred = new int[width][height];
         for (int i = 0; i < width; i++){
@@ -58,6 +67,9 @@ public class Cave extends Room {
             }
         }
     }
+
+
+
 
     public int fullAvgOneRange(int i , int j ) { // filtre de range 1 dans toutes les directions
         int sum = 0;
@@ -86,6 +98,7 @@ public class Cave extends Room {
         }
         return sum ;
     }
+
     public void placeWall( ){
         for ( int i = 0 ; i<width ;i++){
             for ( int j =0 ;  j < height ; j++){
@@ -107,7 +120,6 @@ public class Cave extends Room {
             }
         }
     }
-
 
     public  void additiveFiltering(){
         int [][] temp = new int [width] [height] ;

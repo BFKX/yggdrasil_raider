@@ -11,57 +11,57 @@ public class Room  {
     private Room east;
     private Room west;
     protected Random pseudoRandomList;
-    private Coordinate origin;
+    private int[][] map ;
     private int width;
     private int height;
 
-    public Room(Coordinate origin, int width, int height, Random pseudoRandomList) {
-        this.origin = origin;
+    public Room(int width, int height, Random pseudoRandomList) {
         this.width = width;
         this.height = height;
         this.pseudoRandomList = pseudoRandomList;
     }
 
+    public int[][] getMap() {
+        return map;
+    }
+
+    public void setMap(int[][] map) {
+        this.map = map;
+    }
     public Room(Coordinate origin, Random pseudoRandomList){
-        this.origin = origin;
         this.height = pseudoRandomList.nextInt();
         this.width = pseudoRandomList.nextInt();
     }
 
-    public void placeRoom(Random pseudoRandomSeed){ // place une room a partire de la room actuel
+    public void placeRoom(Random pseudoRandomSeed,Room room){ // place une room a partire de la room actuel
         int location = pseudoRandomSeed.nextInt(4);
         if (location == 0){
             if(this.north == null ){
-                int tempheight = pseudoRandomSeed.nextInt() ;
-                this.north=new Room(this.getOrigin().sum(0,tempheight),pseudoRandomSeed.nextInt(),tempheight,pseudoRandomSeed);
-                this.north.setSouth(this);
+                this.north.setSouth(room);
             }else {
-                this.north.placeRoom(pseudoRandomSeed);
+                this.north.placeRoom(pseudoRandomSeed,room);
             }
         }
         if (location == 1) {
             if(this.east == null ){
-                this.east=new Room(this.getOrigin().sum(this.width,0),pseudoRandomSeed.nextInt(),pseudoRandomSeed.nextInt(),pseudoRandomSeed);
-                this.east.setWest(this);
+                this.east.setWest(room);
             }else {
-                this.east.placeRoom(pseudoRandomSeed);
+                this.east.placeRoom(pseudoRandomSeed,room);
             }
         }
         if (location == 2) {
             if(this.south == null ){
-                this.south=new Room(this.getOrigin().sum(0,this.height),pseudoRandomSeed.nextInt(),pseudoRandomSeed.nextInt(),pseudoRandomSeed);
-                this.south.setNorth(this);
+                this.south.setNorth(room);
             }else {
-                this.south.placeRoom(pseudoRandomSeed);
+                this.south.placeRoom(pseudoRandomSeed,room);
             }
         }
         if (location == 3) {
             if(this.west == null ){
                 int tempwidth = pseudoRandomSeed.nextInt() ;
-                this.west=new Room(this.getOrigin().sum(-1*tempwidth,0),tempwidth,pseudoRandomSeed.nextInt(),pseudoRandomSeed);
-                this.west.setEast(this);
+               this.west.setEast(room);
             }else {
-                this.west.placeRoom(pseudoRandomSeed);
+                this.west.placeRoom(pseudoRandomSeed,room);
             }
         }
     }
@@ -106,13 +106,7 @@ public class Room  {
         this.pseudoRandomList = pseudoRandomList;
     }
 
-    public Coordinate getOrigin() {
-        return origin;
-    }
 
-    public void setOrigin(Coordinate origin) {
-        this.origin = origin;
-    }
 
     public int getWidth() {
         return width;

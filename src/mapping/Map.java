@@ -12,6 +12,7 @@ public class Map {
     private int[][] map;
     private int lines;
     private int columns;
+    Cave Origine ;
     final private double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
     final private double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
     final private Image voidImage = new Image("resources/images/void.png");
@@ -27,27 +28,49 @@ public class Map {
     final private Image red = new Image("resources/images/red.png");
     private Random pseudoRandomList ;
 
-    public Map(int columns, int lines) {
+    public Map(int columns, int lines,int fillPurcentage) {
         this.lines = lines;
         this.columns = columns;
         this.map = new int[columns][lines];
+        Random pseudoRandomList =  new Random(System.currentTimeMillis());
+        Origine = new Cave(columns , lines , pseudoRandomList,fillPurcentage);
+        for (int i =0 ; i<10 ; i++ ){
+            Origine.placeRoom(pseudoRandomList, new Cave(columns,lines,pseudoRandomList,fillPurcentage));
+        }
+        this.map=Origine.getMap();
+    }
+
+    public void createCave(int fillPercentage){
+        Origine = new Cave(columns , lines , pseudoRandomList,fillPercentage);
+        for (int i =0 ; i<10 ; i++ ){
+            Origine.placeRoom(pseudoRandomList, new Cave(columns,lines,pseudoRandomList,fillPercentage));
+        }
+        this.map=Origine.getMap();
     }
 
 
 
-    public void createCave(int fillPurcentage, boolean link) {
-        Cave cave = new Cave(columns, lines,new Random(System.currentTimeMillis()));
-        cave.randomFill(fillPurcentage);
-        for (int i = 0; i < 25; i++){
-            cave.filtering();
-        }
-        for (int i = 0; i < 15; i++){
-                cave.additiveFiltering();
-        }
-        cave.placeWall();
-        map = cave.getMapcave() ;
-    }
 
+    /*
+    public void addGroundVariation(int fillPurcentage){
+        Random pseudorendom =  new Random(System.currentTimeMillis());
+        //Cave temp = new Cave(columns, lines,pseudorendom);
+        temp.randomFill(fillPurcentage);
+        for (int i = 0; i < 50; i++){
+            temp.filtering();
+        }
+        for (int column = 0; column < columns; column++ ) {
+            for (int line = 0; line < lines; line++) {
+                if (map[column][line]==0){
+                    if( temp.getMapcave()[column][line] == 1) {
+                        map[column][line] = 25;
+                    }
+                }
+            }
+        }
+
+    }
+*/
     public void display(GraphicsContext gc) {
         Image sprite;
         final double height = HEIGHT / lines;

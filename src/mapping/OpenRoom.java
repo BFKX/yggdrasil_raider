@@ -7,7 +7,7 @@ import java.util.Random;
 public class OpenRoom extends Room {
     int [][] maproom ;
     public OpenRoom(int whidth , int height, Random pseudoRandomList) {
-        super (new Coordinate(0,0),whidth,height, pseudoRandomList);
+        super (whidth,height, pseudoRandomList);
         maproom = new int[this.getWidth()][this.getHeight()];
     }
     public void addGround() {
