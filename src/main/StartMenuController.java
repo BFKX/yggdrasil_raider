@@ -23,9 +23,11 @@ class StartMenuController {
     private Stage primaryStage;
     private final double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
     private final double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+    private boolean musicStopped = false;
 
     @FXML private Button playButton;
     @FXML private Button quitButton;
+    @FXML private Button muteButton;
     @FXML private AnchorPane startMenu;
     @FXML private Text title;
 
@@ -64,6 +66,17 @@ class StartMenuController {
         quitButton.setPrefSize(startMenu.getPrefWidth() / 3, startMenu.getPrefHeight() / 9);
         quitButton.setLayoutX((startMenu.getPrefWidth() - quitButton.getPrefWidth()) / 2);
         quitButton.setLayoutY(startMenu.getPrefHeight() * 0.75 - quitButton.getPrefHeight() / 2);
+
+        muteButton.setPrefSize(WIDTH / 9, HEIGHT / 9);
+        muteButton.setLayoutX(WIDTH - muteButton.getPrefWidth());
+        muteButton.setLayoutY(HEIGHT - muteButton.getPrefHeight());
+        muteButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                music.stop();
+                musicStopped = true;
+            }
+        });
 
         quitButton.setOnAction(new EventHandler<ActionEvent>() {
 

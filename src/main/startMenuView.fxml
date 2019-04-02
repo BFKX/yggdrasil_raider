@@ -8,6 +8,7 @@
    <children>
       <Button fx:id="playButton" mnemonicParsing="false" text="Play" />
       <Button fx:id="quitButton" mnemonicParsing="false" text="Quit" />
+      <Button fx:id="muteButton" mnemonicParsing="false" text="Mute" />
       <Text fx:id="title" />
    </children>
 </AnchorPane>
