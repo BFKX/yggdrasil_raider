@@ -139,7 +139,6 @@ class GameController extends Application {
                     break;
                     case P: fillPercentage++; break;
                     case M: fillPercentage--; break;
-
                     case ESCAPE: pause = !pause;
                         if(!pause) {
                             pauseShown = false;

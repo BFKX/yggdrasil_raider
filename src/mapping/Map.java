@@ -2,8 +2,6 @@ package mapping;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import tools.Coordinate;
-import tools.Hitbox;
 
 import java.awt.Toolkit;
 import java.util.Random;
@@ -12,7 +10,8 @@ public class Map {
     private int[][] map;
     private int lines;
     private int columns;
-    Cave Origine ;
+    private Cave origine;
+    private Cave curent;
     final private double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
     final private double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
     final private Image voidImage = new Image("resources/images/void.png");
@@ -33,17 +32,21 @@ public class Map {
         this.columns = columns;
         this.map = new int[columns][lines];
         Random pseudoRandomList =  new Random(System.currentTimeMillis());
-        Origine = new Cave(columns , lines , pseudoRandomList,fillPurcentage);
+        origine = new Cave(columns , lines , pseudoRandomList,fillPurcentage);
         for (int i =0 ; i<10 ; i++ ){
-            Origine.placeRoom(pseudoRandomList, new Cave(columns,lines,pseudoRandomList,fillPurcentage));
+            origine.placeRoom(pseudoRandomList, new Cave(columns,lines,pseudoRandomList,fillPurcentage));
         }
-        this.map=Origine.getMapcave();
+        curent = origine ;
+        this.map= origine.getMapcave();
     }
-
+    public void update (){
+        this.map = curent.getMapcave();
+    }
     public void createCave(int fillPercentage){
         Random pseudoRandomList =  new Random(System.currentTimeMillis());
-        System.out.println(pseudoRandomList.toString());
-        this.map= (new Cave(columns , lines , pseudoRandomList,fillPercentage)).getMapcave();
+        origine = new Cave(columns , lines , pseudoRandomList,fillPercentage);
+        curent = origine ;
+        this.map= origine.getMapcave();
     }
 
 
@@ -87,10 +90,13 @@ public class Map {
                     case 12: sprite = eWall; break;
                     case 13: sprite = neWall; break;
                     case 17: sprite = seWall; break;
-                    default: sprite = voidImage;
+                    default: sprite = red; System.out.println(map[column][line]);
                 }
                 gc.drawImage(sprite, column * width, line * height,width,height);
             }
         }
+    }
+    public Cave getOrigine(){
+        return  origine;
     }
 }

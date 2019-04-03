@@ -18,7 +18,7 @@ public class Cave extends Room {
         for (int i = 0; i < 25; i++){
             filtering();
         }
-        for (int i = 0; i < 25; i++){
+        for (int i = 0; i < 50; i++){
             additiveFiltering();
         }
         placeWall();
@@ -107,20 +107,17 @@ public class Cave extends Room {
         for ( int i = 0 ; i<width ;i++){
             for ( int j =0 ;  j < height ; j++){
                 if (mapcave[i][j]!=0 ) {
-                    if (j-1>0 && mapcave[i][j-1]==0  ){ //north
+                    if (j-1>0 && mapcave[i][j-1] == 0){ //north
                         mapcave[i][j] = mapcave[i][j]+1 ;
                     }
-                    if (i-1>0 && mapcave[i-1][j]==0 ){ //west
+                    if (i-1>0 && mapcave[i-1][j] == 0){ //west
                         mapcave[i][j] = mapcave[i][j] +2 ;
                     }
-                    if ( j+1 < this.height && mapcave[i][j+1]==0){//south
+                    if ( j+1 < this.height && mapcave[i][j+1] == 0){//south
                         mapcave[i][j] = mapcave[i][j]+5 ;
                     }
-                    if ( i+1 <this.width && mapcave[i+1][j]==0){//east
+                    if ( i+1 <this.width && mapcave[i+1][j] == 0){//east
                         mapcave[i][j] = mapcave[i][j]+11 ;
-                    }
-                    if (i-1>0 && mapcave[i-1][j]==0 ){ //west
-                        mapcave[i][j] = mapcave[i][j] +2 ;
                     }
 
                 }

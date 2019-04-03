@@ -110,8 +110,6 @@ public class Room  {
         this.pseudoRandomList = pseudoRandomList;
     }
 
-
-
     public int getWidth() {
         return width;
     }
@@ -127,5 +125,4 @@ public class Room  {
     public void setHeight(int height) {
         this.height = height;
     }
-
 }
