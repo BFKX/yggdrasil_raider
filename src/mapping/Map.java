@@ -41,6 +41,7 @@ public class Map {
     }
 
     public void createCave(int fillPercentage){
+        Random pseudoRandomList =  new Random(System.currentTimeMillis());
         System.out.println(pseudoRandomList.toString());
         this.map= (new Cave(columns , lines , pseudoRandomList,fillPercentage)).getMapcave();
     }
