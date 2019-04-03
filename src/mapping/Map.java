@@ -37,15 +37,12 @@ public class Map {
         for (int i =0 ; i<10 ; i++ ){
             Origine.placeRoom(pseudoRandomList, new Cave(columns,lines,pseudoRandomList,fillPurcentage));
         }
-        this.map=Origine.getMap();
+        this.map=Origine.getMapcave();
     }
 
     public void createCave(int fillPercentage){
-        Origine = new Cave(columns , lines , pseudoRandomList,fillPercentage);
-        for (int i =0 ; i<10 ; i++ ){
-            Origine.placeRoom(pseudoRandomList, new Cave(columns,lines,pseudoRandomList,fillPercentage));
-        }
-        this.map=Origine.getMap();
+        System.out.println(pseudoRandomList.toString());
+        this.map= (new Cave(columns , lines , pseudoRandomList,fillPercentage)).getMapcave();
     }
 
 

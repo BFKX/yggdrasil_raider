@@ -8,7 +8,6 @@ public class Cave extends Room {
     private int [] [] mapcave  ;
     private int width ;
     private int height ;
-    private ArrayList<ArrayList<Coordinate>> roomsborders =new ArrayList<ArrayList<Coordinate>>();
 
     public Cave (int width , int height,Random pseudoRandomList,int fillPurcentage) {
         super (width,height,pseudoRandomList);
@@ -25,6 +24,10 @@ public class Cave extends Room {
         placeWall();
     }
 
+    /**
+     * generation d'un bruit
+     * @param fillPurcentage
+     */
     public void randomFill(int fillPurcentage) {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
@@ -41,6 +44,10 @@ public class Cave extends Room {
         }
     }
 
+    /**
+     * cree un tableau filtrer a partir de la map
+     * @return
+     */
     public int[][] creatMapfiltering () {
         int[][] filtred = new int[width][height];
         for (int i = 0; i < width; i++){
@@ -55,6 +62,10 @@ public class Cave extends Room {
         applyfiltering(this.creatMapfiltering());
     }
 
+    /**
+     * applique le fitre a mapcav
+     * @param mapfiltrering
+     */
     public void applyfiltering(int[][] mapfiltrering) { //appliquelefiltre
         for (int i = 1; i < width-1; i++) {
             for (int j = 1; j < height-1; j++) {
@@ -68,8 +79,12 @@ public class Cave extends Room {
         }
     }
 
-
-
+    /**
+     * filtre de range 1 aux tours de chaque points
+     * @param i
+     * @param j
+     * @return
+     */
 
     public int fullAvgOneRange(int i , int j ) { // filtre de range 1 dans toutes les directions
         int sum = 0;
@@ -85,20 +100,9 @@ public class Cave extends Room {
         return sum;
     }
 
-    public int crusAvgOneRange(int i , int j) { // filtre en crois de range 1
-        int sum = 0;
-        for (int k = -1; k < 2; k++) {
-            for (int l = -1; l < 2; l++) {
-                if ((k != 0 || l != 0) && (Math.abs(k) != Math.abs(l))) {
-                    if( i+k > 0 && i+k < width && j+l>0 && j+l<height ){
-                        sum = sum + 2*mapcave[i + k][j + l];   // a enlever plus tard fleme de gere les effet de bord
-                    }
-                }
-            }
-        }
-        return sum ;
-    }
-
+    /**
+     * place des murs
+     */
     public void placeWall( ){
         for ( int i = 0 ; i<width ;i++){
             for ( int j =0 ;  j < height ; j++){
@@ -114,6 +118,9 @@ public class Cave extends Room {
                     }
                     if ( i+1 <this.width && mapcave[i+1][j]==0){//east
                         mapcave[i][j] = mapcave[i][j]+11 ;
+                    }
+                    if (i-1>0 && mapcave[i-1][j]==0 ){ //west
+                        mapcave[i][j] = mapcave[i][j] +2 ;
                     }
 
                 }
@@ -208,52 +215,6 @@ public class Cave extends Room {
 
     /* creation de lien entre les caviter
      */
-    public void findBorder(){
-        for ( int i = 1 ; i<width-1 ;i++) {
-            for (int j = 1; j < height - 1; j++) {
-                if(mapcave[i][j] == 0) {
-                    if(mapcave[i-1][j]==1 || mapcave[i+1][j]==1||mapcave[i][j-1]==1|| mapcave[i+1][j+1]==1 ||mapcave[i-1][j-1]==1 || mapcave[i+1][j]==1|| mapcave[i-1][j+1]==1 || mapcave[i+1][j-1]==1  ) {
-                        mapcave[i][j] = -1;
-                    }
-                }
-            }
-        }
-    }
-
-    public int findContour(){
-        int k = -2 ;
-        for ( int i = 1 ; i<width-1 ;i++) {
-            for (int j = 1; j < height - 1; j++) {
-                if (mapcave[i][j]==-1) {
-                    ArrayList<Coordinate> roomBorder= new ArrayList<Coordinate>();
-                    findminusone(i,j,k,roomBorder,0 );
-                    for (Coordinate c : roomBorder){
-                        System.out.println(c.toString());
-                    }
-                    roomsborders.add(roomBorder);
-                }
-            }
-        }
-        return k ;
-    }
-
-    public void findminusone(int i , int j, int val,ArrayList roomBorder,int compteur){ //trouve les -1 lier les rajoute a roomborder et les tranforme en 1
-        compteur++;
-        System.out.println(compteur);
-        mapcave[i][j]=val;
-        roomBorder.add(new Coordinate(i,j));
-        for (int k = -1; k < 2; k++) {
-            for (int l = -1; l < 2; l++) {
-                if(mapcave[i+k][j+l]==-1){
-                    //System.out.println("in"+  " i , j : " + (i+k) +"," + (j+l) );
-                    findminusone(i+k,j+l,val,roomBorder,compteur);
-                }
-            }
-        }
-        System.out.println("end");
-    }
-
-
     public int[][] getMapcave() {
         return mapcave;
     }

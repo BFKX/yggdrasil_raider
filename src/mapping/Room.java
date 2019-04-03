@@ -37,29 +37,33 @@ public class Room  {
         int location = pseudoRandomSeed.nextInt(4);
         if (location == 0){
             if(this.north == null ){
-                this.north.setSouth(room);
+                room.setSouth(this);
+                this.north = room;
+
             }else {
                 this.north.placeRoom(pseudoRandomSeed,room);
             }
         }
         if (location == 1) {
             if(this.east == null ){
-                this.east.setWest(room);
+                room.setWest(room);
+                this.east = room ;
             }else {
                 this.east.placeRoom(pseudoRandomSeed,room);
             }
         }
         if (location == 2) {
             if(this.south == null ){
-                this.south.setNorth(room);
+                room.setNorth(room);
+                this.south = room;
             }else {
                 this.south.placeRoom(pseudoRandomSeed,room);
             }
         }
         if (location == 3) {
             if(this.west == null ){
-                int tempwidth = pseudoRandomSeed.nextInt() ;
-               this.west.setEast(room);
+                room.setEast(room);
+                this.west = room;
             }else {
                 this.west.placeRoom(pseudoRandomSeed,room);
             }
