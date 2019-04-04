@@ -1,11 +1,13 @@
 package mapping;
 
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Cave extends Room {
 
     public Cave (int width , int height,Random pseudoRandomList,int fillPurcentage) {
         super (width,height,pseudoRandomList);
+        fillPurcentage = ThreadLocalRandom.current().nextInt(43, 47);
         this.width=width;
         this.height=height;
         this.map = new int[width][height] ;
