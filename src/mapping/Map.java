@@ -2,6 +2,7 @@ package mapping;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import tools.Coordinate;
 
 import java.awt.Toolkit;
 import java.util.Random;
@@ -77,12 +78,13 @@ public class Map {
 
     }
 */
-    public void display(GraphicsContext gc) {
+    public void display(GraphicsContext gc, Coordinate positionCharac) {
         Image sprite;
-        final double height = HEIGHT / lines;
-        final double width = WIDTH / columns;
-        for (int column = 0; column < columns; column++ ) {
-            for (int line = 0; line < lines; line++) {
+        final double side = HEIGHT / 60;
+        for (int column = (int)(positionCharac.getX() / side) - 90; column < (int)(positionCharac.getX() / side) + 90; column++) {
+            if(column < 0 || column >= columns) { continue; }
+            for (int line = (int)(positionCharac.getY() / side) - 60; line < (int)(positionCharac.getY() / side) + 60; line++) {
+                if(line < 0 || line >= lines) { continue; }
                 switch(map[column][line]) {
                     case 25: sprite = red; break;
                     case 0: sprite = ground; break;
@@ -105,7 +107,7 @@ public class Map {
                     case 163: sprite = neCorner; break;
                     default: sprite = voidImage;
                 }
-                gc.drawImage(sprite, column * width, line * height,width,height);
+                gc.drawImage(sprite, (column - ((int)(positionCharac.getX() / side) - 19)) * side - positionCharac.getX() % side, (line - ((int)(positionCharac.getY() / side) - 11)) * side - positionCharac.getY() % side, side, side);
             }
         }
     }

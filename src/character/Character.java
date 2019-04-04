@@ -9,16 +9,14 @@ import tools.Hitbox;
 import java.awt.Toolkit;
 import java.util.HashMap;
 
-
 public class Character {
 
     private Coordinate position;
     private Hitbox hitbox;
     private double speedX = 0, speedY = 0;
-    final private double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 40;
-    final private double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 40;
-    final private double speedLimitX = WIDTH / 5;
-    final private double speedLimitY = HEIGHT / 5;
+    final private double SIDE = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / (55/2);
+    final private double speedLimitX = SIDE * 5;
+    final private double speedLimitY = SIDE * 5;
     final private Image waitingCharacter = new Image("resources/images/waitingCharacter.png");
     final private Image movingNorthSprite = new Image("resources/images/movingNorthCharacter.png");
     final private Image movingSouthSprite = new Image("resources/images/movingSouthCharacter.png");
@@ -32,11 +30,11 @@ public class Character {
 
     public Character(Coordinate position, Hitbox hitbox) {
         this.position = position;
-        this.hitbox = new Hitbox(position, WIDTH);
+        this.hitbox = new Hitbox(position, SIDE);
     }
 
     public void attack(GraphicsContext gc) {
-        Hitbox att = new Hitbox(new Coordinate(position.getX() + WIDTH, position.getY() + HEIGHT + 20 ), 10 );
+        Hitbox att = new Hitbox(new Coordinate(position.getX() + SIDE, position.getY() + SIDE + 20 ), 10 );
     }
 
     private void validatePosition(){
@@ -66,7 +64,7 @@ public class Character {
     }
 
     public void update() {
-        position.add(speedX, speedY);
+        position.add(speedX * 2 / SIDE, speedY * 2 / SIDE);
     }
 
     public void displayCharacter(GraphicsContext gc) {
@@ -90,7 +88,7 @@ public class Character {
             activeSprite = waitingCharacter;
         }
 
-        gc.drawImage(activeSprite, position.getX(), position.getY(), WIDTH, HEIGHT);
+        gc.drawImage(activeSprite, position.getX(), position.getY(), SIDE, SIDE);
     }
 
     public Coordinate getPosition() {

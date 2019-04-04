@@ -188,7 +188,7 @@ class GameController extends Application {
                     charac.displacement(inputs);
                     charac.update();
 
-                    map.display(gc);
+                    map.display(gc, charac.getPosition());
 
                     charac.displayCharacter(gc);
                     charac.drawHitbox(gc);
