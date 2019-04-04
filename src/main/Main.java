@@ -14,6 +14,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         Locale.setDefault(new Locale("fr", "FR"));
+        Locale.getDefault();
         primaryStage.setTitle("Yggdrasil Raider");
         primaryStage.setFullScreen(true);
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);

@@ -14,7 +14,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import mapping.Map;
@@ -38,7 +37,6 @@ class GameController extends Application {
     private Button quitButton = new Button("Quit");
     private Button muteButton = new Button("Mute");
     private Text text = new Text("Pause");
-    private int fillPercentage = 45;
     private HashMap<CharacterActions, Boolean> inputs = new HashMap<>();
     private boolean link = false;
     private MusicPlayer music = new MusicPlayer("/resources/audio/bgm_action_1.mp3");
@@ -136,8 +134,6 @@ class GameController extends Application {
                         music.start();
                     }
                     break;
-                    case P: fillPercentage++; break;
-                    case M: fillPercentage--; break;
                     case ESCAPE: pause = !pause;
                         if(!pause) {
                             pauseShown = false;
@@ -156,7 +152,7 @@ class GameController extends Application {
                     case Q: map.moveEast(); break;
                     case D: map.moveWest(); break;
 
-                    default:
+                    default: System.out.println(e.getCode());
                 }
             }
         });
