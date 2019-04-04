@@ -32,11 +32,11 @@ public class Character {
 
     public Character(Coordinate position, Hitbox hitbox) {
         this.position = position;
-        this.hitbox = new Hitbox(position, WIDTH, HEIGHT);
+        this.hitbox = new Hitbox(position, WIDTH);
     }
 
     public void attack(GraphicsContext gc) {
-        Hitbox att = new Hitbox(new Coordinate(position.getX() + WIDTH, position.getY() + HEIGHT + 20 ), 10, 10 );
+        Hitbox att = new Hitbox(new Coordinate(position.getX() + WIDTH, position.getY() + HEIGHT + 20 ), 10 );
     }
 
     private void validatePosition(){
@@ -45,23 +45,23 @@ public class Character {
     public void displacement(HashMap<CharacterActions, Boolean> inputs) {
         if(!(inputs.get(CharacterActions.UP) && inputs.get(CharacterActions.DOWN) || inputs.get(CharacterActions.LEFT) && inputs.get(CharacterActions.RIGHT))) {
             if(inputs.get(CharacterActions.UP) && speedY > -speedLimitY) {
-                speedY -= speedLimitY / 10;
+                speedY -= speedLimitY / 13;
             }
             if(inputs.get(CharacterActions.DOWN) && speedY < speedLimitY) {
-                speedY += speedLimitY / 10;
+                speedY += speedLimitY / 13;
             }
             if(inputs.get(CharacterActions.LEFT) && speedX > -speedLimitX) {
-                speedX -= speedLimitX / 10;
+                speedX -= speedLimitX / 13;
             }
             if(inputs.get(CharacterActions.RIGHT) && speedX < speedLimitX) {
-                speedX += speedLimitX / 10;
+                speedX += speedLimitX / 13;
             }
         }
         if(!inputs.get(CharacterActions.UP) && !inputs.get(CharacterActions.DOWN) || inputs.get(CharacterActions.UP) && inputs.get(CharacterActions.DOWN)) {
-            speedY /= 2;
+            speedY /= 1.3;
         }
         if(!inputs.get(CharacterActions.RIGHT) && !inputs.get(CharacterActions.LEFT) || inputs.get(CharacterActions.RIGHT) && inputs.get(CharacterActions.LEFT)) {
-            speedX /= 2;
+            speedX /= 1.3;
         }
     }
 

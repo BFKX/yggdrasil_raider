@@ -20,8 +20,8 @@ public class Coordinate {
         this.y += y;
     }
 
-    public double length(Coordinate auther ){
-        return  (Math.pow((this.getX() - auther.getX()),2) + Math.pow((this.getY()-auther.getY()),2)) ;
+    public double distance(Coordinate other){
+        return  (Math.pow((this.getX() - other.getX()),2) + Math.pow((this.getY() - other.getY()),2));
     }
 
     public void setY(double y) {
@@ -43,8 +43,8 @@ public class Coordinate {
 
         return y;
     }
-    public boolean isValid(Coordinate orrigine, int height , int width ){ //return true if the coorinate is the rec betwin origine and orignie + height , width
-        return ( this.getX()>orrigine.getX() && this.getX() < orrigine.getX() + width  && this.getY()>orrigine.getY() && this.getY() < orrigine.getY()+ height );
+    public boolean isValid(Coordinate origine, int height , int width ){ //return true if the coorinate is the rec betwin origine and orignie + height , width
+        return ( this.getX()>origine.getX() && this.getX() < origine.getX() + width  && this.getY()>origine.getY() && this.getY() < origine.getY()+ height );
     }
     public String toString() {
         return "(" + x + "," + y + ")";

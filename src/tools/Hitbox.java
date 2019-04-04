@@ -7,28 +7,29 @@ import javafx.scene.paint.Paint;
 public class Hitbox {
 
     private Coordinate origine;
-    private double width;
-    private double height;
+    private double radius;
 
-    public Hitbox(Coordinate origine, double width, double height) {
-
+    public Hitbox(Coordinate origine, double radius) {
         this.origine = origine;
-        this.width = width;
-        this.height = height;
+        this.radius = radius;
     }
 
-    public boolean collide(Hitbox hitbox) {
-
-        return this.origine.getX() - hitbox.origine.getX() < hitbox.width
-                && this.origine.getY() - hitbox.origine.getY() < hitbox.height
-                && hitbox.origine.getX() - this.origine.getX() < this.width
-                && hitbox.origine.getY() - this.origine.getY() < this.height;
+    public boolean collide(Hitbox other) {
+        return this.origine.distance(other.getOrigine()) < this.radius - other.getRadius();
     }
 
     public void draw(GraphicsContext gc) {
         Paint stroke = gc.getStroke();
         gc.setStroke(Color.BLUE);
-        gc.strokeRect(origine.getX(), origine.getY(), width, height);
+        gc.strokeOval(origine.getX(), origine.getY(), radius, radius);
         gc.setStroke(stroke);
+    }
+
+    private Coordinate getOrigine() {
+        return origine;
+    }
+
+    private double getRadius() {
+        return radius;
     }
 }
