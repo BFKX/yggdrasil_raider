@@ -19,10 +19,6 @@ public class Cave extends Room {
         placeWall();
     }
 
-
-
-
-
     /**
      * generation d'un bruit
      * @param fillPurcentage
@@ -109,7 +105,7 @@ public class Cave extends Room {
                     if (j-1>0 && map[i][j-1] == 0){ //north
                         map[i][j] = map[i][j]+1 ;
                     }
-                    if (i-1>0 && map[i-1][j] == 0){ //west
+                    if (i-1>0 && map[i-1][j] == 0){ //est
                         map[i][j] = map[i][j] +2 ;
                     }
                     if ( j+1 < this.height && map[i][j+1] == 0){//south
@@ -119,16 +115,16 @@ public class Cave extends Room {
                         map[i][j] = map[i][j]+11 ;
                     }
                     if(map[i][j]==1){
-                        if (j-1>0 && i-1>0 && map[i-1][j-1] == 0){ //north est
+                        if (j-1>0 && i-1>0 && map[i-1][j-1] == 0){ //north west
                             map[i][j] = map[i][j]+20 ;
                         }
-                        if (i-1>0 && j+1<this.height &&map[i-1][j+1] == 0){ //sud est
+                        if (i-1>0 && j+1<this.height &&map[i-1][j+1] == 0){ //sud wet
                             map[i][j] = map[i][j] +40 ;
                         }
-                        if ( j+1 < this.height &&  i+1 < this.width && map[i+1][j+1] == 0){//sud west
+                        if ( j+1 < this.height &&  i+1 < this.width && map[i+1][j+1] == 0){//sud est
                             map[i][j] = map[i][j]+81 ;
                         }
-                        if ( i+1 <this.width && j-1 >0 && map[i+1][j-1] == 0){//nord west
+                        if ( i+1 <this.width && j-1 >0 && map[i+1][j-1] == 0){//nord est
                             map[i][j] = map[i][j]+162 ;
                         }
                     }
@@ -150,7 +146,7 @@ public class Cave extends Room {
                             }
                         }
                     }
-                    if(sum>13) {
+                    if(sum>12) {
                         temp[i][j] = 1 ;
                     }else {
                         temp[i][j]= map[i][j];
