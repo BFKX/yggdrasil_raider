@@ -155,7 +155,6 @@ class GameController extends Application {
                     case S: map.moveSouth(); break;
                     case Q: map.moveEast(); break;
                     case D: map.moveWest(); break;
-
                     default:
                 }
             }

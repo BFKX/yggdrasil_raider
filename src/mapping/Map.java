@@ -106,7 +106,7 @@ public class Map {
                     case 41: sprite = swCorner; break;
                     case 82: sprite = seCorner; break;
                     case 163: sprite = neCorner; break;
-                    default: sprite = voidImage;
+                    default: sprite = red;
                 }
                 gc.drawImage(sprite, (column - ((int)(positionCharac.getX() / side) - 19)) * side - positionCharac.getX() % side, (line - ((int)(positionCharac.getY() / side) - 11)) * side - positionCharac.getY() % side, side, side);
             }
