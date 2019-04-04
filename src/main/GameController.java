@@ -120,15 +120,14 @@ class GameController extends Application {
         game.getChildren().add(canvas);
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        Map map = new Map(192, 108,fillPercentage);
-        //map.addGround();
+        Map map = new Map(150, 100);
 
         Character charac = new Character(new Coordinate(WIDTH / 2, HEIGHT / 2), new Hitbox(new Coordinate(0, 0), WIDTH));
 
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             public void handle(KeyEvent e) {
                 switch(e.getCode()) {
-                    case R: map.createCave(fillPercentage);
+                    case R: map.createCave();
                     if(!musicStopped) {
                         randomNum = ThreadLocalRandom.current().nextInt(1, 6);
                         path = "/resources/audio/bgm_action_" + randomNum + ".mp3";
@@ -194,10 +193,6 @@ class GameController extends Application {
                     charac.drawHitbox(gc);
 
                     fpsm.update(now, gc);
-
-                    gc.setFill(Color.CHARTREUSE);
-                    gc.setFont(Font.font("Helvetica", FontWeight.BOLD, HEIGHT / 50));
-                    gc.fillText(Integer.toString((int)fillPercentage), WIDTH - 25 * WIDTH / 1000, HEIGHT / 60);
 
                     lastNow = now;
                 } else if(!pauseShown && now - lastNow >= 15000000){

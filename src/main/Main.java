@@ -7,10 +7,13 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 
+import java.util.Locale;
+
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
+        Locale.setDefault(new Locale("fr", "FR"));
         primaryStage.setTitle("Yggdrasil Raider");
         primaryStage.setFullScreen(true);
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);

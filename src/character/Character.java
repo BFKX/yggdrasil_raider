@@ -14,7 +14,7 @@ public class Character {
     private Coordinate position;
     private Hitbox hitbox;
     private double speedX = 0, speedY = 0;
-    final private double SIDE = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / (55/2);
+    final private double SIDE = 2 * Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 55;
     final private double speedLimitX = SIDE * 5;
     final private double speedLimitY = SIDE * 5;
     final private Image waitingCharacter = new Image("resources/images/waitingCharacter.png");

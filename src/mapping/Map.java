@@ -36,14 +36,14 @@ public class Map {
     final private Image red = new Image("resources/images/red.png");
     private Random pseudoRandomList ;
 
-    public Map(int columns, int lines,int fillPurcentage) {
+    public Map(int columns, int lines) {
         this.lines = lines;
         this.columns = columns;
         this.map = new int[columns][lines];
-        Random pseudoRandomList =  new Random(System.currentTimeMillis());
-        origine = new Cave(columns , lines , pseudoRandomList,fillPurcentage);
+        pseudoRandomList =  new Random(System.currentTimeMillis());
+        origine = new Cave(columns , lines , pseudoRandomList);
         for (int i =0 ; i<10 ; i++ ){
-            origine.placeRoom(pseudoRandomList, new Cave(columns,lines,pseudoRandomList,fillPurcentage));
+            origine.placeRoom(pseudoRandomList, new Cave(columns,lines,pseudoRandomList));
         }
         curent = origine ;
         this.map= origine.getMap();
@@ -51,9 +51,10 @@ public class Map {
     public void update (){
         this.map = curent.getMap();
     }
-    public void createCave(int fillPercentage){
+
+    public void createCave(){
         Random pseudoRandomList =  new Random(System.currentTimeMillis());
-        origine = new Cave(columns , lines , pseudoRandomList,fillPercentage);
+        origine = new Cave(columns , lines , pseudoRandomList);
         curent = origine ;
         this.map= origine.getMap();
     }
