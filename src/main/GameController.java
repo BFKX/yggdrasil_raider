@@ -123,7 +123,7 @@ class GameController extends Application {
         Map map = new Map(192, 108,fillPercentage);
         //map.addGround();
 
-        Character charac = new Character(new Coordinate(WIDTH / 2, HEIGHT / 2), new Hitbox(new Coordinate(0, 0), 0, 0));
+        Character charac = new Character(new Coordinate(WIDTH / 2, HEIGHT / 2), new Hitbox(new Coordinate(0, 0), WIDTH));
 
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             public void handle(KeyEvent e) {
