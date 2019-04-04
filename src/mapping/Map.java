@@ -108,7 +108,7 @@ public class Map {
             update();
         }
         else {
-            System.out.println();
+            System.out.println("noSouth");
         }
     }
     public void moveEast(){

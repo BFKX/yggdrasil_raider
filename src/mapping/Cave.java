@@ -118,7 +118,20 @@ public class Cave extends Room {
                     if ( i+1 <this.width && map[i+1][j] == 0){//east
                         map[i][j] = map[i][j]+11 ;
                     }
-
+                    if(map[i][j]==1){
+                        if (j-1>0 && i-1>0 && map[i-1][j-1] == 0){ //north est
+                            map[i][j] = map[i][j]+20 ;
+                        }
+                        if (i-1>0 && j+1<this.height &&map[i-1][j+1] == 0){ //sud est
+                            map[i][j] = map[i][j] +40 ;
+                        }
+                        if ( j+1 < this.height &&  i+1 < this.width && map[i+1][j+1] == 0){//sud west
+                            map[i][j] = map[i][j]+81 ;
+                        }
+                        if ( i+1 <this.width && j-1 >0 && map[i+1][j-1] == 0){//nord west
+                            map[i][j] = map[i][j]+162 ;
+                        }
+                    }
                 }
             }
         }
