@@ -24,6 +24,14 @@ public class Map {
     final private Image swWall = new Image("resources/images/swWall.png");
     final private Image nwWall = new Image("resources/images/nwWall.png");
     final private Image ground = new Image("resources/images/ground.png");
+    final private Image seCorner = new Image("resources/images/seCorner.png");
+    final private Image swCorner = new Image("resources/images/swCorner.png");
+    final private Image neCorner = new Image("resources/images/neCorner.png");
+    final private Image nwCorner = new Image("resources/images/nwCorner.png");
+    final private Image sCloseWall = new Image("resources/images/sCloseWall.png");
+    final private Image eCloseWall = new Image("resources/images/eCloseWall.png");
+    final private Image wCloseWall = new Image("resources/images/wCloseWall.png");
+    final private Image nCloseWall = new Image("resources/images/nCloseWall.png");
     final private Image red = new Image("resources/images/red.png");
     private Random pseudoRandomList ;
 
@@ -84,9 +92,17 @@ public class Map {
                     case 4: sprite = nwWall; break;
                     case 6: sprite = sWall; break;
                     case 8: sprite = swWall; break;
+                    case 9: sprite = wCloseWall; break;
                     case 12: sprite = eWall; break;
                     case 13: sprite = neWall; break;
+                    case 15: sprite = nCloseWall; break;
                     case 17: sprite = seWall; break;
+                    case 18: sprite = eCloseWall; break;
+                    case 19: sprite = sCloseWall; break;
+                    case 21: sprite = nwCorner; break;
+                    case 41: sprite = swCorner; break;
+                    case 82: sprite = seCorner; break;
+                    case 163: sprite = neCorner; break;
                     default: sprite = voidImage;
                 }
                 gc.drawImage(sprite, column * width, line * height,width,height);
