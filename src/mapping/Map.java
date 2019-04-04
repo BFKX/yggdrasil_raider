@@ -10,8 +10,8 @@ public class Map {
     private int[][] map;
     private int lines;
     private int columns;
-    private Cave origine;
-    private Cave curent;
+    private Room origine;
+    private Room curent;
     final private double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
     final private double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
     final private Image voidImage = new Image("resources/images/void.png");
@@ -37,20 +37,17 @@ public class Map {
             origine.placeRoom(pseudoRandomList, new Cave(columns,lines,pseudoRandomList,fillPurcentage));
         }
         curent = origine ;
-        this.map= origine.getMapcave();
+        this.map= origine.getMap();
     }
     public void update (){
-        this.map = curent.getMapcave();
+        this.map = curent.getMap();
     }
     public void createCave(int fillPercentage){
         Random pseudoRandomList =  new Random(System.currentTimeMillis());
         origine = new Cave(columns , lines , pseudoRandomList,fillPercentage);
         curent = origine ;
-        this.map= origine.getMapcave();
+        this.map= origine.getMap();
     }
-
-
-
 
     /*
     public void addGroundVariation(int fillPurcentage){
@@ -90,13 +87,50 @@ public class Map {
                     case 12: sprite = eWall; break;
                     case 13: sprite = neWall; break;
                     case 17: sprite = seWall; break;
-                    default: sprite = red; System.out.println(map[column][line]);
+                    default: sprite = voidImage;
                 }
                 gc.drawImage(sprite, column * width, line * height,width,height);
             }
         }
     }
-    public Cave getOrigine(){
+
+    public void moveNorth(){
+        if(curent.getNorth() != null ){
+            curent=curent.getNorth();
+            update();
+        }else{
+            System.out.println("noNorth");
+        }
+    }
+    public void moveSouth(){
+        if(curent.getSouth()!= null){
+            curent=curent.getSouth();
+            update();
+        }
+        else {
+            System.out.println();
+        }
+    }
+    public void moveEast(){
+        if( curent.getEast() != null){
+            curent=curent.getEast();
+            update();
+        }
+        else {
+            System.out.println("noEast");
+        }
+    }
+    public void moveWest(){
+        if(curent.getWest() != null){
+            curent=curent.getWest();
+            update();
+        }
+        else {
+            System.out.println("noWest");
+        }
+    }
+
+    public Room getOrigine(){
         return  origine;
     }
 }

@@ -152,6 +152,11 @@ class GameController extends Application {
                     case DOWN: inputs.replace(CharacterActions.DOWN, true); break;
                     case LEFT: inputs.replace(CharacterActions.LEFT, true); break;
                     case RIGHT: inputs.replace(CharacterActions.RIGHT, true); break;
+                    case Z: map.moveNorth(); break;
+                    case S: map.moveSouth(); break;
+                    case Q: map.moveEast(); break;
+                    case D: map.moveWest(); break;
+
                     default:
                 }
             }

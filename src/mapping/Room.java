@@ -11,9 +11,9 @@ public class Room  {
     private Room east;
     private Room west;
     protected Random pseudoRandomList;
-    private int[][] map ;
-    private int width;
-    private int height;
+    protected int[][] map ;
+    protected int width;
+    protected int height;
 
     public Room(int width, int height, Random pseudoRandomList) {
         this.width = width;
