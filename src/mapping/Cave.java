@@ -5,24 +5,43 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Cave extends Room {
 
-    public Cave (int width , int height,Random pseudoRandomList) {
-        super (width,height,pseudoRandomList);
-        int fillPurcentage = ThreadLocalRandom.current().nextInt(43, 47);
-        this.width=width;
-        this.height=height;
-        this.map = new int[width][height] ;
+    public Cave(int width, int height, Random pseudoRandomList) {
+        super(width, height, pseudoRandomList);
+        System.out.println("creat cave ");
+        //int fillPurcentage = ThreadLocalRandom.current().nextInt(43, 47);
+        int fillPurcentage = 20;
+        this.width = width;
+        this.height = height;
+        this.map = new int[width][height];
         randomFill(fillPurcentage);
-        for (int i = 0; i < 25; i++){
-            filtering();
-        }
-        for (int i = 0; i < 50; i++){
-            additiveFiltering();
+        for (int l=0 ; l < 8 ; l++ ) {
+            for (int k = 0; k < 2; k++) { // filtre melange range 1 et 2
+                int[][] f1 = fullnRangefiltering(1);
+                int[][] f2 = fullnRangefiltering(2);
+                for (int i = 0; i < width; i++) {
+                    for (int j = 0; j < height; j++) {
+                        if (f1[i][j] >= 5 || f2[i][j] <= 2) {
+                            map[i][j] = 1;
+                        } else {
+                            map[i][j] = 0;
+                        }
+                    }
+                }
+            }
+            for (int k = 0; k < 8; k++) {
+                applyfiltering(fullnRangefiltering(1), 7);
+            }
+            for (int i = 0; i < 2; i++) {
+                additiveFiltering(false);
+            }
+            applyfiltering(fullnRangefiltering(1), 7);
         }
         placeWall();
     }
 
     /**
      * generation d'un bruit
+     *
      * @param fillPurcentage
      */
     public void randomFill(int fillPurcentage) {
@@ -41,35 +60,13 @@ public class Cave extends Room {
         }
     }
 
-    /**
-     * cree un tableau filtrer a partir de la map
-     * @return
-     */
-    public int[][] creatMapfiltering () {
-        int[][] filtred = new int[width][height];
-        for (int i = 0; i < width; i++){
-            for (int j = 0; j < height; j++) {
-                filtred[i][j] = fullAvgOneRange(i, j);
-            }
-        }
-        return filtred ;
-    }
-
-    public void filtering(){
-        applyfiltering(this.creatMapfiltering());
-    }
-
-    /**
-     * applique le fitre a mapcav
-     * @param mapfiltrering
-     */
-    public void applyfiltering(int[][] mapfiltrering) { //appliquelefiltre
-        for (int i = 1; i < width-1; i++) {
-            for (int j = 1; j < height-1; j++) {
-                if (mapfiltrering[i][j] > 4) {
+    public void applyfiltering(int[][] mapfiltrering, int limit) { //appliquelefiltre
+        for (int i = 1; i < width - 1; i++) {
+            for (int j = 1; j < height - 1; j++) {
+                if (mapfiltrering[i][j] >=limit) {
                     map[i][j] = 1;
                 }
-                if( mapfiltrering[i][j]  < 4) {
+                if (mapfiltrering[i][j] < limit) {
                     map[i][j] = 0;
                 }
             }
@@ -78,24 +75,33 @@ public class Cave extends Room {
 
     /**
      * filtre de range 1 aux tours de chaque points
+     *
      * @param i
      * @param j
      * @return
      */
 
-    public int fullAvgOneRange(int i , int j ) { // filtre de range 1 dans toutes les directions
-        int sum = 0;
-        for (int k = -1; k < 2; k++) {
-            for (int l = -1; l < 2; l++) {
-                if (k != 0 || l != 0) {
-                    if( i+k >=0  && i+k < width && j+l>=0 && j+l<height ){
-                        sum = sum + map[i + k][j + l];   // a enlever plus tard fleme de gere les effet de bord
+    public int[][] fullnRangefiltering(int n) {
+        int[][] temp = new int[width][height];
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                int sum = 0;
+                for (int l = -n; l < n + 1; l++) {
+                    for (int k = -n; k < n + 1; k++) {
+                        if (i + l < width && j + k >= 0 && j + k < height && i + l >= 0) {
+                            sum = sum + map[i + l][j + k];
+                        } else {
+                            sum = 25;
+                            break;
+                        }
                     }
                 }
+                temp[i][j] = sum;
             }
         }
-        return sum;
+        return temp;
     }
+
 
     /**
      * place des murs
@@ -135,11 +141,10 @@ public class Cave extends Room {
         }
     }
 
-    public  void additiveFiltering(){
+    public  void additiveFiltering(boolean fp){
         int [][] temp = new int [width] [height] ;
         for ( int i = 0 ; i<width ;i++) {
             for (int j = 0; j < height ; j++) {
-                if(map[i][j] == 0) {
                     int sum = 0;
                     for (int l = -2; l < 3; l++) {
                         for (int k = -2; k < 3; k++) {
@@ -148,15 +153,14 @@ public class Cave extends Room {
                             }
                         }
                     }
-                    if(sum>12) {
+                    if(sum>12 || (sum == 1&& fp)) {
                         temp[i][j] = 1 ;
+                    }else if(sum < 12 ) {
+                        temp[i][j] = 0;
                     }else {
                         temp[i][j]= map[i][j];
                     }
-                }else {
-                    temp[i][j]= map[i][j];
                 }
-            }
             }
         for ( int i = 0 ; i<width;i++) {
             for (int j = 0; j < height ; j++) {
