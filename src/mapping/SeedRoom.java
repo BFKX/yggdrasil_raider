@@ -12,9 +12,9 @@ public class SeedRoom extends Room {
     int nbSeed;
     public SeedRoom (int width , int height , Random pseudoRandomList, int[] listSeedInterger){
         super(width , height , pseudoRandomList );
-        System.out.println("coucou");
+
         this.listSeedInterger=listSeedInterger;
-        System.out.println(listSeedInterger[0]);
+
         nbSeed=listSeedInterger.length;
         listSeed = new Coordinate[nbSeed];
         placeSeed();
@@ -56,40 +56,6 @@ public class SeedRoom extends Room {
                 }
             }
         }
-    }
-    public void applyfiltering(int[][] mapfiltrering, int limit) { //appliquelefiltre
-        for (int i = 1; i < width - 1; i++) {
-            for (int j = 1; j < height - 1; j++) {
-                if (mapfiltrering[i][j] >=limit) {
-                    map[i][j] = 1;
-                }
-                if (mapfiltrering[i][j] < limit) {
-                    map[i][j] = 0;
-                }
-            }
-        }
-    }
-
-
-    public int[][] fullnRangefiltering(int n) {
-        int[][] temp = new int[width][height];
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                int sum = 0;
-                for (int l = -n; l < n + 1; l++) {
-                    for (int k = -n; k < n + 1; k++) {
-                        if (i + l < width && j + k >= 0 && j + k < height && i + l >= 0) {
-                            sum = sum + map[i + l][j + k];
-                        } else {
-                            sum = 25;
-                            break;
-                        }
-                    }
-                }
-                temp[i][j] = sum;
-            }
-        }
-        return temp;
     }
 
 

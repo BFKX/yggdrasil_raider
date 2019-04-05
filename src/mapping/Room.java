@@ -3,6 +3,7 @@ package mapping;
 
 import tools.Coordinate;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Room  {
@@ -34,41 +35,75 @@ public class Room  {
         this.width = pseudoRandomList.nextInt();
     }
 
-    public void placeRoom(Random pseudoRandomSeed,Room room){ // place une room a partire de la room actuel
-        int location = pseudoRandomSeed.nextInt(4);
-        if (location == 0){
-            if(this.north == null ){
-                room.setSouth(this);
-                this.north = room;
+    public ArrayList<Integer> hadNorthWay(){
+        ArrayList <Integer> temp =  new ArrayList<Integer>();
+        for ( int i = 0 ; i<width ; i++ ){
+            if ( map[i][0] == 0 ){
+                temp.add(i);
+            }
+        }
+        return temp;
+    }
+    public ArrayList <Integer> hadSouthWay(){
+        ArrayList <Integer> temp =  new ArrayList<Integer>();
+        for ( int i = 0 ; i<width ; i++ ){
+            if ( map[i][height-1] == 0 ){
+                temp.add(i); ;
+            }
+        }
+        return temp;
+    }
+    public ArrayList <Integer> hadEastWay(){
+        ArrayList <Integer> temp =  new ArrayList<Integer>();
+        for ( int i = 0 ; i<height ; i++ ){
+            if ( map[0][i] == 0 ){
+                temp.add(i);
+            }
+        }
+        return temp;
+    }
+    public ArrayList <Integer> hadWestWay(){
+        ArrayList <Integer> temp =  new ArrayList<Integer>();
+        for ( int i = 0 ; i<height ; i++ ){
+            if ( map[width-1][i] == 0 ){
+                temp.add(i); ;
+            }
+        }
+        return temp;
+    }
+    public void applyfiltering(int[][] mapfiltrering, int limit) { //appliquelefiltre
+        for (int i = 1; i < width - 1; i++) {
+            for (int j = 1; j < height - 1; j++) {
+                if (mapfiltrering[i][j] >=limit) {
+                    map[i][j] = 1;
+                }
+                if (mapfiltrering[i][j] < limit) {
+                    map[i][j] = 0;
+                }
+            }
+        }
+    }
 
-            }else {
-                this.north.placeRoom(pseudoRandomSeed,room);
+
+    public int[][] fullnRangefiltering(int n) {
+        int[][] temp = new int[width][height];
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                int sum = 0;
+                for (int l = -n; l < n + 1; l++) {
+                    for (int k = -n; k < n + 1; k++) {
+                        if (i + l < width && j + k >= 0 && j + k < height && i + l >= 0) {
+                            sum = sum + map[i + l][j + k];
+                        } else {
+                            sum = 25;
+                            break;
+                        }
+                    }
+                }
+                temp[i][j] = sum;
             }
         }
-        if (location == 1) {
-            if(this.east == null ){
-                room.setWest(room);
-                this.east = room ;
-            }else {
-                this.east.placeRoom(pseudoRandomSeed,room);
-            }
-        }
-        if (location == 2) {
-            if(this.south == null ){
-                room.setNorth(room);
-                this.south = room;
-            }else {
-                this.south.placeRoom(pseudoRandomSeed,room);
-            }
-        }
-        if (location == 3) {
-            if(this.west == null ){
-                room.setEast(room);
-                this.west = room;
-            }else {
-                this.west.placeRoom(pseudoRandomSeed,room);
-            }
-        }
+        return temp;
     }
 
     public Room getNorth() {

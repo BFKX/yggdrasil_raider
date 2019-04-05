@@ -11,7 +11,7 @@ public class Map {
     private int[][] map;
     private int lines;
     private int columns;
-    private Room origine;
+    private Cave origine;
     private Room curent;
     final private double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
     final private double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
@@ -43,13 +43,9 @@ public class Map {
         pseudoRandomList =  new Random(System.currentTimeMillis());
         //origine = new SeedRoom(columns ,lines,   pseudoRandomList ,new int[] {1,1,1,0,0} );
         origine = new Cave(columns , lines , pseudoRandomList);
-        for (int i =0 ; i<10 ; i++ ){
-            origine.placeRoom(pseudoRandomList, new Cave(columns,lines,pseudoRandomList));
-        }
-        curent = origine ;
+        //origine.placeRoom(pseudoRandomList);
         curent = origine ;
         this.map= origine.getMap();
-
     }
     public void update (){
         this.map = curent.getMap();
@@ -116,6 +112,8 @@ public class Map {
                     default: sprite = red;
                 }
                 gc.drawImage(sprite, (column - ((int)(positionCharac.getX() / side) - 19)) * side - positionCharac.getX() % side, (line - ((int)(positionCharac.getY() / side) - 11)) * side - positionCharac.getY() % side, side, side);
+                //gc.drawImage(sprite, (column - (positionCharac.getX() / side) + 19) * side , (line -  (positionCharac.getY() / side) - 11) * side , side, side);
+
             }
         }
     }
