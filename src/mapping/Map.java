@@ -41,17 +41,24 @@ public class Map {
         this.columns = columns;
         this.map = new int[columns][lines];
         pseudoRandomList =  new Random(System.currentTimeMillis());
+        //origine = new SeedRoom(columns ,lines,   pseudoRandomList ,new int[] {1,1,1,0,0} );
         origine = new Cave(columns , lines , pseudoRandomList);
         for (int i =0 ; i<10 ; i++ ){
             origine.placeRoom(pseudoRandomList, new Cave(columns,lines,pseudoRandomList));
         }
         curent = origine ;
+        curent = origine ;
         this.map= origine.getMap();
+
     }
     public void update (){
         this.map = curent.getMap();
     }
-
+    public void createSeedRoom(){
+        Random pseudoRandomList =  new Random(System.currentTimeMillis());
+        curent = new SeedRoom( columns ,lines , pseudoRandomList ,new int[] {1,1,pseudoRandomList.nextInt(2),pseudoRandomList.nextInt(2)} );
+        update();
+    }
     public void createCave(){
         Random pseudoRandomList =  new Random(System.currentTimeMillis());
         origine = new Cave(columns , lines , pseudoRandomList);

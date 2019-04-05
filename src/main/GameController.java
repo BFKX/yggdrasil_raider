@@ -134,6 +134,7 @@ class GameController extends Application {
                         music.start();
                     }
                     break;
+                    case L: map.createSeedRoom();break;
                     case ESCAPE: pause = !pause;
                         if(!pause) {
                             pauseShown = false;

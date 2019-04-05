@@ -4,7 +4,7 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Cave extends Room {
-
+    int [][] bigtemporary;
     public Cave(int width, int height, Random pseudoRandomList) {
         super(width, height, pseudoRandomList);
         System.out.println("creat cave ");
@@ -14,7 +14,7 @@ public class Cave extends Room {
         this.height = height;
         this.map = new int[width][height];
         randomFill(fillPurcentage);
-        for (int l=0 ; l < 8 ; l++ ) {
+        for (int l=0 ; l < 7 ; l++ ) {
             for (int k = 0; k < 2; k++) { // filtre melange range 1 et 2
                 int[][] f1 = fullnRangefiltering(1);
                 int[][] f2 = fullnRangefiltering(2);
@@ -37,6 +37,8 @@ public class Cave extends Room {
             applyfiltering(fullnRangefiltering(1), 7);
         }
         placeWall();
+        this.bigtemporary = map.clone() ;
+
     }
 
     /**
@@ -73,13 +75,6 @@ public class Cave extends Room {
         }
     }
 
-    /**
-     * filtre de range 1 aux tours de chaque points
-     *
-     * @param i
-     * @param j
-     * @return
-     */
 
     public int[][] fullnRangefiltering(int n) {
         int[][] temp = new int[width][height];

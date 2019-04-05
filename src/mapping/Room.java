@@ -19,6 +19,7 @@ public class Room  {
         this.width = width;
         this.height = height;
         this.pseudoRandomList = pseudoRandomList;
+        map = new int[width][height];
     }
 
     public int[][] getMap() {
