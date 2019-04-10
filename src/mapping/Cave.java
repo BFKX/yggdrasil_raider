@@ -7,7 +7,7 @@ public class Cave extends Room {
         super(width, height, pseudoRandomList);
         System.out.println("Coucou");
         //int fillPurcentage = ThreadLocalRandom.current().nextInt(43, 47);
-        int fillPurcentage = 45;
+        int fillPurcentage = 55;
         System.out.println(width) ;
         System.out.println(height);
         this.width = width;
@@ -46,6 +46,7 @@ public class Cave extends Room {
             placeWall();
         }
         */
+        placeWall();
 
     }
 

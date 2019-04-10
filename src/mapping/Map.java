@@ -34,6 +34,7 @@ public class Map {
     final private Image wCloseWall = new Image("resources/images/wCloseWall.png");
     final private Image nCloseWall = new Image("resources/images/nCloseWall.png");
     final private Image red = new Image("resources/images/red.png");
+    final private Image groundVar = new Image("resources/images/groundVar.png");
     private Random pseudoRandomList ;
 
     public Map(int columns, int lines) {
@@ -116,7 +117,6 @@ public class Map {
             for (int line = (int)(positionCharac.getY() / side) - 60; line < (int)(positionCharac.getY() / side) + 60; line++) {
                 if(line < 0 || line >= lines) { continue; }
                 switch(map[column][line]) {
-                    case 25: sprite = red; break;
                     case 0: sprite = ground; break;
                     case 1: sprite = voidImage; break;
                     case 2: sprite = nWall; break;
@@ -132,6 +132,7 @@ public class Map {
                     case 18: sprite = eCloseWall; break;
                     case 19: sprite = sCloseWall; break;
                     case 21: sprite = nwCorner; break;
+                    case 25: sprite = groundVar; break;
                     case 41: sprite = swCorner; break;
                     case 82: sprite = seCorner; break;
                     case 163: sprite = neCorner; break;
