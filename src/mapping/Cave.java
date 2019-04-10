@@ -1,49 +1,77 @@
 package mapping;
-
-import java.security.PublicKey;
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Cave extends Room {
-    int [][] bigtemporary;
     public Cave(int width, int height, Random pseudoRandomList) {
         super(width, height, pseudoRandomList);
         System.out.println("Coucou");
         //int fillPurcentage = ThreadLocalRandom.current().nextInt(43, 47);
-        int fillPurcentage = 20;
+        int fillPurcentage = 45;
+        System.out.println(width) ;
+        System.out.println(height);
         this.width = width;
         this.height = height;
         this.map = new int[width][height];
         randomFill(fillPurcentage);
-        for (int l=0 ; l < 7 ; l++ ) {
-            for (int k = 0; k < 2; k++) { // filtre melange range 1 et 2
-                int[][] f1 = fullnRangefiltering(1);
-                int[][] f2 = fullnRangefiltering(2);
-                for (int i = 0; i < width; i++) {
-                    for (int j = 0; j < height; j++) {
-                        if (  i  != 0 && i !=width -1 && j!= 0 && j!= height-1 ) {
-                            if (f1[i][j] >= 5 || f2[i][j] <= 2) {
-                                map[i][j] = 1;
-                            } else {
-                                map[i][j] = 0;
-                            }
+        /*for (int k = 0; k < 2; k++) { // filtre melange range 1 et 2
+            int[][] f1 = fullnRangefiltering(1);
+            int[][] f2 = fullnRangefiltering(2);
+            for (int i = 0; i < width; i++) {
+                for (int j = 0; j < height; j++) {
+                    if (  i  != 0 && i !=width -1 && j!= 0 && j!= height-1 ) {
+                        if (f1[i][j] >= 5 || f2[i][j] <= 2) {
+                            map[i][j] = 1;
+                        } else {
+                            map[i][j] = 0;
                         }
                     }
                 }
             }
-            for (int k = 0; k < 8; k++) {
-                applyfiltering(fullnRangefiltering(1), 7);
+        }*/
+        for (int l=0 ; l < 1 ; l++ ) {
+            for (int k = 0; k < 2; k++) {
+                applyfiltering(fullnRangefiltering(1), 6);
             }
-            for (int i = 0; i < 2; i++) {
-                additiveFiltering(false);
+            for (int i = 0; i < 10; i++) {
+                additiveFiltering();
             }
-            applyfiltering(fullnRangefiltering(1), 7);
+            applyfiltering(fullnRangefiltering(1), 6);
         }
-        placeWall();
-        this.bigtemporary = map.clone() ;
+        /*
+        for ( int k = 0 ; k < 3  ; k++ ) {
+            placeWall();
+            delet25(1);
+            additiveFiltering();
+            placeWall();
+        }
+        */
 
     }
+
+
+    public void delet25(int range) {
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                if (map[i][j] == 25 ) {
+                    for ( int k = -range ; k < range +1  ; k++  ){
+                        for ( int l = -range ; l < range +1 ; l ++ ){
+                            map[i+k] [j+l] = 0 ;
+                        }
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                if (map[i][j] > 0) {
+                    map[i][j] = 1;
+                }
+            }
+        }
+    }
+
+
 
     /**
      * generation d'un bruit
@@ -104,7 +132,7 @@ public class Cave extends Room {
         }
     }
 
-    public  void additiveFiltering(boolean fp){
+    public  void additiveFiltering(){
         int [][] temp = new int [width] [height] ;
         for ( int i = 0 ; i<width ;i++) {
             for (int j = 0; j < height ; j++) {
@@ -116,7 +144,7 @@ public class Cave extends Room {
                             }
                         }
                     }
-                    if(sum>12 || (sum == 1&& fp)) {
+                    if(sum>14) {
                         temp[i][j] = 1 ;
                     }else if(sum < 12 ) {
                         temp[i][j] = 0;

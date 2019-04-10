@@ -43,6 +43,7 @@ class GameController extends Application {
     private boolean musicStopped = false;
     private int randomNum;
     private String path;
+    private Map map = new Map(1000 + ThreadLocalRandom.current().nextInt(-200, 200), 1000 + ThreadLocalRandom.current().nextInt(-200, 200));
     @FXML private AnchorPane game;
 
     GameController(Stage primaryStage) {
@@ -118,14 +119,12 @@ class GameController extends Application {
         game.getChildren().add(canvas);
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        Map map = new Map(1500/2, 1000/2);
-
         Character charac = new Character(new Coordinate(WIDTH / 2, HEIGHT / 2), new Hitbox(new Coordinate(0, 0), WIDTH));
 
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             public void handle(KeyEvent e) {
                 switch(e.getCode()) {
-                    case R: map.createCave();
+                    case R: map = new Map(200 + ThreadLocalRandom.current().nextInt(-50, 50), 200 + ThreadLocalRandom.current().nextInt(-50, 50));
                     if(!musicStopped) {
                         randomNum = ThreadLocalRandom.current().nextInt(1, 6);
                         path = "/resources/audio/bgm_action_" + randomNum + ".mp3";
@@ -152,8 +151,7 @@ class GameController extends Application {
                     case S: map.moveSouth(); break;
                     case Q: map.moveEast(); break;
                     case D: map.moveWest(); break;
-
-                    default: System.out.println(e.getCode());
+                    default:
                 }
             }
         });
