@@ -43,7 +43,7 @@ class GameController extends Application {
     private boolean musicStopped = false;
     private int randomNum;
     private String path;
-    private Map map = new Map(1000 + ThreadLocalRandom.current().nextInt(-200, 200), 1000 + ThreadLocalRandom.current().nextInt(-200, 200));
+    private Map map = new Map(200 + ThreadLocalRandom.current().nextInt(-50, 50), 20 + ThreadLocalRandom.current().nextInt(-50, 50));
     @FXML private AnchorPane game;
 
     GameController(Stage primaryStage) {

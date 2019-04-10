@@ -5,11 +5,8 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Cave extends Room {
     public Cave(int width, int height, Random pseudoRandomList) {
         super(width, height, pseudoRandomList);
-        System.out.println("Coucou");
         //int fillPurcentage = ThreadLocalRandom.current().nextInt(43, 47);
-        int fillPurcentage = 55;
-        System.out.println(width) ;
-        System.out.println(height);
+        int fillPurcentage = 62;
         this.width = width;
         this.height = height;
         this.map = new int[width][height];
@@ -20,7 +17,7 @@ public class Cave extends Room {
             for (int i = 0; i < width; i++) {
                 for (int j = 0; j < height; j++) {
                     if (  i  != 0 && i !=width -1 && j!= 0 && j!= height-1 ) {
-                        if (f1[i][j] >= 5 || f2[i][j] <= 2) {
+                        if (f1[i][j] >= 5 || f2[i][j] <= 1) {
                             map[i][j] = 1;
                         } else {
                             map[i][j] = 0;
@@ -29,7 +26,7 @@ public class Cave extends Room {
                 }
             }
         }*/
-        for (int l=0 ; l < 1 ; l++ ) {
+        for (int l=0 ; l < 2 ; l++ ) {
             for (int k = 0; k < 2; k++) {
                 applyfiltering(fullnRangefiltering(1), 6);
             }
@@ -38,18 +35,14 @@ public class Cave extends Room {
             }
             applyfiltering(fullnRangefiltering(1), 6);
         }
-        /*
         for ( int k = 0 ; k < 3  ; k++ ) {
             placeWall();
             delet25(1);
             additiveFiltering();
             placeWall();
         }
-        */
-        placeWall();
 
     }
-
 
     public void delet25(int range) {
         for (int i = 0; i < width; i++) {
@@ -82,7 +75,7 @@ public class Cave extends Room {
     public void randomFill(int fillPurcentage) {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                if (i == 0 || i == width - 1 || j == 0 || j == height - 1) {
+                if (i <=4 || i > width - 4 || j <= 4 || j >= height -4 ) {
                     map[i][j] = 1;
                 } else {
                     if (pseudoRandomList.nextInt(100) < fillPurcentage) {

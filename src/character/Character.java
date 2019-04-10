@@ -11,7 +11,6 @@ import java.util.HashMap;
 
 public class Character {
     private Coordinate position;
-    private Coordinate positionMap ;
     private Hitbox hitbox;
     private double speedX = 0, speedY = 0;
     final private double SIDE = 2 * Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 55;

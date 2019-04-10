@@ -13,7 +13,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import tools.MusicPlayer;
-
 import java.awt.Toolkit;
 import java.io.IOException;
 
