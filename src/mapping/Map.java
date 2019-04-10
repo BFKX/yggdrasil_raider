@@ -46,13 +46,15 @@ public class Map {
         //origine.placeRoom(pseudoRandomList);
         curent = origine ;
         this.map= origine.getMap();
+        addGroundVariation2(new int []{25,25,25,25},50000,150);
     }
     public void update (){
         this.map = curent.getMap();
     }
     public void createSeedRoom(){
         Random pseudoRandomList =  new Random(System.currentTimeMillis());
-        curent = new SeedRoom( columns ,lines , pseudoRandomList ,new int[] {1,1,pseudoRandomList.nextInt(2),pseudoRandomList.nextInt(2)} );
+        curent = new SeedRoom( columns ,lines , pseudoRandomList ,new int[] {1,1,pseudoRandomList.nextInt(2),
+                pseudoRandomList.nextInt(2)} );
         update();
     }
     public void createCave(){
@@ -62,26 +64,50 @@ public class Map {
         this.map= origine.getMap();
     }
 
-    /*
-    public void addGroundVariation(int fillPurcentage){
-        Random pseudorendom =  new Random(System.currentTimeMillis());
-        //Cave temp = new Cave(columns, lines,pseudorendom);
-        temp.randomFill(fillPurcentage);
-        for (int i = 0; i < 50; i++){
-            temp.filtering();
-        }
-        for (int column = 0; column < columns; column++ ) {
-            for (int line = 0; line < lines; line++) {
-                if (map[column][line]==0){
-                    if( temp.getMapcave()[column][line] == 1) {
-                        map[column][line] = 25;
-                    }
+  public void addGroundVariation1(int fillPurcentage){
+    Random pseudorendom =  new Random(System.currentTimeMillis());
+    Cave temp = new Cave(columns, lines,pseudorendom);
+    for (int i = 0; i < 50; i++) {
+        temp.applyfiltering(temp.fullnRangefiltering(1),4);
+    }
+    for (int column = 0; column < columns; column++ ) {
+        for (int line = 0; line < lines; line++) {
+            if (map[column][line]==0){
+                if( temp.getMap()[column][line] == 1) {
+                    map[column][line] = 25;
                 }
             }
         }
-
     }
-*/
+    }
+    public void addGroundVariation2(int [] seeds, int rayon , int limite){
+        int [][] temp = new int [columns][lines];
+        Coordinate [] seedsCordinates = new Coordinate[seeds.length];
+        for ( int i= 0 ; i<seeds.length ; i++){
+            int x = pseudoRandomList.nextInt(columns);
+            int y = pseudoRandomList.nextInt(lines);
+            seedsCordinates[i] = new Coordinate(x,y);
+            temp[x][y]=seeds[i];
+        }
+        for ( int i =0 ; i< columns ;i++){
+            for(int j = 0 ; j< lines ;j++){
+               if (map[i][j] == 0) {
+                   Coordinate ij = new Coordinate(i, j);
+                   int k = 0;
+                   for (Coordinate c : seedsCordinates) {
+                       double d = c.distance(ij);
+                       if (d < rayon) {
+                           if (Math.abs(pseudoRandomList.nextGaussian())  * d < limite) {
+                               map[i][j] = seeds[k];
+                           }
+                       }
+                       k++;
+                   }
+               }
+            }
+        }
+    }
+
     public void display(GraphicsContext gc, Coordinate positionCharac) {
         Image sprite;
         final double side = HEIGHT / 60;

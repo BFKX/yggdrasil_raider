@@ -102,7 +102,6 @@ class StartMenuController {
                 music.stop();
 
                 try {
-
                     scene.setRoot(loader.load());
                 } catch(IOException err) {
 

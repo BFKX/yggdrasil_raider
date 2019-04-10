@@ -10,8 +10,8 @@ import java.awt.Toolkit;
 import java.util.HashMap;
 
 public class Character {
-
     private Coordinate position;
+    private Coordinate positionMap ;
     private Hitbox hitbox;
     private double speedX = 0, speedY = 0;
     final private double SIDE = 2 * Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 55;
@@ -26,10 +26,11 @@ public class Character {
     final private Image movingSouthEastSprite = new Image("resources/images/movingSouthEastCharacter.png");
     final private Image movingNorthWestSprite = new Image("resources/images/movingNorthWestCharacter.png");
     final private Image movingSouthWestSprite = new Image("resources/images/movingSouthWestCharacter.png");
+    private double sumrest ;
     private Image activeSprite = waitingCharacter;
 
     public Character(Coordinate position, Hitbox hitbox) {
-        this.position = position;
+        this.position = new Coordinate((position.getX() /SIDE) , (position.getY()/SIDE));
         this.hitbox = new Hitbox(position, SIDE);
     }
 
@@ -87,8 +88,7 @@ public class Character {
         } else if(Math.abs(speedY) < 1 && Math.abs(speedX) < 1) {
             activeSprite = waitingCharacter;
         }
-
-        gc.drawImage(activeSprite, position.getX(), position.getY(), SIDE, SIDE);
+        gc.drawImage(activeSprite, Toolkit.getDefaultToolkit().getScreenSize().getWidth()/2,Toolkit.getDefaultToolkit().getScreenSize().getHeight() /2, SIDE, SIDE);
     }
 
     public Coordinate getPosition() {
