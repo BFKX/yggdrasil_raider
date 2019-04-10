@@ -2,6 +2,8 @@ package mapping;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import tools.Coordinate;
 
 import java.awt.Toolkit;
@@ -35,7 +37,12 @@ public class Map {
     final private Image nCloseWall = new Image("resources/images/nCloseWall.png");
     final private Image red = new Image("resources/images/red.png");
     final private Image groundVar = new Image("resources/images/groundVar.png");
-    private Random pseudoRandomList ;
+    final private Image character = new Image("resources/images/waitingCharacter.png");
+    final double SIDE = HEIGHT / 60;
+    private Random pseudoRandomList;
+    private double sideMiniMap = SIDE / 12;
+    private double origineXMiniMap;
+    private double origineYMiniMap;
 
     public Map(int columns, int lines) {
         this.lines = lines;
@@ -48,6 +55,9 @@ public class Map {
         curent = origine ;
         this.map= origine.getMap();
         addGroundVariation2(new int []{25,25,25,25},50000,150);
+        origineXMiniMap = WIDTH - columns * sideMiniMap;
+        origineYMiniMap = HEIGHT - lines * sideMiniMap;
+
     }
     public void update (){
         this.map = curent.getMap();
@@ -110,38 +120,74 @@ public class Map {
     }
 
     public void display(GraphicsContext gc, Coordinate positionCharac) {
-        Image sprite;
-        final double side = HEIGHT / 60;
-        for (int column = (int)(positionCharac.getX() / side) - 90; column < (int)(positionCharac.getX() / side) + 90; column++) {
+        int initColumn = (int)(positionCharac.getX() / SIDE) - 90;
+        int initLine = (int)(positionCharac.getY() / SIDE) - 60;
+        int lineOffset = (int)(positionCharac.getY() / SIDE) - 11;
+        int columnOffset = (int)(positionCharac.getX() / SIDE) - 19;
+        for (int column = initColumn; column < initColumn + 180; column++) {
             if(column < 0 || column >= columns) { continue; }
-            for (int line = (int)(positionCharac.getY() / side) - 60; line < (int)(positionCharac.getY() / side) + 60; line++) {
+            for (int line = initLine; line < initLine + 120; line++) {
                 if(line < 0 || line >= lines) { continue; }
-                switch(map[column][line]) {
-                    case 0: sprite = ground; break;
-                    case 1: sprite = voidImage; break;
-                    case 2: sprite = nWall; break;
-                    case 3: sprite = wWall; break;
-                    case 4: sprite = nwWall; break;
-                    case 6: sprite = sWall; break;
-                    case 8: sprite = swWall; break;
-                    case 9: sprite = wCloseWall; break;
-                    case 12: sprite = eWall; break;
-                    case 13: sprite = neWall; break;
-                    case 15: sprite = nCloseWall; break;
-                    case 17: sprite = seWall; break;
-                    case 18: sprite = eCloseWall; break;
-                    case 19: sprite = sCloseWall; break;
-                    case 21: sprite = nwCorner; break;
-                    case 25: sprite = groundVar; break;
-                    case 41: sprite = swCorner; break;
-                    case 82: sprite = seCorner; break;
-                    case 163: sprite = neCorner; break;
-                    default: sprite = red;
-                }
-                gc.drawImage(sprite, (column - ((int)(positionCharac.getX() / side) - 19)) * side - positionCharac.getX() % side, (line - ((int)(positionCharac.getY() / side) - 11)) * side - positionCharac.getY() % side, side, side);
-                //gc.drawImage(sprite, (column - (positionCharac.getX() / side) + 19) * side , (line -  (positionCharac.getY() / side) - 11) * side , side, side);
-
+                gc.drawImage(spriteSelector(map[column][line]), (column - columnOffset) * SIDE - positionCharac.getX() % SIDE, (line - lineOffset) * SIDE - positionCharac.getY() % SIDE, SIDE, SIDE);
             }
+        }
+    }
+
+    public void displayMiniMap(GraphicsContext gc, Coordinate positionCharac) {
+        Paint fill = gc.getFill();
+        gc.setFill(Color.RED);
+        double sideMiniMap10 = 10 * sideMiniMap;
+        for (int column = 0; column < columns; column++ ) {
+            for (int line = 0; line < lines; line++) {
+                gc.drawImage(spriteSelector(map[column][line]), origineXMiniMap + column * sideMiniMap, origineYMiniMap + line * sideMiniMap, sideMiniMap, sideMiniMap);
+            }
+        }
+        gc.drawImage(character, origineXMiniMap + positionCharac.getX() / sideMiniMap, origineYMiniMap + positionCharac.getY() / sideMiniMap, sideMiniMap10, sideMiniMap10);
+        gc.setFill(fill);
+    }
+
+    private Image spriteSelector(int square) {
+        switch(square) {
+            case 0:
+                return ground;
+            case 1:
+                return voidImage;
+            case 2:
+                return nWall;
+            case 3:
+                return wWall;
+            case 4:
+                return nwWall;
+            case 6:
+                return sWall;
+            case 8:
+                return swWall;
+            case 9:
+                return wCloseWall;
+            case 12:
+                return eWall;
+            case 13:
+                return neWall;
+            case 15:
+                return nCloseWall;
+            case 17:
+                return seWall;
+            case 18:
+                return eCloseWall;
+            case 19:
+                return sCloseWall;
+            case 21:
+                return nwCorner;
+            case 25:
+                return groundVar;
+            case 41:
+                return swCorner;
+            case 82:
+                return seCorner;
+            case 163:
+                return neCorner;
+            default:
+                return red;
         }
     }
 

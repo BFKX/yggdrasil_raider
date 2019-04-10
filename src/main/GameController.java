@@ -41,9 +41,10 @@ class GameController extends Application {
     private boolean link = false;
     private MusicPlayer music = new MusicPlayer("/resources/audio/bgm_action_1.mp3");
     private boolean musicStopped = false;
+    private boolean mapMode = false;
     private int randomNum;
     private String path;
-    private Map map = new Map(200 + ThreadLocalRandom.current().nextInt(-50, 50), 20 + ThreadLocalRandom.current().nextInt(-50, 50));
+    private Map map = new Map(200 + ThreadLocalRandom.current().nextInt(-50, 50), 200 + ThreadLocalRandom.current().nextInt(-50, 50));
     @FXML private AnchorPane game;
 
     GameController(Stage primaryStage) {
@@ -151,6 +152,7 @@ class GameController extends Application {
                     case S: map.moveSouth(); break;
                     case Q: map.moveEast(); break;
                     case D: map.moveWest(); break;
+                    //case M: map.displayFullScreen(gc, charac.getPosition()); mapMode = !mapMode; break;
                     default:
                 }
             }
@@ -175,7 +177,7 @@ class GameController extends Application {
             FPSMeter fpsm = new FPSMeter();
 
             public void handle(long now) {
-                if(!pause && now - lastNow >= 15000000) {
+                if(!mapMode && !pause && now - lastNow >= 15000000) {
                     gc.setFill(Color.BLACK);
                     gc.fillRect(0, 0, WIDTH, HEIGHT);
 
@@ -183,6 +185,8 @@ class GameController extends Application {
                     charac.update();
 
                     map.display(gc, charac.getPosition());
+                    map.displayMiniMap(gc, charac.getPosition());
+                    System.out.println(charac.getPosition());
 
                     charac.displayCharacter(gc);
                     charac.drawHitbox(gc);
@@ -190,7 +194,7 @@ class GameController extends Application {
                     fpsm.update(now, gc);
 
                     lastNow = now;
-                } else if(!pauseShown && now - lastNow >= 15000000){
+                } else if(!mapMode && !pauseShown && now - lastNow >= 15000000) {
                     gc.drawImage(pauseBackground, 0, 0);
                     game.getChildren().add(quitButton);
                     game.getChildren().add(resumeButton);

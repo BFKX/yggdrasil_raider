@@ -29,7 +29,7 @@ public class Character {
     private Image activeSprite = waitingCharacter;
 
     public Character(Coordinate position, Hitbox hitbox) {
-        this.position = new Coordinate((position.getX() /SIDE) , (position.getY()/SIDE));
+        this.position = new Coordinate(0, 0);
         this.hitbox = new Hitbox(position, SIDE);
     }
 
@@ -64,7 +64,7 @@ public class Character {
     }
 
     public void update() {
-        position.add(speedX * 2 / SIDE, speedY * 2 / SIDE);
+        position.add(speedX / SIDE, speedY / SIDE);
     }
 
     public void displayCharacter(GraphicsContext gc) {
@@ -87,7 +87,7 @@ public class Character {
         } else if(Math.abs(speedY) < 1 && Math.abs(speedX) < 1) {
             activeSprite = waitingCharacter;
         }
-        gc.drawImage(activeSprite, Toolkit.getDefaultToolkit().getScreenSize().getWidth()/2,Toolkit.getDefaultToolkit().getScreenSize().getHeight() /2, SIDE, SIDE);
+        gc.drawImage(activeSprite, Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2,Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2, SIDE, SIDE);
     }
 
     public Coordinate getPosition() {
