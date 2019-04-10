@@ -38,7 +38,6 @@ public class Cave extends Room {
         for ( int k = 0 ; k < 3  ; k++ ) {
             placeWall();
             delet25(1);
-            additiveFiltering();
             placeWall();
         }
 
