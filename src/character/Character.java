@@ -14,8 +14,8 @@ public class Character {
     private Hitbox hitbox;
     private double speedX = 0, speedY = 0;
     final private double SIDE = 2 * Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 55;
-    final private double speedLimitX = SIDE * 5;
-    final private double speedLimitY = SIDE * 5;
+    final private double speedLimitX = SIDE * 10;
+    final private double speedLimitY = SIDE * 10;
     final private Image waitingCharacter = new Image("resources/images/waitingCharacter.png");
     final private Image movingNorthSprite = new Image("resources/images/movingNorthCharacter.png");
     final private Image movingSouthSprite = new Image("resources/images/movingSouthCharacter.png");
@@ -25,7 +25,6 @@ public class Character {
     final private Image movingSouthEastSprite = new Image("resources/images/movingSouthEastCharacter.png");
     final private Image movingNorthWestSprite = new Image("resources/images/movingNorthWestCharacter.png");
     final private Image movingSouthWestSprite = new Image("resources/images/movingSouthWestCharacter.png");
-    private double sumrest ;
     private Image activeSprite = waitingCharacter;
 
     public Character(Coordinate position, Hitbox hitbox) {

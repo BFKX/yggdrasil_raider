@@ -2,8 +2,8 @@ package mapping;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import tools.Coordinate;
 
 import java.awt.Toolkit;
@@ -38,9 +38,9 @@ public class Map {
     final private Image red = new Image("resources/images/red.png");
     final private Image groundVar = new Image("resources/images/groundVar.png");
     final private Image character = new Image("resources/images/waitingCharacter.png");
-    final double SIDE = HEIGHT / 60;
+    final private double SIDE = HEIGHT / 60;
     private Random pseudoRandomList;
-    private double sideMiniMap = SIDE / 12;
+    private double sideMiniMap = SIDE * 0.1;
     private double origineXMiniMap;
     private double origineYMiniMap;
 
@@ -59,9 +59,11 @@ public class Map {
         origineYMiniMap = HEIGHT - lines * sideMiniMap;
 
     }
-    public void update (){
+
+    private void update (){
         this.map = curent.getMap();
     }
+
     public void createSeedRoom(){
         Random pseudoRandomList =  new Random(System.currentTimeMillis());
         curent = new SeedRoom( columns ,lines , pseudoRandomList ,new int[] {1,1,pseudoRandomList.nextInt(2),
@@ -91,7 +93,7 @@ public class Map {
         }
     }
     }
-    public void addGroundVariation2(int [] seeds, int rayon , int limite){
+    private void addGroundVariation2(@NotNull int[] seeds, int radius , int limit){
         int [][] temp = new int [columns][lines];
         Coordinate [] seedsCordinates = new Coordinate[seeds.length];
         for ( int i= 0 ; i<seeds.length ; i++){
@@ -107,8 +109,8 @@ public class Map {
                    int k = 0;
                    for (Coordinate c : seedsCordinates) {
                        double d = c.distance(ij);
-                       if (d < rayon) {
-                           if (Math.abs(pseudoRandomList.nextGaussian())  * d < limite) {
+                       if (d < radius) {
+                           if (Math.abs(pseudoRandomList.nextGaussian())  * d < limit) {
                                map[i][j] = seeds[k];
                            }
                        }
@@ -119,34 +121,36 @@ public class Map {
         }
     }
 
-    public void display(GraphicsContext gc, Coordinate positionCharac) {
+    public void display(GraphicsContext gc, @NotNull Coordinate positionCharac) {
         int initColumn = (int)(positionCharac.getX() / SIDE) - 90;
         int initLine = (int)(positionCharac.getY() / SIDE) - 60;
-        int lineOffset = (int)(positionCharac.getY() / SIDE) - 11;
-        int columnOffset = (int)(positionCharac.getX() / SIDE) - 19;
+        double lineOffset = (int)(positionCharac.getY() / SIDE) - HEIGHT / 72;
+        double columnOffset = (int)(positionCharac.getX() / SIDE) - WIDTH / 72;
         for (int column = initColumn; column < initColumn + 180; column++) {
-            if(column < 0 || column >= columns) { continue; }
             for (int line = initLine; line < initLine + 120; line++) {
-                if(line < 0 || line >= lines) { continue; }
+                if(line < 0 || line >= lines || column < 0 || column >= columns) { continue; }
                 gc.drawImage(spriteSelector(map[column][line]), (column - columnOffset) * SIDE - positionCharac.getX() % SIDE, (line - lineOffset) * SIDE - positionCharac.getY() % SIDE, SIDE, SIDE);
             }
         }
     }
 
-    public void displayMiniMap(GraphicsContext gc, Coordinate positionCharac) {
+    public void displayMiniMap(@NotNull GraphicsContext gc, Coordinate positionCharac) {
         gc.setGlobalAlpha(0.7);
         Image sprite;
+        double sideCharacMiniMap = SIDE / 3;
         for (int column = 0; column < columns; column++ ) {
             for (int line = 0; line < lines; line++) {
                 sprite = spriteSelector(map[column][line]);
-                if(sprite.equals(voidImage)) { continue; }
-                gc.drawImage(sprite, origineXMiniMap + column * sideMiniMap, origineYMiniMap + line * sideMiniMap, sideMiniMap, sideMiniMap);
+                if(!sprite.equals(voidImage)) {
+                    gc.drawImage(sprite, origineXMiniMap + column * sideMiniMap, origineYMiniMap + line * sideMiniMap, sideMiniMap, sideMiniMap);
+                }
             }
         }
         gc.setGlobalAlpha(1);
-        gc.drawImage(character, origineXMiniMap + positionCharac.getX() / sideMiniMap, origineYMiniMap + positionCharac.getY() / sideMiniMap, SIDE, SIDE);
+        gc.drawImage(character, origineXMiniMap + sideMiniMap * positionCharac.getX() / SIDE, origineYMiniMap + sideMiniMap * positionCharac.getY() / SIDE, sideCharacMiniMap, sideCharacMiniMap);
     }
 
+    @Contract(pure = true)
     private Image spriteSelector(int square) {
         switch(square) {
             case 0:
@@ -200,6 +204,7 @@ public class Map {
             System.out.println("noNorth");
         }
     }
+
     public void moveSouth(){
         if(curent.getSouth()!= null){
             curent=curent.getSouth();
@@ -209,6 +214,7 @@ public class Map {
             System.out.println("noSouth");
         }
     }
+
     public void moveEast(){
         if( curent.getEast() != null){
             curent=curent.getEast();
@@ -218,6 +224,7 @@ public class Map {
             System.out.println("noEast");
         }
     }
+
     public void moveWest(){
         if(curent.getWest() != null){
             curent=curent.getWest();

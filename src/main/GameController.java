@@ -173,9 +173,7 @@ class GameController extends Application {
 
         new AnimationTimer() {
             long lastNow = 0;
-
             FPSMeter fpsm = new FPSMeter();
-
             public void handle(long now) {
                 if(!mapMode && !pause && now - lastNow >= 15000000) {
                     gc.setFill(Color.BLACK);
@@ -193,7 +191,7 @@ class GameController extends Application {
                     fpsm.update(now, gc);
 
                     lastNow = now;
-                } else if(!mapMode && !pauseShown && now - lastNow >= 15000000) {
+                } else if(!pauseShown && now - lastNow >= 15000000) {
                     gc.drawImage(pauseBackground, 0, 0);
                     game.getChildren().add(quitButton);
                     game.getChildren().add(resumeButton);
