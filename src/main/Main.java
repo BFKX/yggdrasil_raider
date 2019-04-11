@@ -4,18 +4,15 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
-
-import java.util.Locale;
 
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-
-        Locale.setDefault(new Locale("fr", "FR"));
-        Locale.getDefault();
         primaryStage.setTitle("Yggdrasil Raider");
+        primaryStage.getIcons().add(new Image("resources/images/icon.png"));
         primaryStage.setFullScreen(true);
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
 
