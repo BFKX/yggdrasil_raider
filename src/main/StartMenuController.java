@@ -37,7 +37,7 @@ class StartMenuController {
 
     @FXML void initialize() throws Exception {
 
-        MusicPlayer music = new MusicPlayer("/resources/audio/startMenuMusic.wav");
+        MusicPlayer music = new MusicPlayer("/resources/audio/startMenu.wav");
         music.start();
 
         startMenu.setPrefSize(WIDTH, HEIGHT);
