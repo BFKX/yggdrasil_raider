@@ -2,6 +2,7 @@ package character;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import org.jetbrains.annotations.NotNull;
 import tools.CharacterActions;
 import tools.Coordinate;
 import tools.Hitbox;
@@ -39,7 +40,7 @@ public class Character {
     private void validatePosition(){
     }
 
-    public void displacement(HashMap<CharacterActions, Boolean> inputs) {
+    public void displacement(@NotNull HashMap<CharacterActions, Boolean> inputs) {
         if(!(inputs.get(CharacterActions.UP) && inputs.get(CharacterActions.DOWN) || inputs.get(CharacterActions.LEFT) && inputs.get(CharacterActions.RIGHT))) {
             if(inputs.get(CharacterActions.UP) && speedY > -speedLimitY) {
                 speedY -= speedLimitY / 13;
@@ -55,10 +56,10 @@ public class Character {
             }
         }
         if(!inputs.get(CharacterActions.UP) && !inputs.get(CharacterActions.DOWN) || inputs.get(CharacterActions.UP) && inputs.get(CharacterActions.DOWN)) {
-            speedY /= 1.3;
+            speedY /= 1.4;
         }
         if(!inputs.get(CharacterActions.RIGHT) && !inputs.get(CharacterActions.LEFT) || inputs.get(CharacterActions.RIGHT) && inputs.get(CharacterActions.LEFT)) {
-            speedX /= 1.3;
+            speedX /= 1.4;
         }
     }
 

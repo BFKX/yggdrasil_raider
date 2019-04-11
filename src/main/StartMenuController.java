@@ -61,6 +61,7 @@ class StartMenuController {
         playButton.setPrefSize(startMenu.getPrefWidth() / 3, startMenu.getPrefHeight() / 9);
         playButton.setLayoutX((startMenu.getPrefWidth() - playButton.getPrefWidth()) / 2);
         playButton.setLayoutY(startMenu.getPrefHeight() * 0.25- playButton.getPrefHeight() / 2);
+        playButton.setDefaultButton(true);
 
         quitButton.setPrefSize(startMenu.getPrefWidth() / 3, startMenu.getPrefHeight() / 9);
         quitButton.setLayoutX((startMenu.getPrefWidth() - quitButton.getPrefWidth()) / 2);
