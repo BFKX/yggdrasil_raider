@@ -39,7 +39,7 @@ class GameController extends Application {
     private Text text = new Text("Pause");
     private HashMap<CharacterActions, Boolean> inputs = new HashMap<>();
     private boolean link = false;
-    private MusicPlayer music = new MusicPlayer("/resources/audio/bgm_action_1.mp3");
+    private MusicPlayer music = new MusicPlayer("/resources/audio/inGame.wav");
     private boolean musicStopped = false;
     private boolean mapMode = false;
     private int randomNum;
@@ -125,15 +125,7 @@ class GameController extends Application {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             public void handle(KeyEvent e) {
                 switch(e.getCode()) {
-                    case R: map = new Map(200 + ThreadLocalRandom.current().nextInt(-50, 50), 200 + ThreadLocalRandom.current().nextInt(-50, 50));
-                    if(!musicStopped) {
-                        randomNum = ThreadLocalRandom.current().nextInt(1, 6);
-                        path = "/resources/audio/bgm_action_" + randomNum + ".mp3";
-                        music.stop();
-                        music.setPath(path);
-                        music.start();
-                    }
-                    break;
+                    case R: map = new Map(200 + ThreadLocalRandom.current().nextInt(-50, 50), 200 + ThreadLocalRandom.current().nextInt(-50, 50)); break;
                     case L: map.createSeedRoom();break;
                     case ESCAPE: pause = !pause;
                         if(!pause) {
@@ -152,7 +144,6 @@ class GameController extends Application {
                     case S: map.moveSouth(); break;
                     case Q: map.moveEast(); break;
                     case D: map.moveWest(); break;
-                    //case M: map.displayFullScreen(gc, charac.getPosition()); mapMode = !mapMode; break;
                     default:
                 }
             }
