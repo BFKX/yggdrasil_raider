@@ -186,7 +186,6 @@ class GameController extends Application {
 
                     map.display(gc, charac.getPosition());
                     map.displayMiniMap(gc, charac.getPosition());
-                    System.out.println(charac.getPosition());
 
                     charac.displayCharacter(gc);
                     charac.drawHitbox(gc);

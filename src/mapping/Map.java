@@ -134,16 +134,17 @@ public class Map {
     }
 
     public void displayMiniMap(GraphicsContext gc, Coordinate positionCharac) {
-        Paint fill = gc.getFill();
-        gc.setFill(Color.RED);
-        double sideMiniMap10 = 10 * sideMiniMap;
+        gc.setGlobalAlpha(0.7);
+        Image sprite;
         for (int column = 0; column < columns; column++ ) {
             for (int line = 0; line < lines; line++) {
-                gc.drawImage(spriteSelector(map[column][line]), origineXMiniMap + column * sideMiniMap, origineYMiniMap + line * sideMiniMap, sideMiniMap, sideMiniMap);
+                sprite = spriteSelector(map[column][line]);
+                if(sprite.equals(voidImage)) { continue; }
+                gc.drawImage(sprite, origineXMiniMap + column * sideMiniMap, origineYMiniMap + line * sideMiniMap, sideMiniMap, sideMiniMap);
             }
         }
-        gc.drawImage(character, origineXMiniMap + positionCharac.getX() / sideMiniMap, origineYMiniMap + positionCharac.getY() / sideMiniMap, sideMiniMap10, sideMiniMap10);
-        gc.setFill(fill);
+        gc.setGlobalAlpha(1);
+        gc.drawImage(character, origineXMiniMap + positionCharac.getX() / sideMiniMap, origineYMiniMap + positionCharac.getY() / sideMiniMap, SIDE, SIDE);
     }
 
     private Image spriteSelector(int square) {
