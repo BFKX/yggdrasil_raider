@@ -5,10 +5,8 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="startMenu" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Button fx:id="playButton" mnemonicParsing="false" text="Play" />
-      <Button fx:id="quitButton" mnemonicParsing="false" text="Quit" />
-      <Button fx:id="muteButton" mnemonicParsing="false" text="Mute" />
-      <Text fx:id="title" />
-   </children>
+   <Button fx:id="playButton" mnemonicParsing="false"/>
+   <Button fx:id="quitButton" mnemonicParsing="false"/>
+   <Button fx:id="muteButton" mnemonicParsing="false"/>
+   <Text fx:id="title" />
 </AnchorPane>

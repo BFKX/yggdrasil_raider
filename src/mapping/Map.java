@@ -2,6 +2,8 @@ package mapping;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tools.Coordinate;
@@ -146,8 +148,8 @@ public class Map {
                 }
             }
         }
-        gc.setGlobalAlpha(1);
         gc.drawImage(character, origineXMiniMap + sideMiniMap * positionCharac.getX() / SIDE - sideCharacMiniMap / 2, origineYMiniMap + sideMiniMap * positionCharac.getY() / SIDE - sideCharacMiniMap / 2, sideCharacMiniMap, sideCharacMiniMap);
+        gc.setGlobalAlpha(1);
     }
 
     @Contract(pure = true)

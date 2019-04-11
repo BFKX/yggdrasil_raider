@@ -2,7 +2,6 @@ package main;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCombination;
@@ -18,19 +17,13 @@ public class Main extends Application {
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/startMenuView.fxml"));
-        StartMenuController startMenuController = new StartMenuController(primaryStage);
-        loader.setController(startMenuController);
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-
-        primaryStage.setScene(scene);
-        startMenuController.setScene(scene);
+        loader.setController(new StartMenuController(primaryStage));
+        primaryStage.setScene(new Scene(loader.load()));
 
         primaryStage.show();
     }
 
     public static void main(String[] args) {
-
         launch(args);
     }
 }

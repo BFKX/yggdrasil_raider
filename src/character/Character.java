@@ -14,9 +14,9 @@ public class Character {
     private Coordinate position;
     private Hitbox hitbox;
     private double speedX = 0, speedY = 0;
-    final private double SIDE = 2 * Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 55;
-    final private double speedLimitX = SIDE * 10;
-    final private double speedLimitY = SIDE * 10;
+    final private double SIDE = 2 * Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
+    final private double speedLimitX = SIDE * 15;
+    final private double speedLimitY = SIDE * 15;
     final private Image waitingCharacter = new Image("resources/images/waitingCharacter.png");
     final private Image movingNorthSprite = new Image("resources/images/movingNorthCharacter.png");
     final private Image movingSouthSprite = new Image("resources/images/movingSouthCharacter.png");
@@ -63,7 +63,8 @@ public class Character {
         }
     }
 
-    public void update() {
+    public void update(HashMap<CharacterActions, Boolean> inputs) {
+        displacement(inputs);
         position.add(speedX / SIDE, speedY / SIDE);
     }
 
