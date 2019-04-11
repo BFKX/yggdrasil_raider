@@ -7,16 +7,17 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 
 public class Main extends Application {
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(@NotNull Stage primaryStage) throws Exception {
         primaryStage.setTitle("Yggdrasil Raider");
         primaryStage.getIcons().add(new Image("resources/images/icon.png"));
         primaryStage.setFullScreen(true);
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("startMenuView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/startMenuView.fxml"));
         StartMenuController startMenuController = new StartMenuController(primaryStage);
         loader.setController(startMenuController);
         Parent root = loader.load();

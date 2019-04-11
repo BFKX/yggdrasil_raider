@@ -92,7 +92,7 @@ class StartMenuController {
             @Override
             public void handle(ActionEvent e) {
 
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("gameView.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/gameView.fxml"));
 
                 GameController gameController = new GameController(primaryStage);
                 gameController.setScene(scene);

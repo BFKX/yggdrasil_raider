@@ -87,7 +87,7 @@ public class Character {
         } else if(Math.abs(speedY) < 1 && Math.abs(speedX) < 1) {
             activeSprite = waitingCharacter;
         }
-        gc.drawImage(activeSprite, Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2,Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2, SIDE, SIDE);
+        gc.drawImage(activeSprite, Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - SIDE / 2,Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - SIDE / 2, SIDE, SIDE);
     }
 
     public Coordinate getPosition() {

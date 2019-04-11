@@ -21,7 +21,7 @@ public class Hitbox {
     public void draw(GraphicsContext gc) {
         Paint stroke = gc.getStroke();
         gc.setStroke(Color.BLUE);
-        gc.strokeOval(origine.getX(), origine.getY(), radius, radius);
+        gc.strokeOval(origine.getX() - radius / 2, origine.getY() - radius / 2, radius, radius);
         gc.setStroke(stroke);
     }
 

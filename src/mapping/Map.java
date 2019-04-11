@@ -147,7 +147,7 @@ public class Map {
             }
         }
         gc.setGlobalAlpha(1);
-        gc.drawImage(character, origineXMiniMap + sideMiniMap * positionCharac.getX() / SIDE, origineYMiniMap + sideMiniMap * positionCharac.getY() / SIDE, sideCharacMiniMap, sideCharacMiniMap);
+        gc.drawImage(character, origineXMiniMap + sideMiniMap * positionCharac.getX() / SIDE - sideCharacMiniMap / 2, origineYMiniMap + sideMiniMap * positionCharac.getY() / SIDE - sideCharacMiniMap / 2, sideCharacMiniMap, sideCharacMiniMap);
     }
 
     @Contract(pure = true)
