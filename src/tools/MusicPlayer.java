@@ -13,16 +13,11 @@ public class MusicPlayer {
         setPath(path);
     }
 
-    public void setPath(String path) {
+    private void setPath(String path) {
 
         player = new MediaPlayer(new Media(getClass().getResource(path).toString()));
 
-        player.setOnEndOfMedia(new Runnable() {
-            @Override
-            public void run() {
-                player.seek(Duration.ZERO);
-            }
-        });
+        player.setOnEndOfMedia(() -> player.seek(Duration.ZERO));
     }
 
     public void start() {

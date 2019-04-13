@@ -6,8 +6,8 @@ import javafx.scene.paint.Paint;
 
 public class Hitbox {
 
-    private Coordinate origine;
-    private double radius;
+    private final Coordinate origine;
+    private final double radius;
 
     public Hitbox(Coordinate origine, double radius) {
         this.origine = origine;

@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 public class Character {
     private Coordinate position;
-    private Hitbox hitbox;
+    private final Hitbox hitbox;
     private double speedX = 0, speedY = 0;
     final private double SIDE = 2 * Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
     final private double speedLimitX = SIDE * 15;
@@ -28,7 +28,7 @@ public class Character {
     final private Image movingSouthWestSprite = new Image("resources/images/movingSouthWestCharacter.png");
     private Image activeSprite = waitingCharacter;
 
-    public Character(Coordinate position, Hitbox hitbox) {
+    public Character(Coordinate position) {
         this.position = new Coordinate(0, 0);
         this.hitbox = new Hitbox(position, SIDE);
     }
@@ -37,10 +37,7 @@ public class Character {
         Hitbox att = new Hitbox(new Coordinate(position.getX() + SIDE, position.getY() + SIDE + 20 ), 10 );
     }
 
-    private void validatePosition(){
-    }
-
-    public void displacement(@NotNull HashMap<CharacterActions, Boolean> inputs) {
+    private void displacement(@NotNull HashMap<CharacterActions, Boolean> inputs) {
         if(!(inputs.get(CharacterActions.UP) && inputs.get(CharacterActions.DOWN) || inputs.get(CharacterActions.LEFT) && inputs.get(CharacterActions.RIGHT))) {
             if(inputs.get(CharacterActions.UP) && speedY > -speedLimitY) {
                 speedY -= speedLimitY / 13;

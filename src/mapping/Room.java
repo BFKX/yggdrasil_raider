@@ -11,12 +11,12 @@ public class Room  {
     private Room south;
     private Room east;
     private Room west;
-    protected Random pseudoRandomList;
-    protected int[][] map ;
-    protected int width;
-    protected int height;
+    Random pseudoRandomList;
+    int[][] map ;
+    int width;
+    int height;
 
-    public Room(int width, int height, Random pseudoRandomList) {
+    Room(int width, int height, Random pseudoRandomList) {
         this.width = width;
         this.height = height;
         this.pseudoRandomList = pseudoRandomList;
@@ -36,7 +36,7 @@ public class Room  {
     }
 
     public ArrayList<Integer> hadNorthWay(){
-        ArrayList <Integer> temp =  new ArrayList<Integer>();
+        ArrayList <Integer> temp = new ArrayList<>();
         for ( int i = 0 ; i<width ; i++ ){
             if ( map[i][0] == 0 ){
                 temp.add(i);
@@ -45,16 +45,16 @@ public class Room  {
         return temp;
     }
     public ArrayList <Integer> hadSouthWay(){
-        ArrayList <Integer> temp =  new ArrayList<Integer>();
+        ArrayList <Integer> temp = new ArrayList<>();
         for ( int i = 0 ; i<width ; i++ ){
             if ( map[i][height-1] == 0 ){
-                temp.add(i); ;
+                temp.add(i);
             }
         }
         return temp;
     }
     public ArrayList <Integer> hadEastWay(){
-        ArrayList <Integer> temp =  new ArrayList<Integer>();
+        ArrayList <Integer> temp = new ArrayList<>();
         for ( int i = 0 ; i<height ; i++ ){
             if ( map[0][i] == 0 ){
                 temp.add(i);
@@ -63,10 +63,10 @@ public class Room  {
         return temp;
     }
     public ArrayList <Integer> hadWestWay(){
-        ArrayList <Integer> temp =  new ArrayList<Integer>();
+        ArrayList <Integer> temp = new ArrayList<>();
         for ( int i = 0 ; i<height ; i++ ){
             if ( map[width-1][i] == 0 ){
-                temp.add(i); ;
+                temp.add(i);
             }
         }
         return temp;
@@ -146,7 +146,7 @@ public class Room  {
         this.pseudoRandomList = pseudoRandomList;
     }
 
-    public int getWidth() {
+    int getWidth() {
         return width;
     }
 
@@ -154,7 +154,7 @@ public class Room  {
         this.width = width;
     }
 
-    public int getHeight() {
+    int getHeight() {
         return height;
     }
 

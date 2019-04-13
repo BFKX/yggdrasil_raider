@@ -1,17 +1,16 @@
 package mapping;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Cave extends Room {
     public Cave(int width, int height, Random pseudoRandomList) {
         super(width, height, pseudoRandomList);
-        //int fillPurcentage = ThreadLocalRandom.current().nextInt(43, 47);
-        int fillPurcentage = 62;
+        //int fillPercentage = ThreadLocalRandom.current().nextInt(43, 47);
+        int fillPercentage = 62;
         this.width = width;
         this.height = height;
         this.map = new int[width][height];
-        randomFill(fillPurcentage);
-        /*for (int k = 0; k < 2; k++) { // filtre melange range 1 et 2
+        randomFill(fillPercentage);
+        /*for (int k = 0; k < 2; k++) { // filter melange range 1 et 2
             int[][] f1 = fullnRangefiltering(1);
             int[][] f2 = fullnRangefiltering(2);
             for (int i = 0; i < width; i++) {
@@ -37,13 +36,13 @@ public class Cave extends Room {
         }
         for ( int k = 0 ; k < 3  ; k++ ) {
             placeWall();
-            delet25(1);
+            delete25(1);
             placeWall();
         }
 
     }
 
-    public void delet25(int range) {
+    private void delete25(int range) {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 if (map[i][j] == 25 ) {
@@ -69,15 +68,16 @@ public class Cave extends Room {
     /**
      * generation d'un bruit
      *
-     * @param fillPurcentage
+     * @param fillPercentage
      */
-    public void randomFill(int fillPurcentage) {
+    @SuppressWarnings("JavaDoc")
+    private void randomFill(int fillPercentage) {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 if (i <=4 || i > width - 4 || j <= 4 || j >= height -4 ) {
                     map[i][j] = 1;
                 } else {
-                    if (pseudoRandomList.nextInt(100) < fillPurcentage) {
+                    if (pseudoRandomList.nextInt(100) < fillPercentage) {
                         map[i][j] = 1;
                     } else {
                         map[i][j] = 0;
@@ -88,16 +88,16 @@ public class Cave extends Room {
     }
 
     /**
-     * place des murs
+     * place walls
      */
-    public void placeWall( ){
+    private void placeWall(){
         for ( int i = 0 ; i<width ;i++){
             for ( int j =0 ;  j < height ; j++){
                 if (map[i][j]!=0 ) {
                     if (j-1>0 && map[i][j-1] == 0){ //north
                         map[i][j] = map[i][j]+1 ;
                     }
-                    if (i-1>0 && map[i-1][j] == 0){ //est
+                    if (i-1>0 && map[i-1][j] == 0){ //east
                         map[i][j] = map[i][j] +2 ;
                     }
                     if ( j+1 < this.height && map[i][j+1] == 0){//south
@@ -107,16 +107,16 @@ public class Cave extends Room {
                         map[i][j] = map[i][j]+11 ;
                     }
                     if(map[i][j]==1){
-                        if (j-1>0 && i-1>0 && map[i-1][j-1] == 0){ //north west
+                        if (j-1>0 && i-1>0 && map[i-1][j-1] == 0){ //North West
                             map[i][j] = map[i][j]+20 ;
                         }
-                        if (i-1>0 && j+1<this.height &&map[i-1][j+1] == 0){ //sud wet
+                        if (i-1>0 && j+1<this.height &&map[i-1][j+1] == 0){ //South West
                             map[i][j] = map[i][j] +40 ;
                         }
-                        if ( j+1 < this.height &&  i+1 < this.width && map[i+1][j+1] == 0){//sud est
+                        if ( j+1 < this.height &&  i+1 < this.width && map[i+1][j+1] == 0){//South East
                             map[i][j] = map[i][j]+81 ;
                         }
-                        if ( i+1 <this.width && j-1 >0 && map[i+1][j-1] == 0){//nord est
+                        if ( i+1 <this.width && j-1 >0 && map[i+1][j-1] == 0){//North East
                             map[i][j] = map[i][j]+162 ;
                         }
                     }
@@ -125,7 +125,7 @@ public class Cave extends Room {
         }
     }
 
-    public  void additiveFiltering(){
+    private void additiveFiltering(){
         int [][] temp = new int [width] [height] ;
         for ( int i = 0 ; i<width ;i++) {
             for (int j = 0; j < height ; j++) {
@@ -147,21 +147,19 @@ public class Cave extends Room {
                 }
             }
         for ( int i = 0 ; i<width;i++) {
-            for (int j = 0; j < height ; j++) {
-                map[i][j]=temp[i][j];
-            }
+            if (height >= 0) System.arraycopy(temp[i], 0, map[i], 0, height);
         }
     }
 
     public void coloring(){
-        int setvalue = -1 ;
+        int setValue = -1 ;
         for (int i= 0 ; i < width ; i++) {
             for(int j =0 ; j< height ; j++ ) {
                 if(map[i][j] == 0 ){
-                    if (detection( i,j,setvalue,0,0,5)) {
+                    if (detection( i,j,setValue,0,0,5)) {
                         remplacement(i,j,0,25);
                     }
-                    setvalue -- ;
+                    setValue -- ;
                 }
             }
         }
@@ -175,15 +173,15 @@ public class Cave extends Room {
 
     }
 
-    public boolean detection(int i , int j , int setvalue , int access , int compteur , int limite ) {
-        map[i][j] = setvalue ;
-        compteur++;
-        if (compteur < limite) {
+    private boolean detection(int i, int j, int setValue, int access, int counter, int limit) {
+        map[i][j] = setValue ;
+        counter++;
+        if (counter < limit) {
             for (int l = -1; l < 2; l++) {
                 for (int k = -1; k < 2; k++) {
                     if (i + l >= 0 && i + l < width && j + k >= 0 && i + l < height) {
                         if (map[i + l][j + k]  <= access) {
-                            if (!(detection(i + l, j + k, setvalue, access, compteur, limite))){
+                            if (!(detection(i + l, j + k, setValue, access, counter, limit))){
                                 return false ;
                             }
                         }
@@ -195,7 +193,7 @@ public class Cave extends Room {
             return false;
         }
     }
-    public void remplacement (int i , int j , int origin , int end ) {
+    private void remplacement(int i, int j, int origin, int end) {
         map[i][j] = end;
         for (int l = -1; l < 2; l++) {
             for (int k = -1; k < 2; k++) {

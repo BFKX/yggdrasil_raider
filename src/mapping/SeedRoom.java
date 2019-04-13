@@ -2,14 +2,12 @@ package mapping;
 
 import tools.Coordinate;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Random;
 
-public class SeedRoom extends Room {
-    Coordinate [] listSeed;
-    int [] listSeedInterger ;
-    int nbSeed;
+class SeedRoom extends Room {
+    private final Coordinate [] listSeed;
+    private final int [] listSeedInterger ;
+    private final int nbSeed;
     public SeedRoom (int width , int height , Random pseudoRandomList, int[] listSeedInterger){
         super(width , height , pseudoRandomList );
 
@@ -25,7 +23,7 @@ public class SeedRoom extends Room {
 
     }
 
-    public void placeSeed() {
+    private void placeSeed() {
         for(int i = 0 ; i < nbSeed ; i++){
             int x= pseudoRandomList.nextInt(width);
             int y= pseudoRandomList.nextInt(height);
@@ -33,7 +31,7 @@ public class SeedRoom extends Room {
         }
     }
 
-    public void fillMap(){
+    private void fillMap(){
         for (int i = 0 ; i < width ;i++){
             for(int j = 0 ;  j < height ; j++){
                 double [] distances = new double[nbSeed];

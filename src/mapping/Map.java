@@ -2,8 +2,6 @@ package mapping;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tools.Coordinate;
@@ -13,8 +11,8 @@ import java.util.Random;
 
 public class Map {
     private int[][] map;
-    private int lines;
-    private int columns;
+    private final int lines;
+    private final int columns;
     private Cave origine;
     private Room curent;
     final private double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
@@ -41,10 +39,10 @@ public class Map {
     final private Image groundVar = new Image("resources/images/groundVar.png");
     final private Image character = new Image("resources/images/waitingCharacter.png");
     final private double SIDE = HEIGHT / 60;
-    private Random pseudoRandomList;
-    private double sideMiniMap = SIDE * 0.1;
-    private double origineXMiniMap;
-    private double origineYMiniMap;
+    private final Random pseudoRandomList;
+    private final double sideMiniMap = SIDE * 0.1;
+    private final double origineXMiniMap;
+    private final double origineYMiniMap;
 
     public Map(int columns, int lines) {
         this.lines = lines;
@@ -95,14 +93,13 @@ public class Map {
         }
     }
     }
+
     private void addGroundVariation2(@NotNull int[] seeds, int radius , int limit){
-        int [][] temp = new int [columns][lines];
         Coordinate [] seedsCordinates = new Coordinate[seeds.length];
         for ( int i= 0 ; i<seeds.length ; i++){
             int x = pseudoRandomList.nextInt(columns);
             int y = pseudoRandomList.nextInt(lines);
             seedsCordinates[i] = new Coordinate(x,y);
-            temp[x][y]=seeds[i];
         }
         for ( int i =0 ; i< columns ;i++){
             for(int j = 0 ; j< lines ;j++){

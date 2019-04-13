@@ -16,7 +16,7 @@ import java.awt.Toolkit;
 import java.io.IOException;
 
 class StartMenuController {
-    private Stage primaryStage;
+    private final Stage primaryStage;
     private final double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
     private final double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 
@@ -69,18 +69,13 @@ class StartMenuController {
             }
         });
 
-        quitButton.setBackground(new Background(new BackgroundImage(new Image("images/quitButton.png", startMenu.getPrefWidth() / 3,
-                startMenu.getPrefHeight() / 9, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+        quitButton.setBackground(new Background(new BackgroundImage(new Image("images/quitButton.png",
+                startMenu.getPrefWidth() / 3, startMenu.getPrefHeight() / 9, false, false),
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
         quitButton.setPrefSize(startMenu.getPrefWidth() / 3, startMenu.getPrefHeight() / 9);
         quitButton.setLayoutX((startMenu.getPrefWidth() - quitButton.getPrefWidth()) / 2);
         quitButton.setLayoutY(startMenu.getPrefHeight() * 0.75 - quitButton.getPrefHeight() / 2);
-        quitButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                System.exit(0);
-            }
-        });
+        quitButton.setOnAction(e -> System.exit(0));
 
         muteButton.setBackground(new Background(new BackgroundImage(new Image("images/muteButton.png", WIDTH / 10,
                 HEIGHT / 10, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
@@ -88,12 +83,7 @@ class StartMenuController {
         muteButton.setPrefSize(WIDTH / 10, HEIGHT / 10);
         muteButton.setLayoutX(WIDTH - muteButton.getPrefWidth());
         muteButton.setLayoutY(HEIGHT - muteButton.getPrefHeight());
-        muteButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                music.stop();
-            }
-        });
+        muteButton.setOnAction(actionEvent -> music.stop());
         music.start();
     }
 }
