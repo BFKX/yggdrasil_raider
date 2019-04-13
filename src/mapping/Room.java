@@ -1,164 +1,168 @@
 package mapping;
 
-
+import org.jetbrains.annotations.NotNull;
 import tools.Coordinate;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Room  {
-    private Room north;
-    private Room south;
-    private Room east;
-    private Room west;
-    Random pseudoRandomList;
-    int[][] map ;
-    int width;
-    int height;
+public class Room {
+	private Room north;
+	private Room south;
+	private Room east;
+	private Room west;
+	Random pseudoRandomList;
+	int[][] map;
+	int width;
+	int height;
 
-    Room(int width, int height, Random pseudoRandomList) {
-        this.width = width;
-        this.height = height;
-        this.pseudoRandomList = pseudoRandomList;
-        map = new int[width][height];
-    }
+	Room(int width, int height, Random pseudoRandomList) {
+		this.width = width;
+		this.height = height;
+		this.pseudoRandomList = pseudoRandomList;
+		map = new int[width][height];
+	}
 
-    public int[][] getMap() {
-        return map;
-    }
+	public int[][] getMap() {
+		return map;
+	}
 
-    public void setMap(int[][] map) {
-        this.map = map;
-    }
-    public Room(Coordinate origin, Random pseudoRandomList){
-        this.height = pseudoRandomList.nextInt();
-        this.width = pseudoRandomList.nextInt();
-    }
+	public void setMap(int[][] map) {
+		this.map = map;
+	}
 
-    public ArrayList<Integer> hadNorthWay(){
-        ArrayList <Integer> temp = new ArrayList<>();
-        for ( int i = 0 ; i<width ; i++ ){
-            if ( map[i][0] == 0 ){
-                temp.add(i);
-            }
-        }
-        return temp;
-    }
-    public ArrayList <Integer> hadSouthWay(){
-        ArrayList <Integer> temp = new ArrayList<>();
-        for ( int i = 0 ; i<width ; i++ ){
-            if ( map[i][height-1] == 0 ){
-                temp.add(i);
-            }
-        }
-        return temp;
-    }
-    public ArrayList <Integer> hadEastWay(){
-        ArrayList <Integer> temp = new ArrayList<>();
-        for ( int i = 0 ; i<height ; i++ ){
-            if ( map[0][i] == 0 ){
-                temp.add(i);
-            }
-        }
-        return temp;
-    }
-    public ArrayList <Integer> hadWestWay(){
-        ArrayList <Integer> temp = new ArrayList<>();
-        for ( int i = 0 ; i<height ; i++ ){
-            if ( map[width-1][i] == 0 ){
-                temp.add(i);
-            }
-        }
-        return temp;
-    }
-    public void applyfiltering(int[][] mapfiltrering, int limit) { //appliquelefiltre
-        for (int i = 1; i < width - 1; i++) {
-            for (int j = 1; j < height - 1; j++) {
-                if (mapfiltrering[i][j] >=limit) {
-                    map[i][j] = 1;
-                }
-                if (mapfiltrering[i][j] < limit) {
-                    map[i][j] = 0;
-                }
-            }
-        }
-    }
+	public Room(Coordinate origin, @NotNull Random pseudoRandomList) {
+		this.height = pseudoRandomList.nextInt();
+		this.width = pseudoRandomList.nextInt();
+	}
 
+	public ArrayList<Integer> hadNorthWay() {
+		ArrayList<Integer> temp = new ArrayList<>();
+		for (int i = 0; i < width; i++) {
+			if (map[i][0] == 0) {
+				temp.add(i);
+			}
+		}
+		return temp;
+	}
 
-    public int[][] fullnRangefiltering(int n) {
-        int[][] temp = new int[width][height];
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                int sum = 0;
-                for (int l = -n; l < n + 1; l++) {
-                    for (int k = -n; k < n + 1; k++) {
-                        if (i + l < width && j + k >= 0 && j + k < height && i + l >= 0) {
-                            sum = sum + map[i + l][j + k];
-                        } else {
-                            sum = 25;
-                            break;
-                        }
-                    }
-                }
-                temp[i][j] = sum;
-            }
-        }
-        return temp;
-    }
+	public ArrayList<Integer> hadSouthWay() {
+		ArrayList<Integer> temp = new ArrayList<>();
+		for (int i = 0; i < width; i++) {
+			if (map[i][height - 1] == 0) {
+				temp.add(i);
+			}
+		}
+		return temp;
+	}
 
-    public Room getNorth() {
-        return north;
-    }
+	public ArrayList<Integer> hadEastWay() {
+		ArrayList<Integer> temp = new ArrayList<>();
+		for (int i = 0; i < height; i++) {
+			if (map[0][i] == 0) {
+				temp.add(i);
+			}
+		}
+		return temp;
+	}
 
-    public void setNorth(Room north) {
-        this.north = north;
-    }
+	public ArrayList<Integer> hadWestWay() {
+		ArrayList<Integer> temp = new ArrayList<>();
+		for (int i = 0; i < height; i++) {
+			if (map[width - 1][i] == 0) {
+				temp.add(i);
+			}
+		}
+		return temp;
+	}
 
-    public Room getSouth() {
-        return south;
-    }
+	public void applyFiltering(int[][] mapFiltering, int limit) {
+		for (int i = 1; i < width - 1; i++) {
+			for (int j = 1; j < height - 1; j++) {
+				if (mapFiltering[i][j] >= limit) {
+					map[i][j] = 1;
+				}
+				if (mapFiltering[i][j] < limit) {
+					map[i][j] = 0;
+				}
+			}
+		}
+	}
 
-    public void setSouth(Room south) {
-        this.south = south;
-    }
+	public int[][] fullnRangefiltering(int n) {
+		int[][] temp = new int[width][height];
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
+				int sum = 0;
+				for (int l = -n; l < n + 1; l++) {
+					for (int k = -n; k < n + 1; k++) {
+						if (i + l < width && j + k >= 0 && j + k < height && i + l >= 0) {
+							sum = sum + map[i + l][j + k];
+						} else {
+							sum = 25;
+							break;
+						}
+					}
+				}
+				temp[i][j] = sum;
+			}
+		}
+		return temp;
+	}
 
-    public Room getEast() {
-        return east;
-    }
+	public Room getNorth() {
+		return north;
+	}
 
-    public void setEast(Room east) {
-        this.east = east;
-    }
+	public void setNorth(Room north) {
+		this.north = north;
+	}
 
-    public Room getWest() {
-        return west;
-    }
+	public Room getSouth() {
+		return south;
+	}
 
-    public void setWest(Room west) {
-        this.west = west;
-    }
+	public void setSouth(Room south) {
+		this.south = south;
+	}
 
-    public Random getPseudoRandomList() {
-        return pseudoRandomList;
-    }
+	public Room getEast() {
+		return east;
+	}
 
-    public void setPseudoRandomList(Random pseudoRandomList) {
-        this.pseudoRandomList = pseudoRandomList;
-    }
+	public void setEast(Room east) {
+		this.east = east;
+	}
 
-    int getWidth() {
-        return width;
-    }
+	public Room getWest() {
+		return west;
+	}
 
-    public void setWidth(int width) {
-        this.width = width;
-    }
+	public void setWest(Room west) {
+		this.west = west;
+	}
 
-    int getHeight() {
-        return height;
-    }
+	public Random getPseudoRandomList() {
+		return pseudoRandomList;
+	}
 
-    public void setHeight(int height) {
-        this.height = height;
-    }
+	public void setPseudoRandomList(Random pseudoRandomList) {
+		this.pseudoRandomList = pseudoRandomList;
+	}
+
+	int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
 }

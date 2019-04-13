@@ -1,52 +1,52 @@
 package tools;
 
+import org.jetbrains.annotations.NotNull;
+
 public class Coordinate {
 
-    private double x ;
-    private double y ;
+	private double x;
+	private double y;
 
-    public Coordinate(double x, double y) {
-        this.x = x;
-        this.y = y;
-    }
+	public Coordinate(double x, double y) {
+		this.x = x;
+		this.y = y;
+	}
 
-    public Coordinate sum(double x , double y ){ // add x to the first coordinate and y to the second one
-        return new Coordinate(this.getX()+x , this.getY()+y) ;
-    }
+	public Coordinate sum(double x, double y) {
+		return new Coordinate(this.getX() + x, this.getY() + y);
+	}
 
-    public void add(double x, double y) {
+	public void add(double x, double y) {
+		this.x += x;
+		this.y += y;
+	}
 
-        this.x += x;
-        this.y += y;
-    }
+	public double distance(@NotNull Coordinate other) {
+		return (Math.pow((this.getX() - other.getX()), 2) + Math.pow((this.getY() - other.getY()), 2));
+	}
 
-    public double distance(Coordinate other){
-        return  (Math.pow((this.getX() - other.getX()),2) + Math.pow((this.getY() - other.getY()),2));
-    }
+	public void setY(double y) {
+		this.y = y;
+	}
 
-    public void setY(double y) {
+	public void setX(double x) {
+		this.x = x;
+	}
 
-        this.y = y;
-    }
+	public double getX() {
+		return x;
+	}
 
-    public void setX(double x) {
+	public double getY() {
+		return y;
+	}
 
-        this.x = x;
-    }
+	public boolean isValid(Coordinate origin, int height, int width) {
+		return this.getX() > origin.getX() && this.getX() < origin.getX() + width && this.getY() > origin.getY()
+				&& this.getY() < origin.getY() + height;
+	}
 
-    public double getX() {
-
-        return x;
-    }
-
-    public double getY() {
-
-        return y;
-    }
-    public boolean isValid(Coordinate origine, int height , int width ){ //return true if the coorinate is the rec betwin origine and orignie + height , width
-        return ( this.getX()>origine.getX() && this.getX() < origine.getX() + width  && this.getY()>origine.getY() && this.getY() < origine.getY()+ height );
-    }
-    public String toString() {
-        return "(" + x + "," + y + ")";
-    }
+	public String toString() {
+		return "(" + x + "," + y + ")";
+	}
 }

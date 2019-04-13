@@ -1,35 +1,32 @@
 package tools;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
+import org.jetbrains.annotations.NotNull;
 
 public class Hitbox {
+	private final Coordinate origin;
+	private final double radius;
 
-    private final Coordinate origine;
-    private final double radius;
+	public Hitbox(Coordinate origin, double radius) {
+		this.origin = origin;
+		this.radius = radius;
+	}
 
-    public Hitbox(Coordinate origine, double radius) {
-        this.origine = origine;
-        this.radius = radius;
-    }
+	public boolean collide(@NotNull Hitbox other) {
+		return this.origin.distance(other.getOrigin()) < this.radius - other.getRadius();
+	}
 
-    public boolean collide(Hitbox other) {
-        return this.origine.distance(other.getOrigine()) < this.radius - other.getRadius();
-    }
+	public void draw(@NotNull GraphicsContext gc) {
+		gc.save();
+		gc.strokeOval(origin.getX() - radius / 2, origin.getY() - radius / 2, radius, radius);
+		gc.restore();
+	}
 
-    public void draw(GraphicsContext gc) {
-        Paint stroke = gc.getStroke();
-        gc.setStroke(Color.BLUE);
-        gc.strokeOval(origine.getX() - radius / 2, origine.getY() - radius / 2, radius, radius);
-        gc.setStroke(stroke);
-    }
+	private Coordinate getOrigin() {
+		return origin;
+	}
 
-    private Coordinate getOrigine() {
-        return origine;
-    }
-
-    private double getRadius() {
-        return radius;
-    }
+	private double getRadius() {
+		return radius;
+	}
 }

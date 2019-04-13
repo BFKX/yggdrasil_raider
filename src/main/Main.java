@@ -9,21 +9,21 @@ import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 
 public class Main extends Application {
-    @Override
-    public void start(@NotNull Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Yggdrasil Raider");
-        primaryStage.getIcons().add(new Image("resources/images/icon.png"));
-        primaryStage.setFullScreen(true);
-        primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+	@Override
+	public void start(@NotNull Stage primaryStage) throws Exception {
+		primaryStage.setTitle("Yggdrasil Raider");
+		primaryStage.getIcons().add(new Image("resources/images/icon.png"));
+		primaryStage.setFullScreen(true);
+		primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/startMenuView.fxml"));
-        loader.setController(new StartMenuController(primaryStage));
-        primaryStage.setScene(new Scene(loader.load()));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/startMenuView.fxml"));
+		loader.setController(new StartMenuController(primaryStage));
+		primaryStage.setScene(new Scene(loader.load()));
 
-        primaryStage.show();
-    }
+		primaryStage.show();
+	}
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+	public static void main(String[] args) {
+		launch(args);
+	}
 }
