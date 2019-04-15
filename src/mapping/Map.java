@@ -54,7 +54,7 @@ public class Map {
 		// origin.placeRoom(pseudoRandomList);
 		current = origin;
 		this.map = origin.getMap();
-		addGroundVariation2(new int[] { 25, 25, 25, 25 }, 50000, 150);
+		addGroundVariation2(new int[] { -3, -3, -3, -3 }, 50000, 150);
 		originXMiniMap = WIDTH - columns * sideMiniMap;
 		originYMiniMap = HEIGHT - lines * sideMiniMap;
 
@@ -110,8 +110,9 @@ public class Map {
 					for (Coordinate c : seedsCoordinates) {
 						double d = c.distance(ij);
 						if (d < radius) {
-							if (Math.abs(pseudoRandomList.nextGaussian()) * d < limit) {
-								map[i][j] = seeds[k];
+							double nb =Math.abs(pseudoRandomList.nextGaussian()) * d ;
+							if (nb < limit) {
+								map[i][j] = seeds[k] * (int)(nb*5/d);
 							}
 						}
 						k++;
