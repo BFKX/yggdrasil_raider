@@ -243,6 +243,10 @@ public class Map {
 		}
 	}
 
+	public int[][] getMap() {
+		return map;
+	}
+
 	public Room getOrigin() {
 		return origin;
 	}
