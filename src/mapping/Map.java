@@ -57,7 +57,7 @@ public class Map {
 		// origin.placeRoom(pseudoRandomList);
 		current = origin;
 		this.map = origin.getMap();
-		addGroundVariation2(new int[] { 25, 25, 25, 25 }, 50000, 150);
+		addGroundVariation2(new int[] { -1, -1, -1, 0 ,0 ,-1 }, 5000);
 		originXMiniMap = WIDTH - columns * sideMiniMap;
 		originYMiniMap = HEIGHT - lines * sideMiniMap;
 
@@ -98,7 +98,7 @@ public class Map {
 		}
 	}
 
-	private void addGroundVariation2(@NotNull int[] seeds, int radius, int limit) {
+	private void addGroundVariation2(@NotNull int[] seeds, int limit) {
 		Coordinate[] seedsCoordinates = new Coordinate[seeds.length];
 		for (int i = 0; i < seeds.length; i++) {
 			int x = pseudoRandomList.nextInt(columns);
@@ -112,11 +112,9 @@ public class Map {
 					int k = 0;
 					for (Coordinate c : seedsCoordinates) {
 						double d = c.distance(ij);
-						if (d < radius) {
-							if (Math.abs(pseudoRandomList.nextGaussian()) * d < limit) {
-								map[i][j] = seeds[k];
-							}
-						}
+							double nb = Math.abs(pseudoRandomList.nextGaussian())/2  ;
+							if ( nb > 1 ){nb= 1;}
+								map[i][j] = seeds[k] - (int)(nb);
 						k++;
 					}
 				}
@@ -212,7 +210,7 @@ public class Map {
 		case 163:
 			return neCorner;
 		default:
-			return red;
+			 return red;
 		}
 	}
 
