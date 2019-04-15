@@ -25,7 +25,6 @@ public class Map {
 	final private Image neWall = new Image("resources/images/neWall.png");
 	final private Image swWall = new Image("resources/images/swWall.png");
 	final private Image nwWall = new Image("resources/images/nwWall.png");
-	final private Image ground = new Image("resources/images/ground.png");
 	final private Image seCorner = new Image("resources/images/seCorner.png");
 	final private Image swCorner = new Image("resources/images/swCorner.png");
 	final private Image neCorner = new Image("resources/images/neCorner.png");
@@ -35,7 +34,11 @@ public class Map {
 	final private Image wCloseWall = new Image("resources/images/wCloseWall.png");
 	final private Image nCloseWall = new Image("resources/images/nCloseWall.png");
 	final private Image red = new Image("resources/images/red.png");
-	final private Image groundVar = new Image("resources/images/groundVar.png");
+	final private Image groundVar1 = new Image("resources/images/groundVar1.png");
+	final private Image groundVar2 = new Image("resources/images/groundVar2.png");
+	final private Image groundVar3 = new Image("resources/images/groundVar3.png");
+	final private Image groundVar4 = new Image("resources/images/groundVar4.png");
+	final private Image groundVar5 = new Image("resources/images/groundVar5.png");
 	final private Image character = new Image("resources/images/waitingCharacter.png");
 	final private double SIDE = HEIGHT / 60;
 	private final Random pseudoRandomList;
@@ -54,7 +57,7 @@ public class Map {
 		// origin.placeRoom(pseudoRandomList);
 		current = origin;
 		this.map = origin.getMap();
-		addGroundVariation2(new int[] { -1, -2, -1, 0 }, 50000, 150);
+		addGroundVariation2(new int[] { 25, 25, 25, 25 }, 50000, 150);
 		originXMiniMap = WIDTH - columns * sideMiniMap;
 		originYMiniMap = HEIGHT - lines * sideMiniMap;
 
@@ -110,9 +113,8 @@ public class Map {
 					for (Coordinate c : seedsCoordinates) {
 						double d = c.distance(ij);
 						if (d < radius) {
-							double nb =Math.abs(pseudoRandomList.nextGaussian()) * d ;
-							if (nb < limit) {
-								map[i][j] = seeds[k] - (int)(nb*5/d);
+							if (Math.abs(pseudoRandomList.nextGaussian()) * d < limit) {
+								map[i][j] = seeds[k];
 							}
 						}
 						k++;
@@ -165,8 +167,16 @@ public class Map {
 	 */
 	private Image spriteSelector(int value) {
 		switch (value) {
+		case -4:
+			return groundVar5;
+		case -3:
+			return groundVar4;
+		case -2:
+			return groundVar3;
+		case -1:
+			return groundVar2;
 		case 0:
-			return ground;
+			return groundVar1;
 		case 1:
 			return voidImage;
 		case 2:
@@ -195,8 +205,6 @@ public class Map {
 			return sCloseWall;
 		case 21:
 			return nwCorner;
-		case 25:
-			return groundVar;
 		case 41:
 			return swCorner;
 		case 82:
