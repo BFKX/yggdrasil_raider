@@ -57,7 +57,7 @@ public class Map {
 		// origin.placeRoom(pseudoRandomList);
 		current = origin;
 		this.map = origin.getMap();
-		addGroundVariation2(new int[] {-1}, 5000);
+		addGroundVariation2(new int[] {0,-1,0}, 5000);
 		originXMiniMap = WIDTH - columns * sideMiniMap;
 		originYMiniMap = HEIGHT - lines * sideMiniMap;
 
@@ -91,13 +91,10 @@ public class Map {
 						double u1 = pseudoRandomList.nextDouble()  ;
 						double u2 = pseudoRandomList.nextDouble();
 						double nb = Math.sqrt((-2)*Math.log(u1))*Math.cos(u2); // gausien centrer en 0 de'ecartipe 1
-						System.out.println(nb);
-						nb = Math.abs(nb)*d/1000;
+
+						nb = Math.abs(nb)*d/900;
 						if (nb < 4  ){
 							map[i][j] = seeds[k] - (3-(int)(nb));
-						}else {
-							System.out.print("nb : ");
-							System.out.println(nb);
 						}
 						k++;
 					}

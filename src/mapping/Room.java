@@ -77,8 +77,8 @@ public class Room {
 	}
 
 	public void applyFiltering(int[][] mapFiltering, int limit) {
-		for (int i = 1; i < width - 1; i++) {
-			for (int j = 1; j < height - 1; j++) {
+		for (int i = 0; i < width ; i++) {
+			for (int j = 0; j < height ; j++) {
 				if (mapFiltering[i][j] >= limit) {
 					map[i][j] = 1;
 				}

@@ -1,10 +1,15 @@
 package mapping;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Random;
+import mapping.Map.* ;
 
 public class Cave extends Room {
+	ArrayList< Integer> posibleValues = new ArrayList<Integer>();
 	Cave(int width, int height, Random pseudoRandomList) {
 		super(width, height, pseudoRandomList);
+		initposibleValues();
 		// int fillPercentage = ThreadLocalRandom.current().nextInt(43, 47);
 		int fillPercentage = 62;
 		this.width = width;
@@ -27,20 +32,52 @@ public class Cave extends Room {
 			}
 			applyFiltering(fullnRangefiltering(1), 6);
 		}
-		for (int k = 0; k < 3; k++) {
-			placeWall();
-			delete25(1);
-			placeWall();
-		}
-	}
-
-	private void delete25(int range) {
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
-				if (map[i][j] == 25) {
+				if (i ==0 || i == width - 1 || j ==0|| j ==height-1 ) {
+					map[i][j] = 1;
+				}
+			}
+		}
+		int[][] f1 = fullnRangefiltering(10) ;
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
+				if (f1[i][j] == 0) {
+					map[i][j]= 1;
+				}
+			}
+		}
+
+		placeWall();
+		delete25(1);
+		applyFiltering(fullnRangefiltering(1), 6);
+		placeWall();
+
+
+
+
+
+	}
+
+	private void initposibleValues(){
+		 int[] values = {0,1,2,3,4,6,8,9,12,13,15,17,18,19, 21, 41, 163};
+		 for ( int i : values) {
+			 posibleValues.add(i);
+		 }
+	}
+	private void delete25(int range) {
+
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
+				if (!(posibleValues.contains( map[i][j]))){
 					for (int k = -range; k < range + 1; k++) {
 						for (int l = -range; l < range + 1; l++) {
-							map[i + k][j + l] = 0;
+							if (i + l < width && j + k >= 0 && j + k < height && i + l >= 0) {
+								if (pseudoRandomList.nextInt(1) < 0.6) {
+									map[i + l][j + k] = 0;
+								}
+							}
+
 						}
 					}
 				}
