@@ -57,7 +57,7 @@ public class Map {
 		// origin.placeRoom(pseudoRandomList);
 		current = origin;
 		this.map = origin.getMap();
-		addGroundVariation2(new int[] { -1, -1, -1, 0 ,0 ,-1 }, 5000);
+		addGroundVariation2(new int[] {-1}, 5000);
 		originXMiniMap = WIDTH - columns * sideMiniMap;
 		originYMiniMap = HEIGHT - lines * sideMiniMap;
 
@@ -74,30 +74,6 @@ public class Map {
 		update();
 	}
 
-	public void createCave() {
-		Random pseudoRandomList = new Random(System.currentTimeMillis());
-		origin = new Cave(columns, lines, pseudoRandomList);
-		current = origin;
-		this.map = origin.getMap();
-	}
-
-	public void addGroundVariation1(int fillPercentage) {
-		Random pseudoRandom = new Random(System.currentTimeMillis());
-		Cave temp = new Cave(columns, lines, pseudoRandom);
-		for (int i = 0; i < 50; i++) {
-			temp.applyFiltering(temp.fullnRangefiltering(1), 4);
-		}
-		for (int column = 0; column < columns; column++) {
-			for (int line = 0; line < lines; line++) {
-				if (map[column][line] == 0) {
-					if (temp.getMap()[column][line] == 1) {
-						map[column][line] = 25;
-					}
-				}
-			}
-		}
-	}
-
 	private void addGroundVariation2(@NotNull int[] seeds, int limit) {
 		Coordinate[] seedsCoordinates = new Coordinate[seeds.length];
 		for (int i = 0; i < seeds.length; i++) {
@@ -112,9 +88,17 @@ public class Map {
 					int k = 0;
 					for (Coordinate c : seedsCoordinates) {
 						double d = c.distance(ij);
-							double nb = Math.abs(pseudoRandomList.nextGaussian())/2  ;
-							if ( nb > 1 ){nb= 1;}
-								map[i][j] = seeds[k] - (int)(nb);
+						double u1 = pseudoRandomList.nextDouble()  ;
+						double u2 = pseudoRandomList.nextDouble();
+						double nb = Math.sqrt((-2)*Math.log(u1))*Math.cos(u2); // gausien centrer en 0 de'ecartipe 1
+						System.out.println(nb);
+						nb = Math.abs(nb)*d/1000;
+						if (nb < 4  ){
+							map[i][j] = seeds[k] - (3-(int)(nb));
+						}else {
+							System.out.print("nb : ");
+							System.out.println(nb);
+						}
 						k++;
 					}
 				}
