@@ -78,41 +78,60 @@ public class Map {
 					case 1 :
 						if( temp.getNorth() != null){
 							temp = temp.getNorth() ;
-							deplacement[0] = deplacement[0] + temp.getHeight() ;
+							deplacement[1] = deplacement[1] - temp.getHeight() ; // up the origine of height
 						}else {
 							Coordinate temporigine = new Coordinate(columns/2*raporRoomMap + deplacement[0],
 																	lines/ 2* raporRoomMap + deplacement[1]);
 							int tempheight = 20 + ThreadLocalRandom.current().nextInt(-5, 5);
 							int tempwidh = 20 + ThreadLocalRandom.current().nextInt(-5, 5);
 							for(int i=  0; i<tempwidh ;i++  ){
-								if( mapofroom[(i - tempwidh) +(int) temporigine.getX()][(int)temporigine.getY()]==1
-										||mapofroom[(i - tempwidh) +(int) temporigine.getX()][(int)temporigine.getY()+tempheight]==1 ){
-									tempwidh=i;
+								if( mapofroom[i+(int) temporigine.getX()][(int)temporigine.getY()+tempheight]==1){
+									tempwidh=i-1;
 									break;
 								}
 							}
-							for( int i = 0; i < tempheight;i++  ){
-								if( mapofroom[(int) temporigine.getX()][i+(int)temporigine.getY()]==1
-										||mapofroom[i][(int)temporigine.getY()+tempheight]==1 ){
-									tempwidh=i;
+							for( int j = 0; j < tempheight;j++  ){
+								if( mapofroom[(int) temporigine.getX()+ tempwidh][(-j+(int)temporigine.getY())]==1
+										||mapofroom[(int) temporigine.getX()]
+										[(j+(int)temporigine.getY()- tempheight)] == 1 ){
+									tempwidh=j-1;
 									break;
+								}
+							}
+							Cave temporary = new Cave(tempwidh*10,tempheight*10,pseudoRandomList);
+							for (int i = (int)temporigine.getX() ; i < temporigine.getX() + + tempwidh  ; i++  ){
+								for(int j = (int) temporigine.getY() - tempheight;  j < (int) temporigine.getY() ; j++){
+									mapofroom[i][j] = 0;
 								}
 							}
 						}
 						break;
 				}
 			}
-
-
-
-
-
-
+		}
+	}
+	private void placeRoom2(int nbroom) {
+		int [][] mapofmap = new int[2*nbroom+1][2*nbroom+1];
+		mapofmap[nbroom+1][nbroom+1] = 1 ;
+		Room temp = origin ;
+		for ( int k = 1 ; k < nbroom ;  k ++ ) {
+			boolean ndispo = true , sdispo= true, estdipo =true , westdispo = true ;
+			int nsew =ThreadLocalRandom.current().nextInt(0,4);
+			switch (nsew) {
+				case 1:
+					if(ndispo){
+						if (temp.getNorth()!= null){
+							sdispo = false ;
+							temp = temp.getNorth();
+						}else{
+							temp.setNorth(new Cave(200 + ThreadLocalRandom.current().nextInt(-50, 50),200 +ThreadLocalRandom.current().nextInt(-50, 50),pseudoRandomList));
+						}
+					}
+			}
 
 		}
 
 	}
-
 
 
 
