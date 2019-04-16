@@ -7,6 +7,7 @@ import tools.Coordinate;
 
 import java.awt.Toolkit;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Map {
 	private int[][] map;
@@ -45,14 +46,14 @@ public class Map {
 	private final double sideMiniMap = SIDE * 0.1;
 	private final double originXMiniMap;
 	private final double originYMiniMap;
-
+	private int[][] mapofroom ;
+	private final int raporRoomMap = 100 ;
 	public Map(int columns, int lines) {
 		this.lines = lines;
 		this.columns = columns;
+		this.mapofroom = new int [columns][lines];
 		this.map = new int[columns][lines];
 		pseudoRandomList = new Random(System.currentTimeMillis());
-		// origin = new SeedRoom(columns ,lines, pseudoRandomList ,new int[] {1,1,1,0,0}
-		// );
 		origin = new Cave(columns, lines, pseudoRandomList);
 		// origin.placeRoom(pseudoRandomList);
 		current = origin;
@@ -60,8 +61,60 @@ public class Map {
 		addGroundVariation2(new int[] {0,-1,0}, 5000);
 		originXMiniMap = WIDTH - columns * sideMiniMap;
 		originYMiniMap = HEIGHT - lines * sideMiniMap;
+	}
+
+	private void placeRoom(Random pseudoRandomList , int nbroom){
+		for (int i = columns/2*raporRoomMap ; i<origin.getWidth()/raporRoomMap ; i++){
+			for(int j = lines/2*raporRoomMap;i<origin.getHeight()/raporRoomMap;j++){
+				mapofroom[i][j]= 1 ;
+			}
+		}
+		int [] deplacement = new int[2] ;
+		Room temp = origin ;
+		for ( int k = 0 ; k < nbroom ; k++){
+			while (temp != null){
+				int nsew =ThreadLocalRandom.current().nextInt(0,4);
+				switch (nsew){
+					case 1 :
+						if( temp.getNorth() != null){
+							temp = temp.getNorth() ;
+							deplacement[0] = deplacement[0] + temp.getHeight() ;
+						}else {
+							Coordinate temporigine = new Coordinate(columns/2*raporRoomMap + deplacement[0],
+																	lines/ 2* raporRoomMap + deplacement[1]);
+							int tempheight = 20 + ThreadLocalRandom.current().nextInt(-5, 5);
+							int tempwidh = 20 + ThreadLocalRandom.current().nextInt(-5, 5);
+							for(int i=  0; i<tempwidh ;i++  ){
+								if( mapofroom[(i - tempwidh) +(int) temporigine.getX()][(int)temporigine.getY()]==1
+										||mapofroom[(i - tempwidh) +(int) temporigine.getX()][(int)temporigine.getY()+tempheight]==1 ){
+									tempwidh=i;
+									break;
+								}
+							}
+							for( int i = 0; i < tempheight;i++  ){
+								if( mapofroom[(int) temporigine.getX()][i+(int)temporigine.getY()]==1
+										||mapofroom[i][(int)temporigine.getY()+tempheight]==1 ){
+									tempwidh=i;
+									break;
+								}
+							}
+						}
+						break;
+				}
+			}
+
+
+
+
+
+
+
+		}
 
 	}
+
+
+
 
 	private void update() {
 		this.map = current.getMap();

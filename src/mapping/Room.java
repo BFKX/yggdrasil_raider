@@ -5,6 +5,7 @@ import tools.Coordinate;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Room {
 	private Room north;
@@ -15,7 +16,6 @@ public class Room {
 	int[][] map;
 	int width;
 	int height;
-
 	Room(int width, int height, Random pseudoRandomList) {
 		this.width = width;
 		this.height = height;
@@ -34,46 +34,6 @@ public class Room {
 	public Room(Coordinate origin, @NotNull Random pseudoRandomList) {
 		this.height = pseudoRandomList.nextInt();
 		this.width = pseudoRandomList.nextInt();
-	}
-
-	public ArrayList<Integer> hadNorthWay() {
-		ArrayList<Integer> temp = new ArrayList<>();
-		for (int i = 0; i < width; i++) {
-			if (map[i][0] == 0) {
-				temp.add(i);
-			}
-		}
-		return temp;
-	}
-
-	public ArrayList<Integer> hadSouthWay() {
-		ArrayList<Integer> temp = new ArrayList<>();
-		for (int i = 0; i < width; i++) {
-			if (map[i][height - 1] == 0) {
-				temp.add(i);
-			}
-		}
-		return temp;
-	}
-
-	public ArrayList<Integer> hadEastWay() {
-		ArrayList<Integer> temp = new ArrayList<>();
-		for (int i = 0; i < height; i++) {
-			if (map[0][i] == 0) {
-				temp.add(i);
-			}
-		}
-		return temp;
-	}
-
-	public ArrayList<Integer> hadWestWay() {
-		ArrayList<Integer> temp = new ArrayList<>();
-		for (int i = 0; i < height; i++) {
-			if (map[width - 1][i] == 0) {
-				temp.add(i);
-			}
-		}
-		return temp;
 	}
 
 	public void applyFiltering(int[][] mapFiltering, int limit) {
@@ -142,27 +102,57 @@ public class Room {
 		this.west = west;
 	}
 
-	public Random getPseudoRandomList() {
-		return pseudoRandomList;
-	}
-
-	public void setPseudoRandomList(Random pseudoRandomList) {
-		this.pseudoRandomList = pseudoRandomList;
-	}
-
-	int getWidth() {
+	public int getWidth() {
 		return width;
 	}
 
-	public void setWidth(int width) {
-		this.width = width;
-	}
-
-	int getHeight() {
+	public int getHeight() {
 		return height;
 	}
 
-	public void setHeight(int height) {
-		this.height = height;
+
+	public void setOrigine(Coordinate origine) {
+		origine = origine;
+	}
+
+	private void  placeRoom(Room room){
+		int nsew =ThreadLocalRandom.current().nextInt(0,4);
+		switch(nsew) {
+			case 1:
+				if (this.getNorth() != null) {
+					this.getNorth().placeRoom(room);
+				} else {
+					room.setSouth(this);
+					this.setNorth(room);
+				}
+				break;
+			case 2:
+				if (this.getSouth() != null) {
+					this.getSouth().placeRoom(room);
+				} else {
+					room.setNorth(this);
+					;
+					this.setSouth(room);
+				}
+				break;
+			case 3:
+				if (this.getEast() != null) {
+					this.getEast().placeRoom(room);
+				} else {
+					room.setWest(this);
+					;
+					this.setEast(room);
+				}
+				break;
+			case 4:
+				if (this.getWest() != null) {
+					this.getWest().placeRoom(room);
+				} else {
+					room.setEast(this);
+					this.setWest(room);
+				}
+				break;
+		}
+
 	}
 }
