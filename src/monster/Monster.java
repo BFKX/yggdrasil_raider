@@ -33,7 +33,7 @@ public abstract class Monster {
         this.hitbox = new Hitbox(position, RADIUS);
     }
 
-    public void displayCharacter(GraphicsContext gc) {
+    public void display(GraphicsContext gc) {
         if (speedY > 1 && speedX > 1) {
             activeSprite = movingSouthEastSprite;
         } else if (speedY > 1 && Math.abs(speedX) < 1) {
@@ -57,12 +57,13 @@ public abstract class Monster {
                 Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - RADIUS / 2, RADIUS, RADIUS);
     }
 
-    abstract void updatedeplacement(Map map);
+     public abstract void updateDeplacement(Map map);
 
-    private void update(){
+    protected void update(){
         this.position.add(  speedX ,  speedY);
     }
 
-
-
+    public Coordinate getPosition() {
+        return position;
+    }
 }

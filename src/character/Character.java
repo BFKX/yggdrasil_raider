@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import tools.CharacterActions;
 import tools.Coordinate;
 import tools.Hitbox;
+import mapping.Map;
 
 import java.awt.Toolkit;
 import java.util.HashMap;
@@ -91,7 +92,6 @@ public class Character {
 	public Coordinate getPosition() {
 		return position;
 	}
-
 	public void setPosition(Coordinate position) {
 		this.position = position;
 	}
