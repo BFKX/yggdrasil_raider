@@ -14,6 +14,7 @@ public class RandomPathMonster extends Monster {
         speedX = 0 ; speedY = 0 ;
         speedLimitX = SIDE * 15; speedLimitY = SIDE * 15;
     }
+
     public void updatedeplacement(Map map){
         int[][] mapint = map.getMap();
         if(mapint[(int)(position.getX()+speedX)][(int)(position.getY()+speedY)] >0 ){

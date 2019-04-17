@@ -118,6 +118,9 @@ class GameController extends Application {
 				map = new Map(200 + ThreadLocalRandom.current().nextInt(-50, 50),
 						200 + ThreadLocalRandom.current().nextInt(-50, 50));
 				break;
+			case M :
+
+				break;
 			case L:
 				map.createSeedRoom();
 				break;
@@ -194,8 +197,12 @@ class GameController extends Application {
 					character.displayCharacter(gc);
 					character.drawHitbox(gc);
 
+
+
 					fpsmeter.update(now, gc);
 					lastNow = now;
+
+
 				} else if (!pauseShown && now - lastNow >= 15000000) {
 					gc.drawImage(pauseBackground, 0, 0);
 					game.getChildren().add(quitButton);
