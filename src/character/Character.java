@@ -15,9 +15,9 @@ public class Character {
 	private Coordinate position;
 	private final Hitbox hitbox;
 	private double speedX = 0, speedY = 0;
-	final private double SIDE = 2 * Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
-	final private double speedLimitX = SIDE * 15;
-	final private double speedLimitY = SIDE * 15;
+	final private double RADIUS = 2 * Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
+	final private double speedLimitX = RADIUS * 15;
+	final private double speedLimitY = RADIUS * 15;
 	final private Image waitingCharacter = new Image("resources/images/waitingCharacter.png");
 	final private Image movingNorthSprite = new Image("resources/images/movingNorthCharacter.png");
 	final private Image movingSouthSprite = new Image("resources/images/movingSouthCharacter.png");
@@ -31,7 +31,7 @@ public class Character {
 
 	public Character(Coordinate position) {
 		this.position = new Coordinate(0, 0);
-		this.hitbox = new Hitbox(position, SIDE);
+		this.hitbox = new Hitbox(position, RADIUS);
 	}
 
 	private void displacement(@NotNull HashMap<CharacterActions, Boolean> inputs) {
@@ -62,8 +62,8 @@ public class Character {
 
 	public void update(HashMap<CharacterActions, Boolean> inputs) {
 		displacement(inputs);
-		//System.out.println(map.getMap()[(int)(position.getX()/SIDE)][(int)(position.getY()/SIDE)]);
-		position.add(speedX / SIDE, speedY / SIDE);
+		position.add(speedX / RADIUS, speedY / RADIUS);
+
 	}
 
 	public void displayCharacter(GraphicsContext gc) {
@@ -86,14 +86,13 @@ public class Character {
 		} else if (Math.abs(speedY) < 1 && Math.abs(speedX) < 1) {
 			activeSprite = waitingCharacter;
 		}
-		gc.drawImage(activeSprite, Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - SIDE / 2,
-				Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - SIDE / 2, SIDE, SIDE);
+		gc.drawImage(activeSprite, Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - RADIUS / 2,
+				Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - RADIUS / 2, RADIUS, RADIUS);
 	}
 
 	public Coordinate getPosition() {
 		return position;
 	}
-
 	public void setPosition(Coordinate position) {
 		this.position = position;
 	}

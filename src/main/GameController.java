@@ -14,6 +14,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import mapping.Map;
+import monster.Monster;
+import monster.RandomPathMonster;
 import org.jetbrains.annotations.NotNull;
 import tools.*;
 import character.Character;
@@ -40,7 +42,7 @@ class GameController extends Application {
 	final private Image pauseBackground = new Image("resources/images/menuBackground.png", WIDTH, HEIGHT, false, true);
 	final private Font customFont = Font.loadFont(
 			StartMenuController.class.getResource("../resources/fonts/VIKING-N.TTF").toExternalForm(), HEIGHT / 12);
-
+	private Monster monster =new RandomPathMonster(new Coordinate(70, 70));
 	@FXML
 	private AnchorPane game;
 
@@ -118,6 +120,10 @@ class GameController extends Application {
 				map = new Map(200 + ThreadLocalRandom.current().nextInt(-50, 50),
 						200 + ThreadLocalRandom.current().nextInt(-50, 50));
 				break;
+			case M :
+				monster = new RandomPathMonster(new Coordinate(ThreadLocalRandom.current().nextInt(100, 500)
+						, ThreadLocalRandom.current().nextInt(100, 500)));
+				break;
 			case L:
 				map.createSeedRoom();
 				break;
@@ -194,8 +200,14 @@ class GameController extends Application {
 					character.displayCharacter(gc);
 					character.drawHitbox(gc);
 
+					//monster.updateDeplacement(map);
+					//monster.display(gc);
+					//character.setPosition(monster.getPosition());
+
 					fpsmeter.update(now, gc);
 					lastNow = now;
+
+
 				} else if (!pauseShown && now - lastNow >= 15000000) {
 					gc.drawImage(pauseBackground, 0, 0);
 					game.getChildren().add(quitButton);

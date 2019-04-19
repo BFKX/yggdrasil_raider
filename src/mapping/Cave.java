@@ -39,7 +39,7 @@ public class Cave extends Room {
 				}
 			}
 		}
-		int[][] f1 = fullnRangefiltering(10) ;
+		int[][] f1 = fullnRangefiltering(20) ;
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
 				if (f1[i][j] == 0) {
@@ -47,16 +47,12 @@ public class Cave extends Room {
 				}
 			}
 		}
-
 		placeWall();
 		delete25(1);
 		applyFiltering(fullnRangefiltering(1), 6);
+		NorthVoid();
+		SouthVoid();
 		placeWall();
-
-
-
-
-
 	}
 
 	private void initposibleValues(){
@@ -66,7 +62,6 @@ public class Cave extends Room {
 		 }
 	}
 	private void delete25(int range) {
-
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
 				if (!(posibleValues.contains( map[i][j]))){
@@ -139,6 +134,73 @@ public class Cave extends Room {
 						}
 					}
 				}
+			}
+		}
+	}
+
+
+	private void NorthVoid(){
+		int[] nbone = new int[width] ;
+		for( int i = 0  ; i < width  ; i++ ){
+			int j=1;
+			while(j < height-1 && map[i][j]!= 0  ){
+				j++;
+			}
+			nbone[i]=j;
+		}
+		int indicemin = 0;
+		for(int i =1 ; i<width-1 ; i++){
+			if( nbone[i]<nbone[indicemin]){
+				indicemin=i;
+			}
+		}
+		for (int i= 0 ; i < nbone[indicemin]+1 ; i++){
+			for ( int k = -1 ; k<2 ; k++ ){
+				map[indicemin+k][i] = 0 ;
+			}
+		}
+	}
+	private void NorthVoid(int min){
+		int j=0;
+		while(j < height-1 && map[min][j]!= 0  ){
+			j++;
+		}
+		for (int i= 0 ; i < j+1 ; i++){
+			for ( int k = -1 ; k<2 ; k++ ){
+				map[min+k][i] = 0 ;
+			}
+		}
+	}
+	private void SouthVoid(){
+		int[] nbone = new int[width] ;
+		for( int i = 0  ; i < width  ; i++ ){
+			int j=1;
+			while(j <height && map[i][height-j]!= 0 ){
+				j++;
+			}
+			nbone[i]=j;
+		}
+		int indicemin = 0;
+		for(int i =1 ; i<width-1 ; i++){
+			if( nbone[i]<nbone[indicemin]){
+				indicemin=i;
+			}
+		}
+		for (int j= 1 ; j < nbone[indicemin]+1 ; j++){
+			for ( int k = -1 ; k<2 ; k++ ){
+				map[indicemin+k][height-j] = 0 ;
+			}
+		}
+	}
+
+	private void SouthVoid(int indicemin) {
+		int k=1;
+		while(k <height && map[indicemin][height-k]!= 0 ){
+			k++;
+		}
+		for (int j= 0 ; j < k+1 ; j++){
+			for ( int l = -1 ; l<2 ; l++ ){
+				map[indicemin+l][height-j] = 0 ;
 			}
 		}
 	}
