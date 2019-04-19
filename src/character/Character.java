@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import tools.CharacterActions;
 import tools.Coordinate;
 import tools.Hitbox;
+import mapping.Map;
 
 import java.awt.Toolkit;
 import java.util.HashMap;
@@ -61,6 +62,7 @@ public class Character {
 
 	public void update(HashMap<CharacterActions, Boolean> inputs) {
 		displacement(inputs);
+		//System.out.println(map.getMap()[(int)(position.getX()/SIDE)][(int)(position.getY()/SIDE)]);
 		position.add(speedX / SIDE, speedY / SIDE);
 	}
 

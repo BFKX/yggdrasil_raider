@@ -55,7 +55,7 @@ class StartMenuController {
 		title.setLayoutY(startMenu.getPrefHeight() / 2 + title.getLayoutBounds().getHeight() / 2);
 
 		playButton.setBackground(new Background(new BackgroundImage(
-				new Image("images/playButton.png", startMenu.getPrefWidth() / 3, startMenu.getPrefHeight() / 9, false,
+				new Image("images/playyyyy.png", startMenu.getPrefWidth() / 3, startMenu.getPrefHeight() / 9, false,
 						false),
 				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 				BackgroundSize.DEFAULT)));
@@ -79,7 +79,7 @@ class StartMenuController {
 		});
 
 		quitButton.setBackground(new Background(new BackgroundImage(
-				new Image("images/quitButton.png", startMenu.getPrefWidth() / 3, startMenu.getPrefHeight() / 9, false,
+				new Image("images/quittt.png", startMenu.getPrefWidth() / 3, startMenu.getPrefHeight() / 9, false,
 						false),
 				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 				BackgroundSize.DEFAULT)));
