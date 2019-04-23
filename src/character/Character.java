@@ -64,6 +64,7 @@ public class Character {
 		displacement(inputs);
 		position.add(speedX / RADIUS, speedY / RADIUS);
 
+
 	}
 
 	public void displayCharacter(GraphicsContext gc) {

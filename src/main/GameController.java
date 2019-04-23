@@ -68,7 +68,7 @@ class GameController extends Application {
 
 		resumeButton
 				.setBackground(new Background(new BackgroundImage(
-						new Image("images/resumeeee.png", game.getPrefWidth() / 3, game.getPrefHeight() / 9, false,
+						new Image("images/resumeButton.png", game.getPrefWidth() / 3, game.getPrefHeight() / 9, false,
 								false),
 						BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 						BackgroundSize.DEFAULT)));
@@ -86,7 +86,7 @@ class GameController extends Application {
 
 		quitButton
 				.setBackground(new Background(new BackgroundImage(
-						new Image("images/quittt.png", game.getPrefWidth() / 3, game.getPrefHeight() / 9, false,
+						new Image("images/quitButton.png", game.getPrefWidth() / 3, game.getPrefHeight() / 9, false,
 								false),
 						BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 						BackgroundSize.DEFAULT)));
