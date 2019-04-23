@@ -96,9 +96,9 @@ class GameController extends Application {
 		quitButton.setOnAction(e -> System.exit(0));
 
 		muteButton.setBackground(new Background(new BackgroundImage(
-				new Image("images/muteButton.png", WIDTH / 10, HEIGHT / 10, false, false), BackgroundRepeat.NO_REPEAT,
+				new Image("images/muteButton.png", HEIGHT / 10, HEIGHT / 10, false, false), BackgroundRepeat.NO_REPEAT,
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
-		muteButton.setPrefSize(WIDTH / 10, HEIGHT / 10);
+		muteButton.setPrefSize(HEIGHT / 10, HEIGHT / 10);
 		muteButton.setLayoutX(WIDTH - muteButton.getPrefWidth());
 		muteButton.setLayoutY(HEIGHT - muteButton.getPrefHeight());
 		muteButton.setOnAction(actionEvent -> music.stop());
