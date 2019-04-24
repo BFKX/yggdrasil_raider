@@ -10,18 +10,22 @@ public class RandomPathMonster extends Monster {
     public RandomPathMonster(Coordinate coordinate){
         super(coordinate);
         directionX = 1 ; directionY = 1 ;
-        speedX = 0 ; speedY = 0 ;
+        speedX = SIDE /10 ; speedY = SIDE /10 ;
         speedLimitX = SIDE /10; speedLimitY = SIDE /10;
     }
     public void updateDeplacement(Map map){
         int[][] mapint = map.getMap();
-        if((int)(position.getX()+speedX) < 0 ||(int)(position.getX()+speedX) > mapint.length
+        if((int)(position.getX()+speedX) < 0 ||(int)(position.getX()+speedX) > mapint.length -1
                 ||((int)position.getY()+speedY) < 0 || (int)position.getY()+speedY > mapint[0].length -1
                 || mapint[(int)(position.getX()+speedX)][(int)(position.getY()+speedY)] >0 ){
+            //int rd = ThreadLocalRandom.current().nextInt(0,3);
             directionX = -directionX ;
             directionY = -directionY ;
-            System.out.println("mure");
-        }else {
+            speedX = speedX / 2 ;
+            speedY = speedY / 2 ;
+            System.out.println("mur : "+ (position.getX() + speedX) +","+ (position.getY()+speedY));
+            System.out.println(speedX + ";" + speedY );
+        }/*else {
             if(ThreadLocalRandom.current().nextInt(0,100 ) > 99  ) {
                 speedX = -speedX;
                 directionX = -directionX;
@@ -32,14 +36,20 @@ public class RandomPathMonster extends Monster {
                 directionY = -directionY ;
                 System.out.print("chagementY");
             }
-        }
-        if(speedX < speedLimitX ){
+        }*/
+        if(Math.abs(speedX) < speedLimitX){
             speedX = speedX + directionX * speedLimitX / 13;
         }
-        if(speedY< speedLimitY){
+        if(Math.abs(speedY)< speedLimitY){
             speedY = speedY + directionY * speedLimitY/13;
+        }
+        try{
+            map.getMap()[(int) position.getX() + (int) speedX][(int) position.getY() + (int) speedY] = 900;
+        }catch (IndexOutOfBoundsException e){
+            System.out.println((int) position.getX() + (int) speedX+ "a,a" +(int) position.getY() + (int) speedY);
+            System.out.println((map.getMap().length +";" + map.getMap()[0].length));
+            System.out.println("non");
         }
         update();
     }
-
 }

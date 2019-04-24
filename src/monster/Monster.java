@@ -60,7 +60,7 @@ public abstract class Monster {
      public abstract void updateDeplacement(Map map);
 
     protected void update(){
-        this.position.add(  speedX ,  speedY);
+        this.position.add( speedX ,  speedY);
     }
 
     public Coordinate getPosition() {
