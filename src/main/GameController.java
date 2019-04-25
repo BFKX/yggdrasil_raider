@@ -42,7 +42,7 @@ class GameController extends Application {
 	final private Image pauseBackground = new Image("resources/images/menuBackground.png", WIDTH, HEIGHT, false, true);
 	final private Font customFont = Font.loadFont(
 			StartMenuController.class.getResource("../resources/fonts/VIKING-N.TTF").toExternalForm(), HEIGHT / 12);
-	private Monster monster =new RandomPathMonster(new Coordinate(50, 50));
+	private Monster monster =new RandomPathMonster(new Coordinate(100, 100));
 	@FXML
 	private AnchorPane game;
 
@@ -123,8 +123,8 @@ class GameController extends Application {
 						200 + ThreadLocalRandom.current().nextInt(-50, 50));
 				break;
 			case M :
-				monster = new RandomPathMonster(new Coordinate(ThreadLocalRandom.current().nextInt(30, 100)
-						, ThreadLocalRandom.current().nextInt(30, 100)));
+				monster = new RandomPathMonster(new Coordinate(ThreadLocalRandom.current().nextInt(0, 200),
+						ThreadLocalRandom.current().nextInt(0,20));
 				break;
 			case L:
 				map.createSeedRoom();

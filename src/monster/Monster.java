@@ -10,13 +10,14 @@ import java.awt.*;
 
 public abstract class Monster {
     protected Coordinate position;
+    protected Coordinate positionInt;
     protected final Hitbox hitbox;
     protected double speedX , speedY ;
     protected int directionX ;
     protected  int directionY ;
     protected double speedLimitX ;
     protected double speedLimitY ;
-    private double RADIUS = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
+    protected double RADIUS = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
     final private Image waitingCharacter = new Image("resources/images/waitingCharacter.png");
     final private Image movingNorthSprite = new Image("resources/images/movingNorthCharacter.png");
     final private Image movingSouthSprite = new Image("resources/images/movingSouthCharacter.png");
@@ -28,9 +29,10 @@ public abstract class Monster {
     final private Image movingSouthWestSprite = new Image("resources/images/movingSouthWestCharacter.png");
     private Image activeSprite = waitingCharacter;
 
-    public Monster(Coordinate coordinate){
-        this.position = coordinate ;
-        this.hitbox = new Hitbox(position, RADIUS);
+    public Monster(Coordinate positionInt){
+        this.positionInt = positionInt ;
+        this.hitbox = new Hitbox(this.position, RADIUS);
+        this.position= new Coordinate(positionInt.getX()*RADIUS, positionInt.getY()*RADIUS ) ;
     }
 
     public void display(GraphicsContext gc) {
@@ -57,10 +59,11 @@ public abstract class Monster {
                 Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - RADIUS / 2, RADIUS, RADIUS);
     }
 
-     public abstract void updateDeplacement(Map map);
+    public abstract void updateDeplacement(Map map);
 
     protected void update(){
         this.position.add( speedX ,  speedY);
+        this.positionInt = new Coordinate(position.getX() / RADIUS , positionInt.getY() / RADIUS );
     }
 
     public Coordinate getPosition() {

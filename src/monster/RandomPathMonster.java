@@ -3,22 +3,20 @@ package monster;
 import mapping.Map;
 import tools.Coordinate;
 import java.awt.*;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomPathMonster extends Monster {
-    private double SIDE = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
+    private double RADIUS = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
     public RandomPathMonster(Coordinate coordinate){
         super(coordinate);
         directionX = 1 ; directionY = 1 ;
-        speedX = SIDE /10 ; speedY = SIDE /10 ;
-        speedLimitX = SIDE /10; speedLimitY = SIDE /10;
+        speedX = RADIUS /10 ; speedY = RADIUS /10 ;
+        speedLimitX = RADIUS /10; speedLimitY = RADIUS /10;
     }
     public void updateDeplacement(Map map){
         int[][] mapint = map.getMap();
         if((int)(position.getX()+speedX) < 0 ||(int)(position.getX()+speedX) > mapint.length -1
                 ||((int)position.getY()+speedY) < 0 || (int)position.getY()+speedY > mapint[0].length -1
                 || mapint[(int)(position.getX()+speedX)][(int)(position.getY()+speedY)] >0 ){
-            //int rd = ThreadLocalRandom.current().nextInt(0,3);
             directionX = -directionX ;
             directionY = -directionY ;
             speedX = speedX / 2 ;
@@ -44,7 +42,7 @@ public class RandomPathMonster extends Monster {
             speedY = speedY + directionY * speedLimitY/13;
         }
         try{
-            map.getMap()[(int) position.getX() + (int) speedX][(int) position.getY() + (int) speedY] = 900;
+            map.getMap()[(int) positionInt.getX()][(int) positionInt.getY()] = 900;
         }catch (IndexOutOfBoundsException e){
             System.out.println((int) position.getX() + (int) speedX+ "a,a" +(int) position.getY() + (int) speedY);
             System.out.println((map.getMap().length +";" + map.getMap()[0].length));
