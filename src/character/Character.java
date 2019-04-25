@@ -12,6 +12,7 @@ import java.awt.Toolkit;
 import java.util.HashMap;
 
 public class Character {
+	private Map map  ;
 	private Coordinate position;
 	private final Hitbox hitbox;
 	private double speedX = 0, speedY = 0;
@@ -29,9 +30,10 @@ public class Character {
 	final private Image movingSouthWestSprite = new Image("resources/images/movingSouthWestCharacter.png");
 	private Image activeSprite = waitingCharacter;
 
-	public Character(Coordinate position) {
+	public Character(Coordinate position, Map map ) {
 		this.position = new Coordinate(0, 0);
 		this.hitbox = new Hitbox(position, RADIUS);
+		this.map = map ;
 	}
 
 	private void displacement(@NotNull HashMap<CharacterActions, Boolean> inputs) {
@@ -63,6 +65,13 @@ public class Character {
 	public void update(HashMap<CharacterActions, Boolean> inputs) {
 		displacement(inputs);
 		position.add(speedX / RADIUS, speedY / RADIUS);
+		try{
+			map.getMap()[(int) position.getX()][(int) position.getY()] = 900;
+		}catch (IndexOutOfBoundsException e){
+			System.out.println((int) position.getX() + (int) speedX+ "a,a" +(int) position.getY() + (int) speedY);
+			System.out.println((map.getMap().length +";" + map.getMap()[0].length));
+			System.out.println("non");
+		}
 
 
 	}

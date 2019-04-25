@@ -114,7 +114,7 @@ class GameController extends Application {
 		game.getChildren().add(canvas);
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 
-		Character character = new Character(new Coordinate(WIDTH / 2, HEIGHT / 2));
+		Character character = new Character(new Coordinate(WIDTH / 2, HEIGHT / 2),map);
 
 		scene.setOnKeyPressed(e -> {
 			switch (e.getCode()) {
@@ -123,8 +123,8 @@ class GameController extends Application {
 						200 + ThreadLocalRandom.current().nextInt(-50, 50));
 				break;
 			case M :
-				monster = new RandomPathMonster(new Coordinate(ThreadLocalRandom.current().nextInt(0, 200),
-						ThreadLocalRandom.current().nextInt(0,20));
+				monster = new RandomPathMonster(new Coordinate(ThreadLocalRandom.current().nextInt(100, 200),
+						ThreadLocalRandom.current().nextInt(100,200)));
 				break;
 			case L:
 				map.createSeedRoom();

@@ -9,6 +9,7 @@ import tools.Hitbox;
 import java.awt.*;
 
 public abstract class Monster {
+    protected Map mpa ;
     protected Coordinate position;
     protected Coordinate positionInt;
     protected final Hitbox hitbox;
@@ -64,6 +65,13 @@ public abstract class Monster {
     protected void update(){
         this.position.add( speedX ,  speedY);
         this.positionInt = new Coordinate(position.getX() / RADIUS , positionInt.getY() / RADIUS );
+        try{
+            map.getMap()[(int) positionInt.getX()][(int) positionInt.getY()] = 900;
+        }catch (IndexOutOfBoundsException e){
+            System.out.println((int) position.getX() + (int) speedX+ "a,a" +(int) position.getY() + (int) speedY);
+            System.out.println((map.getMap().length +";" + map.getMap()[0].length));
+            System.out.println("non");
+        }
     }
 
     public Coordinate getPosition() {

@@ -41,13 +41,7 @@ public class RandomPathMonster extends Monster {
         if(Math.abs(speedY)< speedLimitY){
             speedY = speedY + directionY * speedLimitY/13;
         }
-        try{
-            map.getMap()[(int) positionInt.getX()][(int) positionInt.getY()] = 900;
-        }catch (IndexOutOfBoundsException e){
-            System.out.println((int) position.getX() + (int) speedX+ "a,a" +(int) position.getY() + (int) speedY);
-            System.out.println((map.getMap().length +";" + map.getMap()[0].length));
-            System.out.println("non");
-        }
+
         update();
     }
 }
