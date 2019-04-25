@@ -5,7 +5,7 @@ import tools.Coordinate;
 import java.awt.*;
 
 public class RandomPathMonster extends Monster {
-    private double RADIUS = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
+    private final double RADIUS = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
 
     public RandomPathMonster(Coordinate coordinate,Map map ){
         super(coordinate,map);
@@ -13,6 +13,7 @@ public class RandomPathMonster extends Monster {
         speedX = RADIUS /10 ; speedY = RADIUS /10 ;
         speedLimitX = RADIUS /10; speedLimitY = RADIUS /10;
     }
+
     public void updateDeplacement(){
         int[][] mapint = map.getMap();
         if((int)(position.getX()+speedX) < 0 ||(int)(position.getX()+speedX) > mapint.length -1

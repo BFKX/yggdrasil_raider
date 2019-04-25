@@ -72,8 +72,6 @@ public class Character {
 			System.out.println((map.getMap().length +";" + map.getMap()[0].length));
 			System.out.println("perso out ");
 		}
-
-
 	}
 
 	public void displayCharacter(GraphicsContext gc) {

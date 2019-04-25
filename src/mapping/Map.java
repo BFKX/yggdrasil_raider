@@ -176,10 +176,10 @@ public class Map {
 	}
 
 	public void display(GraphicsContext gc, @NotNull Coordinate characterPosition) {
-		int initColumn = (int) (characterPosition.getX() / SIDE) - 90;
-		int initLine = (int) (characterPosition.getY() / SIDE) - 60;
-		double lineOffset = (int) (characterPosition.getY() / SIDE) - HEIGHT / 72;
-		double columnOffset = (int) (characterPosition.getX() / SIDE) - WIDTH / 72;
+		int initColumn = (int) (characterPosition.getX() ) - 90;
+		int initLine = (int) (characterPosition.getY() ) - 60;
+		double lineOffset = (int) (characterPosition.getY() ) - HEIGHT / 72;
+		double columnOffset = (int) (characterPosition.getX() ) - WIDTH / 72;
 		for (int column = initColumn; column < initColumn + 180; column++) {
 			for (int line = initLine; line < initLine + 120; line++) {
 				if (line < 0 || line >= lines || column < 0 || column >= columns) {

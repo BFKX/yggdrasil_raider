@@ -201,9 +201,9 @@ class GameController extends Application {
 					character.displayCharacter(gc);
 					character.drawHitbox(gc);
 
-					//monster.updateDeplacement();
-					//monster.display(gc);
-					//character.setPosition(monster.getPosition());
+					monster.updateDeplacement();
+					monster.display(gc);
+					character.setPosition(monster.getPosition());
 
 					fpsmeter.update(now, gc);
 					lastNow = now;
