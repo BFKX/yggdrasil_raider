@@ -6,13 +6,14 @@ import java.awt.*;
 
 public class RandomPathMonster extends Monster {
     private double RADIUS = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
-    public RandomPathMonster(Coordinate coordinate){
-        super(coordinate);
+
+    public RandomPathMonster(Coordinate coordinate,Map map ){
+        super(coordinate,map);
         directionX = 1 ; directionY = 1 ;
         speedX = RADIUS /10 ; speedY = RADIUS /10 ;
         speedLimitX = RADIUS /10; speedLimitY = RADIUS /10;
     }
-    public void updateDeplacement(Map map){
+    public void updateDeplacement(){
         int[][] mapint = map.getMap();
         if((int)(position.getX()+speedX) < 0 ||(int)(position.getX()+speedX) > mapint.length -1
                 ||((int)position.getY()+speedY) < 0 || (int)position.getY()+speedY > mapint[0].length -1

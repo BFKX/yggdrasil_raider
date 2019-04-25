@@ -70,7 +70,7 @@ public class Character {
 		}catch (IndexOutOfBoundsException e){
 			System.out.println((int) position.getX() + (int) speedX+ "a,a" +(int) position.getY() + (int) speedY);
 			System.out.println((map.getMap().length +";" + map.getMap()[0].length));
-			System.out.println("non");
+			System.out.println("perso out ");
 		}
 
 

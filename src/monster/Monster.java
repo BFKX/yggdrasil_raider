@@ -9,7 +9,7 @@ import tools.Hitbox;
 import java.awt.*;
 
 public abstract class Monster {
-    protected Map mpa ;
+    protected Map map ;
     protected Coordinate position;
     protected Coordinate positionInt;
     protected final Hitbox hitbox;
@@ -30,10 +30,11 @@ public abstract class Monster {
     final private Image movingSouthWestSprite = new Image("resources/images/movingSouthWestCharacter.png");
     private Image activeSprite = waitingCharacter;
 
-    public Monster(Coordinate positionInt){
+    public Monster(Coordinate positionInt,Map map){
         this.positionInt = positionInt ;
         this.hitbox = new Hitbox(this.position, RADIUS);
         this.position= new Coordinate(positionInt.getX()*RADIUS, positionInt.getY()*RADIUS ) ;
+        this.map = map;
     }
 
     public void display(GraphicsContext gc) {
@@ -60,7 +61,7 @@ public abstract class Monster {
                 Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - RADIUS / 2, RADIUS, RADIUS);
     }
 
-    public abstract void updateDeplacement(Map map);
+    public abstract void updateDeplacement();
 
     protected void update(){
         this.position.add( speedX ,  speedY);
