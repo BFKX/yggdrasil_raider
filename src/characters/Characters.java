@@ -17,6 +17,7 @@ public abstract class Characters {
     double speedX = 0, speedY = 0;
     double speedLimitX, speedLimitY;
     double RADIUS;
+    final double SIDE = Toolkit.getDefaultToolkit().getScreenSize().getHeight()/60;
     HashMap<String, Image> imageSet = new HashMap<>();
     private String activeSprite;
 

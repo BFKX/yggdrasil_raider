@@ -55,7 +55,7 @@ public class MainCharacter extends Characters {
 
 	public void update(HashMap<CharacterActions, Boolean> inputs) {
 		displacement(inputs);
-		position.add(speedX / RADIUS, speedY / RADIUS);
+		position.add(speedX / SIDE, speedY / SIDE);
 
 		try{
 			map.getMap()[(int) position.getX()][(int) position.getY()] = 900;

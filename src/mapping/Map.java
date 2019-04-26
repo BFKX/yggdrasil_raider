@@ -206,8 +206,8 @@ public class Map {
 			}
 		}
 		gc.drawImage(character,
-				originXMiniMap + sideMiniMap * characterPosition.getX() / SIDE - sideCharacterMiniMap / 2,
-				originYMiniMap + sideMiniMap * characterPosition.getY() / SIDE - sideCharacterMiniMap / 2,
+				originXMiniMap + sideMiniMap * characterPosition.getX()  - sideCharacterMiniMap / 2,
+				originYMiniMap + sideMiniMap * characterPosition.getY()  - sideCharacterMiniMap / 2,
 				sideCharacterMiniMap, sideCharacterMiniMap);
 		gc.setGlobalAlpha(1);
 	}

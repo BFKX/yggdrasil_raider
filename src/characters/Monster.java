@@ -11,7 +11,6 @@ import java.awt.*;
 
 public abstract class Monster extends Characters{
     private Coordinate positionInt;
-    private final double SIDE = Toolkit.getDefaultToolkit().getScreenSize().getHeight()/60;
     int directionX ;
     int directionY ;
 
