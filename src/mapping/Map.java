@@ -176,18 +176,18 @@ public class Map {
 	}
 
 	public void display(GraphicsContext gc, @NotNull Coordinate characterPosition) {
-		int initColumn = (int) (characterPosition.getX() ) - 90;
-		int initLine = (int) (characterPosition.getY() ) - 60;
-		double lineOffset = (int) (characterPosition.getY() ) - 26;
-		double columnOffset = (int) (characterPosition.getX() ) - 15;
+		int initColumn = (int) (characterPosition.getX()) - 90;
+		int initLine = (int) (characterPosition.getY()) - 60;
+		double lineOffset = (characterPosition.getY()) - 26;
+		double columnOffset =  (characterPosition.getX()) - 15;
 		for (int column = initColumn; column < initColumn + 180; column++) {
 			for (int line = initLine; line < initLine + 120; line++) {
 				if (line < 0 || line >= lines || column < 0 || column >= columns) {
 					continue;
 				}
 				gc.drawImage(spriteSelector(map[column][line]),
-						(column - columnOffset) * SIDE - characterPosition.getX() % SIDE,
-						(line - lineOffset) * SIDE - characterPosition.getY() % SIDE, SIDE, SIDE);
+						(column - columnOffset) * SIDE - characterPosition.getX() ,
+						(line - lineOffset) * SIDE - characterPosition.getY() , SIDE, SIDE);
 			}
 		}
 	}
