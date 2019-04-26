@@ -1,9 +1,7 @@
 package mapping;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
-import mapping.Map.* ;
 
 public class Cave extends Room {
 	ArrayList< Integer> posibleValues = new ArrayList<Integer>();

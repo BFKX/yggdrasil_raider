@@ -14,11 +14,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import mapping.Map;
-import monster.Monster;
-import monster.RandomPathMonster;
+import characters.Monster;
+import characters.RandomPathMonster;
 import org.jetbrains.annotations.NotNull;
 import tools.*;
-import character.Character;
+import characters.MainCharacter;
 
 import java.awt.Toolkit;
 import java.util.HashMap;
@@ -111,7 +111,7 @@ class GameController extends Application {
 		game.getChildren().add(canvas);
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 
-		Character character = new Character(new Coordinate(WIDTH / 2, HEIGHT / 2),map);
+		MainCharacter mainCharacter = new MainCharacter(new Coordinate(WIDTH / 2, HEIGHT / 2),map);
 
 		scene.setOnKeyPressed(e -> {
 			switch (e.getCode()) {
@@ -190,17 +190,17 @@ class GameController extends Application {
 					gc.setFill(Color.BLACK);
 					gc.fillRect(0, 0, WIDTH, HEIGHT);
 
-					character.update(inputs);
+					mainCharacter.update(inputs);
 
-					map.display(gc, character.getPosition());
-					map.displayMiniMap(gc, character.getPosition());
+					map.display(gc, mainCharacter.getPosition());
+					map.displayMiniMap(gc, mainCharacter.getPosition());
 
-					character.displayCharacter(gc);
-					character.drawHitbox(gc);
+					mainCharacter.display(gc);
+					mainCharacter.drawHitbox(gc);
 
-					monster.updateDeplacement();
-					monster.display(gc);
-					character.setPosition(monster.getPosition());
+//					monster.updateDeplacement();
+//					monster.display(gc);
+//					mainCharacter.setPosition(monster.getPosition());
 
 					fpsmeter.update(now, gc);
 					lastNow = now;

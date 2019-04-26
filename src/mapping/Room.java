@@ -3,7 +3,6 @@ package mapping;
 import org.jetbrains.annotations.NotNull;
 import tools.Coordinate;
 
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -16,6 +15,7 @@ public class Room {
 	int[][] map;
 	int width;
 	int height;
+
 	Room(int width, int height, Random pseudoRandomList) {
 		this.width = width;
 		this.height = height;
@@ -108,11 +108,6 @@ public class Room {
 
 	public int getHeight() {
 		return height;
-	}
-
-
-	public void setOrigine(Coordinate origine) {
-		origine = origine;
 	}
 
 	private void  placeRoom(Room room){

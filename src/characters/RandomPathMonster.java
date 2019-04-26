@@ -1,4 +1,4 @@
-package monster;
+package characters;
 
 import mapping.Map;
 import tools.Coordinate;
