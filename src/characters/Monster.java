@@ -11,13 +11,14 @@ import java.awt.*;
 
 public abstract class Monster extends Characters{
     private Coordinate positionInt;
+    private final double SIDE = Toolkit.getDefaultToolkit().getScreenSize().getHeight()/60;
     int directionX ;
     int directionY ;
 
     public Monster(@NotNull Coordinate positionInt, Map map){
         super(positionInt, map);
         this.positionInt = positionInt ;
-        this.position= new Coordinate(positionInt.getX()*RADIUS, positionInt.getY()*RADIUS ) ;
+        this.position= new Coordinate(positionInt.getX()*SIDE, positionInt.getY()*SIDE ) ;
         imageSet.put("movingNorth", new Image("resources/images/movingNorthCharacter.png"));
         imageSet.put("movingSouth", new Image("resources/images/movingSouthCharacter.png"));
         imageSet.put("movingWest", new Image("resources/images/movingWestCharacter.png"));
@@ -33,7 +34,7 @@ public abstract class Monster extends Characters{
 
     protected void update(){
         this.position.add( speedX ,  speedY);
-        this.positionInt = new Coordinate(position.getX() / RADIUS , positionInt.getY() / RADIUS );
+        this.positionInt = new Coordinate(position.getX() / SIDE , positionInt.getY() / SIDE );
         try{
             map.getMap()[(int) positionInt.getX()][(int) positionInt.getY()] = 900;
         }catch (IndexOutOfBoundsException e){
