@@ -60,7 +60,7 @@ public class MainCharacter extends Characters {
 		try{
 			map.getMap()[(int) position.getX()][(int) position.getY()] = 900;
 		}catch (IndexOutOfBoundsException e){
-			System.out.println((int) position.getX() + (int) speedX+ "a,a" +(int) position.getY() + (int) speedY);
+			System.out.println((int) position.getX() + (int) speedX+ " , " +(int) position.getY() + (int) speedY);
 			System.out.println((map.getMap().length +";" + map.getMap()[0].length));
 			System.out.println("perso out ");
 		}

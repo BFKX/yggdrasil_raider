@@ -178,8 +178,8 @@ public class Map {
 	public void display(GraphicsContext gc, @NotNull Coordinate characterPosition) {
 		int initColumn = (int) (characterPosition.getX()) - 90;
 		int initLine = (int) (characterPosition.getY()) - 60;
-		double lineOffset = (characterPosition.getY()) - 26;
-		double columnOffset =  (characterPosition.getX()) - 15;
+		double lineOffset = (characterPosition.getY()) - HEIGHT/72;
+		double columnOffset =  (characterPosition.getX()) - WIDTH/72;
 		for (int column = initColumn; column < initColumn + 180; column++) {
 			for (int line = initLine; line < initLine + 120; line++) {
 				if (line < 0 || line >= lines || column < 0 || column >= columns) {
