@@ -25,6 +25,8 @@ import java.util.HashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
 class GameController extends Application {
+	final private double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+	final private double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	private final Scene scene;
 	private final Stage primaryStage;
 	private boolean pause = false;
@@ -34,11 +36,9 @@ class GameController extends Application {
 	private final Button muteButton = new Button();
 	private final Text text = new Text("Pause");
 	private final HashMap<CharacterActions, Boolean> inputs = new HashMap<>();
-	private final MusicPlayer music = new MusicPlayer("/resources/audio/inGame.wav");
+	private final MusicPlayer music = new MusicPlayer("/resources/audio/inGame.wav", HEIGHT / 15);
 	private Map map = new Map(200 + ThreadLocalRandom.current().nextInt(-50, 50),
 			200 + ThreadLocalRandom.current().nextInt(-50, 50));
-	final private double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-	final private double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	final private Image pauseBackground = new Image("resources/images/menuBackground.png", WIDTH, HEIGHT, false, true);
 	final private Font customFont = Font.loadFont(
 			StartMenuController.class.getResource("../resources/fonts/VIKING-N.TTF").toExternalForm(), HEIGHT / 12);
@@ -95,15 +95,12 @@ class GameController extends Application {
 		quitButton.setLayoutY(HEIGHT * 0.75 - resumeButton.getPrefHeight() / 2);
 		quitButton.setOnAction(e -> System.exit(0));
 
-		muteButton.setBackground(new Background(new BackgroundImage(
-
-
-				new Image("images/mutedButton.png", HEIGHT / 10, HEIGHT / 10, false, false), BackgroundRepeat.NO_REPEAT,
+		muteButton.setBackground(new Background(new BackgroundImage(new Image("images/unmutedButton.png", HEIGHT / 15, HEIGHT / 15, false, false), BackgroundRepeat.NO_REPEAT,
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
-		muteButton.setPrefSize(HEIGHT / 10, HEIGHT / 10);
+		muteButton.setPrefSize(HEIGHT / 15, HEIGHT / 15);
 		muteButton.setLayoutX(WIDTH - muteButton.getPrefWidth());
 		muteButton.setLayoutY(HEIGHT - muteButton.getPrefHeight());
-		muteButton.setOnAction(actionEvent -> music.stop());
+		muteButton.setOnAction(actionEvent -> music.muteAction(muteButton));
 		music.start();
 		start(this.primaryStage);
 	}

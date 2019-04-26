@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 import tools.MusicPlayer;
 import java.awt.Toolkit;
 import java.io.IOException;
@@ -41,7 +42,7 @@ class StartMenuController {
 		Font titleFont = Font.loadFont(
 				StartMenuController.class.getResource("../resources/fonts/VIKING-N.TTF").toExternalForm(),
 				startMenu.getPrefHeight() / 12);
-		MusicPlayer music = new MusicPlayer("/resources/audio/startMenu.wav");
+		MusicPlayer music = new MusicPlayer("/resources/audio/startMenu.wav", HEIGHT / 15);
 		startMenu.setBackground(new Background(new BackgroundImage(
 				new Image("images/menuBackground.png", WIDTH, HEIGHT, false, false), BackgroundRepeat.NO_REPEAT,
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
@@ -88,14 +89,12 @@ class StartMenuController {
 		quitButton.setLayoutY(startMenu.getPrefHeight() * 0.75 - quitButton.getPrefHeight() / 2);
 		quitButton.setOnAction(e -> System.exit(0));
 
-		muteButton.setBackground(new Background(new BackgroundImage(
-
-				new Image("images/mutedButton.png", HEIGHT / 10, HEIGHT / 10, false, false), BackgroundRepeat.NO_REPEAT,
+		muteButton.setBackground(new Background(new BackgroundImage(new Image("images/unmutedButton.png", HEIGHT / 15, HEIGHT / 15, false, false), BackgroundRepeat.NO_REPEAT,
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
-		muteButton.setPrefSize(HEIGHT / 10, HEIGHT / 10);
+		muteButton.setPrefSize(HEIGHT / 15, HEIGHT / 15);
 		muteButton.setLayoutX(WIDTH - muteButton.getPrefWidth());
 		muteButton.setLayoutY(HEIGHT - muteButton.getPrefHeight());
-		muteButton.setOnAction(actionEvent -> music.stop());
+		muteButton.setOnAction(actionEvent -> music.muteAction(muteButton));
 		music.start();
 	}
 }
