@@ -19,7 +19,7 @@ public abstract class Characters {
     double RADIUS;
     final double SIDE = Toolkit.getDefaultToolkit().getScreenSize().getHeight()/60;
     HashMap<String, Image> imageSet = new HashMap<>();
-    private String activeSprite;
+    private String activeSprite = "movingEast";
 
     Characters(Coordinate position, Map map ) {
         this.position = new Coordinate(0, 0);

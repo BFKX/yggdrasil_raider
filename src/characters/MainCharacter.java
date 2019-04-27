@@ -23,8 +23,8 @@ public class MainCharacter extends Characters {
 		imageSet.put("movingSouthWest", new Image("resources/images/movingSouthWestCharacter.png"));
 		imageSet.put("waiting", new Image("resources/images/waitingCharacter.png"));
 		RADIUS = 2 * Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
-		speedLimitX = RADIUS;
-		speedLimitY = RADIUS;
+		speedLimitX = RADIUS / 3;
+		speedLimitY = RADIUS / 3;
 	}
 
 	private void displacement(@NotNull HashMap<CharacterActions, Boolean> inputs) {
