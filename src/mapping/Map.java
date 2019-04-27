@@ -188,8 +188,8 @@ public class Map {
 					continue;
 				}
 				gc.drawImage(spriteSelector(map[column][line]),
-						(column - columnOffset) * SIDE - positionX,
-						(line - lineOffset) * SIDE - positionY, SIDE, SIDE);
+						(column - columnOffset) * SIDE ,
+						(line - lineOffset) * SIDE , SIDE, SIDE);
 			}
 		}
 	}
