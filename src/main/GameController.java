@@ -42,7 +42,7 @@ class GameController extends Application {
 	final private Image pauseBackground = new Image("resources/images/menuBackground.png", WIDTH, HEIGHT, false, true);
 	final private Font customFont = Font.loadFont(
 			StartMenuController.class.getResource("../resources/fonts/VIKING-N.TTF").toExternalForm(), HEIGHT / 12);
-	private Monster monster =new RandomPathMonster(new Coordinate(100, 100),map);
+	private Monster monster =monster = new RandomPathMonster(new Coordinate(120,120),map);
 	@FXML
 	private AnchorPane game;
 
@@ -120,8 +120,8 @@ class GameController extends Application {
 						200 + ThreadLocalRandom.current().nextInt(-50, 50));
 				break;
 			case M :
-				monster = new RandomPathMonster(new Coordinate(ThreadLocalRandom.current().nextInt(100, 200),
-						ThreadLocalRandom.current().nextInt(100,200)),map);
+				monster = new RandomPathMonster(new Coordinate(ThreadLocalRandom.current().nextInt(100, 150),
+						ThreadLocalRandom.current().nextInt(100,150)),map);
 				break;
 			case L:
 				map.createSeedRoom();
@@ -198,9 +198,9 @@ class GameController extends Application {
 					mainCharacter.display(gc);
 					//mainCharacter.drawHitbox(gc);
 
-//					monster.updateDeplacement();
-//					monster.display(gc);
-//					mainCharacter.setPosition(monster.getPosition());
+					monster.updateDeplacement();
+					monster.display(gc);
+					mainCharacter.setPosition(monster.getPositionInt());
 
 					fpsmeter.update(now, gc);
 					lastNow = now;

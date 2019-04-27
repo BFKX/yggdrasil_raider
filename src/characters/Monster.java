@@ -10,7 +10,7 @@ import tools.Hitbox;
 import java.awt.*;
 
 public abstract class Monster extends Characters{
-    private Coordinate positionInt;
+    Coordinate positionInt;
     int directionX ;
     int directionY ;
 
@@ -33,11 +33,11 @@ public abstract class Monster extends Characters{
 
     protected void update(){
         this.position.add( speedX ,  speedY);
-        this.positionInt = new Coordinate(position.getX() / SIDE , positionInt.getY() / SIDE );
+        this.positionInt = new Coordinate(position.getX() / SIDE , position.getY() / SIDE );
         try{
-            map.getMap()[(int) positionInt.getX()][(int) positionInt.getY()] = 900;
+            map.getMap()[(int) positionInt.getX()][(int) positionInt.getY()] = -900;
         }catch (IndexOutOfBoundsException e){
-            System.out.println((int) position.getX() + (int) speedX+ "a,a" +(int) position.getY() + (int) speedY);
+            System.out.println((int) positionInt.getX() + "a,a" +(int) positionInt.getY() );
             System.out.println((map.getMap().length +";" + map.getMap()[0].length));
             System.out.println("non");
         }
@@ -45,5 +45,18 @@ public abstract class Monster extends Characters{
 
     public Coordinate getPosition() {
         return position;
+    }
+
+    public Coordinate getPositionInt() {
+        return positionInt;
+    }
+
+    protected int sign(double x) {
+        if ( x > 0 ){
+            return  1 ;
+        }else if(x< 0){
+            return -1;
+        }
+        return 0;
     }
 }

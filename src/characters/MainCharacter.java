@@ -57,7 +57,7 @@ public class MainCharacter extends Characters {
 		displacement(inputs);
 		position.add(speedX / SIDE, speedY / SIDE);
 		try{
-			map.getMap()[(int) position.getX()][(int) position.getY()] = 900;
+			map.getMap()[(int) position.getX()][(int) position.getY()] = -900;
 		}catch (IndexOutOfBoundsException e){
 			System.out.println((int) position.getX() + (int) speedX+ " , " +(int) position.getY() + (int) speedY);
 			System.out.println((map.getMap().length +";" + map.getMap()[0].length));
