@@ -196,7 +196,7 @@ class GameController extends Application {
 					map.displayMiniMap(gc, mainCharacter.getPosition());
 
 					mainCharacter.display(gc);
-					mainCharacter.drawHitbox(gc);
+					//mainCharacter.drawHitbox(gc);
 
 //					monster.updateDeplacement();
 //					monster.display(gc);
