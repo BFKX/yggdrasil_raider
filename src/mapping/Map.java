@@ -13,7 +13,7 @@ public class Map {
 	private int[][] map;
 	private final int lines;
 	private final int columns;
-	private Cave origin;
+	private final Cave origin;
 	private Room current;
 	final private double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	final private double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
@@ -46,7 +46,7 @@ public class Map {
 	private final double sideMiniMap = SIDE * 0.1;
 	private final double originXMiniMap;
 	private final double originYMiniMap;
-	private int[][] mapofroom ;
+	private final int[][] mapofroom ;
 	private final int raporRoomMap = 100 ;
 	public Map(int columns, int lines) {
 		this.lines = lines;

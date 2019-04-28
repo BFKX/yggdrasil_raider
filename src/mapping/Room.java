@@ -1,7 +1,6 @@
 package mapping;
 
 import org.jetbrains.annotations.NotNull;
-import tools.Coordinate;
 
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
@@ -23,7 +22,7 @@ public class Room {
 		map = new int[width][height];
 	}
 
-	public int[][] getMap() {
+	int[][] getMap() {
 		return map;
 	}
 
@@ -31,12 +30,12 @@ public class Room {
 		this.map = map;
 	}
 
-	public Room(Coordinate origin, @NotNull Random pseudoRandomList) {
+	public Room(@NotNull Random pseudoRandomList) {
 		this.height = pseudoRandomList.nextInt();
 		this.width = pseudoRandomList.nextInt();
 	}
 
-	public void applyFiltering(int[][] mapFiltering, int limit) {
+	void applyFiltering(int[][] mapFiltering, int limit) {
 		for (int i = 0; i < width ; i++) {
 			for (int j = 0; j < height ; j++) {
 				if (mapFiltering[i][j] >= limit) {
@@ -49,7 +48,7 @@ public class Room {
 		}
 	}
 
-	public int[][] fullnRangefiltering(int n) {
+	int[][] fullRangeFiltering(int n) {
 		int[][] temp = new int[width][height];
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
@@ -70,43 +69,43 @@ public class Room {
 		return temp;
 	}
 
-	public Room getNorth() {
+	Room getNorth() {
 		return north;
 	}
 
-	public void setNorth(Room north) {
+	void setNorth(Room north) {
 		this.north = north;
 	}
 
-	public Room getSouth() {
+	Room getSouth() {
 		return south;
 	}
 
-	public void setSouth(Room south) {
+	private void setSouth(Room south) {
 		this.south = south;
 	}
 
-	public Room getEast() {
+	Room getEast() {
 		return east;
 	}
 
-	public void setEast(Room east) {
+	private void setEast(Room east) {
 		this.east = east;
 	}
 
-	public Room getWest() {
+	Room getWest() {
 		return west;
 	}
 
-	public void setWest(Room west) {
+	private void setWest(Room west) {
 		this.west = west;
 	}
 
-	public int getWidth() {
+	int getWidth() {
 		return width;
 	}
 
-	public int getHeight() {
+	int getHeight() {
 		return height;
 	}
 
@@ -126,7 +125,6 @@ public class Room {
 					this.getSouth().placeRoom(room);
 				} else {
 					room.setNorth(this);
-					;
 					this.setSouth(room);
 				}
 				break;
@@ -135,7 +133,6 @@ public class Room {
 					this.getEast().placeRoom(room);
 				} else {
 					room.setWest(this);
-					;
 					this.setEast(room);
 				}
 				break;

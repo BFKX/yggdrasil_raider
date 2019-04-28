@@ -13,9 +13,6 @@ public class MusicPlayer {
 	final private Background mutedButton;
 	final private Background unmutedButton;
 
-	/**
-	 * @param path path to the resource
-	 */
 	public MusicPlayer(String path, double side) {
 		setPath(path);
 		mutedButton = new Background(new BackgroundImage(new Image("images/mutedButton.png", side, side, false, false),
@@ -24,9 +21,6 @@ public class MusicPlayer {
 				BackgroundRepeat.NO_REPEAT,	BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT));
 	}
 
-	/**
-	 * @param path path to the resource
-	 */
 	private void setPath(String path) {
 		player = new MediaPlayer(new Media(getClass().getResource(path).toString()));
 		player.setOnEndOfMedia(() -> player.seek(Duration.ZERO));

@@ -1,20 +1,16 @@
 package characters;
 
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import mapping.Map;
 import org.jetbrains.annotations.NotNull;
 import tools.Coordinate;
-import tools.Hitbox;
-
-import java.awt.*;
 
 public abstract class Monster extends Characters{
     Coordinate positionInt;
     int directionX ;
     int directionY ;
 
-    public Monster(@NotNull Coordinate positionInt, Map map){
+    Monster(@NotNull Coordinate positionInt, Map map){
         super(positionInt, map);
         this.positionInt = positionInt ;
         this.position= new Coordinate(positionInt.getX()*SIDE, positionInt.getY()*SIDE ) ;
@@ -29,14 +25,14 @@ public abstract class Monster extends Characters{
         imageSet.put("waiting", new Image("resources/images/waitingCharacter.png"));
     }
 
-    public abstract void updateDeplacement();
+    public abstract void updateDisplacement();
 
-    protected void update(){
+    void update() {
         this.position.add( speedX ,  speedY);
         this.positionInt = new Coordinate(position.getX() / SIDE , position.getY() / SIDE );
-        try{
+        try {
             map.getMap()[(int) positionInt.getX()][(int) positionInt.getY()] = -900;
-        }catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             System.out.println((int) positionInt.getX() + "a,a" +(int) positionInt.getY() );
             System.out.println((map.getMap().length +";" + map.getMap()[0].length));
             System.out.println("non");
@@ -51,10 +47,10 @@ public abstract class Monster extends Characters{
         return positionInt;
     }
 
-    protected int sign(double x) {
-        if ( x > 0 ){
-            return  1 ;
-        }else if(x< 0){
+    int signOf(double x) {
+        if (x > 0) {
+            return  1;
+        } else if (x < 0) {
             return -1;
         }
         return 0;

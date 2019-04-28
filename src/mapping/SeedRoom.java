@@ -20,7 +20,7 @@ class SeedRoom extends Room {
 		placeSeed();
 		fillMap();
 		for (int i = 0; i < 50; i++) {
-			applyFiltering(fullnRangefiltering(3), 31);
+			applyFiltering(fullRangeFiltering(3), 31);
 		}
 	}
 
@@ -42,7 +42,7 @@ class SeedRoom extends Room {
 					distances[k] = Math.exp(1 / (listSeed[k].distance(current) + 1));
 					sum += distances[k];
 				}
-				int randomInteger = pseudoRandomList.nextInt((int) sum);
+				int randomInteger = pseudoRandomList.nextInt((int)sum);
 				sum = 0;
 				for (int k = 0; k < nbSeed; k++) {
 					sum = sum + distances[k];

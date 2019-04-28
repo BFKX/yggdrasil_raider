@@ -3,11 +3,11 @@ package mapping;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Cave extends Room {
-	ArrayList< Integer> posibleValues = new ArrayList<Integer>();
+class Cave extends Room {
+	private final ArrayList< Integer> possibleValues = new ArrayList<>();
 	Cave(int width, int height, Random pseudoRandomList) {
 		super(width, height, pseudoRandomList);
-		initposibleValues();
+		initPossibleValues();
 		// int fillPercentage = ThreadLocalRandom.current().nextInt(43, 47);
 		int fillPercentage = 62;
 		this.width = width;
@@ -23,12 +23,12 @@ public class Cave extends Room {
 		 */
 		for (int l = 0; l < 2; l++) {
 			for (int k = 0; k < 2; k++) {
-				applyFiltering(fullnRangefiltering(1), 6);
+				applyFiltering(fullRangeFiltering(1), 6);
 			}
 			for (int i = 0; i < 10; i++) {
 				additiveFiltering();
 			}
-			applyFiltering(fullnRangefiltering(1), 6);
+			applyFiltering(fullRangeFiltering(1), 6);
 		}
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
@@ -37,7 +37,7 @@ public class Cave extends Room {
 				}
 			}
 		}
-		int[][] f1 = fullnRangefiltering(20) ;
+		int[][] f1 = fullRangeFiltering(20) ;
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
 				if (f1[i][j] == 0) {
@@ -47,22 +47,22 @@ public class Cave extends Room {
 		}
 		placeWall();
 		delete25(1);
-		applyFiltering(fullnRangefiltering(1), 6);
+		applyFiltering(fullRangeFiltering(1), 6);
 		NorthVoid();
 		SouthVoid();
 		placeWall();
 	}
 
-	private void initposibleValues(){
-		 int[] values = {0,1,2,3,4,6,8,9,12,13,15,17,18,19, 21, 41, 163};
+	private void initPossibleValues(){
+		 int[] values = {0, 1, 2, 3, 4, 6, 8, 9, 12, 13, 15, 17, 18, 19, 21, 41, 163};
 		 for ( int i : values) {
-			 posibleValues.add(i);
+			 possibleValues.add(i);
 		 }
 	}
 	private void delete25(int range) {
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
-				if (!(posibleValues.contains( map[i][j]))){
+				if (!(possibleValues.contains(map[i][j]))) {
 					for (int k = -range; k < range + 1; k++) {
 						for (int l = -range; l < range + 1; l++) {
 							if (i + l < width && j + k >= 0 && j + k < height && i + l >= 0) {
@@ -91,11 +91,7 @@ public class Cave extends Room {
 				if (i <= 4 || i > width - 4 || j <= 4 || j >= height - 4) {
 					map[i][j] = 1;
 				} else {
-					if (pseudoRandomList.nextInt(100) < fillPercentage) {
-						map[i][j] = 1;
-					} else {
-						map[i][j] = 0;
-					}
+					map[i][j] = pseudoRandomList.nextInt(100) < fillPercentage ? 1 : 0;
 				}
 			}
 		}
@@ -147,12 +143,12 @@ public class Cave extends Room {
 			nbone[i]=j;
 		}
 		int indicemin = 0;
-		for(int i =1 ; i<width-1 ; i++){
-			if( nbone[i]<nbone[indicemin]){
-				indicemin=i;
+		for(int i = 1; i < width - 1; i++) {
+			if(nbone[i] < nbone[indicemin]) {
+				indicemin = i;
 			}
 		}
-		for (int i= 0 ; i < nbone[indicemin]+1 ; i++){
+		for (int i = 0 ; i < nbone[indicemin]+1 ; i++){
 			for ( int k = -1 ; k<2 ; k++ ){
 				map[indicemin+k][i] = 0 ;
 			}
@@ -178,27 +174,27 @@ public class Cave extends Room {
 			}
 			nbone[i]=j;
 		}
-		int indicemin = 0;
+		int minIndex = 0;
 		for(int i =1 ; i<width-1 ; i++){
-			if( nbone[i]<nbone[indicemin]){
-				indicemin=i;
+			if( nbone[i]<nbone[minIndex]){
+				minIndex=i;
 			}
 		}
-		for (int j= 1 ; j < nbone[indicemin]+1 ; j++){
+		for (int j= 1 ; j < nbone[minIndex]+1 ; j++){
 			for ( int k = -1 ; k<2 ; k++ ){
-				map[indicemin+k][height-j] = 0 ;
+				map[minIndex+k][height-j] = 0 ;
 			}
 		}
 	}
 
 	private void SouthVoid(int indicemin) {
-		int k=1;
-		while(k <height && map[indicemin][height-k]!= 0 ){
+		int k = 1;
+		while(k < height && map[indicemin][height - k] != 0) {
 			k++;
 		}
-		for (int j= 0 ; j < k+1 ; j++){
-			for ( int l = -1 ; l<2 ; l++ ){
-				map[indicemin+l][height-j] = 0 ;
+		for (int j = 0; j < k + 1; j++){
+			for (int l = -1; l < 2; l++){
+				map[indicemin + l][height - j] = 0 ;
 			}
 		}
 	}

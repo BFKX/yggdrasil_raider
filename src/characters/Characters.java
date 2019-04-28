@@ -2,6 +2,7 @@ package characters;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import org.jetbrains.annotations.NotNull;
 import tools.Coordinate;
 import tools.Hitbox;
 
@@ -11,14 +12,14 @@ import java.awt.*;
 import java.util.HashMap;
 
 public abstract class Characters {
-    Map map;
+    final Map map;
     Coordinate position;
-    Hitbox hitbox;
+    final Hitbox hitbox;
     double speedX = 0, speedY = 0;
     double speedLimitX, speedLimitY;
     double RADIUS;
     final double SIDE = Toolkit.getDefaultToolkit().getScreenSize().getHeight()/60;
-    HashMap<String, Image> imageSet = new HashMap<>();
+    final HashMap<String, Image> imageSet = new HashMap<>();
     private String activeSprite = "movingEast";
 
     Characters(Coordinate position, Map map ) {
@@ -48,7 +49,7 @@ public abstract class Characters {
         return imageSet.get(activeSprite);
     }
 
-    public void display(GraphicsContext gc) {
+    public void display(@NotNull GraphicsContext gc) {
         gc.drawImage(spriteSelector(), Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - RADIUS / 2,
                 Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - RADIUS / 2, RADIUS, RADIUS);
     }
