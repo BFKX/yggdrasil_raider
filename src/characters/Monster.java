@@ -30,13 +30,6 @@ public abstract class Monster extends Characters{
     void update() {
         this.position.add( speedX ,  speedY);
         this.positionInt = new Coordinate(position.getX() / SIDE , position.getY() / SIDE );
-        try {
-            map.getMap()[(int) positionInt.getX()][(int) positionInt.getY()] = -900;
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println((int) positionInt.getX() + "a,a" +(int) positionInt.getY() );
-            System.out.println((map.getMap().length +";" + map.getMap()[0].length));
-            System.out.println("non");
-        }
     }
 
     public Coordinate getPosition() {
