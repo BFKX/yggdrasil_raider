@@ -7,12 +7,14 @@ import tools.Coordinate;
 
 public abstract class Monster extends Characters{
     Coordinate positionInt;
+    Coordinate mainCharactersPosition ;
     int directionX ;
     int directionY ;
 
-    Monster(@NotNull Coordinate positionInt, Map map){
+    Monster(@NotNull Coordinate positionInt, Map map,Coordinate mainCharactersPosition){
         super(positionInt, map);
         this.positionInt = positionInt ;
+        this.mainCharactersPosition =  mainCharactersPosition ;
         this.position= new Coordinate(positionInt.getX()*SIDE, positionInt.getY()*SIDE ) ;
         imageSet.put("movingNorth", new Image("resources/images/movingNorthCharacter.png"));
         imageSet.put("movingSouth", new Image("resources/images/movingSouthCharacter.png"));
