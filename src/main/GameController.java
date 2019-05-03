@@ -124,9 +124,6 @@ class GameController extends Application {
 				 monster = new RandomPathMonster(new Coordinate(ThreadLocalRandom.current().nextInt(100, 150),
 						ThreadLocalRandom.current().nextInt(100,150)),mainCharacter.getPosition(),map);
 				break;
-			case L:
-				map.createSeedRoom();
-				break;
 			case ESCAPE:
 				pause = !pause;
 				if (!pause) {
