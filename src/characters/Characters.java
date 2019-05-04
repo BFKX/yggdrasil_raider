@@ -15,7 +15,7 @@ public abstract class Characters {
     final Map map;
     Coordinate position;
     final Hitbox hitbox;
-    double speedX = 0, speedY = 0;
+   public double speedX = 0, speedY = 0;
     double speedLimitX, speedLimitY;
     double RADIUS;
     final double SIDE = Toolkit.getDefaultToolkit().getScreenSize().getHeight()/60;
