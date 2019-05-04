@@ -9,11 +9,12 @@ import java.awt.Toolkit;
 import java.util.concurrent.ThreadLocalRandom;
 public class MonsterTest extends Monster
 {
-private double positionX;
-private double positionY;
-int directionX ;
-int directionY ;
-Map map;
+    private double lifeValue;
+    private double positionX;
+    private double positionY;
+    int directionX;
+    int directionY ;
+    Map map;
 public MonsterTest(Coordinate coordinate,Coordinate mainCharacterPosition,Map map)
 {
     super(coordinate,map,mainCharacterPosition);
