@@ -1,5 +1,6 @@
 package main;
 
+import characters.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -15,13 +16,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.lang.String;
 import mapping.Map;
-import characters.MonsterTest;
-import characters.Characters;
-import characters.Monster;
-import characters.RandomPathMonster;
 import org.jetbrains.annotations.NotNull;
 import tools.*;
-import characters.MainCharacter;
 import tools.Coordinate;
 
 import java.awt.Toolkit;
@@ -114,7 +110,7 @@ class GameController extends Application {
 		Canvas canvas = new Canvas(WIDTH, HEIGHT);
 		game.getChildren().add(canvas);
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-
+		NPC test = new NPC(new Coordinate(60,60));
 		MainCharacter mainCharacter = new MainCharacter(new Coordinate(WIDTH / 2, HEIGHT / 2),map);
         MonsterTest monster[] = new MonsterTest[20];
         for(int i = 0;i < 20;i++)
@@ -210,6 +206,7 @@ class GameController extends Application {
 						monster[j].updateDisplacement();
 						monster[j].display(gc, mainCharacter.getPosition());
 					}
+
 					//gc.drawImage(new Image("resources/images/waitingCharacter.png"),  30 - mainCharacter.speedX, 30 - mainCharacter.speedY, RADIUS, RADIUS);
 					//mainCharacter.drawHitbox(gc);
 
