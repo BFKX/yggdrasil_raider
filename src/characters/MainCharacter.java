@@ -22,7 +22,7 @@ public class MainCharacter extends Characters {
 		imageSet.put("movingNorthWest", new Image("resources/images/movingNorthWestCharacter.png"));
 		imageSet.put("movingSouthWest", new Image("resources/images/movingSouthWestCharacter.png"));
 		imageSet.put("waiting", new Image("resources/images/waitingCharacter.png"));
-		RADIUS = 2 * Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
+		RADIUS = 2 * SIDE;
 		speedLimitX = RADIUS / 3;
 		speedLimitY = RADIUS / 3;
 	}
@@ -55,13 +55,11 @@ public class MainCharacter extends Characters {
 
 	public void update(HashMap<CharacterActions, Boolean> inputs) {
 		displacement(inputs);
-		position.add(speedX / SIDE, speedY / SIDE);
-		try{
-			map.getMap()[(int) position.getX()][(int) position.getY()] = -900;
-		}catch (IndexOutOfBoundsException e){
-			System.out.println((int) position.getX() + (int) speedX+ " , " +(int) position.getY() + (int) speedY);
-			System.out.println((map.getMap().length +";" + map.getMap()[0].length));
-			System.out.println("perso out ");
+		if(!collision(position)) {
+			position.add(speedX / SIDE, speedY / SIDE);
+		} else {
+			speedX = 0;
+			speedY = 0;
 		}
 	}
 

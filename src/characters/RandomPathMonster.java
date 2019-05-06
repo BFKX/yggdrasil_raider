@@ -30,9 +30,7 @@ public class RandomPathMonster extends Monster {
            speedX =  directionX * speedLimitX / 13 ;
            speedY = directionY *  speedLimitY / 13 ;
         }
-        if((int)positionInt.getX() + signSpeedX < 0 || (int)positionInt.getX() + signSpeedX > mapInt.length - 1 ||
-            (int)positionInt.getY() + signSpeedY < 0 || (int)positionInt.getY() + signSpeedY > mapInt[0].length - 1 ||
-            mapInt[(int)positionInt.getX() + signSpeedX][(int)positionInt.getY() + signSpeedY] > 0) {
+        if(this.collision(positionInt)) {
             System.out.println(" value :" + mapInt[(int)positionInt.getX() + signSpeedX][(int)positionInt.getY() + signSpeedY] ) ;
             System.out.println("jumpt");
             directionX = -1 *  directionX;
