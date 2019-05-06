@@ -1,12 +1,14 @@
 package mapping;
 
+import tools.Coordinate;
+
 import java.util.ArrayList;
 import java.util.Random;
 
 class Cave extends Room {
 	private final ArrayList< Integer> possibleValues = new ArrayList<>();
-	Cave(int width, int height, Random pseudoRandomList) {
-		super(width, height, pseudoRandomList);
+	Cave(int width, int height, Random pseudoRandomList, Coordinate position ) {
+		super(width, height,position,pseudoRandomList);
 		initPossibleValues();
 		// int fillPercentage = ThreadLocalRandom.current().nextInt(43, 47);
 		int fillPercentage = 62;
@@ -48,8 +50,6 @@ class Cave extends Room {
 		placeWall();
 		delete25(1);
 		applyFiltering(fullRangeFiltering(1), 6);
-		NorthVoid();
-		SouthVoid();
 		placeWall();
 	}
 
@@ -128,73 +128,6 @@ class Cave extends Room {
 						}
 					}
 				}
-			}
-		}
-	}
-
-
-	private void NorthVoid(){
-		int[] nbone = new int[width] ;
-		for( int i = 0  ; i < width  ; i++ ){
-			int j=1;
-			while(j < height-1 && map[i][j]!= 0  ){
-				j++;
-			}
-			nbone[i]=j;
-		}
-		int indicemin = 0;
-		for(int i = 1; i < width - 1; i++) {
-			if(nbone[i] < nbone[indicemin]) {
-				indicemin = i;
-			}
-		}
-		for (int i = 0 ; i < nbone[indicemin]+1 ; i++){
-			for ( int k = -1 ; k<2 ; k++ ){
-				map[indicemin+k][i] = 0 ;
-			}
-		}
-	}
-	private void NorthVoid(int min){
-		int j=0;
-		while(j < height-1 && map[min][j]!= 0  ){
-			j++;
-		}
-		for (int i= 0 ; i < j+1 ; i++){
-			for ( int k = -1 ; k<2 ; k++ ){
-				map[min+k][i] = 0 ;
-			}
-		}
-	}
-	private void SouthVoid(){
-		int[] nbone = new int[width] ;
-		for( int i = 0  ; i < width  ; i++ ){
-			int j=1;
-			while(j <height && map[i][height-j]!= 0 ){
-				j++;
-			}
-			nbone[i]=j;
-		}
-		int minIndex = 0;
-		for(int i =1 ; i<width-1 ; i++){
-			if( nbone[i]<nbone[minIndex]){
-				minIndex=i;
-			}
-		}
-		for (int j= 1 ; j < nbone[minIndex]+1 ; j++){
-			for ( int k = -1 ; k<2 ; k++ ){
-				map[minIndex+k][height-j] = 0 ;
-			}
-		}
-	}
-
-	private void SouthVoid(int indicemin) {
-		int k = 1;
-		while(k < height && map[indicemin][height - k] != 0) {
-			k++;
-		}
-		for (int j = 0; j < k + 1; j++){
-			for (int l = -1; l < 2; l++){
-				map[indicemin + l][height - j] = 0 ;
 			}
 		}
 	}

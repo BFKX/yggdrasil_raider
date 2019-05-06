@@ -1,6 +1,5 @@
 package main;
 
-import characters.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -14,11 +13,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import java.lang.String;
 import mapping.Map;
+import characters.Monster;
+import characters.RandomPathMonster;
 import org.jetbrains.annotations.NotNull;
 import tools.*;
-import tools.Coordinate;
+import characters.MainCharacter;
 
 import java.awt.Toolkit;
 import java.util.HashMap;
@@ -42,7 +42,7 @@ class GameController extends Application {
 	final private Image pauseBackground = new Image("resources/images/menuBackground.png", WIDTH, HEIGHT, false, true);
 	final private Font customFont = Font.loadFont(
 			StartMenuController.class.getResource("../resources/fonts/VIKING-N.TTF").toExternalForm(), HEIGHT / 12);
-	/*private Monster monster = new RandomPathMonster(new Coordinate(120,120),map);*/
+	private Monster monster ;
 	@FXML
 	private AnchorPane game;
 
@@ -110,29 +110,19 @@ class GameController extends Application {
 		Canvas canvas = new Canvas(WIDTH, HEIGHT);
 		game.getChildren().add(canvas);
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-		NPC test = new NPC(new Coordinate(60,60));
+
 		MainCharacter mainCharacter = new MainCharacter(new Coordinate(WIDTH / 2, HEIGHT / 2),map);
-        MonsterTest monster[] = new MonsterTest[20];
-        for(int i = 0;i < 20;i++)
-		{
-			monster[i] = new MonsterTest(new Coordinate( Math.random() * 150, Math.random() * 150 ),mainCharacter.getPosition(),map);
-		}
+
+
 		scene.setOnKeyPressed(e -> {
 			switch (e.getCode()) {
 			case R:
 				map = new Map(200 + ThreadLocalRandom.current().nextInt(-50, 50),
 						200 + ThreadLocalRandom.current().nextInt(-50, 50));
-				for(int i = 0;i < 20;i++)
-				{
-					monster[i] = new MonsterTest(new Coordinate( Math.random() * 150, Math.random() * 150 ),mainCharacter.getPosition(),map);
-				}
 				break;
 			case M :
-				/*monster = new RandomPathMonster(new Coordinate(ThreadLocalRandom.current().nextInt(100, 150),
-						ThreadLocalRandom.current().nextInt(100,150)),map);*/
-				break;
-			case L:
-				map.createSeedRoom();
+				 monster = new RandomPathMonster(new Coordinate(ThreadLocalRandom.current().nextInt(100, 150),
+						ThreadLocalRandom.current().nextInt(100,150)),mainCharacter.getPosition(),map);
 				break;
 			case ESCAPE:
 				pause = !pause;
@@ -191,29 +181,25 @@ class GameController extends Application {
 		});
 
 		new AnimationTimer() {
-			double RADIUS = 2 * Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
 			long lastNow = 0;
 			final FPSMeter fpsmeter = new FPSMeter();
 			public void handle(long now) {
 				if (!pause && now - lastNow >= 15000000) {
 					gc.setFill(Color.BLACK);
 					gc.fillRect(0, 0, WIDTH, HEIGHT);
+
 					mainCharacter.update(inputs);
+
 					map.display(gc, mainCharacter.getPosition());
 					map.displayMiniMap(gc, mainCharacter.getPosition());
+
 					mainCharacter.display(gc);
-					for(int j = 0; j<20 ; j++) {
-						monster[j].updateDisplacement();
-						monster[j].display(gc, mainCharacter.getPosition());
-					}
-
-					//gc.drawImage(new Image("resources/images/waitingCharacter.png"),  30 - mainCharacter.speedX, 30 - mainCharacter.speedY, RADIUS, RADIUS);
 					//mainCharacter.drawHitbox(gc);
-
-					/*monster.updateDisplacement();
-					monster.display(gc);
-					mainCharacter.setPosition(monster.getPositionInt());*/
-
+					if ( monster != null) {
+						monster.updateDisplacement();
+						monster.display(gc);
+						mainCharacter.setPosition(monster.getPositionInt());
+					}
 					fpsmeter.update(now, gc);
 					lastNow = now;
 
