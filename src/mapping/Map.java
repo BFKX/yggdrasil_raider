@@ -89,9 +89,6 @@ public class Map {
 	}
 
 
-
-
-
 	private void update() {
 		this.map = current.getMap();
 	}
