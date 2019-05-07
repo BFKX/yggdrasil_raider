@@ -12,20 +12,24 @@ import java.awt.*;
 import java.util.HashMap;
 
 public abstract class Characters {
-    final Map map;
+    Map map;
+    int[][] mapInt;
     Coordinate position;
+    Coordinate positionInt;
     final Hitbox hitbox;
    public double speedX = 0, speedY = 0;
     double speedLimitX, speedLimitY;
     double RADIUS;
-    final double SIDE = Toolkit.getDefaultToolkit().getScreenSize().getHeight()/60;
+    final double SIDE = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
     final HashMap<String, Image> imageSet = new HashMap<>();
     private String activeSprite = "movingEast";
 
     Characters(Coordinate position, Map map ) {
-        this.position = new Coordinate(0, 0);
+        this.position = new Coordinate(20, 20);
+        this.positionInt = new Coordinate(position.getX() / SIDE, position.getY() / SIDE);
         this.hitbox = new Hitbox(position, RADIUS);
-        this.map = map ;
+        this.map = map;
+        mapInt = map.getMap();
     }
 
     private Image spriteSelector() {
@@ -52,5 +56,28 @@ public abstract class Characters {
     public void display(@NotNull GraphicsContext gc) {
         gc.drawImage(spriteSelector(), Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - RADIUS / 2,
                 Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - RADIUS / 2, RADIUS, RADIUS);
+    }
+
+    int signOf(double x) {
+        if (x > 0) {
+            return  1;
+        } else if (x < 0) {
+            return -1;
+        }
+        return 0;
+    }
+
+    boolean collision(Coordinate positionInt) {
+        int signSpeedX = signOf(speedX) * (int) (1 + RADIUS / SIDE);
+        int signSpeedY = signOf(speedY) * (int) (1 + RADIUS / SIDE);
+        if ((int) positionInt.getX() + signSpeedX >= 0 && (int) positionInt.getX() + signSpeedX < mapInt.length) {
+            if ((int) positionInt.getY() + signSpeedY >= 0 && (int) positionInt.getY() + signSpeedY < mapInt[0].length) {
+                if (mapInt[(int) positionInt.getX() + signSpeedX][(int) positionInt.getY() + signSpeedY] > 0) {
+                    return true;
+                }
+                System.out.println(mapInt[(int) positionInt.getX() + signSpeedX][(int) positionInt.getY() + signSpeedY]);
+            }
+        }
+        return false;
     }
 }
