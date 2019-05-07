@@ -68,14 +68,17 @@ public abstract class Characters {
     }
 
     boolean collision(Coordinate positionInt) {
-        int signSpeedX = signOf(speedX) * (int) (1 + RADIUS / SIDE);
-        int signSpeedY = signOf(speedY) * (int) (1 + RADIUS / SIDE);
-        if ((int) positionInt.getX() + signSpeedX >= 0 && (int) positionInt.getX() + signSpeedX < mapInt.length) {
-            if ((int) positionInt.getY() + signSpeedY >= 0 && (int) positionInt.getY() + signSpeedY < mapInt[0].length) {
-                if (mapInt[(int) positionInt.getX() + signSpeedX][(int) positionInt.getY() + signSpeedY] > 0) {
-                    return true;
+        int signSpeedX = signOf(speedX);
+        int signSpeedY = signOf(speedY);
+        for (int k = -1; k < 2; k++) {
+            if ((int) positionInt.getX() + signSpeedX >= 0 && (int) positionInt.getX() + signSpeedX < mapInt.length) {
+                if ((int) positionInt.getY() + signSpeedY >= 0 && (int) positionInt.getY() + signSpeedY < mapInt[0].length) {
+                    if (mapInt[(int) positionInt.getX() + signSpeedX][(int) positionInt.getY() + signSpeedY] > 0) {
+                        mapInt[(int) positionInt.getX() + signSpeedX][(int) positionInt.getY() + signSpeedY] = 8000;
+                        return true;
+                    }
+                    System.out.println(mapInt[(int) positionInt.getX() + signSpeedX][(int) positionInt.getY() + signSpeedY]);
                 }
-                System.out.println(mapInt[(int) positionInt.getX() + signSpeedX][(int) positionInt.getY() + signSpeedY]);
             }
         }
         return false;

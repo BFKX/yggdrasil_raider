@@ -55,8 +55,6 @@ public void updateDisplacement()
     if((int)positionInt.getX() + signSpeedX < 0 || (int)positionInt.getX() + signSpeedX > mapInt.length - 1 ||
             (int)positionInt.getY() + signSpeedY < 0 || (int)positionInt.getY() + signSpeedY > mapInt[0].length - 1 ||
             mapInt[(int)positionInt.getX() + signSpeedX][(int)positionInt.getY() + signSpeedY] > 0) {
-        System.out.println(" value :" + mapInt[(int)positionInt.getX() + signSpeedX][(int)positionInt.getY() + signSpeedY] ) ;
-        System.out.println("jump");
         directionX = -1 *  directionX;
         directionY = -1 * directionY;
         speedX = directionX * speedLimitX / 13;
