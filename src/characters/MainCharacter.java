@@ -45,21 +45,19 @@ public class MainCharacter extends Characters {
 		}
 		if (!inputs.get(CharacterActions.UP) && !inputs.get(CharacterActions.DOWN)
 				|| inputs.get(CharacterActions.UP) && inputs.get(CharacterActions.DOWN)) {
-			speedY /= 1.4;
+			speedY = speedY < 0.01 ? 0 : speedY / 1.4;
 		}
 		if (!inputs.get(CharacterActions.RIGHT) && !inputs.get(CharacterActions.LEFT)
 				|| inputs.get(CharacterActions.RIGHT) && inputs.get(CharacterActions.LEFT)) {
-			speedX /= 1.4;
+			speedX = speedX < 0.01 ? 0 : speedX / 1.4;
 		}
+
 	}
 
 	public void update(HashMap<CharacterActions, Boolean> inputs) {
 		displacement(inputs);
 		if(!collision(position)) {
 			position.add(speedX / SIDE, speedY / SIDE);
-		} else {
-			speedX = 0;
-			speedY = 0;
 		}
 	}
 

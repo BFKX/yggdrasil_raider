@@ -71,10 +71,14 @@ public abstract class Characters {
         int signSpeedX = signOf(speedX);
         int signSpeedY = signOf(speedY);
         for (int k = -1; k < 2; k++) {
-            if ((int) positionInt.getX() + signSpeedX >= 0 && (int) positionInt.getX() + signSpeedX < mapInt.length) {
-                if ((int) positionInt.getY() + signSpeedY >= 0 && (int) positionInt.getY() + signSpeedY < mapInt[0].length) {
-                    if (mapInt[(int) positionInt.getX() + signSpeedX][(int) positionInt.getY() + signSpeedY] > 0) {
-                        mapInt[(int) positionInt.getX() + signSpeedX][(int) positionInt.getY() + signSpeedY] = 8000;
+            int i = (int) positionInt.getX() + signSpeedX  ;
+            int j = (int) positionInt.getY() + signSpeedY  ;
+            if (i>= 0 && i < mapInt.length) {
+                if (j >= 0 && j < mapInt[0].length) {
+                    if (mapInt[i][j] > 0) {
+                        mapInt[i][j] = 8000;
+                        System.out.println("signe " + signSpeedX +';' + signSpeedY);
+                        System.out.println("spped"+ speedX +","+speedY);
                         return true;
                     }
                     System.out.println(mapInt[(int) positionInt.getX() + signSpeedX][(int) positionInt.getY() + signSpeedY]);
@@ -82,5 +86,10 @@ public abstract class Characters {
             }
         }
         return false;
+    }
+
+    public void setMap(Map map) {
+        this.map = map;
+        this.mapInt = map.getMap();
     }
 }

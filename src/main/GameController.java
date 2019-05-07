@@ -129,6 +129,7 @@ class GameController extends Application {
 				{
 					monsterr[i] = new MonsterTest(new Coordinate(Math.random()*150,Math.random()*150),mainCharacter.getPosition(),map);
 				}
+				mainCharacter.setMap(map);
 				break;
 			case M :
 				 monster = new RandomPathMonster(new Coordinate(ThreadLocalRandom.current().nextInt(100, 150),
