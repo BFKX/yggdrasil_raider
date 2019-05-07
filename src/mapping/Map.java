@@ -47,7 +47,6 @@ public class Map {
 	private final double originXMiniMap;
 	private final double originYMiniMap;
 
-	private final int raporRoomMap = 100 ;
 	Room [] [] mapOfRoom  ;
 	public Map(int columns, int lines) {
 		this.lines = lines;
@@ -65,7 +64,20 @@ public class Map {
 		mapOfRoom[columns/2][lines/2 ] = origin ;
 	}
 
+	private void placeRoom (int n ) {
+		for ( int k = 0 ; k<n ; k++  ){
 
+		}
+	}
+	private Coordinate positionOnMap(Room[][]MapofRoom, Coordinate coordinate){
+		int val = ThreadLocalRandom.current().nextInt(0, 2);
+			if(mapOfRoom[(int)coordinate.getX()][(int) coordinate.getY()] != null){
+				coordinate.add(0,-1);
+				 return  positionOnMap(mapOfRoom,coordinate);
+			} else {
+				return  coordinate ;
+			}
+	}
 	private void placeRoom(Room current){
 		int curentPositionX = (int) current.getPosition().getX();
 		int curentPositionY = (int) current.getPosition().getY();
