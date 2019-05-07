@@ -19,6 +19,7 @@ import characters.RandomPathMonster;
 import org.jetbrains.annotations.NotNull;
 import tools.*;
 import characters.MainCharacter;
+import characters.MonsterTest;
 
 import java.awt.Toolkit;
 import java.util.HashMap;
@@ -43,6 +44,7 @@ class GameController extends Application {
 	final private Font customFont = Font.loadFont(
 			StartMenuController.class.getResource("../resources/fonts/VIKING-N.TTF").toExternalForm(), HEIGHT / 12);
 	private Monster monster ;
+
 	@FXML
 	private AnchorPane game;
 
@@ -112,13 +114,21 @@ class GameController extends Application {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 
 		MainCharacter mainCharacter = new MainCharacter(new Coordinate(WIDTH / 2, HEIGHT / 2),map);
-
+        MonsterTest monsterr[] = new MonsterTest[20];
+        for(int i = 0;i < 20;i++)
+		{
+			monsterr[i] = new MonsterTest(new Coordinate(Math.random()*150,Math.random()*150),mainCharacter.getPosition(),map);
+		}
 
 		scene.setOnKeyPressed(e -> {
 			switch (e.getCode()) {
 			case R:
 				map = new Map(200 + ThreadLocalRandom.current().nextInt(-50, 50),
 						200 + ThreadLocalRandom.current().nextInt(-50, 50));
+				for(int i = 0;i < 20;i++)
+				{
+					monsterr[i] = new MonsterTest(new Coordinate(Math.random()*150,Math.random()*150),mainCharacter.getPosition(),map);
+				}
 				break;
 			case M :
 				 monster = new RandomPathMonster(new Coordinate(ThreadLocalRandom.current().nextInt(100, 150),
@@ -199,6 +209,11 @@ class GameController extends Application {
 						monster.updateDisplacement();
 						monster.display(gc);
 						mainCharacter.setPosition(monster.getPositionInt());
+					}
+					for(int i = 0;i<20;i++)
+					{
+						monsterr[i].updateDisplacement();
+						monsterr[i].display(gc,mainCharacter.getPosition());
 					}
 					fpsmeter.update(now, gc);
 					lastNow = now;

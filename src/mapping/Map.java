@@ -255,6 +255,9 @@ public class Map {
 	public int[][] getMap() {
 		return map;
 	}
+	public double  getheight() {return this.HEIGHT;}
+	public double  getwidth()  {return this.WIDTH;}
+	public double  getSIDE() {return this.SIDE;}
 
 	public Room getOrigin() {
 		return origin;
