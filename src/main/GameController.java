@@ -115,9 +115,10 @@ class GameController extends Application {
 
 		MainCharacter mainCharacter = new MainCharacter(new Coordinate(WIDTH / 2, HEIGHT / 2),map);
         MonsterTest monsterr[] = new MonsterTest[20];
+        MonsterTest boss = new MonsterTest(new Coordinate(100 + Math.random() * 50,100 + Math.random() * 50),mainCharacter.getPosition(),map,4.0);
         for(int i = 0;i < 20;i++)
 		{
-			monsterr[i] = new MonsterTest(new Coordinate(Math.random()*150,Math.random()*150),mainCharacter.getPosition(),map);
+			monsterr[i] = new MonsterTest(new Coordinate(Math.random()*150,Math.random()*150),mainCharacter.getPosition(),map,Math.random() * 3);
 		}
 
 		scene.setOnKeyPressed(e -> {
@@ -127,7 +128,7 @@ class GameController extends Application {
 						200 + ThreadLocalRandom.current().nextInt(-50, 50));
 				for(int i = 0;i < 20;i++)
 				{
-					monsterr[i] = new MonsterTest(new Coordinate(Math.random()*150,Math.random()*150),mainCharacter.getPosition(),map);
+					monsterr[i] = new MonsterTest(new Coordinate(Math.random()*150,Math.random()*150),mainCharacter.getPosition(),map,Math.random() * 3);
 				}
 				mainCharacter.setMap(map);
 				break;
@@ -216,6 +217,7 @@ class GameController extends Application {
 						monsterr[i].updateDisplacement();
 						monsterr[i].display(gc,mainCharacter.getPosition());
 					}
+					boss.display(gc,mainCharacter.getPosition());
 					fpsmeter.update(now, gc);
 					lastNow = now;
 
