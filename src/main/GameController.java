@@ -55,6 +55,7 @@ class GameController extends Application {
 		inputs.put(CharacterActions.DOWN, false);
 		inputs.put(CharacterActions.LEFT, false);
 		inputs.put(CharacterActions.RIGHT, false);
+		inputs.put(CharacterActions.ATTACK, false);
 	}
 
 	@FXML
@@ -158,6 +159,9 @@ class GameController extends Application {
 			case RIGHT:
 				inputs.replace(CharacterActions.RIGHT, true);
 				break;
+				case A:
+					inputs.replace(CharacterActions.ATTACK, true);
+					break;
 			case Z:
 				map.moveNorth();
 				break;
@@ -188,6 +192,9 @@ class GameController extends Application {
 			case RIGHT:
 				inputs.replace(CharacterActions.RIGHT, false);
 				break;
+				case A:
+					inputs.replace(CharacterActions.ATTACK, false);
+					break;
 			default:
 			}
 		});
@@ -216,6 +223,8 @@ class GameController extends Application {
 					{
 						monsterr[i].updateDisplacement();
 						monsterr[i].display(gc,mainCharacter.getPosition());
+						monsterr[i].valueOflife(inputs);
+						//monsterr[i].drawhitbox(gc);
 					}
 					boss.display(gc,mainCharacter.getPosition());
 					fpsmeter.update(now, gc);

@@ -22,11 +22,11 @@ public class Hitbox {
 		gc.restore();
 	}
 
-	private Coordinate getOrigin() {
+	public Coordinate getOrigin() {
 		return origin;
 	}
 
-	private double getRadius() {
+	public double getRadius() {
 		return radius;
 	}
 }
