@@ -84,7 +84,7 @@ public abstract class Characters {
                         System.out.println("spped"+ speedX +","+speedY);
                         return true;
                     }
-                    System.out.println(mapInt[(int) positionInt.getX() + signSpeedX][(int) positionInt.getY() + signSpeedY]);
+                    //System.out.println(mapInt[(int) positionInt.getX() + signSpeedX][(int) positionInt.getY() + signSpeedY]);
                 }
             }
         }

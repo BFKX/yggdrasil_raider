@@ -88,28 +88,28 @@ public class Map {
 		int currentPositionX = (int) current.getPosition().getX();
 		int curentPositionY = (int) current.getPosition().getY();
 		mapOfRoom[currentPositionX][curentPositionY] = current ;
-		if(mapOfRoom[currentPositionX][curentPositionY+1] != null){
+		if(mapOfRoom[currentPositionX][curentPositionY+1] != null){ //créé le lien avec le sud
 			mapOfRoom[currentPositionX][curentPositionY+1].setNorth(current);
 			current.setSouth(mapOfRoom[currentPositionX][curentPositionY+1]);
 			int indic = verticalIndiceLink(current,mapOfRoom[currentPositionX][curentPositionY+1]);
 			current.southVoid(indic);
 			mapOfRoom[currentPositionX][curentPositionY+1].northVoid(indic);
 		}
-		if(mapOfRoom[currentPositionX][curentPositionY-1] != null){
+		if(mapOfRoom[currentPositionX][curentPositionY-1] != null){ // cree le lien avec le nord
 			mapOfRoom[currentPositionX][curentPositionY-1].setSouth(current);
 			current.setNorth(mapOfRoom[currentPositionX][curentPositionY-1]);
 			int indic = verticalIndiceLink(current,mapOfRoom[currentPositionX][curentPositionY-1]);
 			current.northVoid(indic);
 			mapOfRoom[currentPositionX][curentPositionY-1].southVoid(indic);
 		}
-		if(mapOfRoom[currentPositionX+1][curentPositionY] != null){
+		if(mapOfRoom[currentPositionX+1][curentPositionY] != null){ // cree le lien a l'est
 			mapOfRoom[currentPositionX+1][curentPositionY].setWest(current);
 			current.setEast(mapOfRoom[currentPositionX+1][curentPositionY]);
 			int indic = horisontalIndiceLink(current,mapOfRoom[currentPositionX+1][curentPositionY]);
 			current.eastVoid(indic);
 			mapOfRoom[currentPositionX+1][curentPositionY].westVoid(indic);
 		}
-		if(mapOfRoom[currentPositionX-1][curentPositionY] != null){
+		if(mapOfRoom[currentPositionX-1][curentPositionY] != null){ //cree le lien a l'ouest
 			mapOfRoom[currentPositionX-1][curentPositionY].setEast(current);
 			current.setWest(mapOfRoom[currentPositionX-1][curentPositionY]);
 			int indic = horisontalIndiceLink(current,mapOfRoom[currentPositionX-1][curentPositionY]);
@@ -233,32 +233,28 @@ public class Map {
 
 	public void moveNorth() {
 		Coordinate position = current.getPosition();
-		position.add(0,-1);
-		current = mapOfRoom[(int) position.getX()][(int) position.getY()];
+				current = mapOfRoom[(int) position.getX()][(int) position.getY()-1];
 		System.out.println("goN");
 		update();
 	}
 
 	public void moveSouth() {
 		Coordinate position = current.getPosition();
-		position.add(0,1);
-		current = mapOfRoom[(int) position.getX()][(int) position.getY()];
+		current = mapOfRoom[(int) position.getX()][(int) position.getY()+1];
 		System.out.println("goN");
 		update();
 	}
 
 	public void moveEast() {
 		Coordinate position = current.getPosition();
-		position.add(-1,0);
-		current = mapOfRoom[(int) position.getX()][(int) position.getY()];
+		current = mapOfRoom[(int) position.getX()-1][(int) position.getY()];
 		System.out.println("goN");
 		update();
 	}
 
 	public void moveWest() {
 		Coordinate position = current.getPosition();
-		position.add(1,0);
-		current = mapOfRoom[(int) position.getX()][(int) position.getY()];
+		current = mapOfRoom[(int) position.getX()+1][(int) position.getY()];
 		System.out.println("goN");
 		update();
 	}

@@ -94,7 +94,7 @@ public class Room {
 			}
 		}
 	}
-	public void eastVoid(int min){
+	public void westVoid(int min){
 		int j=0;
 		while(j < width-1 && map[j][min]!= 0  ){
 			j++;
@@ -105,7 +105,7 @@ public class Room {
 			}
 		}
 	}
-	public void westVoid(int min){
+	public void eastVoid(int min){
 		int j=width-1;
 		while(j >1  && map[j][min]!= 0  ){
 			j--;

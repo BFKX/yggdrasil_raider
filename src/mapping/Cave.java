@@ -40,9 +40,11 @@ class Cave extends Room {
 				}
 			}
 		}
-		placeWall();
+
 		delete25(1);
 		applyFiltering(fullRangeFiltering(1), 6);
+
+		placeWall();
 		addGroundVariation2(new int[] {0,-1,0}, 5000);
 	}
 	private void addGroundVariation2(@NotNull int[] seeds, int limit) {
