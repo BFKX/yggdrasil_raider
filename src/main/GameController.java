@@ -213,7 +213,7 @@ class GameController extends Application {
 					map.displayMiniMap(gc, mainCharacter.getPosition());
 
 					mainCharacter.display(gc);
-					//mainCharacter.drawHitbox(gc);
+					mainCharacter.drawHitbox(gc);
 					if ( monster != null) {
 						monster.updateDisplacement();
 						monster.display(gc);
@@ -222,11 +222,11 @@ class GameController extends Application {
 					for(int i = 0;i<20;i++)
 					{
 						monsterr[i].updateDisplacement();
-						monsterr[i].display(gc,mainCharacter.getPosition());
+						//monsterr[i].display(gc,mainCharacter.getPosition());
 						monsterr[i].valueOflife(inputs);
 						//monsterr[i].drawhitbox(gc);
 					}
-					boss.display(gc,mainCharacter.getPosition());
+				//	boss.display(gc,mainCharacter.getPosition());
 					fpsmeter.update(now, gc);
 					lastNow = now;
 

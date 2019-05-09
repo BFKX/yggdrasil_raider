@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import tools.CharacterActions;
 import tools.Coordinate;
 import mapping.Map;
-
+import java.lang.Math.*;
 import java.awt.*;
 import java.util.HashMap;
 
@@ -70,6 +70,13 @@ public class MainCharacter extends Characters {
 	}
 
 	public void drawHitbox(GraphicsContext gc) {
+
 		hitbox.draw(gc);
+	}
+
+	private void rotationMatrix(int x, int y, int r){
+		double rx = x*Math.cos(r) - y*Math.sin(r);
+		double ry = x*Math.sin(r) + y*Math.cos(r);
+
 	}
 }
