@@ -1,5 +1,6 @@
 package mapping;
 
+import org.jetbrains.annotations.NotNull;
 import tools.Coordinate;
 
 import java.util.ArrayList;
@@ -10,19 +11,11 @@ class Cave extends Room {
 	Cave(int width, int height, Random pseudoRandomList, Coordinate position ) {
 		super(width, height,position,pseudoRandomList);
 		initPossibleValues();
-		// int fillPercentage = ThreadLocalRandom.current().nextInt(43, 47);
 		int fillPercentage = 62;
 		this.width = width;
 		this.height = height;
 		this.map = new int[width][height];
 		randomFill(fillPercentage);
-		/*
-		 * for (int k = 0; k < 2; k++) { // filter melange range 1 et 2 int[][] f1 =
-		 * fullnRangeFiltering(1); int[][] f2 = fullnRangeFiltering(2); for (int i = 0;
-		 * i < width; i++) { for (int j = 0; j < height; j++) { if ( i != 0 && i !=width
-		 * -1 && j!= 0 && j!= height-1 ) { if (f1[i][j] >= 5 || f2[i][j] <= 1) {
-		 * map[i][j] = 1; } else { map[i][j] = 0; } } } } }
-		 */
 		for (int l = 0; l < 2; l++) {
 			for (int k = 0; k < 2; k++) {
 				applyFiltering(fullRangeFiltering(1), 6);
@@ -50,9 +43,36 @@ class Cave extends Room {
 		placeWall();
 		delete25(1);
 		applyFiltering(fullRangeFiltering(1), 6);
-		placeWall();
+		addGroundVariation2(new int[] {0,-1,0}, 5000);
 	}
+	private void addGroundVariation2(@NotNull int[] seeds, int limit) {
+		Coordinate[] seedsCoordinates = new Coordinate[seeds.length];
+		for (int i = 0; i < seeds.length; i++) {
+			int x = pseudoRandomList.nextInt(width);
+			int y = pseudoRandomList.nextInt(height);
+			seedsCoordinates[i] = new Coordinate(x, y);
+		}
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
+				if (map[i][j] == 0) {
+					Coordinate ij = new Coordinate(i, j);
+					int k = 0;
+					for (Coordinate c : seedsCoordinates) {
+						double d = c.distance(ij);
+						double u1 = pseudoRandomList.nextDouble()  ;
+						double u2 = pseudoRandomList.nextDouble();
+						double nb = Math.sqrt((-2)*Math.log(u1))*Math.cos(u2); // gausien centrer en 0 de'ecartipe 1
 
+						nb = Math.abs(nb)*d/900;
+						if (nb < 4  ){
+							map[i][j] = seeds[k] - (3-(int)(nb));
+						}
+						k++;
+					}
+				}
+			}
+		}
+	}
 	private void initPossibleValues(){
 		 int[] values = {0, 1, 2, 3, 4, 6, 8, 9, 12, 13, 15, 17, 18, 19, 21, 41, 163};
 		 for ( int i : values) {

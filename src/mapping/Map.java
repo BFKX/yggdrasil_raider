@@ -11,10 +11,10 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Map {
 	private int[][] map;
-	private final int lines;
-	private final int columns;
 	private final Cave origin;
 	private Room current;
+	private int lines;
+	private int columns;
 	final private double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	final private double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	final private Image voidImage = new Image("resources/images/void.png");
@@ -44,94 +44,97 @@ public class Map {
 	final private double SIDE = HEIGHT / 60;
 	private final Random pseudoRandomList;
 	private final double sideMiniMap = SIDE * 0.1;
-	private final double originXMiniMap;
-	private final double originYMiniMap;
-
-	Room [] [] mapOfRoom  ;
-	public Map(int columns, int lines) {
-		this.lines = lines;
-		this.columns = columns;
-		this.map = new int[columns][lines];
+	private double originXMiniMap;
+	private double originYMiniMap;
+	Room [] [] mapOfRoom;
+	public Map(int n) {
 		pseudoRandomList = new Random(System.currentTimeMillis());
-		origin = new Cave(columns, lines, pseudoRandomList,new Coordinate(columns/2 , lines/2));
-		// origin.placeRoom(pseudoRandomList);
+		mapOfRoom = new Room [2*n+1] [2*n+1] ;
+		origin = new Cave(ThreadLocalRandom.current().nextInt(200, 220),
+				ThreadLocalRandom.current().nextInt(200, 220), pseudoRandomList,new Coordinate(n, n));
 		current = origin;
-		this.map = origin.getMap();
-		addGroundVariation2(new int[] {0,-1,0}, 5000);
-		originXMiniMap = WIDTH - columns * sideMiniMap;
-		originYMiniMap = HEIGHT - lines * sideMiniMap;
-		mapOfRoom = new Room [columns] [ lines] ;
-		mapOfRoom[columns/2][lines/2 ] = origin ;
+		update();
+		mapOfRoom[n][n ] = origin ;
+		update();
+		placeRoom(n);
 	}
-
 	private void placeRoom (int n ) {
 		for ( int k = 0 ; k<n ; k++  ){
-
+			int tempwidth = ThreadLocalRandom.current().nextInt(200, 220);
+			int tempheight = ThreadLocalRandom.current().nextInt(200, 220);
+			Cave temp = new Cave(tempwidth,tempheight,pseudoRandomList,positionOnMap(mapOfRoom,origin.getPosition()));
+			placeRoom(temp);
 		}
 	}
 	private Coordinate positionOnMap(Room[][]MapofRoom, Coordinate coordinate){
-		int val = ThreadLocalRandom.current().nextInt(0, 2);
-			if(mapOfRoom[(int)coordinate.getX()][(int) coordinate.getY()] != null){
-				coordinate.add(0,-1);
-				 return  positionOnMap(mapOfRoom,coordinate);
-			} else {
-				return  coordinate ;
-			}
+		int val = ThreadLocalRandom.current().nextInt(0, 4);
+		switch (val) {
+			case 0 :
+				coordinate.add(0, -1);
+			case 1 :
+				coordinate.add(1, 0);
+			case 2 :
+				coordinate.add(0, 1);
+			case 3:
+				coordinate.add(-1, 0);
+		}
+		if (mapOfRoom[(int) coordinate.getX()][(int) coordinate.getY()] != null) {
+			return positionOnMap(mapOfRoom, coordinate);
+		} else {
+			return coordinate;
+		}
 	}
 	private void placeRoom(Room current){
-		int curentPositionX = (int) current.getPosition().getX();
+		int currentPositionX = (int) current.getPosition().getX();
 		int curentPositionY = (int) current.getPosition().getY();
-		mapOfRoom[curentPositionX][curentPositionY] = current ;
-		if(mapOfRoom[curentPositionX][curentPositionY+1] != null){
-			mapOfRoom[curentPositionX][curentPositionY+1].setNorth(current);
-			current.setSouth(mapOfRoom[curentPositionX][curentPositionY+1]);
+		mapOfRoom[currentPositionX][curentPositionY] = current ;
+		if(mapOfRoom[currentPositionX][curentPositionY+1] != null){
+			mapOfRoom[currentPositionX][curentPositionY+1].setNorth(current);
+			current.setSouth(mapOfRoom[currentPositionX][curentPositionY+1]);
+			int indic = verticalIndiceLink(current,mapOfRoom[currentPositionX][curentPositionY+1]);
+			current.southVoid(indic);
+			mapOfRoom[currentPositionX][curentPositionY+1].northVoid(indic);
 		}
-		if(mapOfRoom[curentPositionX][curentPositionY-1] != null){
-			mapOfRoom[curentPositionX][curentPositionY-1].setSouth(current);
-			current.setNorth(mapOfRoom[curentPositionX][curentPositionY-1]);
+		if(mapOfRoom[currentPositionX][curentPositionY-1] != null){
+			mapOfRoom[currentPositionX][curentPositionY-1].setSouth(current);
+			current.setNorth(mapOfRoom[currentPositionX][curentPositionY-1]);
+			int indic = verticalIndiceLink(current,mapOfRoom[currentPositionX][curentPositionY-1]);
+			current.northVoid(indic);
+			mapOfRoom[currentPositionX][curentPositionY-1].southVoid(indic);
 		}
-		if(mapOfRoom[curentPositionX+1][curentPositionY] != null){
-			mapOfRoom[curentPositionX+1][curentPositionY].setWest(current);
-			current.setEast(mapOfRoom[curentPositionX][curentPositionY+1]);
+		if(mapOfRoom[currentPositionX+1][curentPositionY] != null){
+			mapOfRoom[currentPositionX+1][curentPositionY].setWest(current);
+			current.setEast(mapOfRoom[currentPositionX+1][curentPositionY]);
+			int indic = horisontalIndiceLink(current,mapOfRoom[currentPositionX+1][curentPositionY]);
+			current.eastVoid(indic);
+			mapOfRoom[currentPositionX+1][curentPositionY].westVoid(indic);
 		}
-		if(mapOfRoom[curentPositionX-1][curentPositionY] != null){
-			mapOfRoom[curentPositionX-1][curentPositionY].setEast(current);
-			current.setWest(mapOfRoom[curentPositionX][curentPositionY+1]);
+		if(mapOfRoom[currentPositionX-1][curentPositionY] != null){
+			mapOfRoom[currentPositionX-1][curentPositionY].setEast(current);
+			current.setWest(mapOfRoom[currentPositionX-1][curentPositionY]);
+			int indic = horisontalIndiceLink(current,mapOfRoom[currentPositionX-1][curentPositionY]);
+			current.westVoid(indic);
+			mapOfRoom[currentPositionX-1][curentPositionY].eastVoid(indic);
 		}
+	}
+
+
+	private int verticalIndiceLink(Room room1, Room room2){
+		int min = room1.height < room2.height ? room1.height : room2.height ;
+		return ThreadLocalRandom.current().nextInt( min / 3, min * 2 /3 );
+	}
+	private int horisontalIndiceLink(Room room1, Room room2){
+		int min = room1.width < room2.width ? room1.width : room2.width ;
+		return ThreadLocalRandom.current().nextInt( min / 3, min * 2 /3 );
 	}
 
 
 	private void update() {
 		this.map = current.getMap();
-	}
-
-	private void addGroundVariation2(@NotNull int[] seeds, int limit) {
-		Coordinate[] seedsCoordinates = new Coordinate[seeds.length];
-		for (int i = 0; i < seeds.length; i++) {
-			int x = pseudoRandomList.nextInt(columns);
-			int y = pseudoRandomList.nextInt(lines);
-			seedsCoordinates[i] = new Coordinate(x, y);
-		}
-		for (int i = 0; i < columns; i++) {
-			for (int j = 0; j < lines; j++) {
-				if (map[i][j] == 0) {
-					Coordinate ij = new Coordinate(i, j);
-					int k = 0;
-					for (Coordinate c : seedsCoordinates) {
-						double d = c.distance(ij);
-						double u1 = pseudoRandomList.nextDouble()  ;
-						double u2 = pseudoRandomList.nextDouble();
-						double nb = Math.sqrt((-2)*Math.log(u1))*Math.cos(u2); // gausien centrer en 0 de'ecartipe 1
-
-						nb = Math.abs(nb)*d/900;
-						if (nb < 4  ){
-							map[i][j] = seeds[k] - (3-(int)(nb));
-						}
-						k++;
-					}
-				}
-			}
-		}
+		this.lines = map[0].length;
+		this.columns = map.length;
+		originXMiniMap = WIDTH - columns * sideMiniMap;
+		originYMiniMap = HEIGHT - lines * sideMiniMap;
 	}
 
 	public void display(GraphicsContext gc, @NotNull Coordinate characterPosition) {
@@ -229,47 +232,40 @@ public class Map {
 	}
 
 	public void moveNorth() {
-		if (current.getNorth() != null) {
-			current = current.getNorth();
-			update();
-		} else {
-			System.out.println("noNorth");
-		}
+		Coordinate position = current.getPosition();
+		position.add(0,-1);
+		current = mapOfRoom[(int) position.getX()][(int) position.getY()];
+		System.out.println("goN");
+		update();
 	}
 
 	public void moveSouth() {
-		if (current.getSouth() != null) {
-			current = current.getSouth();
-			update();
-		} else {
-			System.out.println("noSouth");
-		}
+		Coordinate position = current.getPosition();
+		position.add(0,1);
+		current = mapOfRoom[(int) position.getX()][(int) position.getY()];
+		System.out.println("goN");
+		update();
 	}
 
 	public void moveEast() {
-		if (current.getEast() != null) {
-			current = current.getEast();
-			update();
-		} else {
-			System.out.println("noEast");
-		}
+		Coordinate position = current.getPosition();
+		position.add(-1,0);
+		current = mapOfRoom[(int) position.getX()][(int) position.getY()];
+		System.out.println("goN");
+		update();
 	}
 
 	public void moveWest() {
-		if (current.getWest() != null) {
-			current = current.getWest();
-			update();
-		} else {
-			System.out.println("noWest");
-		}
+		Coordinate position = current.getPosition();
+		position.add(1,0);
+		current = mapOfRoom[(int) position.getX()][(int) position.getY()];
+		System.out.println("goN");
+		update();
 	}
 
 	public int[][] getMap() {
 		return map;
 	}
-	public double  getheight() {return this.HEIGHT;}
-	public double  getwidth()  {return this.WIDTH;}
-	public double  getSIDE() {return this.SIDE;}
 
 	public Room getOrigin() {
 		return origin;
