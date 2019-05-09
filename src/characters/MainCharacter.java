@@ -6,6 +6,8 @@ import org.jetbrains.annotations.NotNull;
 import tools.CharacterActions;
 import tools.Coordinate;
 import mapping.Map;
+import tools.Hitbox;
+
 import java.lang.Math.*;
 import java.awt.*;
 import java.util.HashMap;
@@ -25,6 +27,7 @@ public class MainCharacter extends Characters {
 		RADIUS = 2 * SIDE;
 		speedLimitX = RADIUS / 3;
 		speedLimitY = RADIUS / 3;
+		lifeValue = 100;
 	}
 
 	private void displacement(@NotNull HashMap<CharacterActions, Boolean> inputs) {
@@ -74,9 +77,10 @@ public class MainCharacter extends Characters {
 		hitbox.draw(gc);
 	}
 
-	private void rotationMatrix(int x, int y, int r){
-		double rx = x*Math.cos(r) - y*Math.sin(r);
-		double ry = x*Math.sin(r) + y*Math.cos(r);
-
+	public void attack(){
+		attackHitboxCreate();
 	}
+
+
+
 }
