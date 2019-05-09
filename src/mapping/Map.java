@@ -118,11 +118,11 @@ public class Map {
 		}
 	}
 
-
 	private int verticalIndiceLink(Room room1, Room room2){
 		int min = room1.height < room2.height ? room1.height : room2.height ;
 		return ThreadLocalRandom.current().nextInt( min / 3, min * 2 /3 );
 	}
+
 	private int horisontalIndiceLink(Room room1, Room room2){
 		int min = room1.width < room2.width ? room1.width : room2.width ;
 		return ThreadLocalRandom.current().nextInt( min / 3, min * 2 /3 );
