@@ -23,6 +23,7 @@ public abstract class Characters {
     final double SIDE = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
     final HashMap<String, Image> imageSet = new HashMap<>();
     private String activeSprite = "movingEast";
+    public int lifeValue;
 
     Characters(Coordinate position, Map map ) {
         this.position = new Coordinate(20, 20);
@@ -86,6 +87,22 @@ public abstract class Characters {
             }
         }
         return false;
+    }
+
+    public Coordinate matrixRotation(Coordinate originCharacter, Coordinate originAttack, double angle ){
+        double xCenteredPosition = originAttack.getX() - originCharacter.getX();
+        double yCenteredPosition = originAttack.getY() - originCharacter.getY();
+        double rx = xCenteredPosition * Math.cos(angle) - yCenteredPosition *Math.sin(angle);
+        double ry = xCenteredPosition * Math.sin(angle) + yCenteredPosition *Math.cos(angle);
+        rx += originCharacter.getX();
+        ry += originCharacter.getY();
+        return new Coordinate(rx,ry);
+    }
+
+    public void attackHitboxCreate(){
+        Coordinate positionCase = new Coordinate(positionInt.getX(),positionInt.getY());
+        double radius = RADIUS / 10;
+        Hitbox hitbox = new Hitbox(positionCase,radius);
     }
 
     public void setMap(Map map) {
