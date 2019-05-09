@@ -77,8 +77,17 @@ public class MainCharacter extends Characters {
 		hitbox.draw(gc);
 	}
 
-	public void attack(){
-		attackHitboxCreate();
+	private boolean collideAttack(){
+	return false;
+	}
+
+
+	void updateAttack(Coordinate originAttack , Coordinate originCharacter){
+		if (isAttacking || collideAttack()){
+			matrixRotation(originCharacter,originAttack, 45/60  );
+			isAttacking = false;
+		}
+
 	}
 
 

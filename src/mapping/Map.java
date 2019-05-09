@@ -270,4 +270,16 @@ public class Map {
 	public Room getOrigin() {
 		return origin;
 	}
+
+	public double getWIDTH() {
+		return WIDTH;
+	}
+
+	public double getHEIGHT() {
+		return HEIGHT;
+	}
+
+	public double getSIDE() {
+		return SIDE;
+	}
 }

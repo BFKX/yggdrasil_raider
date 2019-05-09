@@ -220,11 +220,11 @@ class GameController extends Application {
 					for(int i = 0;i<20;i++)
 					{
 						monsterr[i].updateDisplacement();
-						//monsterr[i].display(gc,mainCharacter.getPosition());
+						monsterr[i].display(gc,mainCharacter.getPosition());
 						monsterr[i].valueOflife(inputs);
-						//monsterr[i].drawhitbox(gc);
+						monsterr[i].drawhitbox(gc);
 					}
-				//	boss.display(gc,mainCharacter.getPosition());
+					boss.display(gc,mainCharacter.getPosition());
 					fpsmeter.update(now, gc);
 					lastNow = now;
 

@@ -37,12 +37,12 @@ public MonsterTest(Coordinate coordinate,Coordinate mainCharacterPosition,Map ma
     speedLimitX = RADIUS / 4 ;
     speedLimitY = RADIUS / 4;
 }
-/*public void display(GraphicsContext gc, @NotNull Coordinate characterPosition) {
+public void display(GraphicsContext gc, @NotNull Coordinate characterPosition) {
     double RADIUS = 2 * Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
     double positionXX = characterPosition.getX();
     double positionYY = characterPosition.getY();
-    double xoffset = positionXX - map.getwidth() / (2 * map.getSIDE());
-    double yoffset = positionYY - map.getheight() / (2 * map.getSIDE());
+    double xoffset = positionXX - map.getWIDTH() / (2 * map.getSIDE());
+    double yoffset = positionYY - map.getHEIGHT() / (2 * map.getSIDE());
     if (this.type <= 1) {
         if(this.lifeValue >= 0)
         gc.drawImage(new Image("resources/images/monster1.png"), (this.positionInt.getX() - xoffset) * map.getSIDE(), (this.positionInt.getY() - yoffset) * map.getSIDE(), 2 * RADIUS, 1.5 * RADIUS);
@@ -100,7 +100,7 @@ public MonsterTest(Coordinate coordinate,Coordinate mainCharacterPosition,Map ma
     }
     this.hitbox = new Hitbox(new Coordinate((this.positionInt.getX() - xoffset) * map.getSIDE(),(this.positionInt.getY() - yoffset) * map.getSIDE()),2 * RADIUS);
 
-}*/
+}
 public void updateDisplacement()
 {
     int[][] mapInt = map.getMap();

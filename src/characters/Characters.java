@@ -24,6 +24,7 @@ public abstract class Characters {
     final HashMap<String, Image> imageSet = new HashMap<>();
     private String activeSprite = "movingEast";
     public int lifeValue;
+    boolean isAttacking;
 
     Characters(Coordinate position, Map map ) {
         this.position = new Coordinate(20, 20);
@@ -31,6 +32,7 @@ public abstract class Characters {
         this.hitbox = new Hitbox(position, RADIUS);
         this.map = map;
         mapInt = map.getMap();
+        isAttacking = false;
     }
 
     private Image spriteSelector() {
@@ -88,6 +90,7 @@ public abstract class Characters {
         }
         return false;
     }
+
 
     public Coordinate matrixRotation(Coordinate originCharacter, Coordinate originAttack, double angle ){
         double xCenteredPosition = originAttack.getX() - originCharacter.getX();

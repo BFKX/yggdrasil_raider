@@ -41,4 +41,5 @@ public abstract class Monster extends Characters{
     public Coordinate getPositionInt() {
         return positionInt;
     }
+
 }
