@@ -38,7 +38,7 @@ class GameController extends Application {
 	private final Text text = new Text("Pause");
 	private final HashMap<CharacterActions, Boolean> inputs = new HashMap<>();
 	private final MusicPlayer music = new MusicPlayer("/resources/audio/inGame.wav", HEIGHT / 15);
-	private Map map = new Map(20);
+	private Map map = new Map(5);
 	final private Image pauseBackground = new Image("resources/images/menuBackground.png", WIDTH, HEIGHT, false, true);
 	final private Font customFont = Font.loadFont(
 			StartMenuController.class.getResource("../resources/fonts/VIKING-N.TTF").toExternalForm(), HEIGHT / 12);
@@ -124,15 +124,14 @@ class GameController extends Application {
 		scene.setOnKeyPressed(e -> {
 			switch (e.getCode()) {
 			case R:
-				map = new Map(20);
+				map = new Map(5);
 				for(int i = 0;i < 20;i++) {
 					monsterr[i] = new MonsterTest(new Coordinate(Math.random()*150,Math.random()*150),mainCharacter.getPosition(),map,Math.random() * 3);
 				}
 				mainCharacter.setMap(map);
 				break;
 			case M :
-				 monster = new RandomPathMonster(new Coordinate(ThreadLocalRandom.current().nextInt(100, 150),
-						ThreadLocalRandom.current().nextInt(100,150)),mainCharacter.getPosition(),map);
+				map.displayMapOfMap();
 				break;
 			case ESCAPE:
 				pause = !pause;

@@ -54,7 +54,7 @@ public class Map {
 				ThreadLocalRandom.current().nextInt(200, 220), pseudoRandomList,new Coordinate(n, n));
 		current = origin;
 		update();
-		mapOfRoom[n][n ] = origin ;
+		mapOfRoom[n][n] = origin ;
 		update();
 		placeRoom(n);
 	}
@@ -70,17 +70,18 @@ public class Map {
 		int val = ThreadLocalRandom.current().nextInt(0, 4);
 		switch (val) {
 			case 0 :
-				coordinate.add(0, -1);
+				coordinate.add(0, -1); //nord
 			case 1 :
-				coordinate.add(1, 0);
+				coordinate.add(1, 0); //est
 			case 2 :
-				coordinate.add(0, 1);
+				coordinate.add(0, 1); // sud
 			case 3:
-				coordinate.add(-1, 0);
+				coordinate.add(-1, 0); //west
 		}
 		if (mapOfRoom[(int) coordinate.getX()][(int) coordinate.getY()] != null) {
 			return positionOnMap(mapOfRoom, coordinate);
 		} else {
+			System.out.println(coordinate.toString());
 			return coordinate;
 		}
 	}
@@ -91,9 +92,9 @@ public class Map {
 		if(mapOfRoom[currentPositionX][curentPositionY+1] != null){ //créé le lien avec le sud
 			mapOfRoom[currentPositionX][curentPositionY+1].setNorth(current);
 			current.setSouth(mapOfRoom[currentPositionX][curentPositionY+1]);
-			int indic = verticalIndiceLink(current,mapOfRoom[currentPositionX][curentPositionY+1]);
-			current.southVoid(indic);
-			mapOfRoom[currentPositionX][curentPositionY+1].northVoid(indic);
+			int index = verticalIndiceLink(current,mapOfRoom[currentPositionX][curentPositionY+1]);
+			current.southVoid(index);
+			mapOfRoom[currentPositionX][curentPositionY+1].northVoid(index);
 		}
 		if(mapOfRoom[currentPositionX][curentPositionY-1] != null){ // cree le lien avec le nord
 			mapOfRoom[currentPositionX][curentPositionY-1].setSouth(current);
@@ -118,12 +119,12 @@ public class Map {
 		}
 	}
 
-	private int verticalIndiceLink(Room room1, Room room2){
+	private int horisontalIndiceLink(Room room1, Room room2){
 		int min = room1.height < room2.height ? room1.height : room2.height ;
 		return ThreadLocalRandom.current().nextInt( min / 3, min * 2 /3 );
 	}
 
-	private int horisontalIndiceLink(Room room1, Room room2){
+	private int verticalIndiceLink(Room room1, Room room2){
 		int min = room1.width < room2.width ? room1.width : room2.width ;
 		return ThreadLocalRandom.current().nextInt( min / 3, min * 2 /3 );
 	}
@@ -174,6 +175,20 @@ public class Map {
 				originYMiniMap + sideMiniMap * characterPosition.getY()  - sideCharacterMiniMap / 2,
 				sideCharacterMiniMap, sideCharacterMiniMap);
 		gc.setGlobalAlpha(1);
+	}
+
+	public void displayMapOfMap(){
+		for( int i = 0 ;  i < mapOfRoom.length ; i++){
+			for( int j =0 ; j < mapOfRoom[0].length ; j++) {
+				if ( mapOfRoom[j][i] == null ) {
+						System.out.print(0);}
+				else {
+					System.out.print(1);
+					//.out.println(" "+j+";"+i);
+				}
+			}
+			System.out.println();
+		}
 	}
 
 	/**
