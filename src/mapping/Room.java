@@ -79,7 +79,7 @@ public class Room {
 		}
 		for (int i= 0 ; i < j+1 ; i++){
 			for ( int k = -1 ; k<2 ; k++ ){
-				map[min+k][i] = 0 ;
+				map[min+k][i] = -800 ;
 			}
 		}
 	}
@@ -90,7 +90,7 @@ public class Room {
 		}
 		for (int i= height-1 ; i >= j-1 ; i--){
 			for ( int k = -1 ; k<2 ; k++ ){
-				map[min+k][i] = 0 ;
+				map[min+k][i] = -800 ;
 			}
 		}
 	}
@@ -101,7 +101,7 @@ public class Room {
 		}
 		for (int i= 0 ; i < j+1 ; i++){
 			for ( int k = -1 ; k<2 ; k++ ){
-				map[i][min+k] = 0 ;
+				map[i][min+k] = -800 ;
 			}
 		}
 	}
@@ -112,7 +112,7 @@ public class Room {
 		}
 		for (int i= width-1 ; i >= j-1 ; i--){
 			for ( int k = -1 ; k<2 ; k++ ){
-				map[i][min+k] = 0 ;
+				map[i][min+k] = -800 ;
 			}
 		}
 	}
