@@ -63,7 +63,8 @@ public class Map {
 			int tempwidth = ThreadLocalRandom.current().nextInt(200, 220);
 			int tempheight = ThreadLocalRandom.current().nextInt(200, 220);
 			Cave temp = new Cave(tempwidth,tempheight,pseudoRandomList,positionOnMap(mapOfRoom,origin.getPosition()));
-			placeRoom(temp);
+			try {placeRoom(temp);}
+			catch (IndexOutOfBoundsException e){ continue;}
 		}
 	}
 	private Coordinate positionOnMap(Room[][]MapofRoom, Coordinate coordinate){

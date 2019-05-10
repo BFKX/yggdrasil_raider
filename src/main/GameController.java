@@ -207,12 +207,13 @@ class GameController extends Application {
 					gc.setFill(Color.BLACK);
 					gc.fillRect(0, 0, WIDTH, HEIGHT);
 
-					mainCharacter.update(inputs);
+					mainCharacter.update(inputs, monsterr);
 
 					map.display(gc, mainCharacter.getPosition());
 					map.displayMiniMap(gc, mainCharacter.getPosition());
 
 					mainCharacter.display(gc);
+					mainCharacter.displayLifeCharacter(gc,mainCharacter.getPosition());
 					mainCharacter.drawHitbox(gc);
 					if ( monster != null) {
 						monster.updateDisplacement();

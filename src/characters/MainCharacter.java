@@ -57,7 +57,7 @@ public class MainCharacter extends Characters {
 
 	}
 
-	public void update(HashMap<CharacterActions, Boolean> inputs) {
+	public void update(HashMap<CharacterActions, Boolean> inputs, MonsterTest[] monster) {
 		displacement(inputs);
 		if(!collision(position)) {
 			position.add(speedX / SIDE, speedY / SIDE);
@@ -73,22 +73,37 @@ public class MainCharacter extends Characters {
 	}
 
 	public void drawHitbox(GraphicsContext gc) {
-
+		System.out.println(this.position.getX() + ";" + this.position.getY());
+		System.out.println(this.hitbox.getOrigin().toString());
 		hitbox.draw(gc);
 	}
 
 	private boolean collideAttack(){
 	return false;
 	}
-
-
-	void updateAttack(Coordinate originAttack , Coordinate originCharacter){
-		if (isAttacking || collideAttack()){
-			matrixRotation(originCharacter,originAttack, 45/60  );
-			isAttacking = false;
+	public void displayLifeCharacter(GraphicsContext gc, @NotNull Coordinate characterPosition) {
+		switch(lifeValue)
+		{
+			case 100:
+			gc.drawImage(new Image("resources/images/longue de vie 5.png"), this.positionInt.getX()* map.getSIDE() - 30, this.positionInt.getY() * map.getSIDE() - 30, 2 * RADIUS, 0.25 * RADIUS);
+			break;
+			case 80: gc.drawImage(new Image("resources/images/longue de vie 4.png"), this.positionInt.getX()* map.getSIDE() - 30, this.positionInt.getY() * map.getSIDE() - 30, 2 * RADIUS, 0.25 * RADIUS);
+			break;
+			case 60 : gc.drawImage(new Image("resources/images/longue de vie 3.png"), this.positionInt.getX()* map.getSIDE() - 30, this.positionInt.getY() * map.getSIDE() - 30, 2 * RADIUS, 0.25 * RADIUS);
+			break;
+			case 40 : gc.drawImage(new Image("resources/images/longue de vie 2.png"), this.positionInt.getX()* map.getSIDE() - 30, this.positionInt.getY() * map.getSIDE() - 30, 2 * RADIUS, 0.25 * RADIUS);
+			break;
+			case 20 : gc.drawImage(new Image("resources/images/longue de vie 1.png"), this.positionInt.getX()* map.getSIDE() - 30, this.positionInt.getY() * map.getSIDE() - 30, 2 * RADIUS, 0.25 * RADIUS);
 		}
 
+	//void updateAttack(Coordinate originAttack , Coordinate originCharacter){
+	//	if (isAttacking){
+	//		matrixRotation(originCharacter,originAttack, 45/60  );
+	//		isAttacking = false;
+	//	}
+
 	}
+
 
 
 

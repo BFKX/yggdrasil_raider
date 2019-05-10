@@ -17,7 +17,7 @@ public abstract class Characters {
     Coordinate position;
     Coordinate positionInt;
     final Hitbox hitbox;
-   public double speedX = 0, speedY = 0;
+    public double speedX = 0, speedY = 0;
     double speedLimitX, speedLimitY;
     double RADIUS;
     final double SIDE = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
@@ -90,7 +90,6 @@ public abstract class Characters {
         }
         return false;
     }
-
 
     public Coordinate matrixRotation(Coordinate originCharacter, Coordinate originAttack, double angle ){
         double xCenteredPosition = originAttack.getX() - originCharacter.getX();

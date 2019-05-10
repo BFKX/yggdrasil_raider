@@ -137,4 +137,8 @@ public void valueOflife(@NotNull HashMap<CharacterActions, Boolean> inputs) // l
          this.lifeValue -= 200;
      }
   }
+
+    public Hitbox getHitbox() {
+        return hitbox;
+    }
 }
