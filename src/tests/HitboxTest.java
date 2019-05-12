@@ -1,6 +1,8 @@
-package tools;
+package tests;
 
 import org.junit.*;
+import tools.Coordinate;
+import tools.Hitbox;
 
 import java.util.concurrent.ThreadLocalRandom;
 

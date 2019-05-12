@@ -21,15 +21,17 @@ public class MainCharacter extends Characters {
 		spriteSet.put("movingNorthWest", new Image("resources/images/movingNorthWestCharacter.png"));
 		spriteSet.put("movingSouthWest", new Image("resources/images/movingSouthWestCharacter.png"));
 		spriteSet.put("waiting", new Image("resources/images/waitingCharacter.png"));
-		lifeBar.put(100, new Image("resources/images/longue de vie 5.png"));
-		lifeBar.put(80, new Image("resources/images/longue de vie 4.png"));
-		lifeBar.put(60, new Image("resources/images/longue de vie 3.png"));
-		lifeBar.put(40, new Image("resources/images/longue de vie 2.png"));
-		lifeBar.put(20, new Image("resources/images/longue de vie 1.png"));
+		lifeBar.put(100, new Image("images/lifebar5.png"));
+		lifeBar.put(80, new Image("images/lifebar4.png"));
+		lifeBar.put(60, new Image("images/lifebar3.png"));
+		lifeBar.put(40, new Image("images/lifebar2.png"));
+		lifeBar.put(20, new Image("images/lifebar1.png"));
 		RADIUS = 2 * SIDE;
+		hitbox.setRadius(RADIUS);
 		speedLimitX = RADIUS / 3;
 		speedLimitY = RADIUS / 3;
 		lifeValue = 100;
+		this.type = 0;
 	}
 
 	private void displacement(@NotNull HashMap<CharacterActions, Boolean> inputs) {
@@ -59,7 +61,7 @@ public class MainCharacter extends Characters {
 
 	}
 
-	public void update(HashMap<CharacterActions, Boolean> inputs, MonsterTest[] monster) {
+	public void update(HashMap<CharacterActions, Boolean> inputs, BasicMonster[] monster) {
 		displacement(inputs);
 		if(!collision(position)) {
 			position.add(speedX / SIDE, speedY / SIDE);
@@ -68,10 +70,6 @@ public class MainCharacter extends Characters {
 
 	public Coordinate getPosition() {
 		return position;
-	}
-
-	public void setPosition(Coordinate position) {
-		this.position = position;
 	}
 
 	public void drawHitbox(GraphicsContext gc) {

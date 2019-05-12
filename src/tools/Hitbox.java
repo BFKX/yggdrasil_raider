@@ -1,11 +1,12 @@
 package tools;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 import org.jetbrains.annotations.NotNull;
 
 public class Hitbox {
 	private final Coordinate origin;
-	private final double radius;
+	private double radius;
 
 	public Hitbox(Coordinate origin, double radius) {
 		this.origin = origin;
@@ -29,4 +30,6 @@ public class Hitbox {
 	public double getRadius() {
 		return radius;
 	}
+
+	public void setRadius(double radius) { this.radius = radius; }
 }

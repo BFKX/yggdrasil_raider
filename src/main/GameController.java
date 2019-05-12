@@ -14,16 +14,13 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import mapping.Map;
-import characters.Monster;
-import characters.RandomPathMonster;
 import org.jetbrains.annotations.NotNull;
 import tools.*;
 import characters.MainCharacter;
-import characters.MonsterTest;
+import characters.BasicMonster;
 
 import java.awt.Toolkit;
 import java.util.HashMap;
-import java.util.concurrent.ThreadLocalRandom;
 
 class GameController extends Application {
 	final private double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
@@ -113,10 +110,10 @@ class GameController extends Application {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 
 		MainCharacter mainCharacter = new MainCharacter(new Coordinate(WIDTH / 2, HEIGHT / 2),map);
-        MonsterTest monsters[] = new MonsterTest[20];
+		BasicMonster[] monsters = new BasicMonster[20];
         for(int i = 0;i < 20;i++)
 		{
-			monsters[i] = new MonsterTest(new Coordinate(Math.random()*150,Math.random()*150),mainCharacter.getPosition(),map);
+			monsters[i] = new BasicMonster(new Coordinate(Math.random()*150,Math.random()*150),mainCharacter.getPosition(),map);
 		}
 
 		scene.setOnKeyPressed(e -> {
@@ -124,7 +121,7 @@ class GameController extends Application {
 			case R:
 				map = new Map(5);
 				for(int i = 0;i < 20;i++) {
-					monsters[i] = new MonsterTest(new Coordinate(Math.random()*150,Math.random()*150),mainCharacter.getPosition(),map);
+					monsters[i] = new BasicMonster(new Coordinate(Math.random()*150,Math.random()*150), mainCharacter.getPosition(), map);
 				}
 				mainCharacter.setMap(map);
 				break;
@@ -214,7 +211,7 @@ class GameController extends Application {
 					mainCharacter.displayLifeCharacter(gc,mainCharacter.getPosition());
 					mainCharacter.drawHitbox(gc);
 
-					for (MonsterTest monster : monsters) {
+					for (BasicMonster monster : monsters) {
 						monster.updateDisplacement();
 						monster.display(gc,mainCharacter.getPosition());
 						monster.valueOflife(inputs);

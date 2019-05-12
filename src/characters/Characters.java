@@ -13,18 +13,21 @@ import java.util.HashMap;
 
 public abstract class Characters {
     Map map;
+    final double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+    final double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+    int type; // type = 0 => perso principal
     int[][] mapInt;
     Coordinate position;
     Coordinate positionInt;
     final Hitbox hitbox;
-    public double speedX = 0, speedY = 0;
+    double speedX = 0, speedY = 0;
     double speedLimitX, speedLimitY;
     double RADIUS;
     final double SIDE = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
     final HashMap<String, Image> spriteSet = new HashMap<>();
     final HashMap<Integer, Image> lifeBar = new HashMap<>();
     private String activeSprite = "movingEast";
-    public int lifeValue;
+    int lifeValue;
     boolean isAttacking;
 
     Characters(Coordinate position, Map map ) {
@@ -37,10 +40,13 @@ public abstract class Characters {
     }
 
     public void display(@NotNull GraphicsContext gc) {
-        gc.drawImage(lifeBar.get(lifeValue), this.positionInt.getX() * map.getSIDE() - 30,
-                this.positionInt.getY() * map.getSIDE() - 30, 2 * RADIUS, 0.25 * RADIUS);
-        gc.drawImage(spriteSelector(), Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - RADIUS / 2,
-                Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - RADIUS / 2, RADIUS, RADIUS);
+        if (type != 0) {
+            gc.drawImage(lifeBar.get(lifeValue), this.positionInt.getX() * map.getSIDE() - 30,
+                    this.positionInt.getY() * map.getSIDE() - 30, 2 * RADIUS, 0.25 * RADIUS);
+        } else {
+            gc.drawImage(lifeBar.get(lifeValue), 0, HEIGHT * 0.95, WIDTH / 5, HEIGHT / 20);
+        }
+        gc.drawImage(spriteSelector(), WIDTH / 2 - RADIUS / 2, HEIGHT / 2 - RADIUS / 2, RADIUS, RADIUS);
     }
 
     private Image spriteSelector() {
@@ -113,5 +119,9 @@ public abstract class Characters {
     public void setMap(Map map) {
         this.map = map;
         this.mapInt = map.getMap();
+    }
+
+    public Hitbox getHitbox() {
+        return hitbox;
     }
 }

@@ -10,20 +10,24 @@ import java.awt.Toolkit;
 import java.util.HashMap;
 import java.util.concurrent.ThreadLocalRandom;
 import tools.Hitbox;
-public class MonsterTest extends Monster
+
+public class BasicMonster extends Monster
 {
     private Hitbox hitbox;
     private int lifeValue;
+    private double positionX;
+    private double positionY;
     private int directionX;
     private int directionY;
     private boolean isAttacked;
     private Map map;
     private double type;
-public MonsterTest(Coordinate coordinate, Coordinate mainCharacterPosition, Map map)
+
+    public BasicMonster(Coordinate coordinate, Coordinate mainCharacterPosition, Map map)
 {
     super(coordinate,map,mainCharacterPosition);
-    this.position.setX(positionInt.getX());
-    this.position.setY(positionInt.getY());
+    this.positionX = positionInt.getX();
+    this.positionY = positionInt.getY();
     this.map = map;
     this.type = ThreadLocalRandom.current().nextInt(1, 4);
     this.lifeValue = 1000;
@@ -34,12 +38,12 @@ public MonsterTest(Coordinate coordinate, Coordinate mainCharacterPosition, Map 
     speedY = directionY * RADIUS / 8;
     speedLimitX = RADIUS / 4 ;
     speedLimitY = RADIUS / 4;
-    lifeBar.put(1000, new Image("resources/images/longue de vie 5.png"));
-    lifeBar.put(800, new Image("resources/images/longue de vie 4.png"));
-    lifeBar.put(600, new Image("resources/images/longue de vie 3.png"));
-    lifeBar.put(400, new Image("resources/images/longue de vie 2.png"));
-    lifeBar.put(200, new Image("resources/images/longue de vie 1.png"));
-    lifeBar.put(0, new Image("resources/images/longue de vie 0.png"));
+    lifeBar.put(1000, new Image("images/lifebar5.png"));
+    lifeBar.put(800, new Image("images/lifebar4.png"));
+    lifeBar.put(600, new Image("images/lifebar3.png"));
+    lifeBar.put(400, new Image("images/lifebar2.png"));
+    lifeBar.put(200, new Image("images/lifebar1.png"));
+    lifeBar.put(0, new Image("images/lifebar0.png"));
 }
 public void display(GraphicsContext gc, @NotNull Coordinate characterPosition) {
     double RADIUS = 2 * Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
@@ -94,8 +98,4 @@ public void valueOflife(@NotNull HashMap<CharacterActions, Boolean> inputs) // l
          this.lifeValue -= 200;
      }
   }
-
-    public Hitbox getHitbox() {
-        return hitbox;
-    }
 }

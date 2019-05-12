@@ -1,10 +1,8 @@
 package mapping;
 
-import org.jetbrains.annotations.NotNull;
 import tools.Coordinate;
 
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Room {
 	private Room north;
