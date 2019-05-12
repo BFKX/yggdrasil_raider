@@ -22,7 +22,7 @@ public class Coordinate {
 	}
 
 	public double distance(@NotNull Coordinate other) {
-		return (Math.pow((this.getX() - other.getX()), 2) + Math.pow((this.getY() - other.getY()), 2));
+		return Math.sqrt(Math.pow((this.getX() - other.getX()), 2) + Math.pow((this.getY() - other.getY()), 2));
 	}
 
 	public void setY(double y) {
