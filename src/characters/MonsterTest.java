@@ -14,20 +14,18 @@ public class MonsterTest extends Monster
 {
     private Hitbox hitbox;
     private int lifeValue;
-    private double positionX;
-    private double positionY;
-    int directionX;
-    int directionY;
-    int isAttacked;
-    Map map;
+    private int directionX;
+    private int directionY;
+    private boolean isAttacked;
+    private Map map;
     private double type;
-public MonsterTest(Coordinate coordinate,Coordinate mainCharacterPosition,Map map,double type)
+public MonsterTest(Coordinate coordinate, Coordinate mainCharacterPosition, Map map)
 {
     super(coordinate,map,mainCharacterPosition);
-    this.positionX = positionInt.getX();
-    this.positionY = positionInt.getY();
+    this.position.setX(positionInt.getX());
+    this.position.setY(positionInt.getY());
     this.map = map;
-    this.type = type;
+    this.type = ThreadLocalRandom.current().nextInt(1, 4);
     this.lifeValue = 1000;
     RADIUS = 2 * Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
     directionX = (1 - 2 * ThreadLocalRandom.current().nextInt(0, 2));
@@ -36,6 +34,12 @@ public MonsterTest(Coordinate coordinate,Coordinate mainCharacterPosition,Map ma
     speedY = directionY * RADIUS / 8;
     speedLimitX = RADIUS / 4 ;
     speedLimitY = RADIUS / 4;
+    lifeBar.put(1000, new Image("resources/images/longue de vie 5.png"));
+    lifeBar.put(800, new Image("resources/images/longue de vie 4.png"));
+    lifeBar.put(600, new Image("resources/images/longue de vie 3.png"));
+    lifeBar.put(400, new Image("resources/images/longue de vie 2.png"));
+    lifeBar.put(200, new Image("resources/images/longue de vie 1.png"));
+    lifeBar.put(0, new Image("resources/images/longue de vie 0.png"));
 }
 public void display(GraphicsContext gc, @NotNull Coordinate characterPosition) {
     double RADIUS = 2 * Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
@@ -43,61 +47,14 @@ public void display(GraphicsContext gc, @NotNull Coordinate characterPosition) {
     double positionYY = characterPosition.getY();
     double xoffset = positionXX - map.getWIDTH() / (2 * map.getSIDE());
     double yoffset = positionYY - map.getHEIGHT() / (2 * map.getSIDE());
-    if (this.type <= 1) {
-        if(this.lifeValue >= 0)
-        gc.drawImage(new Image("resources/images/monster1.png"), (this.positionInt.getX() - xoffset) * map.getSIDE(), (this.positionInt.getY() - yoffset) * map.getSIDE(), 2 * RADIUS, 1.5 * RADIUS);
-        if (this.lifeValue == 1000)
-            gc.drawImage(new Image("resources/images/longue de vie 5.png"), (this.positionInt.getX() - xoffset) * map.getSIDE(), (this.positionInt.getY() - yoffset) * map.getSIDE() - 13, 2 * RADIUS, 0.25 * RADIUS);
-        else if (this.lifeValue == 800)
-            gc.drawImage(new Image("resources/images/longue de vie 4.png"), (this.positionInt.getX() - xoffset) * map.getSIDE(), (this.positionInt.getY() - yoffset) * map.getSIDE() - 13, 2 * RADIUS, 0.25 * RADIUS);
-        else if (this.lifeValue == 600)
-            gc.drawImage(new Image("resources/images/longue de vie 3.png"), (this.positionInt.getX() - xoffset) * map.getSIDE(), (this.positionInt.getY() - yoffset) * map.getSIDE() - 13, 2 * RADIUS, 0.25 * RADIUS);
-        else if (this.lifeValue == 400)
-            gc.drawImage(new Image("resources/images/longue de vie 2.png"), (this.positionInt.getX() - xoffset) * map.getSIDE(), (this.positionInt.getY() - yoffset) * map.getSIDE() - 13, 2 * RADIUS, 0.25 * RADIUS);
-        else if (this.lifeValue == 200)
-            gc.drawImage(new Image("resources/images/longue de vie 1.png"), (this.positionInt.getX() - xoffset) * map.getSIDE(), (this.positionInt.getY() - yoffset) * map.getSIDE() - 13, 2 * RADIUS, 0.25 * RADIUS);
-        else if (this.lifeValue == 0) {
-            gc.drawImage(new Image("resources/images/longue de vie 0.png"), (this.positionInt.getX() - xoffset) * map.getSIDE(), (this.positionInt.getY() - yoffset) * map.getSIDE() - 13, 2 * RADIUS, 0.25 * RADIUS);
-
-        }
-    } else if (this.type > 1 && this.type <= 2) {
-        if(this.lifeValue >= 0)
-        gc.drawImage(new Image("resources/images/monster2.png"), (this.positionInt.getX() - xoffset) * map.getSIDE(), (this.positionInt.getY() - yoffset) * map.getSIDE(), 2 * RADIUS, 2 * RADIUS);
-        if (this.lifeValue == 1000)
-            gc.drawImage(new Image("resources/images/longue de vie 5.png"), (this.positionInt.getX() - xoffset) * map.getSIDE(), (this.positionInt.getY() - yoffset) * map.getSIDE() - 13, 2 * RADIUS, 0.25 * RADIUS);
-        else if (this.lifeValue == 800)
-            gc.drawImage(new Image("resources/images/longue de vie 4.png"), (this.positionInt.getX() - xoffset) * map.getSIDE(), (this.positionInt.getY() - yoffset) * map.getSIDE() - 13, 2 * RADIUS, 0.25 * RADIUS);
-        else if (this.lifeValue == 600)
-            gc.drawImage(new Image("resources/images/longue de vie 3.png"), (this.positionInt.getX() - xoffset) * map.getSIDE(), (this.positionInt.getY() - yoffset) * map.getSIDE() - 13, 2 * RADIUS, 0.25 * RADIUS);
-        else if (this.lifeValue == 400)
-            gc.drawImage(new Image("resources/images/longue de vie 2.png"), (this.positionInt.getX() - xoffset) * map.getSIDE(), (this.positionInt.getY() - yoffset) * map.getSIDE() - 13, 2 * RADIUS, 0.25 * RADIUS);
-        else if (this.lifeValue == 200)
-            gc.drawImage(new Image("resources/images/longue de vie 1.png"), (this.positionInt.getX() - xoffset) * map.getSIDE(), (this.positionInt.getY() - yoffset) * map.getSIDE() - 13, 2 * RADIUS, 0.25 * RADIUS);
-        else if (this.lifeValue == 0) {
-            gc.drawImage(new Image("resources/images/longue de vie 0.png"), (this.positionInt.getX() - xoffset) * map.getSIDE(), (this.positionInt.getY() - yoffset) * map.getSIDE() - 13, 2 * RADIUS, 0.25 * RADIUS);
-
-        }
-    } else if (this.type > 2 && this.type <= 3) {
-        if(this.lifeValue >= 0)
-        gc.drawImage(new Image("resources/images/monster3.png"), (this.positionInt.getX() - xoffset) * map.getSIDE(), (this.positionInt.getY() - yoffset) * map.getSIDE(), 2 * RADIUS, 2 * RADIUS);
-        if (this.lifeValue == 1000)
-            gc.drawImage(new Image("resources/images/longue de vie 5.png"), (this.positionInt.getX() - xoffset) * map.getSIDE(), (this.positionInt.getY() - yoffset) * map.getSIDE() - 13, 2 * RADIUS, 0.25 * RADIUS);
-        else if (this.lifeValue == 800)
-            gc.drawImage(new Image("resources/images/longue de vie 4.png"), (this.positionInt.getX() - xoffset) * map.getSIDE(), (this.positionInt.getY() - yoffset) * map.getSIDE() - 13, 2 * RADIUS, 0.25 * RADIUS);
-        else if (this.lifeValue == 600)
-            gc.drawImage(new Image("resources/images/longue de vie 3.png"), (this.positionInt.getX() - xoffset) * map.getSIDE(), (this.positionInt.getY() - yoffset) * map.getSIDE() - 13, 2 * RADIUS, 0.25 * RADIUS);
-        else if (this.lifeValue == 400)
-            gc.drawImage(new Image("resources/images/longue de vie 2.png"), (this.positionInt.getX() - xoffset) * map.getSIDE(), (this.positionInt.getY() - yoffset) * map.getSIDE() - 13, 2 * RADIUS, 0.25 * RADIUS);
-        else if (this.lifeValue == 200)
-            gc.drawImage(new Image("resources/images/longue de vie 1.png"), (this.positionInt.getX() - xoffset) * map.getSIDE(), (this.positionInt.getY() - yoffset) * map.getSIDE() - 13, 2 * RADIUS, 0.25 * RADIUS);
-        else if (this.lifeValue == 0) {
-            gc.drawImage(new Image("resources/images/longue de vie 0.png"), (this.positionInt.getX() - xoffset) * map.getSIDE(), (this.positionInt.getY() - yoffset) * map.getSIDE() - 13, 2 * RADIUS, 0.25 * RADIUS);
-
-        }
-    } else {
-        gc.drawImage(new Image("resources/images/boss.png"), (this.positionInt.getX() - xoffset) * map.getSIDE(), (this.positionInt.getY() - yoffset) * map.getSIDE(), 8 * RADIUS, 8 * RADIUS);
-        //boss
+    Image sprite = new Image("resources/images/monster1.png");
+    if (this.type == 2) {
+        sprite = new Image("resources/images/monster2.png");
+    } else if (this.type == 3) {
+        sprite = new Image("resources/images/monster3.png");
     }
+    gc.drawImage(sprite, (this.positionInt.getX() - xoffset) * map.getSIDE(), (this.positionInt.getY() - yoffset) * map.getSIDE(), 2 * RADIUS, 2 * RADIUS);
+    gc.drawImage(lifeBar.get(lifeValue), (this.positionInt.getX() - xoffset) * map.getSIDE(), (this.positionInt.getY() - yoffset) * map.getSIDE() - 13, 2 * RADIUS, 0.25 * RADIUS);
     this.hitbox = new Hitbox(new Coordinate((this.positionInt.getX() - xoffset) * map.getSIDE(),(this.positionInt.getY() - yoffset) * map.getSIDE()),2 * RADIUS);
 
 }

@@ -42,7 +42,6 @@ class GameController extends Application {
 	final private Image pauseBackground = new Image("resources/images/menuBackground.png", WIDTH, HEIGHT, false, true);
 	final private Font customFont = Font.loadFont(
 			StartMenuController.class.getResource("../resources/fonts/VIKING-N.TTF").toExternalForm(), HEIGHT / 12);
-	private Monster monster ;
 
 	@FXML
 	private AnchorPane game;
@@ -114,11 +113,10 @@ class GameController extends Application {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 
 		MainCharacter mainCharacter = new MainCharacter(new Coordinate(WIDTH / 2, HEIGHT / 2),map);
-        MonsterTest monsterr[] = new MonsterTest[20];
-        MonsterTest boss = new MonsterTest(new Coordinate(100 + Math.random() * 50,100 + Math.random() * 50),mainCharacter.getPosition(),map,4.0);
+        MonsterTest monsters[] = new MonsterTest[20];
         for(int i = 0;i < 20;i++)
 		{
-			monsterr[i] = new MonsterTest(new Coordinate(Math.random()*150,Math.random()*150),mainCharacter.getPosition(),map,Math.random() * 3);
+			monsters[i] = new MonsterTest(new Coordinate(Math.random()*150,Math.random()*150),mainCharacter.getPosition(),map);
 		}
 
 		scene.setOnKeyPressed(e -> {
@@ -126,7 +124,7 @@ class GameController extends Application {
 			case R:
 				map = new Map(5);
 				for(int i = 0;i < 20;i++) {
-					monsterr[i] = new MonsterTest(new Coordinate(Math.random()*150,Math.random()*150),mainCharacter.getPosition(),map,Math.random() * 3);
+					monsters[i] = new MonsterTest(new Coordinate(Math.random()*150,Math.random()*150),mainCharacter.getPosition(),map);
 				}
 				mainCharacter.setMap(map);
 				break;
@@ -207,7 +205,7 @@ class GameController extends Application {
 					gc.setFill(Color.BLACK);
 					gc.fillRect(0, 0, WIDTH, HEIGHT);
 
-					mainCharacter.update(inputs, monsterr);
+					mainCharacter.update(inputs, monsters);
 
 					map.display(gc, mainCharacter.getPosition());
 					map.displayMiniMap(gc, mainCharacter.getPosition());
@@ -215,19 +213,14 @@ class GameController extends Application {
 					mainCharacter.display(gc);
 					mainCharacter.displayLifeCharacter(gc,mainCharacter.getPosition());
 					mainCharacter.drawHitbox(gc);
-					if ( monster != null) {
+
+					for (MonsterTest monster : monsters) {
 						monster.updateDisplacement();
-						monster.display(gc);
-						mainCharacter.setPosition(monster.getPositionInt());
+						monster.display(gc,mainCharacter.getPosition());
+						monster.valueOflife(inputs);
+						monster.drawhitbox(gc);
 					}
-					for(int i = 0;i<20;i++)
-					{
-						monsterr[i].updateDisplacement();
-						monsterr[i].display(gc,mainCharacter.getPosition());
-						monsterr[i].valueOflife(inputs);
-						monsterr[i].drawhitbox(gc);
-					}
-					boss.display(gc,mainCharacter.getPosition());
+
 					fpsmeter.update(now, gc);
 					lastNow = now;
 

@@ -16,15 +16,15 @@ public abstract class Monster extends Characters{
         this.positionInt = positionInt ;
         this.mainCharactersPosition =  mainCharactersPosition ;
         this.position= new Coordinate(positionInt.getX()*SIDE, positionInt.getY()*SIDE ) ;
-        imageSet.put("movingNorth", new Image("resources/images/movingNorthCharacter.png"));
-        imageSet.put("movingSouth", new Image("resources/images/movingSouthCharacter.png"));
-        imageSet.put("movingWest", new Image("resources/images/movingWestCharacter.png"));
-        imageSet.put("movingEast", new Image("resources/images/movingEastCharacter.png"));
-        imageSet.put("movingNorthEast", new Image("resources/images/movingNorthEastCharacter.png"));
-        imageSet.put("movingSouthEast", new Image("resources/images/movingSouthEastCharacter.png"));
-        imageSet.put("movingNorthWest", new Image("resources/images/movingNorthWestCharacter.png"));
-        imageSet.put("movingSouthWest", new Image("resources/images/movingSouthWestCharacter.png"));
-        imageSet.put("waiting", new Image("resources/images/waitingCharacter.png"));
+        spriteSet.put("movingNorth", new Image("resources/images/movingNorthCharacter.png"));
+        spriteSet.put("movingSouth", new Image("resources/images/movingSouthCharacter.png"));
+        spriteSet.put("movingWest", new Image("resources/images/movingWestCharacter.png"));
+        spriteSet.put("movingEast", new Image("resources/images/movingEastCharacter.png"));
+        spriteSet.put("movingNorthEast", new Image("resources/images/movingNorthEastCharacter.png"));
+        spriteSet.put("movingSouthEast", new Image("resources/images/movingSouthEastCharacter.png"));
+        spriteSet.put("movingNorthWest", new Image("resources/images/movingNorthWestCharacter.png"));
+        spriteSet.put("movingSouthWest", new Image("resources/images/movingSouthWestCharacter.png"));
+        spriteSet.put("waiting", new Image("resources/images/waitingCharacter.png"));
     }
 
     public abstract void updateDisplacement();

@@ -6,24 +6,26 @@ import org.jetbrains.annotations.NotNull;
 import tools.CharacterActions;
 import tools.Coordinate;
 import mapping.Map;
-import tools.Hitbox;
 
-import java.lang.Math.*;
-import java.awt.*;
 import java.util.HashMap;
 
 public class MainCharacter extends Characters {
 	public MainCharacter(Coordinate position, Map map ) {
 		super(position, map);
-		imageSet.put("movingNorth", new Image("resources/images/movingNorthCharacter.png"));
-		imageSet.put("movingSouth", new Image("resources/images/movingSouthCharacter.png"));
-		imageSet.put("movingWest", new Image("resources/images/movingWestCharacter.png"));
-		imageSet.put("movingEast", new Image("resources/images/movingEastCharacter.png"));
-		imageSet.put("movingNorthEast", new Image("resources/images/movingNorthEastCharacter.png"));
-		imageSet.put("movingSouthEast", new Image("resources/images/movingSouthEastCharacter.png"));
-		imageSet.put("movingNorthWest", new Image("resources/images/movingNorthWestCharacter.png"));
-		imageSet.put("movingSouthWest", new Image("resources/images/movingSouthWestCharacter.png"));
-		imageSet.put("waiting", new Image("resources/images/waitingCharacter.png"));
+		spriteSet.put("movingNorth", new Image("resources/images/movingNorthCharacter.png"));
+		spriteSet.put("movingSouth", new Image("resources/images/movingSouthCharacter.png"));
+		spriteSet.put("movingWest", new Image("resources/images/movingWestCharacter.png"));
+		spriteSet.put("movingEast", new Image("resources/images/movingEastCharacter.png"));
+		spriteSet.put("movingNorthEast", new Image("resources/images/movingNorthEastCharacter.png"));
+		spriteSet.put("movingSouthEast", new Image("resources/images/movingSouthEastCharacter.png"));
+		spriteSet.put("movingNorthWest", new Image("resources/images/movingNorthWestCharacter.png"));
+		spriteSet.put("movingSouthWest", new Image("resources/images/movingSouthWestCharacter.png"));
+		spriteSet.put("waiting", new Image("resources/images/waitingCharacter.png"));
+		lifeBar.put(100, new Image("resources/images/longue de vie 5.png"));
+		lifeBar.put(80, new Image("resources/images/longue de vie 4.png"));
+		lifeBar.put(60, new Image("resources/images/longue de vie 3.png"));
+		lifeBar.put(40, new Image("resources/images/longue de vie 2.png"));
+		lifeBar.put(20, new Image("resources/images/longue de vie 1.png"));
 		RADIUS = 2 * SIDE;
 		speedLimitX = RADIUS / 3;
 		speedLimitY = RADIUS / 3;
@@ -82,19 +84,7 @@ public class MainCharacter extends Characters {
 	return false;
 	}
 	public void displayLifeCharacter(GraphicsContext gc, @NotNull Coordinate characterPosition) {
-		switch(lifeValue)
-		{
-			case 100:
-			gc.drawImage(new Image("resources/images/longue de vie 5.png"), this.positionInt.getX()* map.getSIDE() - 30, this.positionInt.getY() * map.getSIDE() - 30, 2 * RADIUS, 0.25 * RADIUS);
-			break;
-			case 80: gc.drawImage(new Image("resources/images/longue de vie 4.png"), this.positionInt.getX()* map.getSIDE() - 30, this.positionInt.getY() * map.getSIDE() - 30, 2 * RADIUS, 0.25 * RADIUS);
-			break;
-			case 60 : gc.drawImage(new Image("resources/images/longue de vie 3.png"), this.positionInt.getX()* map.getSIDE() - 30, this.positionInt.getY() * map.getSIDE() - 30, 2 * RADIUS, 0.25 * RADIUS);
-			break;
-			case 40 : gc.drawImage(new Image("resources/images/longue de vie 2.png"), this.positionInt.getX()* map.getSIDE() - 30, this.positionInt.getY() * map.getSIDE() - 30, 2 * RADIUS, 0.25 * RADIUS);
-			break;
-			case 20 : gc.drawImage(new Image("resources/images/longue de vie 1.png"), this.positionInt.getX()* map.getSIDE() - 30, this.positionInt.getY() * map.getSIDE() - 30, 2 * RADIUS, 0.25 * RADIUS);
-		}
+
 
 	//void updateAttack(Coordinate originAttack , Coordinate originCharacter){
 	//	if (isAttacking){

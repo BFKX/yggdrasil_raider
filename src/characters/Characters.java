@@ -21,7 +21,8 @@ public abstract class Characters {
     double speedLimitX, speedLimitY;
     double RADIUS;
     final double SIDE = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
-    final HashMap<String, Image> imageSet = new HashMap<>();
+    final HashMap<String, Image> spriteSet = new HashMap<>();
+    final HashMap<Integer, Image> lifeBar = new HashMap<>();
     private String activeSprite = "movingEast";
     public int lifeValue;
     boolean isAttacking;
@@ -33,6 +34,13 @@ public abstract class Characters {
         this.map = map;
         mapInt = map.getMap();
         isAttacking = false;
+    }
+
+    public void display(@NotNull GraphicsContext gc) {
+        gc.drawImage(lifeBar.get(lifeValue), this.positionInt.getX() * map.getSIDE() - 30,
+                this.positionInt.getY() * map.getSIDE() - 30, 2 * RADIUS, 0.25 * RADIUS);
+        gc.drawImage(spriteSelector(), Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - RADIUS / 2,
+                Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - RADIUS / 2, RADIUS, RADIUS);
     }
 
     private Image spriteSelector() {
@@ -53,12 +61,7 @@ public abstract class Characters {
         } else if (Math.abs(speedY) < 1 && speedX < -1) {
             activeSprite = "movingWest";
         }
-        return imageSet.get(activeSprite);
-    }
-
-    public void display(@NotNull GraphicsContext gc) {
-        gc.drawImage(spriteSelector(), Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - RADIUS / 2,
-                Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - RADIUS / 2, RADIUS, RADIUS);
+        return spriteSet.get(activeSprite);
     }
 
     int signOf(double x) {
