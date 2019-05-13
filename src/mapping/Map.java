@@ -62,7 +62,7 @@ public class Map {
 		for ( int k = 0 ; k<n ; k++  ){
 			int tempwidth = ThreadLocalRandom.current().nextInt(200, 220);
 			int tempheight = ThreadLocalRandom.current().nextInt(200, 220);
-			Cave temp = new Cave(tempwidth,tempheight,pseudoRandomList,positionOnMap(mapOfRoom,origin.getPosition()));
+			Cave temp = new Cave(tempwidth,tempheight,pseudoRandomList,positionOnMap(mapOfRoom,origin.getPosition().copy()));
 			try {placeRoom(temp);}
 			catch (IndexOutOfBoundsException e){ continue;}
 		}
