@@ -15,7 +15,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import mapping.Map;
-import org.jetbrains.annotations.NotNull;
 import tools.*;
 import characters.MainCharacter;
 
@@ -44,7 +43,7 @@ class GameController extends Application {
 	@FXML
 	private AnchorPane game;
 
-	GameController(@NotNull Stage primaryStage) {
+	GameController(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		this.scene = primaryStage.getScene();
 		inputs.put(CharacterActions.UP, false);

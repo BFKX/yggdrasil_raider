@@ -1,8 +1,6 @@
 package tools;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
-import org.jetbrains.annotations.NotNull;
 
 public class Hitbox {
 	private final Coordinate origin;
@@ -13,11 +11,11 @@ public class Hitbox {
 		this.radius = radius;
 	}
 
-	public boolean collide(@NotNull Hitbox other) {
+	public boolean collide(Hitbox other) {
 		return this.origin.distance(other.getOrigin()) < this.radius + other.getRadius();
 	}
 
-	public void draw(@NotNull GraphicsContext gc) {
+	public void draw(GraphicsContext gc) {
 		gc.save();
 		gc.strokeOval(origin.getX() - radius / 2, origin.getY() - radius / 2, radius, radius);
 		gc.restore();

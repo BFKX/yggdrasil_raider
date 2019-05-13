@@ -1,6 +1,5 @@
 package tools;
 
-import org.jetbrains.annotations.NotNull;
 
 public class Coordinate {
 
@@ -20,10 +19,12 @@ public class Coordinate {
 		this.x += x;
 		this.y += y;
 	}
+
 	public Coordinate copy(){
-		return new Coordinate(x,y);
+		return new Coordinate(x, y);
 	}
-	public double distance(@NotNull Coordinate other) {
+
+	public double distance(Coordinate other) {
 		return Math.sqrt(Math.pow((this.getX() - other.getX()), 2) + Math.pow((this.getY() - other.getY()), 2));
 	}
 

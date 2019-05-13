@@ -3,7 +3,6 @@ package characters;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import mapping.Map;
-import org.jetbrains.annotations.NotNull;
 import tools.Coordinate;
 
 public abstract class Monster extends Character {
@@ -12,7 +11,7 @@ public abstract class Monster extends Character {
     int directionX ;
     int directionY ;
 
-    Monster(@NotNull Coordinate positionInt, Map map,Coordinate mainCharactersPosition){
+    Monster(Coordinate positionInt, Map map,Coordinate mainCharactersPosition){
         super(positionInt, map);
         this.positionInt = positionInt ;
         this.mainCharactersPosition =  mainCharactersPosition ;

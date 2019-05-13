@@ -2,7 +2,6 @@ package characters;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import org.jetbrains.annotations.NotNull;
 import tools.CharacterActions;
 import tools.Coordinate;
 import mapping.Map;
@@ -34,7 +33,7 @@ public class MainCharacter extends Character {
 		this.type = 0;
 	}
 
-	private void displacement(@NotNull HashMap<CharacterActions, Boolean> inputs) {
+	private void displacement(HashMap<CharacterActions, Boolean> inputs) {
 		if (!(inputs.get(CharacterActions.UP) && inputs.get(CharacterActions.DOWN)
 				|| inputs.get(CharacterActions.LEFT) && inputs.get(CharacterActions.RIGHT))) {
 			if (inputs.get(CharacterActions.UP) && speedY > -speedLimitY) {
@@ -75,7 +74,7 @@ public class MainCharacter extends Character {
 	private boolean collideAttack(){
 	return false;
 	}
-	public void displayLifeCharacter(GraphicsContext gc, @NotNull Coordinate characterPosition) {
+	public void displayLifeCharacter(GraphicsContext gc, Coordinate characterPosition) {
 
 
 	//void updateAttack(Coordinate originAttack , Coordinate originCharacter){

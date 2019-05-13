@@ -1,6 +1,5 @@
 package mapping;
 
-import org.jetbrains.annotations.NotNull;
 import tools.Coordinate;
 
 import java.util.ArrayList;
@@ -47,7 +46,7 @@ class Cave extends Room {
 		placeWall();
 		addGroundVariation2(new int[] {0,-1,0}, 5000);
 	}
-	private void addGroundVariation2(@NotNull int[] seeds, int limit) {
+	private void addGroundVariation2(int[] seeds, int limit) {
 		Coordinate[] seedsCoordinates = new Coordinate[seeds.length];
 		for (int i = 0; i < seeds.length; i++) {
 			int x = pseudoRandomList.nextInt(width);

@@ -2,7 +2,6 @@ package characters;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import org.jetbrains.annotations.NotNull;
 import tools.CharacterActions;
 import tools.Coordinate;
 import mapping.Map;
@@ -45,7 +44,7 @@ public class BasicMonster extends Monster
     lifeBar.put(200, new Image("images/lifebar1.png"));
     lifeBar.put(0, new Image("images/lifebar0.png"));
 }
-public void display(GraphicsContext gc, @NotNull Coordinate characterPosition) {
+public void display(GraphicsContext gc, Coordinate characterPosition) {
     double RADIUS = 2 * Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
     double positionXX = characterPosition.getX();
     double positionYY = characterPosition.getY();
@@ -89,7 +88,7 @@ public void updateDisplacement()
     speedY = Math.abs(speedY) < speedLimitY ? speedY + directionY * speedLimitY / 13 : directionY * speedLimitY;
 }
 
-public void valueOflife(@NotNull HashMap<CharacterActions, Boolean> inputs) // l'attaque "A"
+public void valueOflife(HashMap<CharacterActions, Boolean> inputs) // l'attaque "A"
   {
      if(inputs.get(CharacterActions.ATTACK) && Math.sqrt(this.hitbox.getOrigin().distance(new Coordinate( Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 + RADIUS/2,Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 + RADIUS/2))) < 2 * RADIUS )
      {

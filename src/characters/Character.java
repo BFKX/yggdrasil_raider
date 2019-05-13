@@ -2,7 +2,6 @@ package characters;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import org.jetbrains.annotations.NotNull;
 import tools.Coordinate;
 import tools.Hitbox;
 
@@ -39,7 +38,7 @@ public abstract class Character {
         isAttacking = false;
     }
 
-    public void display(@NotNull GraphicsContext gc) {
+    public void display(GraphicsContext gc) {
         if (type != 0) {
             gc.drawImage(lifeBar.get(healthPoint), this.positionInt.getX() * map.getSIDE() - 30,
                     this.positionInt.getY() * map.getSIDE() - 30, 2 * RADIUS, 0.25 * RADIUS);

@@ -1,9 +1,7 @@
 package mapping;
 
-import characters.MainCharacter;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import org.jetbrains.annotations.NotNull;
 import tools.Coordinate;
 
 import java.awt.Toolkit;
@@ -141,7 +139,7 @@ public class Map {
 		originYMiniMap = HEIGHT - lines * sideMiniMap;
 	}
 
-	public void display(GraphicsContext gc, @NotNull Coordinate characterPosition) {
+	public void display(GraphicsContext gc, Coordinate characterPosition) {
 		double positionX = characterPosition.getX();
 		double positionY = characterPosition.getY();
 		int initColumn = (int) positionX - 107;
@@ -160,7 +158,7 @@ public class Map {
 		}
 	}
 
-	public void displayMiniMap(@NotNull GraphicsContext gc, Coordinate characterPosition) {
+	public void displayMiniMap(GraphicsContext gc, Coordinate characterPosition) {
 		gc.setGlobalAlpha(0.7);
 		Image sprite;
 		double sideCharacterMiniMap = SIDE / 3;
