@@ -12,7 +12,7 @@ public class Hitbox {
 	}
 
 	public boolean collide(Hitbox other) {
-		return this.origin.distance(other.getOrigin()) < this.radius + other.getRadius();
+		return this.origin.distance(other.getOrigin()) <= this.radius + other.getRadius();
 	}
 
 	public void draw(GraphicsContext gc) {

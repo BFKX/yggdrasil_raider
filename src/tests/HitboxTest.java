@@ -31,19 +31,27 @@ public class HitboxTest {
         }
 
         hitbox1 = new Hitbox(new Coordinate(3, 0), 1); // X movement
-        assertFalse(hitbox0.collide(hitbox1));
+        assertTrue(hitbox0.collide(hitbox1));
 
         hitbox1 = new Hitbox(new Coordinate(0, 3), 1); // Y movement
+        assertTrue(hitbox0.collide(hitbox1));
+
+        hitbox1 = new Hitbox(new Coordinate(Math.sqrt(4.5), Math.sqrt(4.5)), 1); // X + Y movement
+        assertTrue(hitbox0.collide(hitbox1));
+
+        hitbox1 = new Hitbox(new Coordinate(3.1, 0), 1); // X movement
         assertFalse(hitbox0.collide(hitbox1));
 
-        hitbox1 = new Hitbox(new Coordinate(Math.sqrt(4.500000000000001), Math.sqrt(4.500000000000001)), 1); // X + Y movement
-        assertFalse(hitbox0.collide(hitbox1)); // Issue with Math.sqrt(4.5)
+        hitbox1 = new Hitbox(new Coordinate(0, 3.1), 1); // Y movement
+        assertFalse(hitbox0.collide(hitbox1));
+
+        hitbox1 = new Hitbox(new Coordinate(Math.sqrt(4.6), Math.sqrt(4.6)), 1); // X + Y movement
+        assertFalse(hitbox0.collide(hitbox1));
     }
 
     private int randomSign() {
-        if (ThreadLocalRandom.current().nextDouble(2) < 1) {
-            return -1;
-        }
-        return 1;
+        return (ThreadLocalRandom.current().nextDouble(2) < 1) ? -1 : 1;
     }
+
+
 }
