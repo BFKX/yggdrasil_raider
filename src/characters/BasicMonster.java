@@ -87,10 +87,8 @@ public void updateDisplacement()
 
     speedX = Math.abs(speedX) < speedLimitX ? speedX + directionX * speedLimitX / 13 : directionX * speedLimitX; // var = test ? vrai : faux
     speedY = Math.abs(speedY) < speedLimitY ? speedY + directionY * speedLimitY / 13 : directionY * speedLimitY;
-    update();
 }
 
-public void drawhitbox(GraphicsContext gc){this.hitbox.draw(gc);}
 public void valueOflife(@NotNull HashMap<CharacterActions, Boolean> inputs) // l'attaque "A"
   {
      if(inputs.get(CharacterActions.ATTACK) && Math.sqrt(this.hitbox.getOrigin().distance(new Coordinate( Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 + RADIUS/2,Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 + RADIUS/2))) < 2 * RADIUS )

@@ -1,5 +1,6 @@
 package mapping;
 
+import characters.MainCharacter;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import org.jetbrains.annotations.NotNull;
@@ -15,8 +16,8 @@ public class Map {
 	private Room current;
 	private int lines;
 	private int columns;
-	final private double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-	final private double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+	final double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+	final double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	final private Image voidImage = new Image("resources/images/void.png");
 	final private Image sWall = new Image("resources/images/sWall.png");
 	final private Image eWall = new Image("resources/images/eWall.png");
@@ -47,6 +48,7 @@ public class Map {
 	private double originXMiniMap;
 	private double originYMiniMap;
 	Room [] [] mapOfRoom;
+
 	public Map(int n) {
 		pseudoRandomList = new Random(System.currentTimeMillis());
 		mapOfRoom = new Room [2*n+1] [2*n+1] ;

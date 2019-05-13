@@ -9,7 +9,7 @@ import mapping.Map;
 
 import java.util.HashMap;
 
-public class MainCharacter extends Characters {
+public class MainCharacter extends Character {
 	public MainCharacter(Coordinate position, Map map ) {
 		super(position, map);
 		spriteSet.put("movingNorth", new Image("resources/images/movingNorthCharacter.png"));
@@ -30,7 +30,7 @@ public class MainCharacter extends Characters {
 		hitbox.setRadius(RADIUS);
 		speedLimitX = RADIUS / 3;
 		speedLimitY = RADIUS / 3;
-		lifeValue = 100;
+		healthPoint = 100;
 		this.type = 0;
 	}
 
@@ -61,7 +61,7 @@ public class MainCharacter extends Characters {
 
 	}
 
-	public void update(HashMap<CharacterActions, Boolean> inputs, BasicMonster[] monster) {
+	public void update(HashMap<CharacterActions, Boolean> inputs) {
 		displacement(inputs);
 		if(!collision(position)) {
 			position.add(speedX / SIDE, speedY / SIDE);
@@ -70,12 +70,6 @@ public class MainCharacter extends Characters {
 
 	public Coordinate getPosition() {
 		return position;
-	}
-
-	public void drawHitbox(GraphicsContext gc) {
-		System.out.println(this.position.getX() + ";" + this.position.getY());
-		System.out.println(this.hitbox.getOrigin().toString());
-		hitbox.draw(gc);
 	}
 
 	private boolean collideAttack(){

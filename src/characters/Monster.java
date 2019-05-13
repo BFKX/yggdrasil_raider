@@ -1,11 +1,12 @@
 package characters;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import mapping.Map;
 import org.jetbrains.annotations.NotNull;
 import tools.Coordinate;
 
-public abstract class Monster extends Characters{
+public abstract class Monster extends Character {
     Coordinate positionInt;
     Coordinate mainCharactersPosition ;
     int directionX ;
@@ -29,9 +30,11 @@ public abstract class Monster extends Characters{
 
     public abstract void updateDisplacement();
 
-    void update() {
-        this.position.add( speedX ,  speedY);
+    void update(GraphicsContext gc) {
+        updateDisplacement();
+        this.position.add( speedX, speedY);
         this.positionInt = new Coordinate(position.getX() / SIDE , position.getY() / SIDE );
+        this.display(gc);
     }
 
     public Coordinate getPosition() {

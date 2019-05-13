@@ -1,5 +1,6 @@
 package main;
 
+import characters.MonsterSet;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -17,7 +18,6 @@ import mapping.Map;
 import org.jetbrains.annotations.NotNull;
 import tools.*;
 import characters.MainCharacter;
-import characters.BasicMonster;
 
 import java.awt.Toolkit;
 import java.util.HashMap;
@@ -36,6 +36,7 @@ class GameController extends Application {
 	private final HashMap<CharacterActions, Boolean> inputs = new HashMap<>();
 	private final MusicPlayer music = new MusicPlayer("/resources/audio/inGame.wav", HEIGHT / 15);
 	private Map map = new Map(5);
+	private MonsterSet monsters;
 	final private Image pauseBackground = new Image("resources/images/menuBackground.png", WIDTH, HEIGHT, false, true);
 	final private Font customFont = Font.loadFont(
 			StartMenuController.class.getResource("../resources/fonts/VIKING-N.TTF").toExternalForm(), HEIGHT / 12);
@@ -110,19 +111,13 @@ class GameController extends Application {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 
 		MainCharacter mainCharacter = new MainCharacter(new Coordinate(WIDTH / 2, HEIGHT / 2),map);
-		BasicMonster[] monsters = new BasicMonster[20];
-        for(int i = 0;i < 20;i++)
-		{
-			monsters[i] = new BasicMonster(new Coordinate(Math.random()*150,Math.random()*150),mainCharacter.getPosition(),map);
-		}
+		monsters = new MonsterSet(20, mainCharacter, map);
 
 		scene.setOnKeyPressed(e -> {
 			switch (e.getCode()) {
 			case R:
 				map = new Map(5);
-				for(int i = 0;i < 20;i++) {
-					monsters[i] = new BasicMonster(new Coordinate(Math.random()*150,Math.random()*150), mainCharacter.getPosition(), map);
-				}
+				monsters = new MonsterSet(20, mainCharacter, map);
 				mainCharacter.setMap(map);
 				break;
 			case M :
@@ -202,21 +197,16 @@ class GameController extends Application {
 					gc.setFill(Color.BLACK);
 					gc.fillRect(0, 0, WIDTH, HEIGHT);
 
-					mainCharacter.update(inputs, monsters);
+					mainCharacter.update(inputs);
 
 					map.display(gc, mainCharacter.getPosition());
 					map.displayMiniMap(gc, mainCharacter.getPosition());
 
+					monsters.update(gc);
+
 					mainCharacter.display(gc);
 					mainCharacter.displayLifeCharacter(gc,mainCharacter.getPosition());
 					mainCharacter.drawHitbox(gc);
-
-					for (BasicMonster monster : monsters) {
-						monster.updateDisplacement();
-						monster.display(gc,mainCharacter.getPosition());
-						monster.valueOflife(inputs);
-						monster.drawhitbox(gc);
-					}
 
 					fpsmeter.update(now, gc);
 					lastNow = now;

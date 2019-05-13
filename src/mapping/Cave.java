@@ -8,7 +8,7 @@ import java.util.Random;
 
 class Cave extends Room {
 	private final ArrayList< Integer> possibleValues = new ArrayList<>();
-	Cave(int width, int height, Random pseudoRandomList, Coordinate position ) {
+	Cave(int width, int height, Random pseudoRandomList, Coordinate position) {
 		super(width, height,position,pseudoRandomList);
 		initPossibleValues();
 		int fillPercentage = 62;
@@ -60,7 +60,7 @@ class Cave extends Room {
 					Coordinate ij = new Coordinate(i, j);
 					int k = 0;
 					for (Coordinate c : seedsCoordinates) {
-						double d = c.distance(ij);
+						double d = Math.pow(c.distance(ij), 2);
 						double u1 = pseudoRandomList.nextDouble()  ;
 						double u2 = pseudoRandomList.nextDouble();
 						double nb = Math.sqrt((-2)*Math.log(u1))*Math.cos(u2); // gausien centrer en 0 de'ecartipe 1

@@ -11,7 +11,7 @@ import mapping.Map;
 import java.awt.*;
 import java.util.HashMap;
 
-public abstract class Characters {
+public abstract class Character {
     Map map;
     final double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
     final double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
@@ -27,10 +27,10 @@ public abstract class Characters {
     final HashMap<String, Image> spriteSet = new HashMap<>();
     final HashMap<Integer, Image> lifeBar = new HashMap<>();
     private String activeSprite = "movingEast";
-    int lifeValue;
+    int healthPoint;
     boolean isAttacking;
 
-    Characters(Coordinate position, Map map ) {
+    Character(Coordinate position, Map map ) {
         this.position = new Coordinate(20, 20);
         this.positionInt = new Coordinate(position.getX() / SIDE, position.getY() / SIDE);
         this.hitbox = new Hitbox(position, RADIUS);
@@ -41,10 +41,10 @@ public abstract class Characters {
 
     public void display(@NotNull GraphicsContext gc) {
         if (type != 0) {
-            gc.drawImage(lifeBar.get(lifeValue), this.positionInt.getX() * map.getSIDE() - 30,
+            gc.drawImage(lifeBar.get(healthPoint), this.positionInt.getX() * map.getSIDE() - 30,
                     this.positionInt.getY() * map.getSIDE() - 30, 2 * RADIUS, 0.25 * RADIUS);
         } else {
-            gc.drawImage(lifeBar.get(lifeValue), 0, HEIGHT * 0.95, WIDTH / 5, HEIGHT / 20);
+            gc.drawImage(lifeBar.get(healthPoint), 0, HEIGHT * 0.95, WIDTH / 5, HEIGHT / 20);
         }
         gc.drawImage(spriteSelector(), WIDTH / 2 - RADIUS / 2, HEIGHT / 2 - RADIUS / 2, RADIUS, RADIUS);
     }
@@ -85,7 +85,7 @@ public abstract class Characters {
         for (int k = -1; k < 2; k++) {
             int i = (int) positionInt.getX() + signSpeedX  ;
             int j = (int) positionInt.getY() + signSpeedY  ;
-            if (i>= 0 && i < mapInt.length) {
+            if (i >= 0 && i < mapInt.length) {
                 if (j >= 0 && j < mapInt[0].length) {
                     if (mapInt[i][j] > 0) {
                         mapInt[i][j] = 8000;
@@ -123,5 +123,13 @@ public abstract class Characters {
 
     public Hitbox getHitbox() {
         return hitbox;
+    }
+
+    public int getHealthPoint() {
+        return healthPoint;
+    }
+
+    public void drawHitbox(GraphicsContext gc) {
+        hitbox.draw(gc);
     }
 }
