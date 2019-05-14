@@ -72,7 +72,7 @@ public class Room {
 
 	public void northVoid(int min){
 		int j=0;
-		while(j < height-1 && map[min][j]<= 0  ){
+		while(j < height-1 && map[min][j]< 0  ){
 			j++;
 		}
 		for (int i= 0 ; i < j+1 ; i++){
@@ -83,7 +83,7 @@ public class Room {
 	}
 	public void southVoid(int min){
 		int j=height-1;
-		while(j > 0 && map[min][j]<= 0  ){
+		while(j > 0 && map[min][j] < 0  ){
 			j--;
 		}
 		for (int i= height-1 ; i >= j-1 ; i--){
@@ -94,7 +94,7 @@ public class Room {
 	}
 	public void westVoid(int min){
 		int j=0;
-		while(j < width-1 && map[j][min]<= 0  ){
+		while(j < width-1 && map[j][min]< 0  ){
 			j++;
 		}
 		for (int i= 0 ; i < j+1 ; i++){
@@ -105,7 +105,7 @@ public class Room {
 	}
 	public void eastVoid(int min){
 		int j=width-1;
-		while(j >1 && map[j][min]<= 0  ){
+		while(j >1 && map[j][min] < 0  ){
 			j--;
 		}
 		for (int i= width-1 ; i >= j-1 ; i--){
