@@ -34,7 +34,7 @@ class GameController extends Application {
 	private final Text text = new Text("Pause");
 	private final HashMap<CharacterActions, Boolean> inputs = new HashMap<>();
 	private final MusicPlayer music = new MusicPlayer("/resources/audio/inGame.wav", HEIGHT / 15);
-	private Map map = new Map(5);
+	private Map map = new Map(20);
 	private MonsterSet monsters;
 	final private Image pauseBackground = new Image("resources/images/menuBackground.png", WIDTH, HEIGHT, false, true);
 	final private Font customFont = Font.loadFont(
@@ -115,7 +115,7 @@ class GameController extends Application {
 		scene.setOnKeyPressed(e -> {
 			switch (e.getCode()) {
 			case R:
-				map = new Map(5);
+				map = new Map(20);
 				monsters = new MonsterSet(20, mainCharacter, map);
 				mainCharacter.setMap(map);
 				break;

@@ -65,6 +65,23 @@ public class MainCharacter extends Character {
 		if(!collision(position)) {
 			position.add(speedX / SIDE, speedY / SIDE);
 		}
+		if(position.getX() < 0 ){
+			map.moveEast();
+			position=new Coordinate(map.getMap().length-1,position.getY());
+			mapInt=map.getMap();
+		}else if(position.getX()>map.getMap().length -1){
+			map.moveWest();
+			position= new Coordinate(0, position.getY());
+			mapInt=map.getMap();
+		}else if(position.getY() <0){
+			map.moveNorth();
+			position = new Coordinate(position.getX(),map.getMap()[0].length-1);
+			mapInt=map.getMap();
+		}else if(position.getY() > map.getMap()[0].length -1 ){
+			map.moveSouth();
+			position = new Coordinate(position.getX(),0);
+			mapInt=map.getMap();
+		}
 	}
 
 	public Coordinate getPosition() {
@@ -76,7 +93,6 @@ public class MainCharacter extends Character {
 	}
 	public void displayLifeCharacter(GraphicsContext gc, Coordinate characterPosition) {
 
-
 	//void updateAttack(Coordinate originAttack , Coordinate originCharacter){
 	//	if (isAttacking){
 	//		matrixRotation(originCharacter,originAttack, 45/60  );
@@ -84,8 +100,4 @@ public class MainCharacter extends Character {
 	//	}
 
 	}
-
-
-
-
 }

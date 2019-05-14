@@ -39,14 +39,10 @@ class Cave extends Room {
 				}
 			}
 		}
-
 		delete25(1);
 		applyFiltering(fullRangeFiltering(1), 6);
-
-		placeWall();
-		addGroundVariation2(new int[] {0,-1,0}, 5000);
 	}
-	private void addGroundVariation2(int[] seeds, int limit) {
+	public void addGroundVariation(int[] seeds, int limit) {
 		Coordinate[] seedsCoordinates = new Coordinate[seeds.length];
 		for (int i = 0; i < seeds.length; i++) {
 			int x = pseudoRandomList.nextInt(width);
@@ -118,7 +114,7 @@ class Cave extends Room {
 		}
 	}
 
-	private void placeWall() {
+	public void placeWall() {
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
 				if (map[i][j] != 0) {

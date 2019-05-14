@@ -57,6 +57,19 @@ public class Map {
 		mapOfRoom[n][n] = origin ;
 		update();
 		placeRoom(n);
+		placeWall();
+	}
+
+	public void placeWall(){
+		for ( int i=0 ; i < mapOfRoom.length; i++){
+			for(int j = 0 ; j<mapOfRoom[0].length ; j++){
+				if(mapOfRoom[i][j] != null){
+					mapOfRoom[i][j].placeWall();
+					mapOfRoom[i][j].addGroundVariation(new int[] {0,-1,0}, 5000);
+				}
+			}
+		}
+
 	}
 	private void placeRoom (int n ) {
 		for ( int k = 0 ; k<n ; k++  ){
@@ -137,6 +150,7 @@ public class Map {
 		this.columns = map.length;
 		originXMiniMap = WIDTH - columns * sideMiniMap;
 		originYMiniMap = HEIGHT - lines * sideMiniMap;
+
 	}
 
 	public void display(GraphicsContext gc, Coordinate characterPosition) {

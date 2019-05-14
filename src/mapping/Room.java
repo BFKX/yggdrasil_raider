@@ -4,7 +4,7 @@ import tools.Coordinate;
 
 import java.util.Random;
 
-public class Room {
+public abstract class Room {
 	private Room north;
 	private Room south;
 	private Room east;
@@ -18,7 +18,7 @@ public class Room {
 	int indiceminSouth;
 	int indiceminEast;
 	int indiceminWest;
-
+    int largeur = 3;
 	Room(int width, int height, Coordinate position,  Random pseudoRandomList) {
 		this.width = width;
 		this.height = height;
@@ -68,52 +68,61 @@ public class Room {
 		}
 		return temp;
 	}
-
+    abstract void placeWall();
 
 	public void northVoid(int min){
 		int j=0;
-		while(j < height-1 && map[min][j]< 0  ){
+		while( j+4 < height-1 && map[min][j] > 0 && !( map[min][j+1] <= 0 && map[min][j+2] <= 0 && map[min][j+3] <= 0
+                && map[min][j+4] <= 0)){
 			j++;
 		}
 		for (int i= 0 ; i < j+1 ; i++){
-			for ( int k = -1 ; k<2 ; k++ ){
-				map[min+k][i] = -800 ;
+			for ( int k = -largeur ; k<largeur+1 ; k++ ){
+				map[min+k][i] = 0 ;
 			}
 		}
+		System.out.print(j);
 	}
+
 	public void southVoid(int min){
 		int j=height-1;
-		while(j > 0 && map[min][j] < 0  ){
+		while(j-4 > 0 && map[min][j] > 0 && !(map[min][j-1] <= 0 && map[min][j-2] <= 0 && map[min][j-3] <= 0
+                && map[min][j-4] <= 0 ) ){
 			j--;
 		}
 		for (int i= height-1 ; i >= j-1 ; i--){
-			for ( int k = -1 ; k<2 ; k++ ){
-				map[min+k][i] = -800 ;
+			for ( int k = -largeur ; k<largeur+1 ; k++ ){
+				map[min+k][i] = 0 ;
 			}
 		}
 	}
+
 	public void westVoid(int min){
 		int j=0;
-		while(j < width-1 && map[j][min]< 0  ){
+		while(j +4< width-1 && map[j][min] > 0 && !( map[j+1][min] <= 0 &&  map[j+2][min] <= 0
+                && map[j+3][min] <= 0 &&  map[j+4][min] <= 0) ){
 			j++;
 		}
 		for (int i= 0 ; i < j+1 ; i++){
-			for ( int k = -1 ; k<2 ; k++ ){
-				map[i][min+k] = -800 ;
+			for ( int k = -largeur ; k<largeur+1 ; k++ ){
+				map[i][min+k] = 0 ;
 			}
 		}
 	}
+    public abstract void addGroundVariation(int [] seed, int i );
 	public void eastVoid(int min){
 		int j=width-1;
-		while(j >1 && map[j][min] < 0  ){
+		while(j-4 >1 && map[j][min] > 0 && ! ( map[j-1][min] <= 0 && map[j-2][min] <= 0 && map[j-3][min] <= 0
+                && map[j-4][min] <= 0 ) ){
 			j--;
 		}
 		for (int i= width-1 ; i >= j-1 ; i--){
-			for ( int k = -1 ; k<2 ; k++ ){
-				map[i][min+k] = -800 ;
+			for ( int k = -largeur ; k<largeur+1 ; k++ ){
+				map[i][min+k] = 0 ;
 			}
 		}
 	}
+
 	public Room getNorth() {
 		return north;
 	}
