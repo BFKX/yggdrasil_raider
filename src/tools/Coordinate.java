@@ -44,11 +44,6 @@ public class Coordinate {
 		return y;
 	}
 
-	public boolean isValid(Coordinate origin, int height, int width) {
-		return this.getX() > origin.getX() && this.getX() < origin.getX() + width && this.getY() > origin.getY()
-				&& this.getY() < origin.getY() + height;
-	}
-
 	public String toString() {
 		return "(" + x + "," + y + ")";
 	}

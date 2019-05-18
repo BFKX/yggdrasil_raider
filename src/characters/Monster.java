@@ -11,8 +11,8 @@ public abstract class Monster extends Character {
     int directionX ;
     int directionY ;
 
-    Monster(Coordinate positionInt, Map map,Coordinate mainCharactersPosition){
-        super(positionInt, map);
+    Monster(Coordinate positionInt,Coordinate mainCharactersPosition){
+        super(positionInt);
         this.positionInt = positionInt ;
         this.mainCharactersPosition =  mainCharactersPosition ;
         this.position= new Coordinate(positionInt.getX()*SIDE, positionInt.getY()*SIDE ) ;
@@ -29,19 +29,13 @@ public abstract class Monster extends Character {
 
     public abstract void updateDisplacement();
 
+    public abstract void display(GraphicsContext gc, Coordinate mainCharactersPosition);
+
     void update(GraphicsContext gc) {
         updateDisplacement();
         this.position.add( speedX, speedY);
         this.positionInt = new Coordinate(position.getX() / SIDE , position.getY() / SIDE );
-        this.display(gc);
     }
 
-    public Coordinate getPosition() {
-        return position;
-    }
-
-    public Coordinate getPositionInt() {
-        return positionInt;
-    }
 
 }

@@ -24,6 +24,8 @@ import java.util.HashMap;
 class GameController extends Application {
 	final private double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	final private double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+	private Canvas canvas = new Canvas(WIDTH, HEIGHT);
+	private GraphicsContext gc = canvas.getGraphicsContext2D();
 	private final Scene scene;
 	private final Stage primaryStage;
 	private boolean pause = false;
@@ -34,7 +36,7 @@ class GameController extends Application {
 	private final Text text = new Text("Pause");
 	private final HashMap<CharacterActions, Boolean> inputs = new HashMap<>();
 	private final MusicPlayer music = new MusicPlayer("/resources/audio/inGame.wav", HEIGHT / 15);
-	private Map map = new Map(20);
+	private Map map;
 	private MonsterSet monsters;
 	final private Image pauseBackground = new Image("resources/images/menuBackground.png", WIDTH, HEIGHT, false, true);
 	final private Font customFont = Font.loadFont(
@@ -64,10 +66,9 @@ class GameController extends Application {
 		text.setLayoutX(WIDTH / 2 - text.getLayoutBounds().getWidth() / 2);
 		text.setLayoutY(HEIGHT / 2 + text.getLayoutBounds().getHeight() / 2);
 
-		resumeButton
-				.setBackground(new Background(new BackgroundImage(
-						new Image("images/resumeButton.png", game.getPrefWidth() / 3, game.getPrefHeight() / 9, false,
-								false),
+		resumeButton.setBackground(new Background(new BackgroundImage(
+						new Image("images/resumeButton.png", game.getPrefWidth() / 3, game.getPrefHeight() / 9,
+								false, false),
 						BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 						BackgroundSize.DEFAULT)));
 		resumeButton.setPrefSize(WIDTH / 3, HEIGHT / 9);
@@ -75,17 +76,12 @@ class GameController extends Application {
 		resumeButton.setLayoutY(HEIGHT * 0.25 - resumeButton.getPrefHeight() / 2);
 		resumeButton.setOnAction(e -> {
 			pause = false;
-			pauseShown = false;
-			game.getChildren().remove(quitButton);
-			game.getChildren().remove(resumeButton);
-			game.getChildren().remove(muteButton);
-			game.getChildren().remove(text);
+			pause(gc);
 		});
 
-		quitButton
-				.setBackground(new Background(new BackgroundImage(
-						new Image("images/quitButton.png", game.getPrefWidth() / 3, game.getPrefHeight() / 9, false,
-								false),
+		quitButton.setBackground(new Background(new BackgroundImage(
+						new Image("images/quitButton.png", game.getPrefWidth() / 3, game.getPrefHeight() / 9,
+								false, false),
 						BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 						BackgroundSize.DEFAULT)));
 		quitButton.setPrefSize(WIDTH / 3, HEIGHT / 9);
@@ -93,7 +89,8 @@ class GameController extends Application {
 		quitButton.setLayoutY(HEIGHT * 0.75 - resumeButton.getPrefHeight() / 2);
 		quitButton.setOnAction(e -> System.exit(0));
 
-		muteButton.setBackground(new Background(new BackgroundImage(new Image("images/unmutedButton.png", HEIGHT / 15, HEIGHT / 15, false, false), BackgroundRepeat.NO_REPEAT,
+		muteButton.setBackground(new Background(new BackgroundImage(new Image("images/unmutedButton.png",
+				HEIGHT / 15, HEIGHT / 15, false, false), BackgroundRepeat.NO_REPEAT,
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
 		muteButton.setPrefSize(HEIGHT / 15, HEIGHT / 15);
 		muteButton.setLayoutX(WIDTH - muteButton.getPrefWidth());
@@ -105,18 +102,18 @@ class GameController extends Application {
 
 	@Override
 	public void start(Stage stage) {
-		Canvas canvas = new Canvas(WIDTH, HEIGHT);
 		game.getChildren().add(canvas);
-		GraphicsContext gc = canvas.getGraphicsContext2D();
-
 		MainCharacter mainCharacter = new MainCharacter(new Coordinate(WIDTH / 2, HEIGHT / 2),map);
-		monsters = new MonsterSet(20, mainCharacter, map);
+		this.map = new Map(20, mainCharacter);
+		mainCharacter.setMap(map);
+
+		monsters = new MonsterSet(20, mainCharacter, map.getMap());
 
 		scene.setOnKeyPressed(e -> {
 			switch (e.getCode()) {
 			case R:
-				map = new Map(20);
-				monsters = new MonsterSet(20, mainCharacter, map);
+				map = new Map(20,mainCharacter);
+				monsters = new MonsterSet(20, mainCharacter, map.getMap());
 				mainCharacter.setMap(map);
 				break;
 			case M :
@@ -125,11 +122,7 @@ class GameController extends Application {
 			case ESCAPE:
 				pause = !pause;
 				if (!pause) {
-					pauseShown = false;
-					game.getChildren().remove(quitButton);
-					game.getChildren().remove(resumeButton);
-					game.getChildren().remove(muteButton);
-					game.getChildren().remove(text);
+					pause(gc);
 				}
 				break;
 			case UP:
@@ -192,34 +185,44 @@ class GameController extends Application {
 			long lastNow = 0;
 			final FPSMeter fpsmeter = new FPSMeter();
 			public void handle(long now) {
-				if (!pause && now - lastNow >= 15000000) {
-					gc.setFill(Color.BLACK);
-					gc.fillRect(0, 0, WIDTH, HEIGHT);
+				if (now - lastNow >= 15000000) {
+					if (!pause) {
+						gc.fillRect(0, 0, WIDTH, HEIGHT);
 
-					mainCharacter.update(inputs);
+						mainCharacter.update(inputs);
 
-					map.display(gc, mainCharacter.getPosition());
-					map.displayMiniMap(gc, mainCharacter.getPosition());
+						map.updateMonster(gc);
+						map.display(gc, mainCharacter.getPosition());
+						map.displayMiniMap(gc, mainCharacter.getPosition());
 
-					monsters.update(gc);
+						mainCharacter.display(gc);
+						mainCharacter.displayLifeCharacter(gc, mainCharacter.getPosition());
+						mainCharacter.drawHitbox(gc);
 
-					mainCharacter.display(gc);
-					mainCharacter.displayLifeCharacter(gc,mainCharacter.getPosition());
-					mainCharacter.drawHitbox(gc);
-
-					fpsmeter.update(now, gc);
-					lastNow = now;
-
-
-				} else if (!pauseShown && now - lastNow >= 15000000) {
-					gc.drawImage(pauseBackground, 0, 0);
-					game.getChildren().add(quitButton);
-					game.getChildren().add(resumeButton);
-					game.getChildren().add(muteButton);
-					game.getChildren().add(text);
-					pauseShown = true;
+						fpsmeter.update(now, gc);
+						lastNow = now;
+					} else if (!pauseShown) {
+						pause(gc);
+					}
 				}
 			}
 		}.start();
+	}
+
+	private void pause(GraphicsContext gc) {
+		if (pause) {
+			gc.drawImage(pauseBackground, 0, 0);
+			game.getChildren().add(quitButton);
+			game.getChildren().add(resumeButton);
+			game.getChildren().add(muteButton);
+			game.getChildren().add(text);
+			pauseShown = true;
+		} else {
+			game.getChildren().remove(quitButton);
+			game.getChildren().remove(resumeButton);
+			game.getChildren().remove(muteButton);
+			game.getChildren().remove(text);
+			pauseShown = false;
+		}
 	}
 }

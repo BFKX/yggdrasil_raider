@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 public class MainCharacter extends Character {
 	public MainCharacter(Coordinate position, Map map ) {
-		super(position, map);
+		super(position);
 		spriteSet.put("movingNorth", new Image("resources/images/movingNorthCharacter.png"));
 		spriteSet.put("movingSouth", new Image("resources/images/movingSouthCharacter.png"));
 		spriteSet.put("movingWest", new Image("resources/images/movingWestCharacter.png"));
