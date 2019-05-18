@@ -56,7 +56,8 @@ public class Map {
 		this.mainCharacter=mainCharacter;
 		origin = new Cave(ThreadLocalRandom.current().nextInt(100, 110),
 				ThreadLocalRandom.current().nextInt(100, 110), pseudoRandomList,new Coordinate(n, n)
-				,new MonsterSet(ThreadLocalRandom.current().nextInt(15, 20), mainCharacter, map));
+				);
+		origin.creatMonsters();
 		current = origin;
 		update();
 		mapOfRoom[n][n] = origin ;
@@ -82,8 +83,8 @@ public class Map {
 			int tempWidth = ThreadLocalRandom.current().nextInt(100, 110);
 			int tempHeight = ThreadLocalRandom.current().nextInt(100, 110);
 			Cave temp = new Cave(tempWidth,tempHeight,pseudoRandomList,
-					positionOnMap(mapOfRoom,origin.getPosition().copy()),
-					new MonsterSet(ThreadLocalRandom.current().nextInt(15,20 ), mainCharacter, map));
+					positionOnMap(mapOfRoom,origin.getPosition().copy()));
+			temp.creatMonsters();
 			placeRoom(temp);
 		}
 	}

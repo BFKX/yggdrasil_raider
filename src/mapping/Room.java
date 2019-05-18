@@ -23,7 +23,7 @@ public abstract class Room {
 	int indiceminWest;
     int largeur = 3;
 	private MonsterSet monsters;
-	Room(int width, int height, Coordinate position,  Random pseudoRandomList,MonsterSet monsters) {
+	Room(int width, int height, Coordinate position,  Random pseudoRandomList) {
 		this.width = width;
 		this.height = height;
 		this.pseudoRandomList = pseudoRandomList;
@@ -33,11 +33,11 @@ public abstract class Room {
 		indiceminEast=-1;
 		indiceminWest= -1;
 		indiceminSouth=-1;
-		this.monsters=monsters;
 	}
 	public void setMainCharacter(MainCharacter mainCharacter){
 		this.mainCharacter=mainCharacter;
 	}
+
 	public void creatMonsters() {
 		this.monsters = new MonsterSet(20,mainCharacter,this.map);
 	}

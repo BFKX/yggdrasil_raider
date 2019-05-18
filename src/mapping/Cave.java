@@ -8,8 +8,8 @@ import java.util.Random;
 
 class Cave extends Room {
 	private final ArrayList< Integer> possibleValues = new ArrayList<>();
-	Cave(int width, int height, Random pseudoRandomList, Coordinate position,MonsterSet monsters) {
-		super(width, height,position,pseudoRandomList, monsters);
+	Cave(int width, int height, Random pseudoRandomList, Coordinate position) {
+		super(width, height,position,pseudoRandomList);
 		initPossibleValues();
 		int fillPercentage = 60;
 		this.width = width;
