@@ -1,5 +1,6 @@
 package mapping;
 
+import characters.MonsterSet;
 import tools.Coordinate;
 
 import java.util.ArrayList;
@@ -7,8 +8,8 @@ import java.util.Random;
 
 class Cave extends Room {
 	private final ArrayList< Integer> possibleValues = new ArrayList<>();
-	Cave(int width, int height, Random pseudoRandomList, Coordinate position) {
-		super(width, height,position,pseudoRandomList);
+	Cave(int width, int height, Random pseudoRandomList, Coordinate position,MonsterSet monsters) {
+		super(width, height,position,pseudoRandomList, monsters);
 		initPossibleValues();
 		int fillPercentage = 60;
 		this.width = width;

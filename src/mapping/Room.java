@@ -1,10 +1,13 @@
 package mapping;
 
+import characters.MainCharacter;
+import characters.MonsterSet;
 import tools.Coordinate;
 
 import java.util.Random;
 
 public abstract class Room {
+	private MainCharacter mainCharacter;
 	private Room north;
 	private Room south;
 	private Room east;
@@ -19,7 +22,8 @@ public abstract class Room {
 	int indiceminEast;
 	int indiceminWest;
     int largeur = 3;
-	Room(int width, int height, Coordinate position,  Random pseudoRandomList) {
+	private MonsterSet monsters;
+	Room(int width, int height, Coordinate position,  Random pseudoRandomList,MonsterSet monsters) {
 		this.width = width;
 		this.height = height;
 		this.pseudoRandomList = pseudoRandomList;
@@ -29,6 +33,13 @@ public abstract class Room {
 		indiceminEast=-1;
 		indiceminWest= -1;
 		indiceminSouth=-1;
+		this.monsters=monsters;
+	}
+	public void setMainCharacter(MainCharacter mainCharacter){
+		this.mainCharacter=mainCharacter;
+	}
+	public void creatMonsters() {
+		this.monsters = new MonsterSet(20,mainCharacter,this.map);
 	}
 
 	int[][] getMap() {
@@ -123,44 +134,32 @@ public abstract class Room {
 		}
 	}
 
-	public Room getNorth() {
-		return north;
-	}
 
 	public void setNorth(Room north) {
 		this.north = north;
 	}
 
-	public Room getSouth() {
-		return south;
-	}
 
 	public void setSouth(Room south) {
 		this.south = south;
 	}
 
-	public Room getEast() {
-		return east;
-	}
 
 	public void setEast(Room east) {
 		this.east = east;
 	}
 
-	public Room getWest() {
-		return west;
-	}
 
 	public void setWest(Room west) {
 		this.west = west;
 	}
 
+
 	public Coordinate getPosition() {
 		return position;
 	}
 
-	public void setPosition(Coordinate position) {
-		this.position = position;
+	public MonsterSet getMonsters() {
+		return monsters;
 	}
-
 }

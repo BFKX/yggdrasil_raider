@@ -8,7 +8,7 @@ import tools.Node;
 public class MonsterSet {
     private Node<Monster> root = null;
 
-    public MonsterSet(int n, MainCharacter mainCharacter, Map map) {
+    public MonsterSet(int n, MainCharacter mainCharacter, int[][] map) {
         for (int i = 0; i < n; i++) {
             this.add(new BasicMonster(new Coordinate(Math.random()*150,Math.random()*150), mainCharacter.getPosition(), map));
         }
@@ -35,6 +35,11 @@ public class MonsterSet {
     public void update(GraphicsContext gc) {
         for(Node<Monster> curr = root; curr.getNext() != null; curr = curr.getNext()) {
             curr.getPayload().update(gc);
+        }
+    }
+    public void display(GraphicsContext gc){
+        for(Node<Monster> curr = root; curr.getNext() != null; curr = curr.getNext()) {
+            curr.getPayload().display(gc);
         }
     }
 }

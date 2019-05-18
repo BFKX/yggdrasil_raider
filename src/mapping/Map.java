@@ -1,5 +1,7 @@
 package mapping;
 
+import characters.MainCharacter;
+import characters.MonsterSet;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import tools.Coordinate;
@@ -46,12 +48,15 @@ public class Map {
 	private double originXMiniMap;
 	private double originYMiniMap;
 	Room [] [] mapOfRoom;
+	MainCharacter mainCharacter;
 
-	public Map(int n) {
+	public Map(int n,MainCharacter mainCharacter) {
 		pseudoRandomList = new Random(System.currentTimeMillis());
 		mapOfRoom = new Room [2*n+1] [2*n+1] ;
+		this.mainCharacter=mainCharacter;
 		origin = new Cave(ThreadLocalRandom.current().nextInt(100, 110),
-				ThreadLocalRandom.current().nextInt(100, 110), pseudoRandomList,new Coordinate(n, n));
+				ThreadLocalRandom.current().nextInt(100, 110), pseudoRandomList,new Coordinate(n, n)
+				,new MonsterSet(ThreadLocalRandom.current().nextInt(15, 20), mainCharacter, map));
 		current = origin;
 		update();
 		mapOfRoom[n][n] = origin ;
@@ -59,6 +64,7 @@ public class Map {
 		placeRoom(n);
 		placeWall();
 	}
+
 
 	public void placeWall(){
 		for (int i = 0; i < mapOfRoom.length; i++){
@@ -71,15 +77,17 @@ public class Map {
 		}
 
 	}
-	private void placeRoom (int n ) {
+	private void placeRoom (int n ) { // cree une sale
 		for ( int k = 0 ; k<n ; k++  ){
 			int tempWidth = ThreadLocalRandom.current().nextInt(100, 110);
 			int tempHeight = ThreadLocalRandom.current().nextInt(100, 110);
-			Cave temp = new Cave(tempWidth,tempHeight,pseudoRandomList,positionOnMap(mapOfRoom,origin.getPosition().copy()));
+			Cave temp = new Cave(tempWidth,tempHeight,pseudoRandomList,
+					positionOnMap(mapOfRoom,origin.getPosition().copy()),
+					new MonsterSet(ThreadLocalRandom.current().nextInt(15,20 ), mainCharacter, map));
 			placeRoom(temp);
 		}
 	}
-	private Coordinate positionOnMap(Room[][]MapofRoom, Coordinate coordinate){
+	private Coordinate positionOnMap(Room[][]MapofRoom, Coordinate coordinate){//la position de la room dans map
 		int val = ThreadLocalRandom.current().nextInt(0, 4);
 		switch (val) {
 			case 0 :
@@ -142,16 +150,16 @@ public class Map {
 		return ThreadLocalRandom.current().nextInt( min / 3, min * 2 /3 );
 	}
 
-
 	private void update() {
 		this.map = current.getMap();
 		this.lines = map[0].length;
 		this.columns = map.length;
 		originXMiniMap = WIDTH - columns * sideMiniMap;
 		originYMiniMap = HEIGHT - lines * sideMiniMap;
-
 	}
-
+	public void updateMonster(GraphicsContext gc){
+		current.getMonsters().update(gc);
+	}
 	public void display(GraphicsContext gc, Coordinate characterPosition) {
 		double positionX = characterPosition.getX();
 		double positionY = characterPosition.getY();
@@ -169,6 +177,7 @@ public class Map {
 						(line - lineOffset) * SIDE , SIDE, SIDE);
 			}
 		}
+		current.getMonsters().display(gc);
 	}
 
 	public void displayMiniMap(GraphicsContext gc, Coordinate characterPosition) {
@@ -204,7 +213,6 @@ public class Map {
 			System.out.println();
 		}
 	}
-
 	/**
 	 * @param value value of a area on the map
 	 * @return sprite of selected value

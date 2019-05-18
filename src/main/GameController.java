@@ -34,7 +34,7 @@ class GameController extends Application {
 	private final Text text = new Text("Pause");
 	private final HashMap<CharacterActions, Boolean> inputs = new HashMap<>();
 	private final MusicPlayer music = new MusicPlayer("/resources/audio/inGame.wav", HEIGHT / 15);
-	private Map map = new Map(20);
+	private Map map ;
 	private MonsterSet monsters;
 	final private Image pauseBackground = new Image("resources/images/menuBackground.png", WIDTH, HEIGHT, false, true);
 	final private Font customFont = Font.loadFont(
@@ -109,15 +109,17 @@ class GameController extends Application {
 		Canvas canvas = new Canvas(WIDTH, HEIGHT);
 		game.getChildren().add(canvas);
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-
 		MainCharacter mainCharacter = new MainCharacter(new Coordinate(WIDTH / 2, HEIGHT / 2),map);
-		monsters = new MonsterSet(20, mainCharacter, map);
+		this.map =  new Map(20,mainCharacter);
+		mainCharacter.setMap(map);
+
+		monsters = new MonsterSet(20, mainCharacter, map.getMap());
 
 		scene.setOnKeyPressed(e -> {
 			switch (e.getCode()) {
 			case R:
-				map = new Map(20);
-				monsters = new MonsterSet(20, mainCharacter, map);
+				map = new Map(20,mainCharacter);
+				monsters = new MonsterSet(20, mainCharacter, map.getMap());
 				mainCharacter.setMap(map);
 				break;
 			case M :
@@ -199,10 +201,9 @@ class GameController extends Application {
 
 					mainCharacter.update(inputs);
 
+					map.updateMonster(gc);
 					map.display(gc, mainCharacter.getPosition());
 					map.displayMiniMap(gc, mainCharacter.getPosition());
-
-					monsters.update(gc);
 
 					mainCharacter.display(gc);
 					mainCharacter.displayLifeCharacter(gc,mainCharacter.getPosition());

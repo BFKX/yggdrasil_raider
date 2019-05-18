@@ -29,12 +29,10 @@ public abstract class Character {
     int healthPoint;
     boolean isAttacking;
 
-    Character(Coordinate position, Map map ) {
+    Character(Coordinate position) {
         this.position = new Coordinate(20, 20);
         this.positionInt = new Coordinate(position.getX() / SIDE, position.getY() / SIDE);
         this.hitbox = new Hitbox(position, RADIUS);
-        this.map = map;
-        mapInt = map.getMap();
         isAttacking = false;
     }
 

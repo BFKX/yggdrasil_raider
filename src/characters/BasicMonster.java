@@ -19,15 +19,17 @@ public class BasicMonster extends Monster
     private int directionX;
     private int directionY;
     private boolean isAttacked;
-    private Map map;
+    private int[][] map;
     private double type;
+    final double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+    final double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+    final private double SIDE = HEIGHT / 60;
 
-    public BasicMonster(Coordinate coordinate, Coordinate mainCharacterPosition, Map map)
+    public BasicMonster (Coordinate coordinate, Coordinate mainCharacterPosition, int[][] map)
 {
-    super(coordinate,map,mainCharacterPosition);
+    super(coordinate,mainCharacterPosition);
     this.positionX = positionInt.getX();
     this.positionY = positionInt.getY();
-    this.map = map;
     this.type = ThreadLocalRandom.current().nextInt(1, 4);
     this.lifeValue = 1000;
     RADIUS = 2 * Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
@@ -50,22 +52,21 @@ public void display(GraphicsContext gc, Coordinate characterPosition) {
     double RADIUS = 2 * Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
     double positionXX = characterPosition.getX();
     double positionYY = characterPosition.getY();
-    double xoffset = positionXX - map.getWIDTH() / (2 * map.getSIDE());
-    double yoffset = positionYY - map.getHEIGHT() / (2 * map.getSIDE());
+    double xoffset = positionXX - WIDTH/ (2 * SIDE);
+    double yoffset = positionYY - HEIGHT / (2 * SIDE);
     Image sprite = new Image("resources/images/monster1.png");
     if (this.type == 2) {
         sprite = new Image("resources/images/monster2.png");
     } else if (this.type == 3) {
         sprite = new Image("resources/images/monster3.png");
     }
-    gc.drawImage(sprite, (this.positionInt.getX() - xoffset) * map.getSIDE(), (this.positionInt.getY() - yoffset) * map.getSIDE(), 2 * RADIUS, 2 * RADIUS);
-    gc.drawImage(lifeBar.get(lifeValue), (this.positionInt.getX() - xoffset) * map.getSIDE(), (this.positionInt.getY() - yoffset) * map.getSIDE() - 13, 2 * RADIUS, 0.25 * RADIUS);
-    this.hitbox = new Hitbox(new Coordinate((this.positionInt.getX() - xoffset) * map.getSIDE(),(this.positionInt.getY() - yoffset) * map.getSIDE()),2 * RADIUS);
+    gc.drawImage(sprite, (this.positionInt.getX() - xoffset) * SIDE, (this.positionInt.getY() - yoffset) * SIDE, 2 * RADIUS, 2 * RADIUS);
+    gc.drawImage(lifeBar.get(lifeValue), (this.positionInt.getX() - xoffset) * SIDE, (this.positionInt.getY() - yoffset) * SIDE - 13, 2 * RADIUS, 0.25 * RADIUS);
+    this.hitbox = new Hitbox(new Coordinate((this.positionInt.getX() - xoffset) * SIDE,(this.positionInt.getY() - yoffset) * SIDE),2 * RADIUS);
 
 }
 public void updateDisplacement()
 {
-    int[][] mapInt = map.getMap();
     int signSpeedX = signOf(speedX);
     int signSpeedY = signOf(speedY);
     double toCharactersDistance = positionInt.distance(mainCharactersPosition);
@@ -77,9 +78,9 @@ public void updateDisplacement()
         speedX =  directionX * speedLimitX / 13 ;
         speedY = directionY *  speedLimitY / 13 ;
     }
-    if((int)positionInt.getX() + signSpeedX < 0 || (int)positionInt.getX() + signSpeedX > mapInt.length - 1 ||
-            (int)positionInt.getY() + signSpeedY < 0 || (int)positionInt.getY() + signSpeedY > mapInt[0].length - 1 ||
-            mapInt[(int)positionInt.getX() + signSpeedX][(int)positionInt.getY() + signSpeedY] > 0) {
+    if((int)positionInt.getX() + signSpeedX < 0 || (int)positionInt.getX() + signSpeedX > map.length - 1 ||
+            (int)positionInt.getY() + signSpeedY < 0 || (int)positionInt.getY() + signSpeedY > map[0].length - 1 ||
+            map[(int)positionInt.getX() + signSpeedX][(int)positionInt.getY() + signSpeedY] > 0) {
         directionX = -1 *  directionX;
         directionY = -1 * directionY;
         speedX = directionX * speedLimitX / 13;
