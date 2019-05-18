@@ -66,8 +66,8 @@ class GameController extends Application {
 
 		resumeButton
 				.setBackground(new Background(new BackgroundImage(
-						new Image("images/resumeButton.png", game.getPrefWidth() / 3, game.getPrefHeight() / 9, false,
-								false),
+						new Image("images/resumeButton.png", game.getPrefWidth() / 3, game.getPrefHeight() / 9,
+								false, false),
 						BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 						BackgroundSize.DEFAULT)));
 		resumeButton.setPrefSize(WIDTH / 3, HEIGHT / 9);
@@ -84,8 +84,8 @@ class GameController extends Application {
 
 		quitButton
 				.setBackground(new Background(new BackgroundImage(
-						new Image("images/quitButton.png", game.getPrefWidth() / 3, game.getPrefHeight() / 9, false,
-								false),
+						new Image("images/quitButton.png", game.getPrefWidth() / 3, game.getPrefHeight() / 9,
+								false, false),
 						BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 						BackgroundSize.DEFAULT)));
 		quitButton.setPrefSize(WIDTH / 3, HEIGHT / 9);
@@ -93,7 +93,8 @@ class GameController extends Application {
 		quitButton.setLayoutY(HEIGHT * 0.75 - resumeButton.getPrefHeight() / 2);
 		quitButton.setOnAction(e -> System.exit(0));
 
-		muteButton.setBackground(new Background(new BackgroundImage(new Image("images/unmutedButton.png", HEIGHT / 15, HEIGHT / 15, false, false), BackgroundRepeat.NO_REPEAT,
+		muteButton.setBackground(new Background(new BackgroundImage(new Image("images/unmutedButton.png",
+				HEIGHT / 15, HEIGHT / 15, false, false), BackgroundRepeat.NO_REPEAT,
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
 		muteButton.setPrefSize(HEIGHT / 15, HEIGHT / 15);
 		muteButton.setLayoutX(WIDTH - muteButton.getPrefWidth());

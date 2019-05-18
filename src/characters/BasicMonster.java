@@ -44,6 +44,8 @@ public class BasicMonster extends Monster
     lifeBar.put(200, new Image("images/lifebar1.png"));
     lifeBar.put(0, new Image("images/lifebar0.png"));
 }
+
+@Override
 public void display(GraphicsContext gc, Coordinate characterPosition) {
     double RADIUS = 2 * Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
     double positionXX = characterPosition.getX();

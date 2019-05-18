@@ -10,7 +10,7 @@ class Cave extends Room {
 	Cave(int width, int height, Random pseudoRandomList, Coordinate position) {
 		super(width, height,position,pseudoRandomList);
 		initPossibleValues();
-		int fillPercentage = 62;
+		int fillPercentage = 60;
 		this.width = width;
 		this.height = height;
 		this.map = new int[width][height];

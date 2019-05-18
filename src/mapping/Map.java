@@ -50,8 +50,8 @@ public class Map {
 	public Map(int n) {
 		pseudoRandomList = new Random(System.currentTimeMillis());
 		mapOfRoom = new Room [2*n+1] [2*n+1] ;
-		origin = new Cave(ThreadLocalRandom.current().nextInt(200, 220),
-				ThreadLocalRandom.current().nextInt(200, 220), pseudoRandomList,new Coordinate(n, n));
+		origin = new Cave(ThreadLocalRandom.current().nextInt(100, 110),
+				ThreadLocalRandom.current().nextInt(100, 110), pseudoRandomList,new Coordinate(n, n));
 		current = origin;
 		update();
 		mapOfRoom[n][n] = origin ;
@@ -61,7 +61,7 @@ public class Map {
 	}
 
 	public void placeWall(){
-		for ( int i=0 ; i < mapOfRoom.length; i++){
+		for (int i = 0; i < mapOfRoom.length; i++){
 			for(int j = 0 ; j<mapOfRoom[0].length ; j++){
 				if(mapOfRoom[i][j] != null){
 					mapOfRoom[i][j].placeWall();
@@ -73,11 +73,10 @@ public class Map {
 	}
 	private void placeRoom (int n ) {
 		for ( int k = 0 ; k<n ; k++  ){
-			int tempwidth = ThreadLocalRandom.current().nextInt(200, 220);
-			int tempheight = ThreadLocalRandom.current().nextInt(200, 220);
-			Cave temp = new Cave(tempwidth,tempheight,pseudoRandomList,positionOnMap(mapOfRoom,origin.getPosition().copy()));
-			try {placeRoom(temp);}
-			catch (IndexOutOfBoundsException e){ continue;}
+			int tempWidth = ThreadLocalRandom.current().nextInt(100, 110);
+			int tempHeight = ThreadLocalRandom.current().nextInt(100, 110);
+			Cave temp = new Cave(tempWidth,tempHeight,pseudoRandomList,positionOnMap(mapOfRoom,origin.getPosition().copy()));
+			placeRoom(temp);
 		}
 	}
 	private Coordinate positionOnMap(Room[][]MapofRoom, Coordinate coordinate){
@@ -101,35 +100,35 @@ public class Map {
 	}
 	private void placeRoom(Room current){
 		int currentPositionX = (int) current.getPosition().getX();
-		int curentPositionY = (int) current.getPosition().getY();
-		mapOfRoom[currentPositionX][curentPositionY] = current ;
-		if(mapOfRoom[currentPositionX][curentPositionY+1] != null){ //créé le lien avec le sud
-			mapOfRoom[currentPositionX][curentPositionY+1].setNorth(current);
-			current.setSouth(mapOfRoom[currentPositionX][curentPositionY+1]);
-			int index = verticalIndiceLink(current,mapOfRoom[currentPositionX][curentPositionY+1]);
+		int currentPositionY = (int) current.getPosition().getY();
+		mapOfRoom[currentPositionX][currentPositionY] = current ;
+		if(mapOfRoom[currentPositionX][currentPositionY+1] != null){ //créé le lien avec le sud
+			mapOfRoom[currentPositionX][currentPositionY+1].setNorth(current);
+			current.setSouth(mapOfRoom[currentPositionX][currentPositionY+1]);
+			int index = verticalIndiceLink(current,mapOfRoom[currentPositionX][currentPositionY+1]);
 			current.southVoid(index);
-			mapOfRoom[currentPositionX][curentPositionY+1].northVoid(index);
+			mapOfRoom[currentPositionX][currentPositionY+1].northVoid(index);
 		}
-		if(mapOfRoom[currentPositionX][curentPositionY-1] != null){ // cree le lien avec le nord
-			mapOfRoom[currentPositionX][curentPositionY-1].setSouth(current);
-			current.setNorth(mapOfRoom[currentPositionX][curentPositionY-1]);
-			int indic = verticalIndiceLink(current,mapOfRoom[currentPositionX][curentPositionY-1]);
+		if(mapOfRoom[currentPositionX][currentPositionY-1] != null){ // cree le lien avec le nord
+			mapOfRoom[currentPositionX][currentPositionY-1].setSouth(current);
+			current.setNorth(mapOfRoom[currentPositionX][currentPositionY-1]);
+			int indic = verticalIndiceLink(current,mapOfRoom[currentPositionX][currentPositionY-1]);
 			current.northVoid(indic);
-			mapOfRoom[currentPositionX][curentPositionY-1].southVoid(indic);
+			mapOfRoom[currentPositionX][currentPositionY-1].southVoid(indic);
 		}
-		if(mapOfRoom[currentPositionX+1][curentPositionY] != null){ // cree le lien a l'est
-			mapOfRoom[currentPositionX+1][curentPositionY].setWest(current);
-			current.setEast(mapOfRoom[currentPositionX+1][curentPositionY]);
-			int indic = horisontalIndiceLink(current,mapOfRoom[currentPositionX+1][curentPositionY]);
+		if(mapOfRoom[currentPositionX+1][currentPositionY] != null){ // cree le lien a l'est
+			mapOfRoom[currentPositionX+1][currentPositionY].setWest(current);
+			current.setEast(mapOfRoom[currentPositionX+1][currentPositionY]);
+			int indic = horisontalIndiceLink(current,mapOfRoom[currentPositionX+1][currentPositionY]);
 			current.eastVoid(indic);
-			mapOfRoom[currentPositionX+1][curentPositionY].westVoid(indic);
+			mapOfRoom[currentPositionX+1][currentPositionY].westVoid(indic);
 		}
-		if(mapOfRoom[currentPositionX-1][curentPositionY] != null){ //cree le lien a l'ouest
-			mapOfRoom[currentPositionX-1][curentPositionY].setEast(current);
-			current.setWest(mapOfRoom[currentPositionX-1][curentPositionY]);
-			int indic = horisontalIndiceLink(current,mapOfRoom[currentPositionX-1][curentPositionY]);
+		if(mapOfRoom[currentPositionX-1][currentPositionY] != null){ //cree le lien a l'ouest
+			mapOfRoom[currentPositionX-1][currentPositionY].setEast(current);
+			current.setWest(mapOfRoom[currentPositionX-1][currentPositionY]);
+			int indic = horisontalIndiceLink(current,mapOfRoom[currentPositionX-1][currentPositionY]);
 			current.westVoid(indic);
-			mapOfRoom[currentPositionX-1][curentPositionY].eastVoid(indic);
+			mapOfRoom[currentPositionX-1][currentPositionY].eastVoid(indic);
 		}
 	}
 

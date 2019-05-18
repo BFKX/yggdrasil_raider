@@ -55,8 +55,8 @@ class StartMenuController {
 		title.setLayoutY(startMenu.getPrefHeight() / 2 + title.getLayoutBounds().getHeight() / 2);
 
 		playButton.setBackground(new Background(new BackgroundImage(
-				new Image("images/playButton.png", startMenu.getPrefWidth() / 3, startMenu.getPrefHeight() / 9, false,
-						false),
+				new Image("images/playButton.png", startMenu.getPrefWidth() / 3, startMenu.getPrefHeight() / 9,
+						false, false),
 				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 				BackgroundSize.DEFAULT)));
 		playButton.setPrefSize(startMenu.getPrefWidth() / 3, startMenu.getPrefHeight() / 9);
@@ -79,8 +79,8 @@ class StartMenuController {
 		});
 
 		quitButton.setBackground(new Background(new BackgroundImage(
-				new Image("images/quitButton.png", startMenu.getPrefWidth() / 3, startMenu.getPrefHeight() / 9, false,
-						false),
+				new Image("images/quitButton.png", startMenu.getPrefWidth() / 3, startMenu.getPrefHeight() / 9,
+						false, false),
 				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 				BackgroundSize.DEFAULT)));
 		quitButton.setPrefSize(startMenu.getPrefWidth() / 3, startMenu.getPrefHeight() / 9);
@@ -88,7 +88,8 @@ class StartMenuController {
 		quitButton.setLayoutY(startMenu.getPrefHeight() * 0.75 - quitButton.getPrefHeight() / 2);
 		quitButton.setOnAction(e -> System.exit(0));
 
-		muteButton.setBackground(new Background(new BackgroundImage(new Image("images/unmutedButton.png", HEIGHT / 15, HEIGHT / 15, false, false), BackgroundRepeat.NO_REPEAT,
+		muteButton.setBackground(new Background(new BackgroundImage(new Image("images/unmutedButton.png",
+				HEIGHT / 15, HEIGHT / 15, false, false), BackgroundRepeat.NO_REPEAT,
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
 		muteButton.setPrefSize(HEIGHT / 15, HEIGHT / 15);
 		muteButton.setLayoutX(WIDTH - muteButton.getPrefWidth());
