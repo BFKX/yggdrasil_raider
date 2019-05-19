@@ -10,6 +10,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -111,7 +112,11 @@ class GameController extends Application {
 
 		monsters = new MonsterSet(20, mainCharacter, map.getMap());
 
-		scene.setOnMousePressed(event -> inputs.replace(CharacterActions.ATTACK, true));
+		scene.setOnMousePressed(event -> {
+			if (event.getButton() == MouseButton.PRIMARY) {
+				System.out.println("mouse click detected!!!!!!!!!!!!!!!!! " + event.getSource());
+			}
+		});
 
 		scene.setOnKeyPressed(e -> {
 			switch (e.getCode()) {
@@ -175,9 +180,6 @@ class GameController extends Application {
 			case RIGHT:
 				inputs.replace(CharacterActions.RIGHT, false);
 				break;
-				case A:
-					inputs.replace(CharacterActions.ATTACK, false);
-					break;
 			default:
 			}
 		});
