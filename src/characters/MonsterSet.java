@@ -1,7 +1,6 @@
 package characters;
 
 import javafx.scene.canvas.GraphicsContext;
-import mapping.Map;
 import tools.Coordinate;
 import tools.Node;
 

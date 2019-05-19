@@ -18,15 +18,14 @@ public class HitboxTest {
         Hitbox hitbox1;
 
         for (int i = 0; i < 1000000; i++) {
-            double z = randomSign() * ThreadLocalRandom.current().nextDouble(3);
-            hitbox1 = new Hitbox(new Coordinate(z, 0), 1); // X movement
+            hitbox1 = new Hitbox(new Coordinate(randomSign() * ThreadLocalRandom.current().nextDouble(3), 0),
+                    1); // X movement
             assertTrue(hitbox0.collide(hitbox1));
-            hitbox1 = new Hitbox(new Coordinate(0, z), 1); // Y movement
+            hitbox1 = new Hitbox(new Coordinate(0, randomSign() * ThreadLocalRandom.current().nextDouble(3)),
+                    1); // Y movement
             assertTrue(hitbox0.collide(hitbox1));
-
-            double x = randomSign() * ThreadLocalRandom.current().nextDouble(Math.sqrt(4.5));
-            double y = randomSign() * ThreadLocalRandom.current().nextDouble(Math.sqrt(4.5));
-            hitbox1 = new Hitbox(new Coordinate(x, y), 1); // X + Y movement
+            hitbox1 = new Hitbox(new Coordinate(randomSign() * ThreadLocalRandom.current().nextDouble(Math.sqrt(4.5)),
+                    randomSign() * ThreadLocalRandom.current().nextDouble(Math.sqrt(4.5))), 1); // X + Y movement
             assertTrue(hitbox0.collide(hitbox1));
         }
 

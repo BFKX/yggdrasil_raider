@@ -3,12 +3,14 @@ package main;
 import characters.MonsterSet;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -109,6 +111,8 @@ class GameController extends Application {
 
 		monsters = new MonsterSet(20, mainCharacter, map.getMap());
 
+		scene.setOnMousePressed(event -> inputs.replace(CharacterActions.ATTACK, true));
+
 		scene.setOnKeyPressed(e -> {
 			switch (e.getCode()) {
 			case R:
@@ -137,9 +141,6 @@ class GameController extends Application {
 			case RIGHT:
 				inputs.replace(CharacterActions.RIGHT, true);
 				break;
-				case A:
-					inputs.replace(CharacterActions.ATTACK, true);
-					break;
 			case Z:
 				map.moveNorth();
 				mainCharacter.setMap(map);
