@@ -36,6 +36,7 @@ public abstract class Character {
         isAttacking = false;
     }
 
+
     public void display(GraphicsContext gc) {
         if (type != 0) {
             gc.drawImage(lifeBar.get(healthPoint), this.positionInt.getX() * map.getSIDE() - 30,

@@ -179,7 +179,11 @@ public class Map {
 						(line - lineOffset) * SIDE , SIDE, SIDE);
 			}
 		}
-		current.getMonsters().display(gc);
+		current.getMonsters().display(gc, mainCharacter);
+	}
+
+	public Room getCurrent() {
+		return current;
 	}
 
 	public void displayMiniMap(GraphicsContext gc, Coordinate characterPosition) {

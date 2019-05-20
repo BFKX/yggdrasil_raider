@@ -116,7 +116,7 @@ class GameController extends Application {
 
 		scene.setOnMousePressed(event -> {
 			if (event.getButton() == MouseButton.PRIMARY) {
-				System.out.println("mouse click detected!!!!!!!!!!!!!!!!! " + event.getSource());
+				System.out.println("mouse click detected!!!!!!!!!!!!!!!!!!!!!!!!! " + event.getSource());
 			}
 		});
 

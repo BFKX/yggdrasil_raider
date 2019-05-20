@@ -53,17 +53,17 @@ public void display(GraphicsContext gc, Coordinate characterPosition) {
     double RADIUS = 2 * Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
     double positionXX = characterPosition.getX();
     double positionYY = characterPosition.getY();
-    double xoffset = positionXX - WIDTH/ (2 * SIDE);
-    double yoffset = positionYY - HEIGHT / (2 * SIDE);
+    double xOffset = positionXX - WIDTH/ (2 * SIDE);
+    double yOffset = positionYY - HEIGHT / (2 * SIDE);
     Image sprite = new Image("resources/images/monster1.png");
     if (this.type == 2) {
         sprite = new Image("resources/images/monster2.png");
     } else if (this.type == 3) {
         sprite = new Image("resources/images/monster3.png");
     }
-    gc.drawImage(sprite, (this.positionInt.getX() - xoffset) * SIDE, (this.positionInt.getY() - yoffset) * SIDE, 2 * RADIUS, 2 * RADIUS);
-    gc.drawImage(lifeBar.get(lifeValue), (this.positionInt.getX() - xoffset) * SIDE, (this.positionInt.getY() - yoffset) * SIDE - 13, 2 * RADIUS, 0.25 * RADIUS);
-    this.hitbox = new Hitbox(new Coordinate((this.positionInt.getX() - xoffset) * SIDE,(this.positionInt.getY() - yoffset) * SIDE),2 * RADIUS);
+    gc.drawImage(sprite, (this.positionInt.getX() - xOffset) * SIDE, (this.positionInt.getY() - yOffset) * SIDE, 2 * RADIUS, 2 * RADIUS);
+    gc.drawImage(lifeBar.get(lifeValue), (this.positionInt.getX() - xOffset) * SIDE, (this.positionInt.getY() - yOffset) * SIDE - 13, 2 * RADIUS, 0.25 * RADIUS);
+    this.hitbox = new Hitbox(new Coordinate((this.positionInt.getX() - xOffset) * SIDE,(this.positionInt.getY() - yOffset) * SIDE),2 * RADIUS);
 }
 public void updateDisplacement()
 {
@@ -91,12 +91,4 @@ public void updateDisplacement()
     speedX = Math.abs(speedX) < speedLimitX ? speedX + directionX * speedLimitX / 13 : directionX * speedLimitX; // var = test ? vrai : faux
     speedY = Math.abs(speedY) < speedLimitY ? speedY + directionY * speedLimitY / 13 : directionY * speedLimitY;
 }
-
-public void valueOflife(HashMap<CharacterActions, Boolean> inputs) // l'attaque "A"
-  {
-     if(inputs.get(CharacterActions.ATTACK) && Math.sqrt(this.hitbox.getOrigin().distance(new Coordinate( Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 + RADIUS/2,Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 + RADIUS/2))) < 2 * RADIUS )
-     {
-         this.lifeValue -= 200;
-     }
-  }
 }

@@ -5,12 +5,14 @@ import javafx.scene.image.Image;
 import tools.CharacterActions;
 import tools.Coordinate;
 import mapping.Map;
+import tools.Node;
 
 import java.util.HashMap;
 
 public class MainCharacter extends Character {
 	public MainCharacter(Coordinate position, Map map ) {
 		super(position);
+		this.map=map;
 		spriteSet.put("movingNorth", new Image("resources/images/movingNorthCharacter.png"));
 		spriteSet.put("movingSouth", new Image("resources/images/movingSouthCharacter.png"));
 		spriteSet.put("movingWest", new Image("resources/images/movingWestCharacter.png"));
@@ -98,6 +100,6 @@ public class MainCharacter extends Character {
 	//		matrixRotation(originCharacter,originAttack, 45/60  );
 	//		isAttacking = false;
 	//	}
-
 	}
+
 }

@@ -37,9 +37,9 @@ public class MonsterSet {
             curr.getPayload().update(gc);
         }
     }
-    public void display(GraphicsContext gc){
+    public void display(GraphicsContext gc, MainCharacter mainCharacter){
         for(Node<Monster> curr = root; curr.getNext() != null; curr = curr.getNext()) {
-            curr.getPayload().display(gc);
+            curr.getPayload().display(gc, mainCharacter.getPosition());
         }
     }
 }
