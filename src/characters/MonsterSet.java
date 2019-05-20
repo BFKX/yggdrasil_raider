@@ -8,6 +8,7 @@ public class MonsterSet {
     private Node<Monster> root = null;
 
     public MonsterSet(int n, MainCharacter mainCharacter, int[][] map) {
+        System.out.print(mainCharacter);
         for (int i = 0; i < n; i++) {
             this.add(new BasicMonster(new Coordinate(Math.random()*150,Math.random()*150), mainCharacter.getPosition(), map));
         }

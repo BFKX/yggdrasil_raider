@@ -38,7 +38,7 @@ public abstract class Room {
 		this.mainCharacter=mainCharacter;
 	}
 
-	public void creatMonsters() {
+	public void createMonsters(MainCharacter mainCharacter) {
 		this.monsters = new MonsterSet(20,mainCharacter,this.map);
 	}
 

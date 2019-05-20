@@ -107,8 +107,10 @@ class GameController extends Application {
 	public void start(Stage stage) {
 		game.getChildren().add(canvas);
 		MainCharacter mainCharacter = new MainCharacter(new Coordinate(WIDTH / 2, HEIGHT / 2),map);
+		System.out.print(mainCharacter);
 		this.map = new Map(20, mainCharacter);
-		mainCharacter.setMap(map);
+		System.out.print(mainCharacter);
+		mainCharacter.setMap(map);//not null
 
 		monsters = new MonsterSet(20, mainCharacter, map.getMap());
 

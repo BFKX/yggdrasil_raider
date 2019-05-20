@@ -1,7 +1,6 @@
 package mapping;
 
 import characters.MainCharacter;
-import characters.MonsterSet;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import tools.Coordinate;
@@ -51,13 +50,15 @@ public class Map {
 	MainCharacter mainCharacter;
 
 	public Map(int n,MainCharacter mainCharacter) {
+		System.out.println(" 3 "+mainCharacter);
 		pseudoRandomList = new Random(System.currentTimeMillis());
-		mapOfRoom = new Room [2*n+1] [2*n+1] ;
-		this.mainCharacter=mainCharacter;
+		mapOfRoom = new Room [2*n+1] [2*n+1];
+		this.mainCharacter = mainCharacter;
+		System.out.println(" 4 "+mainCharacter);
 		origin = new Cave(ThreadLocalRandom.current().nextInt(100, 110),
-				ThreadLocalRandom.current().nextInt(100, 110), pseudoRandomList,new Coordinate(n, n)
-				);
-		origin.creatMonsters();
+				ThreadLocalRandom.current().nextInt(100, 110), pseudoRandomList,new Coordinate(n, n));
+		origin.createMonsters(mainCharacter);
+		System.out.println(" 5 "+mainCharacter);
 		current = origin;
 		update();
 		mapOfRoom[n][n] = origin ;
@@ -84,7 +85,7 @@ public class Map {
 			int tempHeight = ThreadLocalRandom.current().nextInt(100, 110);
 			Cave temp = new Cave(tempWidth,tempHeight,pseudoRandomList,
 					positionOnMap(mapOfRoom,origin.getPosition().copy()));
-			temp.creatMonsters();
+			temp.createMonsters(mainCharacter);
 			placeRoom(temp);
 		}
 	}

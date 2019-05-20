@@ -32,6 +32,7 @@ public class BasicMonster extends Monster
     this.positionY = positionInt.getY();
     this.type = ThreadLocalRandom.current().nextInt(1, 4);
     this.lifeValue = 1000;
+    this.map = map;
     RADIUS = 2 * Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
     directionX = (1 - 2 * ThreadLocalRandom.current().nextInt(0, 2));
     directionY = (1 - 2 * ThreadLocalRandom.current().nextInt(0, 2));
@@ -63,7 +64,6 @@ public void display(GraphicsContext gc, Coordinate characterPosition) {
     gc.drawImage(sprite, (this.positionInt.getX() - xoffset) * SIDE, (this.positionInt.getY() - yoffset) * SIDE, 2 * RADIUS, 2 * RADIUS);
     gc.drawImage(lifeBar.get(lifeValue), (this.positionInt.getX() - xoffset) * SIDE, (this.positionInt.getY() - yoffset) * SIDE - 13, 2 * RADIUS, 0.25 * RADIUS);
     this.hitbox = new Hitbox(new Coordinate((this.positionInt.getX() - xoffset) * SIDE,(this.positionInt.getY() - yoffset) * SIDE),2 * RADIUS);
-
 }
 public void updateDisplacement()
 {
@@ -78,6 +78,7 @@ public void updateDisplacement()
         speedX =  directionX * speedLimitX / 13 ;
         speedY = directionY *  speedLimitY / 13 ;
     }
+    System.out.println("position Int" + map);
     if((int)positionInt.getX() + signSpeedX < 0 || (int)positionInt.getX() + signSpeedX > map.length - 1 ||
             (int)positionInt.getY() + signSpeedY < 0 || (int)positionInt.getY() + signSpeedY > map[0].length - 1 ||
             map[(int)positionInt.getX() + signSpeedX][(int)positionInt.getY() + signSpeedY] > 0) {
