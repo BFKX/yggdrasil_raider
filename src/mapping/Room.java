@@ -42,7 +42,7 @@ public abstract class Room {
 		this.monsters = new MonsterSet(20,mainCharacter,this.map);
 	}
 
-	int[][] getMap() {
+	public int[][] getMap() {
 		return map;
 	}
 
