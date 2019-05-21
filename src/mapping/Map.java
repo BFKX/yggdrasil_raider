@@ -50,15 +50,15 @@ public class Map {
 	MainCharacter mainCharacter;
 
 	public Map(int n,MainCharacter mainCharacter) {
-		System.out.println(" 3 "+mainCharacter);
+
 		pseudoRandomList = new Random(System.currentTimeMillis());
 		mapOfRoom = new Room [2*n+1] [2*n+1];
 		this.mainCharacter = mainCharacter;
-		System.out.println(" 4 "+mainCharacter);
+
 		origin = new Cave(ThreadLocalRandom.current().nextInt(100, 110),
 				ThreadLocalRandom.current().nextInt(100, 110), pseudoRandomList,new Coordinate(n, n));
 		origin.createMonsters(mainCharacter);
-		System.out.println(" 5 "+mainCharacter);
+
 		current = origin;
 		update();
 		mapOfRoom[n][n] = origin ;
