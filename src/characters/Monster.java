@@ -4,6 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import mapping.Map;
 import tools.Coordinate;
+import tools.Hitbox;
 
 public abstract class Monster extends Character {
     Coordinate positionInt;
@@ -37,5 +38,12 @@ public abstract class Monster extends Character {
         this.positionInt = new Coordinate(position.getX() / SIDE , position.getY() / SIDE );
     }
 
+    public boolean collideHitbox(Hitbox hitbox){
+        return this.hitbox.collide(hitbox);
+    }
+
+    public void isAttacked(){
+        System.out.println("Je suis attaqué !!!!!!");
+    }
 
 }

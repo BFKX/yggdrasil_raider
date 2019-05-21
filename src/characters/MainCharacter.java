@@ -1,10 +1,12 @@
 package characters;
 
+import apple.laf.JRSUIConstants;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import tools.CharacterActions;
 import tools.Coordinate;
 import mapping.Map;
+import tools.Hitbox;
 import tools.Node;
 
 import java.util.HashMap;
@@ -100,6 +102,12 @@ public class MainCharacter extends Character {
 	//		matrixRotation(originCharacter,originAttack, 45/60  );
 	//		isAttacking = false;
 	//	}
+
+	}
+
+	public void attack(){
+		Hitbox hitboxAttack = new Hitbox(getPosition(),RADIUS);
+		map.getCurrent().getMonsters().isHit(hitboxAttack);
 	}
 
 }

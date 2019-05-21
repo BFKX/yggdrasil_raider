@@ -2,6 +2,7 @@ package characters;
 
 import javafx.scene.canvas.GraphicsContext;
 import tools.Coordinate;
+import tools.Hitbox;
 import tools.Node;
 
 public class MonsterSet {
@@ -37,9 +38,18 @@ public class MonsterSet {
             curr.getPayload().update(gc);
         }
     }
+
     public void display(GraphicsContext gc, MainCharacter mainCharacter){
         for(Node<Monster> curr = root; curr.getNext() != null; curr = curr.getNext()) {
             curr.getPayload().display(gc, mainCharacter.getPosition());
+        }
+    }
+
+    public void isHit(Hitbox hitbox){
+        for(Node<Monster> curr = root; curr.getNext() != null; curr = curr.getNext()){
+            if (curr.getPayload().collideHitbox(hitbox)){
+                curr.getPayload().isAttacked();
+            }
         }
     }
 }
