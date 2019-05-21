@@ -7,16 +7,11 @@ import tools.Coordinate;
 import tools.Hitbox;
 
 public abstract class Monster extends Character {
-    Coordinate positionInt;
     Coordinate mainCharactersPosition ;
-    int directionX ;
-    int directionY ;
 
-    Monster(Coordinate positionInt,Coordinate mainCharactersPosition){
-        super(positionInt);
-        this.positionInt = positionInt ;
+    Monster(Coordinate position,Coordinate mainCharactersPosition){
+        super(position);
         this.mainCharactersPosition =  mainCharactersPosition ;
-        this.position= new Coordinate(positionInt.getX()*SIDE, positionInt.getY()*SIDE ) ;
         spriteSet.put("movingNorth", new Image("resources/images/movingNorthCharacter.png"));
         spriteSet.put("movingSouth", new Image("resources/images/movingSouthCharacter.png"));
         spriteSet.put("movingWest", new Image("resources/images/movingWestCharacter.png"));
@@ -34,8 +29,7 @@ public abstract class Monster extends Character {
 
     void update(GraphicsContext gc) {
         updateDisplacement();
-        this.position.add( speedX, speedY);
-        this.positionInt = new Coordinate(position.getX() / SIDE , position.getY() / SIDE );
+        this.position.add( speedX/SIDE, speedY/SIDE);
     }
 
     public boolean collideHitbox(Hitbox hitbox){
@@ -43,7 +37,7 @@ public abstract class Monster extends Character {
     }
 
     public void isAttacked(){
-        System.out.println("Je suis attaqué !!!!!!"+this.positionInt + "radius : " + this.getRADIUS() );
+        System.out.println("Je suis attaqué !!!!!!"+this.position + "radius : " + this.getRADIUS() );
     }
 
 }

@@ -15,12 +15,12 @@ public class Hitbox {
 	}
 
 	public boolean collide(Hitbox other) {
-		return this.origin.distance(other.getOrigin()) <= this.radius/SIDE + other.getRadius()/SIDE;
+		return this.origin.distance(other.getOrigin())*SIDE <= this.radius + other.getRadius();
 	}
 
 	public void draw(GraphicsContext gc) {
 		gc.save();
-		gc.strokeOval(origin.getX() - radius / 2, origin.getY() - radius / 2, radius, radius);
+		gc.strokeOval((origin.getX() - radius / 2) * SIDE, (origin.getY() - radius / 2)* SIDE, radius, radius);
 		gc.restore();
 	}
 
@@ -33,4 +33,5 @@ public class Hitbox {
 	}
 
 	public void setRadius(double radius) { this.radius = radius; }
+
 }

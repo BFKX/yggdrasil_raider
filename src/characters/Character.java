@@ -16,13 +16,12 @@ public abstract class Character {
     final double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
     int type; // type = 0 => perso principal
     int[][] mapInt;
-    Coordinate position;
-    Coordinate positionInt;
+    Coordinate position; // position en (double ) case
     final Hitbox hitbox;
-    double speedX = 0, speedY = 0;
-    double speedLimitX, speedLimitY;
-    double RADIUS;
-    final double SIDE = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
+    double speedX = 0, speedY = 0; // en pixel
+    double speedLimitX, speedLimitY; // en pixel
+    double RADIUS; //en pixel
+    final double SIDE = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60; //en pixel
     final HashMap<String, Image> spriteSet = new HashMap<>();
     final HashMap<Integer, Image> lifeBar = new HashMap<>();
     private String activeSprite = "movingEast";
@@ -30,22 +29,19 @@ public abstract class Character {
     boolean isAttacking;
 
     Character(Coordinate position) {
-        this.position = new Coordinate(20, 20);
-        this.positionInt = new Coordinate(position.getX() / SIDE, position.getY() / SIDE);
-        this.hitbox = new Hitbox(position, RADIUS);
+        this.position = position;//a changer ( en case )
+        this.hitbox = new Hitbox(position, RADIUS); // en case ( double )
         isAttacking = false;
     }
 
     public Coordinate getPosition(){
         return this.position;
     }
-    public Coordinate getPositionInt(){
-        return this.positionInt;
-    }
+
     public void display(GraphicsContext gc) {
         if (type != 0) {
-            gc.drawImage(lifeBar.get(healthPoint), this.positionInt.getX() * map.getSIDE() - 30,
-                    this.positionInt.getY() * map.getSIDE() - 30, 2 * RADIUS, 0.25 * RADIUS);
+            gc.drawImage(lifeBar.get(healthPoint), this.position.getX() * map.getSIDE() - 30,
+                    this.position.getY() * map.getSIDE() - 30, 2 * RADIUS, 0.25 * RADIUS);
         } else {
             gc.drawImage(lifeBar.get(healthPoint), 0, HEIGHT * 0.95, WIDTH / 5, HEIGHT / 20);
         }
@@ -113,11 +109,6 @@ public abstract class Character {
         return new Coordinate(rx,ry);
     }
 
-    public void attackHitboxCreate(){
-        Coordinate positionCase = new Coordinate(positionInt.getX(),positionInt.getY());
-        double radius = RADIUS / 10;
-        Hitbox hitbox = new Hitbox(positionCase,radius);
-    }
     public double getRADIUS(){
         return RADIUS;
     }

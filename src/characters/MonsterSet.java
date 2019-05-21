@@ -10,7 +10,8 @@ public class MonsterSet {
 
     public MonsterSet(int n, MainCharacter mainCharacter, int[][] map) {
         for (int i = 0; i < n; i++) {
-            this.add(new BasicMonster(new Coordinate(Math.random()*150,Math.random()*150), mainCharacter.getPosition(), map));
+            this.add(new BasicMonster(new Coordinate( map.length*Math.random(),
+                     map[0] .length * Math.random()), mainCharacter.getPosition(), map));
         }
     }
 
@@ -49,7 +50,11 @@ public class MonsterSet {
             if (curr.getPayload().collideHitbox(hitbox)){
                 curr.getPayload().isAttacked();
             }else {
-                System.out.println("Monster poss : " + curr.getPayload().positionInt);
+                System.out.print("resultat " + curr.getPayload().collideHitbox(hitbox));
+                System.out.print(" non : " + curr.getPayload().getRADIUS());
+                System.out.print(" distance" + hitbox.getOrigin().distance(curr.getPayload().position));
+                System.out.print(" radius " + curr.getPayload().getRADIUS());
+                System.out.println(" Monster poss : " + curr.getPayload().position  );
             }
         }
     }

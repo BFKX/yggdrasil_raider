@@ -106,7 +106,7 @@ class GameController extends Application {
 	@Override
 	public void start(Stage stage) {
 		game.getChildren().add(canvas);
-		MainCharacter mainCharacter = new MainCharacter(new Coordinate(WIDTH / 2, HEIGHT / 2),map);
+		MainCharacter mainCharacter = new MainCharacter(new Coordinate(20 ,20),map);
 		this.map = new Map(20, mainCharacter);
 		mainCharacter.setMap(map);//not null
 
