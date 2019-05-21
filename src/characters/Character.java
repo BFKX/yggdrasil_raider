@@ -113,7 +113,9 @@ public abstract class Character {
         double radius = RADIUS / 10;
         Hitbox hitbox = new Hitbox(positionCase,radius);
     }
-
+    public double getRADIUS(){
+        return RADIUS;
+    }
     public void setMap(Map map) {
         this.map = map;
         this.mapInt = map.getMap();

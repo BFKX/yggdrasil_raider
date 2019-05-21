@@ -78,7 +78,6 @@ public void updateDisplacement()
         speedX =  directionX * speedLimitX / 13 ;
         speedY = directionY *  speedLimitY / 13 ;
     }
-    System.out.println("position Int" + map);
     if((int)positionInt.getX() + signSpeedX < 0 || (int)positionInt.getX() + signSpeedX > map.length - 1 ||
             (int)positionInt.getY() + signSpeedY < 0 || (int)positionInt.getY() + signSpeedY > map[0].length - 1 ||
             map[(int)positionInt.getX() + signSpeedX][(int)positionInt.getY() + signSpeedY] > 0) {

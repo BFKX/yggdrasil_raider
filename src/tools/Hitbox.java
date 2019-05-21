@@ -2,9 +2,12 @@ package tools;
 
 import javafx.scene.canvas.GraphicsContext;
 
+import java.awt.*;
+
 public class Hitbox {
 	private final Coordinate origin;
 	private double radius;
+	final double SIDE = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
 
 	public Hitbox(Coordinate origin, double radius) {
 		this.origin = origin;
@@ -12,7 +15,7 @@ public class Hitbox {
 	}
 
 	public boolean collide(Hitbox other) {
-		return this.origin.distance(other.getOrigin()) <= this.radius + other.getRadius();
+		return this.origin.distance(other.getOrigin()) <= this.radius/SIDE + other.getRadius()/SIDE;
 	}
 
 	public void draw(GraphicsContext gc) {
