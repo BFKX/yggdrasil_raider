@@ -80,6 +80,7 @@ public abstract class Room {
 		return temp;
 	}
     abstract void placeWall();
+	abstract void delete25(int range);
 
 	public void northVoid(int min){
 		int j=0;

@@ -72,6 +72,9 @@ public class Map {
 		for (int i = 0; i < mapOfRoom.length; i++){
 			for(int j = 0 ; j<mapOfRoom[0].length ; j++){
 				if(mapOfRoom[i][j] != null){
+					for ( int k = 0 ; i <5 ; i++){
+						mapOfRoom[i][j].delete25(1);
+					}
 					mapOfRoom[i][j].placeWall();
 					mapOfRoom[i][j].addGroundVariation(new int[] {0,-1,0}, 5000);
 				}

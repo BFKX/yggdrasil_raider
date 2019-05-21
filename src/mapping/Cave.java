@@ -72,12 +72,12 @@ class Cave extends Room {
 		}
 	}
 	private void initPossibleValues(){
-		 int[] values = {0, 1, 2, 3, 4, 6, 8, 9, 12, 13, 15, 17, 18, 19, 21, 41, 163};
+		 int[] values = {0, 1, 2, 3, 4, 6, 8, 9, 12, 13, 15, 17, 18, 19, 21, 41,80,141, 163,202,263};
 		 for ( int i : values) {
 			 possibleValues.add(i);
 		 }
 	}
-	private void delete25(int range) {
+	public void delete25(int range) {
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
 				if (!(possibleValues.contains(map[i][j]))) {
