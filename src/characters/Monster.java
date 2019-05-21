@@ -43,7 +43,7 @@ public abstract class Monster extends Character {
     }
 
     public void isAttacked(){
-        System.out.println("Je suis attaqué !!!!!!"+this.positionInt + "radius : " + this.getRADIUS());
+        System.out.println("Je suis attaqué !!!!!!"+this.positionInt + "radius : " + this.getRADIUS() );
     }
 
 }

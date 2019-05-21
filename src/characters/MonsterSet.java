@@ -48,6 +48,8 @@ public class MonsterSet {
         for(Node<Monster> curr = root; curr.getNext() != null; curr = curr.getNext()){
             if (curr.getPayload().collideHitbox(hitbox)){
                 curr.getPayload().isAttacked();
+            }else {
+                System.out.println("Monster poss : " + curr.getPayload().positionInt);
             }
         }
     }
