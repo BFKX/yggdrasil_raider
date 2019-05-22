@@ -35,11 +35,16 @@ public class Map {
 	final private Image wCloseWall = new Image("resources/images/wCloseWall.png");
 	final private Image nCloseWall = new Image("resources/images/nCloseWall.png");
 	final private Image red = new Image("resources/images/red.png");
+	final private Image groundVar0 = new Image("resources/images/groundVar0.png");
 	final private Image groundVar1 = new Image("resources/images/groundVar1.png");
 	final private Image groundVar2 = new Image("resources/images/groundVar2.png");
 	final private Image groundVar3 = new Image("resources/images/groundVar3.png");
 	final private Image groundVar4 = new Image("resources/images/groundVar4.png");
 	final private Image groundVar5 = new Image("resources/images/groundVar5.png");
+	final private Image groundVar6 = new Image("resources/images/groundVar6.png");
+	final private Image groundVar7 = new Image("resources/images/groundVar7.png");
+	final private Image groundVar8 = new Image("resources/images/groundVar8.png");
+	final private Image groundVar9 = new Image("resources/images/groundVar9.png");
 	final private Image character = new Image("resources/images/waitingCharacter.png");
 	final private double SIDE = HEIGHT / 60;
 	private final Random pseudoRandomList;
@@ -228,16 +233,26 @@ public class Map {
 	 */
 	private Image spriteSelector(int value) {
 		switch (value) {
+			case -9:
+				return groundVar9;
+			case -8:
+				return groundVar8;
+			case -7:
+				return groundVar7;
+			case -6:
+				return groundVar6;
+			case -5:
+				return groundVar5;
 		case -4:
-			return groundVar5;
-		case -3:
 			return groundVar4;
-		case -2:
+		case -3:
 			return groundVar3;
-		case -1:
+		case -2:
 			return groundVar2;
-		case 0:
+		case -1:
 			return groundVar1;
+		case 0:
+			return groundVar0;
 		case 1:
 			return voidImage;
 		case 2:
