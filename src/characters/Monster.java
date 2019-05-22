@@ -2,7 +2,6 @@ package characters;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import mapping.Map;
 import tools.Coordinate;
 import tools.Hitbox;
 

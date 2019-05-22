@@ -31,7 +31,7 @@ public abstract class Character {
 
     Character(Coordinate position) {
         this.position = position;
-        this.hitbox = new Hitbox(position, RADIUS); // en case ( double )
+        this.hitbox = new Hitbox(position, RADIUS); // en case (double)
         isAttacking = false;
     }
 

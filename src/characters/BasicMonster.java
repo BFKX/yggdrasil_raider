@@ -40,7 +40,7 @@ public class BasicMonster extends Monster
         lifeBar.put(400, new Image("images/lifebar2.png"));
         lifeBar.put(200, new Image("images/lifebar1.png"));
         lifeBar.put(0, new Image("images/lifebar0.png"));
-        hitbox.setRadius(RADIUS);
+        hitbox.setRadius(2 * RADIUS);
     }
 
 @Override
@@ -53,8 +53,8 @@ public void display(GraphicsContext gc, Coordinate characterPosition) {
     } else if (this.type == 3) {
         sprite = new Image("resources/images/monster3.png");
     }
-    gc.drawImage(sprite, (this.position.getX() - xOffset) * SIDE, (this.position.getY() - yOffset) * SIDE, 2 * RADIUS, 2 * RADIUS);
-    gc.drawImage(lifeBar.get(healthPoint), (this.position.getX() - xOffset) * SIDE, (this.position.getY() - yOffset) * SIDE - 13, 2 * RADIUS, 0.25 * RADIUS);
+    gc.drawImage(sprite, (this.position.getX() - xOffset) * SIDE - RADIUS, (this.position.getY() - yOffset) * SIDE - RADIUS, 2 * RADIUS, 2 * RADIUS);
+    gc.drawImage(lifeBar.get(healthPoint), (this.position.getX() - xOffset) * SIDE - RADIUS, (this.position.getY() - yOffset) * SIDE - 13 - RADIUS, 2 * RADIUS, 0.25 * RADIUS);
     hitbox.draw(gc, mainCharactersPosition);
 }
 public void updateDisplacement() {

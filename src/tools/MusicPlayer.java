@@ -19,6 +19,7 @@ public class MusicPlayer {
 				BackgroundRepeat.NO_REPEAT,	BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT));
 		unmutedButton = new Background(new BackgroundImage(new Image("images/unmutedButton.png", side, side, false, false),
 				BackgroundRepeat.NO_REPEAT,	BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT));
+		player.setVolume(0);
 	}
 
 	private void setPath(String path) {
