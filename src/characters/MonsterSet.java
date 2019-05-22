@@ -5,7 +5,7 @@ import mapping.Room;
 import tools.Coordinate;
 import tools.Hitbox;
 import tools.Node;
-
+import mapping.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class MonsterSet {
@@ -40,6 +40,11 @@ public class MonsterSet {
     public void setStartMonster(Room room ){
         for(Node<Monster> curr = root; curr.getNext() != null; curr = curr.getNext()) {
             curr.getPayload().startposition(room);
+        }
+    }
+    public void setMap(Map map){
+        for(Node<Monster> curr = root; curr.getNext() != null; curr = curr.getNext()) {
+            curr.getPayload().setMap(map);
         }
     }
     public void update(GraphicsContext gc) {

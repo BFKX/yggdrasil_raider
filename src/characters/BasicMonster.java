@@ -64,23 +64,18 @@ public void display(GraphicsContext gc, Coordinate characterPosition) {
     gc.drawImage(lifeBar.get(lifeValue), (this.position.getX() - xOffset) * SIDE, (this.position.getY() - yOffset) * SIDE - 13, 2 * RADIUS, 0.25 * RADIUS);
     this.hitbox = new Hitbox(new Coordinate((this.position.getX() - xOffset) * SIDE,(this.position.getY() - yOffset) * SIDE),2 * RADIUS);
 }
-public void updateDisplacement()
-{
-    int signSpeedX = signOf(speedX);
-    int signSpeedY = signOf(speedY);
-    double toCharactersDistance = position.distance(mainCharactersPosition);
-    if(toCharactersDistance < 500) {
-        double Xdist = position.getX() - mainCharactersPosition.getX();
-        double Ydist = position.getY() - mainCharactersPosition.getY();
-        directionX = Xdist > 0 ? 1 : (Xdist < 0)  ?  -1 : 0  ;
-        directionY = Ydist > 0 ? 1 : (Ydist < 0)  ?  -1 : 0  ;
-        speedX =  directionX * speedLimitX / 13 ;
-        speedY = directionY *  speedLimitY / 13 ;
-    }
-    if((int)position.getX() + signSpeedX < 0 || (int)position.getX() + signSpeedX > map.length - 1 ||
-            (int)position.getY() + signSpeedY < 0 || (int)position.getY() + signSpeedY > map[0].length - 1 ||
-            map[(int)position.getX() + signSpeedX][(int)position.getY() + signSpeedY] > 0) {
-        directionX = -1 *  directionX;
+public void updateDisplacement() {
+    //double toCharactersDistance = position.distance(mainCharactersPosition);
+    //if(toCharactersDistance < 500) {
+    //    double Xdist = position.getX() - mainCharactersPosition.getX();
+    //    double Ydist = position.getY() - mainCharactersPosition.getY();
+    //    directionX = Xdist > 0 ? 1 : (Xdist < 0)  ?  -1 : 0  ;
+    //    directionY = Ydist > 0 ? 1 : (Ydist < 0)  ?  -1 : 0  ;
+    //    speedX =  directionX * speedLimitX / 13 ;
+    //    speedY = directionY *  speedLimitY / 13 ;
+    //}
+    if (collision(position, map)) {
+        directionX = -1 * directionX;
         directionY = -1 * directionY;
         speedX = directionX * speedLimitX / 13;
         speedY = directionY * speedLimitY / 13;

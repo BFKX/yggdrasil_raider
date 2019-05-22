@@ -64,26 +64,23 @@ public class MainCharacter extends Character {
 	}
 
 	public void update(HashMap<CharacterActions, Boolean> inputs) {
+
 		displacement(inputs);
-		if(!collision(position)) {
+		if(!collision(position,map.getCurrent().getMap())) {
 			position.add(speedX / SIDE, speedY / SIDE);
 		}
 		if(position.getX() < 0 ){
 			map.moveEast();
 			position=new Coordinate(map.getMap().length-1,position.getY());
-			mapInt=map.getMap();
 		}else if(position.getX()>map.getMap().length -1){
 			map.moveWest();
 			position= new Coordinate(0, position.getY());
-			mapInt=map.getMap();
 		}else if(position.getY() <0){
 			map.moveNorth();
 			position = new Coordinate(position.getX(),map.getMap()[0].length-1);
-			mapInt=map.getMap();
 		}else if(position.getY() > map.getMap()[0].length -1 ){
 			map.moveSouth();
 			position = new Coordinate(position.getX(),0);
-			mapInt=map.getMap();
 		}
 	}
 

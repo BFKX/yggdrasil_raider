@@ -17,7 +17,6 @@ public abstract class Character {
     final double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
     final double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
     int type; // type = 0 => perso principal
-    int[][] mapInt;
     Coordinate position; // position en (double ) case
     final Hitbox hitbox;
     double speedX = 0, speedY = 0; // en pixel
@@ -91,7 +90,7 @@ public abstract class Character {
         return 0;
     }
 
-    boolean collision(Coordinate positionInt) {
+    boolean collision(Coordinate positionInt,int[][]mapInt) {
         int signSpeedX = signOf(speedX);
         int signSpeedY = signOf(speedY);
         for (int k = -1; k < 2; k++) {
@@ -101,11 +100,8 @@ public abstract class Character {
                 if (j >= 0 && j < mapInt[0].length) {
                     if (mapInt[i][j] > 0) {
                         mapInt[i][j] = 8000;
-                        System.out.println("signe " + signSpeedX +';' + signSpeedY);
-                        System.out.println("spped"+ speedX +","+speedY);
                         return true;
                     }
-                    //System.out.println(mapInt[(int) positionInt.getX() + signSpeedX][(int) positionInt.getY() + signSpeedY]);
                 }
             }
         }
@@ -127,7 +123,6 @@ public abstract class Character {
     }
     public void setMap(Map map) {
         this.map = map;
-        this.mapInt = map.getMap();
     }
 
     public Hitbox getHitbox() {
