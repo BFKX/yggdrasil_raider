@@ -30,6 +30,9 @@ public abstract class Monster extends Character {
         updateDisplacement();
         this.position.add( speedX/SIDE, speedY/SIDE);
     }
+    public void setMainCharactersPosition(Coordinate position){
+        this.mainCharactersPosition=position;
+    }
 
     public boolean collideHitbox(Hitbox hitbox){
         return this.hitbox.collide(hitbox);

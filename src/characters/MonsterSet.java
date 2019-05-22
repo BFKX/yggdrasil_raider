@@ -42,6 +42,12 @@ public class MonsterSet {
             curr.getPayload().startposition(room);
         }
     }
+
+    public void setMainCharacterPosition( Coordinate position ){
+        for(Node<Monster> curr = root; curr.getNext() != null; curr = curr.getNext()) {
+            curr.getPayload().setMainCharactersPosition(position);
+        }
+    }
     public void setMap(Map map){
         for(Node<Monster> curr = root; curr.getNext() != null; curr = curr.getNext()) {
             curr.getPayload().setMap(map);

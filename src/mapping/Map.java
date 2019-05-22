@@ -77,7 +77,7 @@ public class Map {
 		for (int i = 0; i < mapOfRoom.length; i++){
 			for(int j = 0 ; j<mapOfRoom[0].length ; j++){
 				if(mapOfRoom[i][j] != null){
-					for ( int k = 0 ; i <5 ; i++){
+					for ( int k = 0 ; i <10 ; i++){
 						mapOfRoom[i][j].delete25(1);
 					}
 					mapOfRoom[i][j].placeWall();
@@ -166,6 +166,7 @@ public class Map {
 		this.columns = map.length;
 		originXMiniMap = WIDTH - columns * sideMiniMap;
 		originYMiniMap = HEIGHT - lines * sideMiniMap;
+		current.getMonsters().setMainCharacterPosition(mainCharacter.getPosition());
 	}
 	public void updateMonster(GraphicsContext gc){
 		current.getMonsters().update(gc);
