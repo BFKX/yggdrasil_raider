@@ -62,8 +62,8 @@ class Cave extends Room {
 						double nb = Math.sqrt((-2)*Math.log(u1))*Math.cos(u2); // gausien centrer en 0 de'ecartipe 1
 
 						nb = Math.abs(nb)*d/900;
-						if (nb < 9  ){
-							map[i][j] = seeds[k] - (9-(int)(nb));
+						if (nb < 4  ){
+							map[i][j] = seeds[k] - (4-(int)(nb));
 						}
 						k++;
 					}
