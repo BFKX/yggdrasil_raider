@@ -100,7 +100,6 @@ public abstract class Character {
             if (i >= 0 && i < mapInt.length) {
                 if (j >= 0 && j < mapInt[0].length) {
                     if (mapInt[i][j] > 0) {
-                        mapInt[i][j] = 8000;
                         return true;
                     }
                 }
