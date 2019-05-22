@@ -1,6 +1,5 @@
 package mapping;
 
-import characters.MonsterSet;
 import tools.Coordinate;
 
 import java.util.ArrayList;

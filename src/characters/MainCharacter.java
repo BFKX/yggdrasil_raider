@@ -6,7 +6,6 @@ import tools.CharacterActions;
 import tools.Coordinate;
 import mapping.Map;
 import tools.Hitbox;
-import tools.Node;
 
 import java.util.HashMap;
 

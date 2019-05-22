@@ -6,7 +6,6 @@ import tools.Coordinate;
 import tools.Hitbox;
 import tools.Node;
 import mapping.Map;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class MonsterSet {
     private Node<Monster> root = null;

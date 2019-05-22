@@ -27,7 +27,7 @@ public abstract class Character {
     final HashMap<Integer, Image> lifeBar = new HashMap<>();
     private String activeSprite = "movingEast";
     int healthPoint;
-    boolean isAttacking;
+    private boolean isAttacking;
 
     Character(Coordinate position) {
         this.position = position;

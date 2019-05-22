@@ -5,7 +5,6 @@ import javafx.scene.image.Image;
 import tools.Coordinate;
 import java.awt.Toolkit;
 import java.util.concurrent.ThreadLocalRandom;
-import tools.Hitbox;
 
 public class BasicMonster extends Monster
 {
@@ -16,8 +15,6 @@ public class BasicMonster extends Monster
     private boolean isAttacked;
     private int[][] map;
     private double type;
-    final double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-    final double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
     final private double SIDE = HEIGHT / 60;
 
     public BasicMonster (Coordinate coordinate, Coordinate mainCharacterPosition, int[][] map) {
