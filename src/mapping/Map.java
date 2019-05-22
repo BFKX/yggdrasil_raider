@@ -166,11 +166,12 @@ public class Map {
 		this.columns = map.length;
 		originXMiniMap = WIDTH - columns * sideMiniMap;
 		originYMiniMap = HEIGHT - lines * sideMiniMap;
-		current.getMonsters().setMainCharacterPosition(mainCharacter.getPosition());
 	}
+
 	public void updateMonster(GraphicsContext gc){
 		current.getMonsters().update(gc);
 	}
+
 	public void display(GraphicsContext gc, Coordinate characterPosition) {
 		double positionX = characterPosition.getX();
 		double positionY = characterPosition.getY();

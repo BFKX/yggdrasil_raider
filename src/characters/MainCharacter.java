@@ -82,6 +82,7 @@ public class MainCharacter extends Character {
 			map.moveSouth();
 			position = new Coordinate(position.getX(),0);
 		}
+		map.getCurrent().getMonsters().setMainCharacterPosition(position);
 	}
 
 	public Coordinate getPosition() {
