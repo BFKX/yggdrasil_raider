@@ -18,6 +18,10 @@ public class Hitbox {
 	}
 
 	public boolean collide(Hitbox other) {
+		System.out.println("1 : " +this.origin +" 2 : " + other.getOrigin() );
+		System.out.println("D: " +  this.origin.distance(other.getOrigin()) );
+		System.out.println(this.radius );
+		System.out.println(other.getRadius());
 		return this.origin.distance(other.getOrigin()) <= this.radius + other.getRadius();
 	}
 
