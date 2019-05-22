@@ -103,7 +103,7 @@ public class MainCharacter extends Character {
 
 	public void attack(){
 		System.out.println("Main :"+position+"Radius" + this.getRADIUS()+" ; SIDE : " + SIDE);
-		Hitbox hitboxAttack = new Hitbox(getPosition(),RADIUS);
+		Hitbox hitboxAttack = new Hitbox(getPosition(), RADIUS / SIDE);
 		map.getCurrent().getMonsters().isHit(hitboxAttack);
 	}
 

@@ -2,18 +2,14 @@ package characters;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import tools.CharacterActions;
 import tools.Coordinate;
-import mapping.Map;
 import java.awt.Toolkit;
-import java.util.HashMap;
 import java.util.concurrent.ThreadLocalRandom;
 import tools.Hitbox;
 
 public class BasicMonster extends Monster
 {
     private Hitbox hitbox;
-    private int lifeValue;
     private double positionX;
     private double positionY;
     private int directionX;
@@ -30,15 +26,15 @@ public class BasicMonster extends Monster
         this.positionX = position.getX();
         this.positionY = position.getY();
         this.type = ThreadLocalRandom.current().nextInt(1, 4);
-        this.lifeValue = 1000;
+        this.healthPoint = 1000;
         this.map = map;
         RADIUS = 2 * Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
         directionX = (1 - 2 * ThreadLocalRandom.current().nextInt(0, 2));
         directionY = (1 - 2 * ThreadLocalRandom.current().nextInt(0, 2));
         speedX = directionX * RADIUS / 8;
         speedY = directionY * RADIUS / 8;
-        speedLimitX = RADIUS / 4 ;
-        speedLimitY = RADIUS / 4;
+        speedLimitX = RADIUS / 32;
+        speedLimitY = RADIUS / 32;
         lifeBar.put(1000, new Image("images/lifebar5.png"));
         lifeBar.put(800, new Image("images/lifebar4.png"));
         lifeBar.put(600, new Image("images/lifebar3.png"));
@@ -49,11 +45,8 @@ public class BasicMonster extends Monster
 
 @Override
 public void display(GraphicsContext gc, Coordinate characterPosition) {
-    double RADIUS = 2 * Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
-    double positionXX = characterPosition.getX();
-    double positionYY = characterPosition.getY();
-    double xOffset = positionXX - WIDTH/ (2 * SIDE);
-    double yOffset = positionYY - HEIGHT / (2 * SIDE);
+    double xOffset = characterPosition.getX() - WIDTH/ (2 * SIDE);
+    double yOffset = characterPosition.getY() - HEIGHT / (2 * SIDE);
     Image sprite = new Image("resources/images/monster1.png");
     if (this.type == 2) {
         sprite = new Image("resources/images/monster2.png");
@@ -61,8 +54,9 @@ public void display(GraphicsContext gc, Coordinate characterPosition) {
         sprite = new Image("resources/images/monster3.png");
     }
     gc.drawImage(sprite, (this.position.getX() - xOffset) * SIDE, (this.position.getY() - yOffset) * SIDE, 2 * RADIUS, 2 * RADIUS);
-    gc.drawImage(lifeBar.get(lifeValue), (this.position.getX() - xOffset) * SIDE, (this.position.getY() - yOffset) * SIDE - 13, 2 * RADIUS, 0.25 * RADIUS);
-    this.hitbox = new Hitbox(new Coordinate((this.position.getX() - xOffset) * SIDE,(this.position.getY() - yOffset) * SIDE),2 * RADIUS);
+    gc.drawImage(lifeBar.get(healthPoint), (this.position.getX() - xOffset) * SIDE, (this.position.getY() - yOffset) * SIDE - 13, 2 * RADIUS, 0.25 * RADIUS);
+    this.hitbox = new Hitbox(new Coordinate(this.position.getX() + RADIUS / SIDE,this.position.getY() + RADIUS / SIDE),2 * RADIUS);
+    hitbox.draw(gc, mainCharactersPosition);
 }
 public void updateDisplacement() {
     //double toCharactersDistance = position.distance(mainCharactersPosition);

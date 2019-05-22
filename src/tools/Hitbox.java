@@ -1,6 +1,7 @@
 package tools;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 import java.awt.*;
 
@@ -8,6 +9,8 @@ public class Hitbox {
 	private final Coordinate origin;
 	private double radius;
 	final double SIDE = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
+	private final double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+	private final double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 
 	public Hitbox(Coordinate origin, double radius) {
 		this.origin = origin;
@@ -15,12 +18,15 @@ public class Hitbox {
 	}
 
 	public boolean collide(Hitbox other) {
-		return this.origin.distance(other.getOrigin())*SIDE <= this.radius + other.getRadius();
+		return this.origin.distance(other.getOrigin()) <= this.radius + other.getRadius();
 	}
 
-	public void draw(GraphicsContext gc) {
+	public void draw(GraphicsContext gc, Coordinate characterPosition) {
 		gc.save();
-		gc.strokeOval((origin.getX() - radius / 2) * SIDE, (origin.getY() - radius / 2)* SIDE, radius, radius);
+		double xOffset = characterPosition.getX() - WIDTH / (2 * SIDE);
+		double yOffset = characterPosition.getY() - HEIGHT / (2 * SIDE);
+		gc.setStroke(Color.GREENYELLOW);
+		gc.strokeOval((this.origin.getX() - xOffset) * SIDE - radius / 2, (this.origin.getY() - yOffset) * SIDE - radius / 2, radius, radius);
 		gc.restore();
 	}
 

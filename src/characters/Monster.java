@@ -11,7 +11,7 @@ public abstract class Monster extends Character {
 
     Monster(Coordinate position,Coordinate mainCharactersPosition){
         super(position);
-        this.mainCharactersPosition =  mainCharactersPosition ;
+        this.mainCharactersPosition =  mainCharactersPosition;
         spriteSet.put("movingNorth", new Image("resources/images/movingNorthCharacter.png"));
         spriteSet.put("movingSouth", new Image("resources/images/movingSouthCharacter.png"));
         spriteSet.put("movingWest", new Image("resources/images/movingWestCharacter.png"));
@@ -37,7 +37,7 @@ public abstract class Monster extends Character {
     }
 
     public void isAttacked(){
-        System.out.println("Je suis attaqué !!!!!!"+this.position + "radius : " + this.getRADIUS() );
+        System.out.println("\t\t\tCOUCOU\t\t\t");
     }
 
 }

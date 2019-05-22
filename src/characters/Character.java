@@ -41,13 +41,14 @@ public abstract class Character {
 
     public void startposition(Room room){
         int [][] map = room.getMap();
-        int mid1 = ThreadLocalRandom.current().nextInt( map.length - (int)( map.length * .8)  , map.length );
-        int mid2 = ThreadLocalRandom.current().nextInt( map[0].length - (int)( map[0].length * .8)  , map[0].length );
-        while (map[ (int) mid1 ][(int) mid2] > 0 ){
-            mid1 = ThreadLocalRandom.current().nextInt( map.length - (int)( map.length * .8)  , map.length );
-            mid2 = ThreadLocalRandom.current().nextInt( map[0].length - (int)( map[0].length * .8)  , map[0].length );
+        int mid1 = ThreadLocalRandom.current().nextInt(map.length - (int)( map.length * 0.8), map.length);
+        int mid2 = ThreadLocalRandom.current().nextInt(map[0].length - (int)( map[0].length * 0.8), map[0].length);
+        while (map[mid1][mid2] > 0) {
+            mid1 = ThreadLocalRandom.current().nextInt(map.length - (int)( map.length * .8)  , map.length );
+            mid2 = ThreadLocalRandom.current().nextInt(map[0].length - (int)( map[0].length * .8), map[0].length );
         }
-        this.position= new Coordinate(mid1,mid2);
+        this.position.setX(mid1);
+        this.position.setY(mid2);
     }
 
     public void display(GraphicsContext gc) {
@@ -133,7 +134,12 @@ public abstract class Character {
         return healthPoint;
     }
 
-    public void drawHitbox(GraphicsContext gc) {
-        hitbox.draw(gc);
+    public void drawHitbox(GraphicsContext gc, MainCharacter mainCharacter) {
+        if (type == 0) {
+            hitbox.draw(gc, this.getPosition());
+        } else {
+            hitbox.draw(gc, mainCharacter.getPosition());
+        }
+
     }
 }

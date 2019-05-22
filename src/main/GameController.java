@@ -115,7 +115,6 @@ class GameController extends Application {
 		scene.setOnMousePressed(event -> {
 			if (event.getButton() == MouseButton.PRIMARY) {
 				mainCharacter.attack();
-				System.out.println("mouse click detected!!!!!!!!!!!!!!!!!!!!!!!!! " + event.getSource());
 			}
 		});
 
@@ -200,7 +199,7 @@ class GameController extends Application {
 
 						mainCharacter.display(gc);
 						mainCharacter.displayLifeCharacter(gc, mainCharacter.getPosition());
-						mainCharacter.drawHitbox(gc);
+						mainCharacter.drawHitbox(gc, mainCharacter);
 
 						fpsmeter.update(now, gc);
 						lastNow = now;
