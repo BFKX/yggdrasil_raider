@@ -88,7 +88,6 @@ class Cave extends Room {
 									map[i + l][j + k] = 0;
 								}
 							}
-
 						}
 					}
 				}

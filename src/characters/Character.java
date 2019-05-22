@@ -95,12 +95,11 @@ public abstract class Character {
         int signSpeedX = signOf(speedX);
         int signSpeedY = signOf(speedY);
         for (int k = -1; k < 2; k++) {
-            int i = (int) positionInt.getX() + signSpeedX  ;
-            int j = (int) positionInt.getY() + signSpeedY  ;
+            int i = (type == 0) ? (int) positionInt.getX() + (int) (signSpeedX * RADIUS / (2 * SIDE)) : (int) positionInt.getX() + (int) (signSpeedX * RADIUS / SIDE);
+            int j = (type == 0) ? (int) positionInt.getY() + (int) (signSpeedY * RADIUS / (2 * SIDE)) : (int) positionInt.getY() + (int) (signSpeedY * RADIUS / SIDE);
             if (i >= 0 && i < mapInt.length) {
                 if (j >= 0 && j < mapInt[0].length) {
                     if (mapInt[i][j] > 0) {
-                        mapInt[i][j] = 8000;
                         return true;
                     }
                 }
