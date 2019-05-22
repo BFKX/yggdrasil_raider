@@ -1,9 +1,12 @@
 package characters;
 
 import javafx.scene.canvas.GraphicsContext;
+import mapping.Room;
 import tools.Coordinate;
 import tools.Hitbox;
 import tools.Node;
+
+import java.util.concurrent.ThreadLocalRandom;
 
 public class MonsterSet {
     private Node<Monster> root = null;
@@ -13,6 +16,7 @@ public class MonsterSet {
             this.add(new BasicMonster(new Coordinate( map.length*Math.random(),
                      map[0] .length * Math.random()), mainCharacter.getPosition(), map));
         }
+
     }
 
     public void add(Monster monster) {
@@ -33,6 +37,11 @@ public class MonsterSet {
         }
     }
 
+    public void setStartMonster(Room room ){
+        for(Node<Monster> curr = root; curr.getNext() != null; curr = curr.getNext()) {
+            curr.getPayload().startposition(room);
+        }
+    }
     public void update(GraphicsContext gc) {
         for(Node<Monster> curr = root; curr.getNext() != null; curr = curr.getNext()) {
             curr.getPayload().update(gc);

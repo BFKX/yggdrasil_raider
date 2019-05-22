@@ -106,11 +106,10 @@ class GameController extends Application {
 	@Override
 	public void start(Stage stage) {
 		game.getChildren().add(canvas);
-		MainCharacter mainCharacter = new MainCharacter(new Coordinate(20 ,20),map);
+		MainCharacter mainCharacter = new MainCharacter(new Coordinate(0,0),map);
 		this.map = new Map(20, mainCharacter);
+		mainCharacter.startposition(map.getCurrent());
 		mainCharacter.setMap(map);//not null
-
-		monsters = new MonsterSet(20, mainCharacter, map.getMap());
 
 
 		scene.setOnMousePressed(event -> {
@@ -124,7 +123,6 @@ class GameController extends Application {
 			switch (e.getCode()) {
 			case R:
 				map = new Map(20,mainCharacter);
-				monsters = new MonsterSet(20, mainCharacter, map.getMap());
 				mainCharacter.setMap(map);
 				break;
 			case M :

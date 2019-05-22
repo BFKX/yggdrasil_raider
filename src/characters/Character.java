@@ -2,6 +2,7 @@ package characters;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import mapping.Room;
 import tools.Coordinate;
 import tools.Hitbox;
 
@@ -9,6 +10,7 @@ import mapping.Map;
 
 import java.awt.*;
 import java.util.HashMap;
+import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Character {
     Map map;
@@ -29,13 +31,24 @@ public abstract class Character {
     boolean isAttacking;
 
     Character(Coordinate position) {
-        this.position = position;//a changer ( en case )
+        this.position = position;
         this.hitbox = new Hitbox(position, RADIUS); // en case ( double )
         isAttacking = false;
     }
 
     public Coordinate getPosition(){
         return this.position;
+    }
+
+    public void startposition(Room room){
+        int [][] map = room.getMap();
+        int mid1 = ThreadLocalRandom.current().nextInt( map.length - (int)( map.length * .8)  , map.length );
+        int mid2 = ThreadLocalRandom.current().nextInt( map[0].length - (int)( map[0].length * .8)  , map[0].length );
+        while (map[ (int) mid1 ][(int) mid2] > 0 ){
+            mid1 = ThreadLocalRandom.current().nextInt( map.length - (int)( map.length * .8)  , map.length );
+            mid2 = ThreadLocalRandom.current().nextInt( map[0].length - (int)( map[0].length * .8)  , map[0].length );
+        }
+        this.position= new Coordinate(mid1,mid2);
     }
 
     public void display(GraphicsContext gc) {
