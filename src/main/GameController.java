@@ -1,6 +1,5 @@
 package main;
 
-import characters.MonsterSet;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -36,12 +35,13 @@ class GameController extends Application {
 	private final Button muteButton = new Button();
 	private final Text text = new Text("Pause");
 	private final HashMap<CharacterActions, Boolean> inputs = new HashMap<>();
-	private final MusicPlayer music = new MusicPlayer("/resources/audio/inGame.wav", HEIGHT / 15);
+	private final MusicPlayer music = new MusicPlayer("/resources/audio/inGame.mp3", HEIGHT / 15);
 	private Map map;
-	private MonsterSet monsters;
-	final private Image pauseBackground = new Image("resources/images/menuBackground.png", WIDTH, HEIGHT, false, true);
+	final private Image pauseBackground = new Image("resources/images/menuBackground.png", WIDTH, HEIGHT, false,
+			true);
 	final private Font customFont = Font.loadFont(
-			StartMenuController.class.getResource("../resources/fonts/VIKING-N.TTF").toExternalForm(), HEIGHT / 12);
+			StartMenuController.class.getResource("../resources/fonts/VIKING-N.TTF").toExternalForm(),
+			HEIGHT / 12);
 
 	@FXML
 	private AnchorPane game;

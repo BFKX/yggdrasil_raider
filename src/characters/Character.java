@@ -2,11 +2,13 @@ package characters;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.transform.Rotate;
 import mapping.Room;
 import tools.Coordinate;
 import tools.Hitbox;
 
 import mapping.Map;
+import tools.ImageSet;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -23,11 +25,14 @@ public abstract class Character {
     double speedLimitX, speedLimitY; // en pixel
     double RADIUS; //en pixel
     final double SIDE = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60; //en pixel
-    final HashMap<String, Image> spriteSet = new HashMap<>();
+    ImageSet sprites;
+    private Image sprite;
+    Image waiting;
     final HashMap<Integer, Image> lifeBar = new HashMap<>();
     private String activeSprite = "movingEast";
     int healthPoint;
     private boolean isAttacking;
+    int angle;
 
     Character(Coordinate position) {
         this.position = position;
@@ -52,34 +57,45 @@ public abstract class Character {
     }
 
     public void display(GraphicsContext gc) {
+        gc.save();
         if (type != 0) {
             gc.drawImage(lifeBar.get(healthPoint), this.position.getX() * map.getSIDE() - 30,
                     this.position.getY() * map.getSIDE() - 30, 2 * RADIUS, 0.25 * RADIUS);
         } else {
             gc.drawImage(lifeBar.get(healthPoint), 0, HEIGHT * 0.95, WIDTH / 5, HEIGHT / 20);
         }
-        gc.drawImage(spriteSelector(), WIDTH / 2 - RADIUS / 2, HEIGHT / 2 - RADIUS / 2, RADIUS, RADIUS);
+        angleSelector(gc);
+        if (Math.abs(speedY) < 1 && Math.abs(speedX) < 1) {
+            sprite = waiting;
+        } else {
+            sprite = sprites.get();
+        }
+        gc.drawImage(sprite, WIDTH / 2 - RADIUS / 2, HEIGHT / 2 - RADIUS / 2, RADIUS, RADIUS);
+        gc.restore();
     }
 
-    private Image spriteSelector() {
+    private void angleSelector(GraphicsContext gc) {
         if (speedY > 1 && speedX > 1) {
-            activeSprite = "movingSouthEast";
-        } else if (speedY > 1 && Math.abs(speedX) < 1) {
-            activeSprite = "movingSouth";
+            angle = 135;
         } else if (speedY > 1 && speedX < -1) {
-            activeSprite = "movingSouthWest";
-        } else if (speedY < -1 && speedX > 1) {
-            activeSprite = "movingNorthEast";
+            angle = -135;
         } else if (Math.abs(speedY) < 1 && speedX > 1) {
-            activeSprite = "movingEast";
-        } else if (speedY < -1 && Math.abs(speedX) < 1) {
-            activeSprite = "movingNorth";
-        } else if (speedY < -1 && speedX < -1) {
-            activeSprite = "movingNorthWest";
+            angle = 90;
         } else if (Math.abs(speedY) < 1 && speedX < -1) {
-            activeSprite = "movingWest";
+            angle = -90;
+        } else if (speedY < -1 && speedX > 1) {
+            angle = 45;
+        } else if (speedY < -1 && speedX < -1) {
+            angle = -45;
+        } else if (speedY < -1 && Math.abs(speedX) < 1) {
+            angle = 0;
+        } else if (speedY > 1 && Math.abs(speedX) < 1) {
+            angle = 180;
         }
-        return spriteSet.get(activeSprite);
+        if (type == 0) {
+            Rotate r = new Rotate(angle, WIDTH / 2, HEIGHT / 2);
+            gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
+        }
     }
 
     int signOf(double x) {

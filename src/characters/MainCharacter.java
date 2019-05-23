@@ -6,6 +6,7 @@ import tools.CharacterActions;
 import tools.Coordinate;
 import mapping.Map;
 import tools.Hitbox;
+import tools.ImageSet;
 
 import java.util.HashMap;
 
@@ -13,15 +14,21 @@ public class MainCharacter extends Character {
 	public MainCharacter(Coordinate position, Map map ) {
 		super(position);
 		this.map=map;
-		spriteSet.put("movingNorth", new Image("resources/images/movingNorthCharacter.png"));
-		spriteSet.put("movingSouth", new Image("resources/images/movingSouthCharacter.png"));
-		spriteSet.put("movingWest", new Image("resources/images/movingWestCharacter.png"));
-		spriteSet.put("movingEast", new Image("resources/images/movingEastCharacter.png"));
-		spriteSet.put("movingNorthEast", new Image("resources/images/movingNorthEastCharacter.png"));
-		spriteSet.put("movingSouthEast", new Image("resources/images/movingSouthEastCharacter.png"));
-		spriteSet.put("movingNorthWest", new Image("resources/images/movingNorthWestCharacter.png"));
-		spriteSet.put("movingSouthWest", new Image("resources/images/movingSouthWestCharacter.png"));
-		spriteSet.put("waiting", new Image("resources/images/waitingCharacter.png"));
+		HashMap<Integer, Image> images = new HashMap<>();
+		images.put(0, new Image("resources/images/noFootCharacter.png"));
+		images.put(1, new Image("resources/images/leftFootCharacter1.png"));
+		images.put(2, new Image("resources/images/leftFootCharacter2.png"));
+		images.put(3, new Image("resources/images/leftFootCharacter3.png"));
+		images.put(4, new Image("resources/images/leftFootCharacter4.png"));
+		images.put(5, new Image("resources/images/leftFootCharacter5.png"));
+		images.put(11, new Image("resources/images/rightFootCharacter1.png"));
+		images.put(12, new Image("resources/images/rightFootCharacter2.png"));
+		images.put(13, new Image("resources/images/rightFootCharacter3.png"));
+		images.put(14, new Image("resources/images/rightFootCharacter4.png"));
+		images.put(15, new Image("resources/images/rightFootCharacter5.png"));
+		int[] sequence = {0, 1, 2, 3, 4, 5, 4, 3, 2, 1, 0, 11, 12, 13, 14, 15, 14, 13, 12, 11};
+		sprites = new ImageSet(images, sequence);
+		waiting = new Image("resources/images/noFootCharacter.png");
 		lifeBar.put(100, new Image("images/lifebar5.png"));
 		lifeBar.put(80, new Image("images/lifebar4.png"));
 		lifeBar.put(60, new Image("images/lifebar3.png"));

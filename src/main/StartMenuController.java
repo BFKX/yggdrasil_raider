@@ -41,7 +41,7 @@ class StartMenuController {
 		Font titleFont = Font.loadFont(
 				StartMenuController.class.getResource("../resources/fonts/VIKING-N.TTF").toExternalForm(),
 				startMenu.getPrefHeight() / 12);
-		MusicPlayer music = new MusicPlayer("/resources/audio/startMenu.wav", HEIGHT / 15);
+		MusicPlayer music = new MusicPlayer("/resources/audio/startMenu.mp3", HEIGHT / 15);
 		startMenu.setBackground(new Background(new BackgroundImage(
 				new Image("images/menuBackground.png", WIDTH, HEIGHT, false, false), BackgroundRepeat.NO_REPEAT,
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));

@@ -41,11 +41,6 @@ public class Map {
 	final private Image groundVar3 = new Image("resources/images/groundVar3.png");
 	final private Image groundVar4 = new Image("resources/images/groundVar4.png");
 	final private Image groundVar5 = new Image("resources/images/groundVar5.png");
-	final private Image groundVar6 = new Image("resources/images/groundVar6.png");
-	final private Image groundVar7 = new Image("resources/images/groundVar7.png");
-	final private Image groundVar8 = new Image("resources/images/groundVar8.png");
-	final private Image groundVar9 = new Image("resources/images/groundVar9.png");
-	final private Image character = new Image("resources/images/waitingCharacter.png");
 	final private double SIDE = HEIGHT / 60;
 	private final Random pseudoRandomList;
 	private final double sideMiniMap = SIDE * 0.1;
@@ -73,7 +68,7 @@ public class Map {
 	}
 
 
-	public void placeWall(){
+	private void placeWall(){
 		for (int i = 0; i < mapOfRoom.length; i++){
 			for(int j = 0 ; j<mapOfRoom[0].length ; j++){
 				if(mapOfRoom[i][j] != null){
@@ -137,20 +132,20 @@ public class Map {
 		if(mapOfRoom[currentPositionX+1][currentPositionY] != null){ // cree le lien a l'est
 			mapOfRoom[currentPositionX+1][currentPositionY].setWest(current);
 			current.setEast(mapOfRoom[currentPositionX+1][currentPositionY]);
-			int indic = horisontalIndiceLink(current,mapOfRoom[currentPositionX+1][currentPositionY]);
+			int indic = horizontalIndiceLink(current,mapOfRoom[currentPositionX+1][currentPositionY]);
 			current.eastVoid(indic);
 			mapOfRoom[currentPositionX+1][currentPositionY].westVoid(indic);
 		}
 		if(mapOfRoom[currentPositionX-1][currentPositionY] != null){ //cree le lien a l'ouest
 			mapOfRoom[currentPositionX-1][currentPositionY].setEast(current);
 			current.setWest(mapOfRoom[currentPositionX-1][currentPositionY]);
-			int indic = horisontalIndiceLink(current,mapOfRoom[currentPositionX-1][currentPositionY]);
+			int indic = horizontalIndiceLink(current,mapOfRoom[currentPositionX-1][currentPositionY]);
 			current.westVoid(indic);
 			mapOfRoom[currentPositionX-1][currentPositionY].eastVoid(indic);
 		}
 	}
 
-	private int horisontalIndiceLink(Room room1, Room room2){
+	private int horizontalIndiceLink(Room room1, Room room2){
 		int min = room1.height < room2.height ? room1.height : room2.height ;
 		return ThreadLocalRandom.current().nextInt( min / 3, min * 2 /3 );
 	}
@@ -209,7 +204,7 @@ public class Map {
 				}
 			}
 		}
-		gc.drawImage(character,
+		gc.drawImage(red,
 				originXMiniMap + sideMiniMap * characterPosition.getX()  - sideCharacterMiniMap / 2,
 				originYMiniMap + sideMiniMap * characterPosition.getY()  - sideCharacterMiniMap / 2,
 				sideCharacterMiniMap, sideCharacterMiniMap);
@@ -235,14 +230,6 @@ public class Map {
 	 */
 	private Image spriteSelector(int value) {
 		switch (value) {
-			case -9:
-				return groundVar9;
-			case -8:
-				return groundVar8;
-			case -7:
-				return groundVar7;
-			case -6:
-				return groundVar6;
 			case -5:
 				return groundVar5;
 		case -4:
