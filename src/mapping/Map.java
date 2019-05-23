@@ -30,6 +30,10 @@ public class Map {
 	final private Image swCorner = new Image("resources/images/swCorner.png");
 	final private Image neCorner = new Image("resources/images/neCorner.png");
 	final private Image nwCorner = new Image("resources/images/nwCorner.png");
+	final private Image nCorners = new Image("resources/images/nCorners.png");
+	final private Image wCorners = new Image("resources/images/wCorners.png");
+	final private Image sCorners = new Image("resources/images/sCorners.png");
+	final private Image eCorners = new Image("resources/images/eCorners.png");
 	final private Image sCloseWall = new Image("resources/images/sCloseWall.png");
 	final private Image eCloseWall = new Image("resources/images/eCloseWall.png");
 	final private Image wCloseWall = new Image("resources/images/wCloseWall.png");
@@ -272,10 +276,18 @@ public class Map {
 			return nwCorner;
 		case 41:
 			return swCorner;
+			case 80:
+				return eCorners;
 		case 82:
 			return seCorner;
+			case 141:
+				return nCorners;
 		case 163:
 			return neCorner;
+			case 202:
+				return sCorners;
+			case 263:
+				return wCorners;
 		default:
 			 return red;
 		}

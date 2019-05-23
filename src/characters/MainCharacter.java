@@ -1,5 +1,6 @@
 package characters;
 
+import javafx.geometry.Side;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import tools.CharacterActions;
@@ -34,10 +35,10 @@ public class MainCharacter extends Character {
 		lifeBar.put(60, new Image("images/lifebar3.png"));
 		lifeBar.put(40, new Image("images/lifebar2.png"));
 		lifeBar.put(20, new Image("images/lifebar1.png"));
-		RADIUS = 2 * SIDE;
+		RADIUS = 3 * SIDE;
 		hitbox.setRadius(RADIUS);
-		speedLimitX = RADIUS / 3;
-		speedLimitY = RADIUS / 3;
+		speedLimitX = SIDE / 3;
+		speedLimitY = SIDE / 3;
 		healthPoint = 100;
 		this.type = 0;
 	}
