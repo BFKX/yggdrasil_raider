@@ -16,23 +16,23 @@ public abstract class Room {
 	int[][] map;
 	int width;
 	int height;
-	private Coordinate position ;
+	private Coordinate position;
 	int indiceminNorth;
 	int indiceminSouth;
 	int indiceminEast;
 	int indiceminWest;
     int largeur = 3;
 	private MonsterSet monsters;
-	Room(int width, int height, Coordinate position,  Random pseudoRandomList) {
+	Room(int width, int height, Coordinate position, Random pseudoRandomList) {
 		this.width = width;
 		this.height = height;
 		this.pseudoRandomList = pseudoRandomList;
 		this.position = position ;
 		map = new int[width][height];
 		indiceminNorth = -1;
-		indiceminEast=-1;
-		indiceminWest= -1;
-		indiceminSouth=-1;
+		indiceminEast = - 1;
+		indiceminWest= - 1;
+		indiceminSouth = - 1;
 	}
 	public void setMainCharacter(MainCharacter mainCharacter){
 		this.mainCharacter=mainCharacter;
