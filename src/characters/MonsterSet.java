@@ -65,6 +65,16 @@ public class MonsterSet {
             curr.getPayload().display(gc, mainCharacter.getPosition());
         }
     }
+    public int hit(Hitbox hitbox){//retun the nombur of monster that hit hibox
+        int k=0;
+        for(Node<Monster> curr = root; curr.getNext() != null; curr = curr.getNext()) {
+            if( curr.getPayload().collideHitbox( hitbox)){
+                System.out.println(curr.getPayload().getPosition());
+                k++;
+            }
+        }
+        return k;
+    }
 
     public void isHit(Hitbox hitbox){
         for(Node<Monster> curr = root; curr.getNext() != null; curr = curr.getNext()){

@@ -16,7 +16,8 @@ public class BasicMonster extends Monster
     private int[][] map;
     private double type;
     final private double SIDE = HEIGHT / 60;
-
+    private int etas ;
+    private double toCharactersDistance;
     public BasicMonster (Coordinate coordinate, Coordinate mainCharacterPosition, int[][] map) {
         super(coordinate,mainCharacterPosition);
         this.positionX = position.getX();
@@ -38,6 +39,7 @@ public class BasicMonster extends Monster
         lifeBar.put(200, new Image("images/lifebar1.png"));
         lifeBar.put(0, new Image("images/lifebar0.png"));
         hitbox.setRadius(2 * RADIUS);
+        this.etas = 0 ;
     }
 
 @Override
@@ -55,18 +57,26 @@ public void display(GraphicsContext gc, Coordinate characterPosition) {
     hitbox.draw(gc, mainCharactersPosition);
 }
 public void updateDisplacement() {
-    //double toCharactersDistance = position.distance(mainCharactersPosition);
-    //if(toCharactersDistance < 500) {
-    //    double Xdist = position.getX() - mainCharactersPosition.getX();
-    //    double Ydist = position.getY() - mainCharactersPosition.getY();
-    //    directionX = Xdist > 0 ? 1 : (Xdist < 0)  ?  -1 : 0  ;
-    //    directionY = Ydist > 0 ? 1 : (Ydist < 0)  ?  -1 : 0  ;
-    //    speedX =  directionX * speedLimitX / 13 ;
-    //    speedY = directionY *  speedLimitY / 13 ;
-    //}
+
+    if(etas == 0){
+        double toCharactersDistance = position.distance(mainCharactersPosition);
+        if ( toCharactersDistance < 500 ){
+            etas = ThreadLocalRandom.current().nextInt(0 ,100 ) > 30 ? 1: 2;
+        }
+    }
+    if(etas == 1 ){
+        toCharactersDistance = position.distance(mainCharactersPosition);
+        if ( toCharactersDistance < 200 ){
+        double Xdist = position.getX() - mainCharactersPosition.getX();
+        double Ydist = position.getY() - mainCharactersPosition.getY();
+        directionX = Xdist > 0 ? -1 : (Xdist < 0)  ?  1 : 0  ;
+        directionY = Ydist > 0 ? -1 : (Ydist < 0)  ?  1 : 0  ;
+        }
+    }
     if (collision(position, map)) {
         directionX = -1 * directionX;
         directionY = -1 * directionY;
+
         speedX = directionX * speedLimitX / 13;
         speedY = directionY * speedLimitY / 13;
     }

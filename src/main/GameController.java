@@ -198,7 +198,7 @@ class GameController extends Application {
 					if (!pause) {
 						gc.fillRect(0, 0, WIDTH, HEIGHT);
 
-						mainCharacter.update(inputs);
+						mainCharacter.update(inputs,map.getCurrent().getMonsters());
 
 						map.updateMonster(gc);
 						map.display(gc, mainCharacter.getPosition());

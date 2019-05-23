@@ -6,7 +6,7 @@ import javafx.scene.paint.Color;
 import java.awt.*;
 
 public class Hitbox {
-	private final Coordinate origin;
+	private  Coordinate origin;
 	private double radius;
 	final double SIDE = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
 	private final double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
@@ -18,10 +18,6 @@ public class Hitbox {
 	}
 
 	public boolean collide(Hitbox other) {
-		System.out.println("1 : " +this.origin +" 2 : " + other.getOrigin() );
-		System.out.println("D: " +  this.origin.distance(other.getOrigin()) );
-		System.out.println(this.radius );
-		System.out.println(other.getRadius());
 		return this.origin.distance(other.getOrigin()) <= this.radius/SIDE + other.getRadius();
 	}
 
@@ -38,6 +34,9 @@ public class Hitbox {
 		return origin;
 	}
 
+	public void setOrigin(Coordinate origin){
+		this.origin= origin ;
+	}
 	public double getRadius() {
 		return radius;
 	}

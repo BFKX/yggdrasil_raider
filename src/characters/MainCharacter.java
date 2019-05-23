@@ -52,9 +52,11 @@ public class MainCharacter extends Character {
 	public void startRun(){
 		isRuning= true ;
 	}
+
 	public void stopRun(){
 		isRuning=false;
 	}
+
 	public void dash(){
 		if(stamina > 25 ) {
 			this.speedX =  signe(speedX) * baseSpeedLimiteX * 10;
@@ -112,8 +114,12 @@ public class MainCharacter extends Character {
 		}
 	}
 
-	public void update(HashMap<CharacterActions, Boolean> inputs) {
+	public void update(HashMap<CharacterActions, Boolean> inputs, MonsterSet monsterSet) {
 		displacement(inputs);
+		System.out.println("MAIn: " + position + this.hitbox.);
+		for(int k = 0 ; k < monsterSet.hit(hitbox); k++){
+			healthPoint -= 10;
+		}
 		if(!collision(position,map.getCurrent().getMap())) {
 			position.add(speedX / SIDE, speedY / SIDE);
 		}
@@ -130,6 +136,7 @@ public class MainCharacter extends Character {
 			map.moveSouth();
 			position = new Coordinate(position.getX(), 0);
 		}
+		this.hitbox.setOrigin(this.position);
 		map.getCurrent().getMonsters().setMainCharacterPosition(position);
 	}
 
@@ -139,12 +146,11 @@ public class MainCharacter extends Character {
 
 	public void attack(GraphicsContext gc){
 		System.out.println("Main :"+position+"Radius" + this.getRADIUS()+" ; SIDE : " + SIDE);
-		Hitbox hitboxAttack = new Hitbox(new Coordinate(position.getX() + signe(speedX)*RADIUS/SIDE,
-				position.getY() + signe(speedY)*RADIUS/SIDE)
-				, RADIUS  / SIDE);
+		Hitbox hitboxAttack = new Hitbox(new Coordinate(position.getX() + signe(speedX)*RADIUS/SIDE/1.2,
+				position.getY() + signe(speedY)*RADIUS/SIDE/1.2)
+				, RADIUS / SIDE );
 		hitboxAttack.draw(gc,this.getPosition());
 		map.getCurrent().getMonsters().isHit(hitboxAttack);
-
 	}
 
 	public void displayHealth(GraphicsContext gc) {
