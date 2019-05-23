@@ -51,7 +51,7 @@ public void display(GraphicsContext gc, Coordinate characterPosition) {
         sprite = new Image("resources/images/monster3.png");
     }
     gc.drawImage(sprite, (this.position.getX() - xOffset) * SIDE - RADIUS, (this.position.getY() - yOffset) * SIDE - RADIUS, 2 * RADIUS, 2 * RADIUS);
-    gc.drawImage(lifeBar.get(healthPoint), (this.position.getX() - xOffset) * SIDE - RADIUS, (this.position.getY() - yOffset) * SIDE - 13 - RADIUS, 2 * RADIUS, 0.25 * RADIUS);
+    gc.drawImage(lifeBar.get(this.healthPoint), (this.position.getX() - xOffset) * SIDE - RADIUS, (this.position.getY() - yOffset) * SIDE - 13 - RADIUS, 2 * RADIUS, 0.25 * RADIUS);
     hitbox.draw(gc, mainCharactersPosition);
 }
 public void updateDisplacement() {

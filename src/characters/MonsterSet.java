@@ -15,7 +15,6 @@ public class MonsterSet {
             this.add(new BasicMonster(new Coordinate( map.length*Math.random(),
                      map[0] .length * Math.random()), mainCharacter.getPosition(), map));
         }
-
     }
 
     public void add(Monster monster) {
@@ -54,7 +53,10 @@ public class MonsterSet {
     }
     public void update(GraphicsContext gc) {
         for(Node<Monster> curr = root; curr.getNext() != null; curr = curr.getNext()) {
-            curr.getPayload().update(gc);
+            if(curr.getPayload().healthPoint <= 0){
+                curr = curr.getNext() !=null ? curr.getNext() : null;
+            }else{
+                curr.getPayload().update(gc);}
         }
     }
 

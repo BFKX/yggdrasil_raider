@@ -22,7 +22,7 @@ public class Hitbox {
 		System.out.println("D: " +  this.origin.distance(other.getOrigin()) );
 		System.out.println(this.radius );
 		System.out.println(other.getRadius());
-		return this.origin.distance(other.getOrigin()) <= this.radius + other.getRadius();
+		return this.origin.distance(other.getOrigin()) <= this.radius/SIDE + other.getRadius();
 	}
 
 	public void draw(GraphicsContext gc, Coordinate characterPosition) {

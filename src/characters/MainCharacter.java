@@ -14,6 +14,11 @@ public class MainCharacter extends Character {
 	final Image fullHeart = new Image("resources/images/heartFull.png");
 	final Image emptyHeart = new Image("resources/images/heartEmpty.png");
 	final Image halfHeart = new Image("resources/images/heartHalf.png");
+	final double staminaMax = 100;
+	double stamina ;
+	private boolean isRuning = false;
+	double baseSpeedLimiteX;
+	double baseSpeedLimiteY;
 	public MainCharacter(Coordinate position, Map map ) {
 		super(position);
 		this.map=map;
@@ -34,13 +39,37 @@ public class MainCharacter extends Character {
 		waiting = new Image("resources/images/noFootCharacter.png");
 		RADIUS = 3 * SIDE;
 		hitbox.setRadius(RADIUS);
-		speedLimitX = SIDE / 3;
-		speedLimitY = SIDE / 3;
+		baseSpeedLimiteX = SIDE / 3;
+		baseSpeedLimiteY = SIDE / 3;
+		speedLimitY =baseSpeedLimiteX;
+		speedLimitY =baseSpeedLimiteY;
+		runingSpeedLimitX=speedLimitX*2;
+		runingSpeedLimitY=speedLimitY*2;
+		stamina = 100;
 		healthPoint = 100;
 		this.type = 0;
 	}
+	public void startRun(){
+		isRuning= true ;
+	}
+	public void stopRun(){
+		isRuning=false;
+	}
 
 	private void displacement(HashMap<CharacterActions, Boolean> inputs) {
+		if(isRuning && stamina > 0){
+			speedLimitX= runingSpeedLimitX;
+			speedLimitY= runingSpeedLimitY;
+			System.out.println("Stamina: " + stamina);
+			stamina -= 20/60;
+			System.out.println("stamina : "+ stamina );
+		}else{
+			speedLimitX = baseSpeedLimiteX;
+			speedLimitY = baseSpeedLimiteY;
+			if (stamina < staminaMax && ! isRuning ){
+			 	stamina = stamina+ 15/60;
+			}
+		}
 		if (!(inputs.get(CharacterActions.UP) && inputs.get(CharacterActions.DOWN)
 				|| inputs.get(CharacterActions.LEFT) && inputs.get(CharacterActions.RIGHT))) {
 			if (inputs.get(CharacterActions.UP) && speedY > -speedLimitY) {
@@ -64,11 +93,15 @@ public class MainCharacter extends Character {
 				|| inputs.get(CharacterActions.RIGHT) && inputs.get(CharacterActions.LEFT)) {
 			speedX = speedX < 0.01 ? 0 : speedX / 1.4;
 		}
-
+		if(speedX > speedLimitX){
+			speedX = speedX/1.4;
+		}
+		if(speedY > speedLimitY){
+			speedY = speedY/ 1.4;
+		}
 	}
 
 	public void update(HashMap<CharacterActions, Boolean> inputs) {
-
 		displacement(inputs);
 		if(!collision(position,map.getCurrent().getMap())) {
 			position.add(speedX / SIDE, speedY / SIDE);

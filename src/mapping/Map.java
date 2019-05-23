@@ -111,7 +111,6 @@ public class Map {
 		if (mapOfRoom[(int) coordinate.getX()][(int) coordinate.getY()] != null) {
 			return positionOnMap(mapOfRoom, coordinate);
 		} else {
-			System.out.println(coordinate.toString());
 			return coordinate;
 		}
 	}
@@ -296,28 +295,24 @@ public class Map {
 	public void moveNorth() {
 		Coordinate position = current.getPosition();
 				current = mapOfRoom[(int) position.getX()][(int) position.getY()-1];
-		System.out.println("goN");
 		update();
 	}
 
 	public void moveSouth() {
 		Coordinate position = current.getPosition();
 		current = mapOfRoom[(int) position.getX()][(int) position.getY()+1];
-		System.out.println("goN");
 		update();
 	}
 
 	public void moveEast() {
 		Coordinate position = current.getPosition();
 		current = mapOfRoom[(int) position.getX()-1][(int) position.getY()];
-		System.out.println("goN");
 		update();
 	}
 
 	public void moveWest() {
 		Coordinate position = current.getPosition();
 		current = mapOfRoom[(int) position.getX()+1][(int) position.getY()];
-		System.out.println("goN");
 		update();
 	}
 

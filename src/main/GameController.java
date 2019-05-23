@@ -159,6 +159,9 @@ class GameController extends Application {
 				map.moveWest();
 				mainCharacter.setMap(map);
 				break;
+				case SHIFT:
+					mainCharacter.startRun();
+					break;
 			default:
 			}
 		});
@@ -177,6 +180,9 @@ class GameController extends Application {
 			case RIGHT:
 				inputs.replace(CharacterActions.RIGHT, false);
 				break;
+				case SHIFT:
+					mainCharacter.stopRun();
+					break;
 			default:
 			}
 		});

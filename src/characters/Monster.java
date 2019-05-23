@@ -30,6 +30,7 @@ public abstract class Monster extends Character {
 
     public void isAttacked(){
         System.out.println("\t\t\tCOUCOU\t\t\t");
+        this.healthPoint -= 200;
     }
 
 }

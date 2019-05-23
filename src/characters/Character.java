@@ -23,6 +23,7 @@ public abstract class Character {
     final Hitbox hitbox;
     double speedX = 0, speedY = 0; // en pixel
     double speedLimitX, speedLimitY; // en pixel
+    double runingSpeedLimitX ,runingSpeedLimitY;
     double RADIUS; //en pixel
     final double SIDE = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60; //en pixel
     ImageSet sprites;
@@ -58,7 +59,7 @@ public abstract class Character {
     public void display(GraphicsContext gc) {
         gc.save();
         if (type != 0) {
-            gc.drawImage(lifeBar.get(healthPoint), this.position.getX() * map.getSIDE() - 30,
+            gc.drawImage(lifeBar.get(this.healthPoint), this.position.getX() * map.getSIDE() - 30,
                     this.position.getY() * map.getSIDE() - 30, 2 * RADIUS, 0.25 * RADIUS);
         }
         angleSelector(gc);
