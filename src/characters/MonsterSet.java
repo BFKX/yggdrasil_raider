@@ -69,7 +69,6 @@ public class MonsterSet {
         int k=0;
         for(Node<Monster> curr = root; curr.getNext() != null; curr = curr.getNext()) {
             if( hitbox.collide(curr.getPayload().getHitbox())){
-                System.out.println(curr.getPayload().getPosition() +", " + hitbox.getOrigin());
                 k++;
             }
         }
