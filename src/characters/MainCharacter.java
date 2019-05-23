@@ -116,7 +116,7 @@ public class MainCharacter extends Character {
 
 	public void update(HashMap<CharacterActions, Boolean> inputs, MonsterSet monsterSet) {
 		displacement(inputs);
-		System.out.println("MAIn: " + position + this.hitbox.);
+		System.out.println("MAIn: " + position + this.hitbox.getOrigin());
 		for(int k = 0 ; k < monsterSet.hit(hitbox); k++){
 			healthPoint -= 10;
 		}
