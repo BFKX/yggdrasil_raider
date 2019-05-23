@@ -112,7 +112,7 @@ class GameController extends Application {
 
 		scene.setOnMousePressed(event -> {
 			if (event.getButton() == MouseButton.PRIMARY) {
-				mainCharacter.attack();
+				mainCharacter.attack(gc);
 			}
 		});
 
@@ -159,9 +159,12 @@ class GameController extends Application {
 				map.moveWest();
 				mainCharacter.setMap(map);
 				break;
-				case SHIFT:
-					mainCharacter.startRun();
-					break;
+			case SHIFT:
+				mainCharacter.startRun();
+				break;
+			case SPACE:
+				mainCharacter.dash();
+				break;
 			default:
 			}
 		});

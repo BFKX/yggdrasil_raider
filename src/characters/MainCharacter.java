@@ -41,7 +41,7 @@ public class MainCharacter extends Character {
 		hitbox.setRadius(RADIUS);
 		baseSpeedLimiteX = SIDE / 3;
 		baseSpeedLimiteY = SIDE / 3;
-		speedLimitY =baseSpeedLimiteX;
+		speedLimitX =baseSpeedLimiteY;
 		speedLimitY =baseSpeedLimiteY;
 		runingSpeedLimitX=speedLimitX*2;
 		runingSpeedLimitY=speedLimitY*2;
@@ -55,19 +55,30 @@ public class MainCharacter extends Character {
 	public void stopRun(){
 		isRuning=false;
 	}
-
+	public void dash(){
+		if(stamina > 25 ) {
+			this.speedX =  signe(speedX) * baseSpeedLimiteX * 10;
+			this.speedY = signe(speedY) * baseSpeedLimiteY  * 10;
+			stamina= stamina - 20 ;
+		}
+	}
+	private int signe (double x ){
+		if( x > 0 ) { return  1;}
+		if(x<0 ) { return -1;}
+		return 0 ;
+	}
 	private void displacement(HashMap<CharacterActions, Boolean> inputs) {
 		if(isRuning && stamina > 0){
 			speedLimitX= runingSpeedLimitX;
 			speedLimitY= runingSpeedLimitY;
-			System.out.println("Stamina: " + stamina);
-			stamina -= 20/60;
+			stamina -= 40.0/60;
 			System.out.println("stamina : "+ stamina );
 		}else{
 			speedLimitX = baseSpeedLimiteX;
 			speedLimitY = baseSpeedLimiteY;
 			if (stamina < staminaMax && ! isRuning ){
-			 	stamina = stamina+ 15/60;
+			 	stamina = stamina+ 15.0/60;
+				System.out.println("Stamina: " + stamina);
 			}
 		}
 		if (!(inputs.get(CharacterActions.UP) && inputs.get(CharacterActions.DOWN)
@@ -93,10 +104,10 @@ public class MainCharacter extends Character {
 				|| inputs.get(CharacterActions.RIGHT) && inputs.get(CharacterActions.LEFT)) {
 			speedX = speedX < 0.01 ? 0 : speedX / 1.4;
 		}
-		if(speedX > speedLimitX){
+		if( Math.abs(speedX) > speedLimitX){
 			speedX = speedX/1.4;
 		}
-		if(speedY > speedLimitY){
+		if( Math.abs(speedY) > speedLimitY){
 			speedY = speedY/ 1.4;
 		}
 	}
@@ -126,10 +137,14 @@ public class MainCharacter extends Character {
 		return position;
 	}
 
-	public void attack(){
+	public void attack(GraphicsContext gc){
 		System.out.println("Main :"+position+"Radius" + this.getRADIUS()+" ; SIDE : " + SIDE);
-		Hitbox hitboxAttack = new Hitbox(getPosition(), RADIUS / SIDE);
+		Hitbox hitboxAttack = new Hitbox(new Coordinate(position.getX() + signe(speedX)*RADIUS/SIDE,
+				position.getY() + signe(speedY)*RADIUS/SIDE)
+				, RADIUS  / SIDE);
+		hitboxAttack.draw(gc,this.getPosition());
 		map.getCurrent().getMonsters().isHit(hitboxAttack);
+
 	}
 
 	public void displayHealth(GraphicsContext gc) {
