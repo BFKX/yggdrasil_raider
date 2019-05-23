@@ -1,6 +1,5 @@
 package characters;
 
-import javafx.geometry.Side;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import tools.CharacterActions;
@@ -12,6 +11,9 @@ import tools.ImageSet;
 import java.util.HashMap;
 
 public class MainCharacter extends Character {
+	final Image fullHeart = new Image("resources/images/heartFull.png");
+	final Image emptyHeart = new Image("resources/images/heartEmpty.png");
+	final Image halfHeart = new Image("resources/images/heartHalf.png");
 	public MainCharacter(Coordinate position, Map map ) {
 		super(position);
 		this.map=map;
@@ -30,11 +32,6 @@ public class MainCharacter extends Character {
 		int[] sequence = {0, 1, 2, 3, 4, 5, 4, 3, 2, 1, 0, 11, 12, 13, 14, 15, 14, 13, 12, 11};
 		sprites = new ImageSet(images, sequence);
 		waiting = new Image("resources/images/noFootCharacter.png");
-		lifeBar.put(100, new Image("images/lifebar5.png"));
-		lifeBar.put(80, new Image("images/lifebar4.png"));
-		lifeBar.put(60, new Image("images/lifebar3.png"));
-		lifeBar.put(40, new Image("images/lifebar2.png"));
-		lifeBar.put(20, new Image("images/lifebar1.png"));
 		RADIUS = 3 * SIDE;
 		hitbox.setRadius(RADIUS);
 		speedLimitX = SIDE / 3;
@@ -78,16 +75,16 @@ public class MainCharacter extends Character {
 		}
 		if(position.getX() < 0 ){
 			map.moveEast();
-			position=new Coordinate(map.getMap().length-1,position.getY());
-		}else if(position.getX()>map.getMap().length -1){
+			position=new Coordinate(map.getMap().length - 1,position.getY());
+		}else if(position.getX()>map.getMap().length - 1){
 			map.moveWest();
 			position= new Coordinate(0, position.getY());
-		}else if(position.getY() <0){
+		}else if(position.getY() < 0){
 			map.moveNorth();
-			position = new Coordinate(position.getX(),map.getMap()[0].length-1);
-		}else if(position.getY() > map.getMap()[0].length -1 ){
+			position = new Coordinate(position.getX(), map.getMap()[0].length-1);
+		}else if(position.getY() > map.getMap()[0].length - 1 ){
 			map.moveSouth();
-			position = new Coordinate(position.getX(),0);
+			position = new Coordinate(position.getX(), 0);
 		}
 		map.getCurrent().getMonsters().setMainCharacterPosition(position);
 	}
@@ -96,23 +93,91 @@ public class MainCharacter extends Character {
 		return position;
 	}
 
-	private boolean collideAttack(){
-	return false;
-	}
-	public void displayLifeCharacter(GraphicsContext gc, Coordinate characterPosition) {
-
-	//void updateAttack(Coordinate originAttack , Coordinate originCharacter){
-	//	if (isAttacking){
-	//		matrixRotation(originCharacter,originAttack, 45/60  );
-	//		isAttacking = false;
-	//	}
-
-	}
-
 	public void attack(){
 		System.out.println("Main :"+position+"Radius" + this.getRADIUS()+" ; SIDE : " + SIDE);
 		Hitbox hitboxAttack = new Hitbox(getPosition(), RADIUS / SIDE);
 		map.getCurrent().getMonsters().isHit(hitboxAttack);
 	}
 
+	public void displayHealth(GraphicsContext gc) {
+		switch (healthPoint) {
+			case 100:
+				for (int i = 1; i <= 5; i++){
+					gc.drawImage(fullHeart, WIDTH - i * RADIUS, 0, RADIUS, RADIUS);
+				}
+				break;
+			case 90:
+				for (int i = 2; i <= 5; i++){
+					gc.drawImage(fullHeart, WIDTH - i * RADIUS, 0, RADIUS, RADIUS);
+				}
+				gc.drawImage(halfHeart, WIDTH - RADIUS, 0, RADIUS, RADIUS);
+				break;
+			case 80:
+				for (int i = 2; i <= 5; i++){
+					gc.drawImage(fullHeart, WIDTH - i * RADIUS, 0, RADIUS, RADIUS);
+				}
+				gc.drawImage(emptyHeart, WIDTH - RADIUS, 0, RADIUS, RADIUS);
+				break;
+			case 70:
+				for (int i = 3; i <= 5; i++){
+					gc.drawImage(fullHeart, WIDTH - i * RADIUS, 0, RADIUS, RADIUS);
+				}
+				gc.drawImage(halfHeart, WIDTH - 2 * RADIUS, 0, RADIUS, RADIUS);
+				gc.drawImage(emptyHeart, WIDTH - RADIUS, 0, RADIUS, RADIUS);
+				break;
+			case 60:
+				for (int i = 3; i <= 5; i++){
+					gc.drawImage(fullHeart, WIDTH - i * RADIUS, 0, RADIUS, RADIUS);
+				}
+				for (int i = 1; i < 3; i++) {
+					gc.drawImage(emptyHeart, WIDTH - i * RADIUS, 0, RADIUS, RADIUS);
+				}
+				break;
+			case 50:
+				for (int i = 4; i <= 5; i++){
+					gc.drawImage(fullHeart, WIDTH - i * RADIUS, 0, RADIUS, RADIUS);
+				}
+				gc.drawImage(halfHeart, WIDTH - 3 * RADIUS, 0, RADIUS, RADIUS);
+				for (int i = 1; i < 3; i++) {
+					gc.drawImage(emptyHeart, WIDTH - i * RADIUS, 0, RADIUS, RADIUS);
+				}
+				break;
+			case 40:
+				for (int i = 4; i <= 5; i++){
+					gc.drawImage(fullHeart, WIDTH - i * RADIUS, 0, RADIUS, RADIUS);
+				}
+				for (int i = 1; i < 4; i++) {
+					gc.drawImage(emptyHeart, WIDTH - i * RADIUS, 0, RADIUS, RADIUS);
+				}
+				break;
+			case 30:
+				for (int i = 5; i <= 5; i++){
+					gc.drawImage(fullHeart, WIDTH - i * RADIUS, 0, RADIUS, RADIUS);
+				}
+				gc.drawImage(halfHeart, WIDTH - 4 * RADIUS, 0, RADIUS, RADIUS);
+				for (int i = 1; i < 5; i++) {
+					gc.drawImage(emptyHeart, WIDTH - i * RADIUS, 0, RADIUS, RADIUS);
+				}
+				break;
+			case 20:
+				for (int i = 5; i <= 5; i++){
+					gc.drawImage(fullHeart, WIDTH - i * RADIUS, 0, RADIUS, RADIUS);
+				}
+				for (int i = 1; i < 5; i++) {
+					gc.drawImage(emptyHeart, WIDTH - i * RADIUS, 0, RADIUS, RADIUS);
+				}
+				break;
+			case 10:
+				for (int i = 1; i < 5; i++){
+					gc.drawImage(emptyHeart, WIDTH - i * RADIUS, 0, RADIUS, RADIUS);
+				}
+				gc.drawImage(halfHeart, WIDTH - RADIUS, 0, RADIUS, RADIUS);
+				break;
+			case 0:
+				for (int i = 1; i <= 5; i++){
+					gc.drawImage(emptyHeart, WIDTH - i * RADIUS, 0, RADIUS, RADIUS);
+				}
+				break;
+		}
+	}
 }

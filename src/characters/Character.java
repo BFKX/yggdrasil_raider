@@ -29,10 +29,9 @@ public abstract class Character {
     private Image sprite;
     Image waiting;
     final HashMap<Integer, Image> lifeBar = new HashMap<>();
-    private String activeSprite = "movingEast";
     int healthPoint;
     private boolean isAttacking;
-    int angle;
+    private int angle;
 
     Character(Coordinate position) {
         this.position = position;
@@ -61,8 +60,6 @@ public abstract class Character {
         if (type != 0) {
             gc.drawImage(lifeBar.get(healthPoint), this.position.getX() * map.getSIDE() - 30,
                     this.position.getY() * map.getSIDE() - 30, 2 * RADIUS, 0.25 * RADIUS);
-        } else {
-            gc.drawImage(lifeBar.get(healthPoint), 0, HEIGHT * 0.95, WIDTH / 5, HEIGHT / 20);
         }
         angleSelector(gc);
         if (Math.abs(speedY) < 1 && Math.abs(speedX) < 1) {
@@ -98,7 +95,7 @@ public abstract class Character {
         }
     }
 
-    int signOf(double x) {
+    private int signOf(double x) {
         if (x > 0) {
             return  1;
         } else if (x < 0) {
@@ -155,6 +152,5 @@ public abstract class Character {
         } else {
             hitbox.draw(gc, mainCharacter.getPosition());
         }
-
     }
 }

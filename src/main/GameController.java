@@ -196,8 +196,8 @@ class GameController extends Application {
 						map.displayMiniMap(gc, mainCharacter.getPosition());
 
 						mainCharacter.display(gc);
-						mainCharacter.displayLifeCharacter(gc, mainCharacter.getPosition());
 						mainCharacter.drawHitbox(gc, mainCharacter);
+						mainCharacter.displayHealth(gc);
 
 						fpsmeter.update(now, gc);
 						lastNow = now;

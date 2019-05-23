@@ -234,8 +234,8 @@ public class Map {
 	 */
 	private Image spriteSelector(int value) {
 		switch (value) {
-			case -5:
-				return groundVar5;
+		case -5:
+			return groundVar5;
 		case -4:
 			return groundVar4;
 		case -3:
@@ -276,18 +276,18 @@ public class Map {
 			return nwCorner;
 		case 41:
 			return swCorner;
-			case 80:
-				return eCorners;
+		case 80:
+			return eCorners;
 		case 82:
 			return seCorner;
-			case 141:
-				return nCorners;
+		case 141:
+			return nCorners;
 		case 163:
 			return neCorner;
-			case 202:
-				return sCorners;
-			case 263:
-				return wCorners;
+		case 202:
+			return sCorners;
+		case 263:
+			return wCorners;
 		default:
 			 return red;
 		}
