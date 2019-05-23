@@ -28,7 +28,7 @@ public abstract class Character {
     ImageSet sprites;
     private Image sprite;
     Image waiting;
-    final HashMap<Integer, Image> lifeBar = new HashMap<>();
+    final HashMap<Integer, Image> healthBar = new HashMap<>();
     int healthPoint;
     private boolean isAttacking;
     private int angle;
@@ -58,7 +58,7 @@ public abstract class Character {
     public void display(GraphicsContext gc) {
         gc.save();
         if (type != 0) {
-            gc.drawImage(lifeBar.get(healthPoint), this.position.getX() * map.getSIDE() - 30,
+            gc.drawImage(healthBar.get(healthPoint), this.position.getX() * map.getSIDE() - 30,
                     this.position.getY() * map.getSIDE() - 30, 2 * RADIUS, 0.25 * RADIUS);
         }
         angleSelector(gc);

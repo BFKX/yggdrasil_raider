@@ -22,7 +22,7 @@ public class BasicMonster extends Monster
         this.positionX = position.getX();
         this.positionY = position.getY();
         this.type = ThreadLocalRandom.current().nextInt(1, 4);
-        this.healthPoint = 1000;
+        this.healthPoint = 100;
         this.map = map;
         RADIUS = 2 * Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
         directionX = (1 - 2 * ThreadLocalRandom.current().nextInt(0, 2));
@@ -31,12 +31,16 @@ public class BasicMonster extends Monster
         speedY = directionY * RADIUS / 8;
         speedLimitX = RADIUS / 32;
         speedLimitY = RADIUS / 32;
-        lifeBar.put(1000, new Image("images/lifebar5.png"));
-        lifeBar.put(800, new Image("images/lifebar4.png"));
-        lifeBar.put(600, new Image("images/lifebar3.png"));
-        lifeBar.put(400, new Image("images/lifebar2.png"));
-        lifeBar.put(200, new Image("images/lifebar1.png"));
-        lifeBar.put(0, new Image("images/lifebar0.png"));
+        healthBar.put(100, new Image("images/healthBar0.png"));
+        healthBar.put(90, new Image("images/healthBar1.png"));
+        healthBar.put(80, new Image("images/healthBar2.png"));
+        healthBar.put(70, new Image("images/healthBar3.png"));
+        healthBar.put(60, new Image("images/healthBar4.png"));
+        healthBar.put(50, new Image("images/healthBar5.png"));
+        healthBar.put(40, new Image("images/healthBar6.png"));
+        healthBar.put(30, new Image("images/healthBar7.png"));
+        healthBar.put(20, new Image("images/healthBar8.png"));
+        healthBar.put(10, new Image("images/healthBar9.png"));
         hitbox.setRadius(2 * RADIUS);
     }
 
@@ -51,7 +55,7 @@ public void display(GraphicsContext gc, Coordinate characterPosition) {
         sprite = new Image("resources/images/monster3.png");
     }
     gc.drawImage(sprite, (this.position.getX() - xOffset) * SIDE - RADIUS, (this.position.getY() - yOffset) * SIDE - RADIUS, 2 * RADIUS, 2 * RADIUS);
-    gc.drawImage(lifeBar.get(healthPoint), (this.position.getX() - xOffset) * SIDE - RADIUS, (this.position.getY() - yOffset) * SIDE - 13 - RADIUS, 2 * RADIUS, 0.25 * RADIUS);
+    gc.drawImage(healthBar.get(healthPoint), (this.position.getX() - xOffset) * SIDE - 0.75 * RADIUS, (this.position.getY() - yOffset) * SIDE - 1.5 * RADIUS, 1.5 * RADIUS, 0.41 * RADIUS);
     hitbox.draw(gc, mainCharactersPosition);
 }
 public void updateDisplacement() {
