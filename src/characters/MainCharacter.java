@@ -118,6 +118,7 @@ public class MainCharacter extends Character {
 		displacement(inputs);
 		System.out.println("MAIn: " + position + this.hitbox.getOrigin());
 		for(int k = 0 ; k < monsterSet.hit(hitbox); k++){
+			System.out.println(monsterSet.hit(hitbox));
 			healthPoint -= 10;
 		}
 		if(!collision(position,map.getCurrent().getMap())) {

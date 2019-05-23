@@ -61,7 +61,7 @@ public void updateDisplacement() {
     if(etas == 0){
         double toCharactersDistance = position.distance(mainCharactersPosition);
         if ( toCharactersDistance < 500 ){
-            etas = ThreadLocalRandom.current().nextInt(0 ,100 ) > 30 ? 1: 2;
+            etas = ThreadLocalRandom.current().nextInt(0 ,100 ) > 60 ? 1: 2;
         }
     }
     if(etas == 1 ){
