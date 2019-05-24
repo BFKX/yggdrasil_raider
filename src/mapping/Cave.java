@@ -71,7 +71,7 @@ class Cave extends Room {
 		}
 	}
 	private void initPossibleValues(){
-		 int[] values = {0, 1, 2, 3, 4, 6, 8, 9, 12, 13, 15, 17, 18, 19, 21, 41,80,141, 163,202,263};
+		 int[] values = {0, 1, 2, 3, 4, 6, 8, 9, 12, 13, 15, 17, 18, 19, 21, 41,61,82,163,122,183,244};
 		 for ( int i : values) {
 			 possibleValues.add(i);
 		 }
@@ -116,30 +116,30 @@ class Cave extends Room {
 	public void placeWall() {
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
-				if (map[i][j] != 0) {
-					if (j - 1 > 0 && map[i][j - 1] == 0) { // North
+				if (map[i][j] > 0) {
+					if (j - 1 > 0 && map[i][j - 1] <= 0) { // North
 						map[i][j] = map[i][j] + 1;
 					}
-					if (i - 1 > 0 && map[i - 1][j] == 0) { // West
+					if (i - 1 > 0 && map[i - 1][j] <= 0) { // West
 						map[i][j] = map[i][j] + 2;
 					}
-					if (j + 1 < this.height && map[i][j + 1] == 0) { // South
+					if (j + 1 < this.height && map[i][j + 1] <= 0) { // South
 						map[i][j] = map[i][j] + 5;
 					}
-					if (i + 1 < this.width && map[i + 1][j] == 0) { // East
+					if (i + 1 < this.width && map[i + 1][j] <= 0) { // East
 						map[i][j] = map[i][j] + 11;
 					}
 					if (map[i][j] == 1) {
-						if (j - 1 > 0 && i - 1 > 0 && map[i - 1][j - 1] == 0) { // North West
+						if (j - 1 > 0 && i - 1 > 0 && map[i - 1][j - 1] <= 0) { // North West
 							map[i][j] = map[i][j] + 20;
 						}
-						if (i - 1 > 0 && j + 1 < this.height && map[i - 1][j + 1] == 0) { // South West
+						if (i - 1 > 0 && j + 1 < this.height && map[i - 1][j + 1] <= 0) { // South West
 							map[i][j] = map[i][j] + 40;
 						}
-						if (j + 1 < this.height && i + 1 < this.width && map[i + 1][j + 1] == 0) { // South East
+						if (j + 1 < this.height && i + 1 < this.width && map[i + 1][j + 1] <= 0) { // South East
 							map[i][j] = map[i][j] + 81;
 						}
-						if (i + 1 < this.width && j - 1 > 0 && map[i + 1][j - 1] == 0) { // North East
+						if (i + 1 < this.width && j - 1 > 0 && map[i + 1][j - 1] <= 0) { // North East
 							map[i][j] = map[i][j] + 162;
 						}
 					}

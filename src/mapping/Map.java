@@ -76,7 +76,7 @@ public class Map {
 		for (int i = 0; i < mapOfRoom.length; i++){
 			for(int j = 0 ; j<mapOfRoom[0].length ; j++){
 				if(mapOfRoom[i][j] != null){
-					for ( int k = 0 ; i <10 ; i++){
+					for ( int k = 0 ; i <5 ; i++){
 						mapOfRoom[i][j].delete25(1);
 					}
 					mapOfRoom[i][j].placeWall();
@@ -275,19 +275,22 @@ public class Map {
 			return nwCorner;
 		case 41:
 			return swCorner;
-		case 80:
+		case 244:
 			return eCorners;
 		case 82:
 			return seCorner;
-		case 141:
+		case 183:
 			return nCorners;
 		case 163:
 			return neCorner;
-		case 202:
+		case 122:
 			return sCorners;
-		case 263:
+		case 61:
 			return wCorners;
+			//return wCorners;
+
 		default:
+			System.out.println(value);
 			 return red;
 		}
 	}
