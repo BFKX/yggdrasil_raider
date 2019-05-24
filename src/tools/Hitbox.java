@@ -18,7 +18,7 @@ public class Hitbox {
 	}
 
 	public boolean collide(Hitbox other) {
-		return this.origin.distance(other.getOrigin()) <this.radius / SIDE + other.getRadius()/SIDE;
+		return this.origin.distance(other.getOrigin()) < this.radius / SIDE + other.getRadius() / SIDE;
 	}
 
 	public void draw(GraphicsContext gc, Coordinate characterPosition) {
