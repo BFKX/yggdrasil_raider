@@ -127,18 +127,26 @@ public class MainCharacter extends Character {
 		if(position.getX() < 0 ){
 			map.moveEast();
 			position=new Coordinate(map.getMap().length - 1,position.getY());
+			this.hitbox.setOrigin(this.position);
+			map.getCurrent().getMonsters().setMainCharacterPosition(position);
 		}else if(position.getX()>map.getMap().length - 1){
 			map.moveWest();
 			position= new Coordinate(0, position.getY());
+			this.hitbox.setOrigin(this.position);
+			map.getCurrent().getMonsters().setMainCharacterPosition(position);
 		}else if(position.getY() < 0){
 			map.moveNorth();
 			position = new Coordinate(position.getX(), map.getMap()[0].length-1);
+			this.hitbox.setOrigin(this.position);
+			map.getCurrent().getMonsters().setMainCharacterPosition(position);
 		}else if(position.getY() > map.getMap()[0].length - 1 ){
 			map.moveSouth();
 			position = new Coordinate(position.getX(), 0);
+			this.hitbox.setOrigin(this.position);
+			map.getCurrent().getMonsters().setMainCharacterPosition(position);
 		}
-		this.hitbox.setOrigin(this.position);
-		map.getCurrent().getMonsters().setMainCharacterPosition(position);
+
+
 	}
 
 	public Coordinate getPosition() {
@@ -146,10 +154,9 @@ public class MainCharacter extends Character {
 	}
 
 	public void attack(GraphicsContext gc){
-		System.out.println("Main :"+position+"Radius" + this.getRADIUS()+" ; SIDE : " + SIDE);
-		Hitbox hitboxAttack = new Hitbox(new Coordinate(position.getX() + signe(speedX)*RADIUS/SIDE/1.2,
-				position.getY() + signe(speedY)*RADIUS/SIDE/1.2)
-				, RADIUS / SIDE );
+		Hitbox hitboxAttack = new Hitbox(new Coordinate(position.getX() + signe(speedX)*(RADIUS/SIDE)/2,
+				position.getY() + signe(speedY)*(RADIUS/SIDE)/2)
+				, RADIUS  );
 		hitboxAttack.draw(gc,this.getPosition());
 		map.getCurrent().getMonsters().isHit(hitboxAttack);
 	}

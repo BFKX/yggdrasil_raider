@@ -72,7 +72,7 @@ public class MonsterSet {
         Monster curr;
         while (it.hasNext()) {
             curr = it.next();
-            if (hitbox.collide(curr.getHitbox())) {
+            if (curr.collideHitbox(hitbox)) {
                 k++;
             }
         }

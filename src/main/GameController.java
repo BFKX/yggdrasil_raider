@@ -122,6 +122,9 @@ class GameController extends Application {
 				map = new Map(20,mainCharacter);
 				mainCharacter.setMap(map);
 				break;
+				case A:
+					mainCharacter.attack(gc);
+					break;
 			case M :
 				map.displayMapOfMap();
 				break;

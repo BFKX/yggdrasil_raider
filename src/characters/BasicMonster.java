@@ -76,7 +76,6 @@ public void updateDisplacement() {
     if (collision(position, map)) {
         directionX = -1 * directionX;
         directionY = -1 * directionY;
-
         speedX = directionX * speedLimitX / 13;
         speedY = directionY * speedLimitY / 13;
     }
