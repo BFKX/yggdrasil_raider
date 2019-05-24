@@ -23,6 +23,7 @@ import java.util.HashMap;
 
 class GameController extends Application {
 	final private double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+	private MainCharacter mainCharacter;
 	final private double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	private Canvas canvas = new Canvas(WIDTH, HEIGHT);
 	private GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -104,11 +105,7 @@ class GameController extends Application {
 	@Override
 	public void start(Stage stage) {
 		game.getChildren().add(canvas);
-		MainCharacter mainCharacter = new MainCharacter(new Coordinate(0,0),map);
-		this.map = new Map(20, mainCharacter);
-		mainCharacter.startposition(map.getCurrent());
-		mainCharacter.setMap(map);//not null
-
+		starter();
 
 		scene.setOnMousePressed(event -> {
 			if (event.getButton() == MouseButton.PRIMARY) {
@@ -119,8 +116,7 @@ class GameController extends Application {
 		scene.setOnKeyPressed(e -> {
 			switch (e.getCode()) {
 			case R:
-				map = new Map(20,mainCharacter);
-				mainCharacter.setMap(map);
+				starter();
 				break;
 				case A:
 					mainCharacter.attack(gc);
@@ -236,5 +232,12 @@ class GameController extends Application {
 			game.getChildren().remove(text);
 			pauseShown = false;
 		}
+	}
+
+	private void starter() {
+		mainCharacter = new MainCharacter(new Coordinate(0,0),map);
+		this.map = new Map(100, mainCharacter);
+		mainCharacter.startposition(map.getCurrent());
+		mainCharacter.setMap(map);
 	}
 }
