@@ -51,9 +51,9 @@ public class MainCharacter extends Character {
 			String healthPath = "resources/images/healthBar";
 			String staminaPath = "resources/images/staminaBar";
 			if (i < 10) {
-				healthPath += "0" + i;
-				staminaPath += "0" + i;
-			} if (i >= 10 && i< 100) {
+				healthPath += "00" + i;
+				staminaPath += "00" + i;
+			} else if (i< 100) {
 				healthPath += "0" + i;
 				staminaPath += "0" + i;
 			} else {
