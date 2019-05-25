@@ -1,7 +1,7 @@
 package mapping;
 
 import characters.MainCharacter;
-import characters.MonsterSet;
+import data_structures.MonsterSet;
 import tools.Coordinate;
 
 import java.util.Random;

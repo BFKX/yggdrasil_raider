@@ -1,4 +1,4 @@
-package tools;
+package data_structures;
 
 import javafx.scene.image.Image;
 

@@ -8,7 +8,7 @@ import tools.Coordinate;
 import tools.Hitbox;
 
 import mapping.Map;
-import tools.ImageSet;
+import data_structures.ImageSet;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -135,7 +135,7 @@ public abstract class Character {
         this.map = map;
     }
 
-    int getHealthPoint() {
+    public int getHealthPoint() {
         return healthPoint;
     }
 

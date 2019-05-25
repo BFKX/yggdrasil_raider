@@ -18,12 +18,12 @@ public abstract class Monster extends Character {
 
     public abstract void display(GraphicsContext gc, Coordinate mainCharactersPosition);
 
-    void update() {
+    public void update() {
         updateDisplacement();
         this.position.add(speedX / SIDE, speedY / SIDE);
     }
 
-    boolean collideHitbox(Hitbox hitbox){
+    public boolean collideHitbox(Hitbox hitbox){
         return this.hitbox.collide(hitbox);
     }
 
@@ -32,12 +32,12 @@ public abstract class Monster extends Character {
         this.speedY = - this.speedY * 5 ;
     }
 
-    void isAttacked(){
+    public void isAttacked(){
         this.healthPoint -= (ThreadLocalRandom.current().nextInt(0, 10) > 2) ? 10 : 20;
         knockBack();
     }
 
-    void setMainCharactersPosition(Coordinate position){
+    public void setMainCharactersPosition(Coordinate position){
         this.mainCharactersPosition = position;
     }
 }

@@ -1,5 +1,8 @@
-package characters;
+package data_structures;
 
+import characters.BasicMonster;
+import characters.MainCharacter;
+import characters.Monster;
 import javafx.scene.canvas.GraphicsContext;
 import mapping.Room;
 import tools.Coordinate;
@@ -28,7 +31,7 @@ public class MonsterSet {
         }
     }
 
-    void setMainCharacterPosition(Coordinate mainCharacterPosition){
+    public void setMainCharacterPosition(Coordinate mainCharacterPosition){
         Iterator<Monster> it = monsters.iterator();
         Monster curr;
         while (it.hasNext()) {
@@ -59,7 +62,7 @@ public class MonsterSet {
         }
     }
 
-    boolean hit(Hitbox hitbox) {
+    public boolean hit(Hitbox hitbox) {
         Iterator<Monster> it = monsters.iterator();
         Monster curr;
         while (it.hasNext()) {
@@ -71,7 +74,7 @@ public class MonsterSet {
         return false;
     }
 
-    void isHit(Hitbox hitbox){
+    public void isHit(Hitbox hitbox){
         Iterator<Monster> it = monsters.iterator();
         Monster curr;
         while (it.hasNext()) {

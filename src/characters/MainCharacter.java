@@ -1,12 +1,13 @@
 package characters;
 
+import data_structures.MonsterSet;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import tools.CharacterActions;
 import tools.Coordinate;
 import mapping.Map;
 import tools.Hitbox;
-import tools.ImageSet;
+import data_structures.ImageSet;
 
 import java.util.HashMap;
 

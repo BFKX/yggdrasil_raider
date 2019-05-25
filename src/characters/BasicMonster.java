@@ -14,7 +14,7 @@ public class BasicMonster extends Monster {
     private int state = 0;
     private Image sprite;
 
-    BasicMonster(Coordinate coordinate, Coordinate mainCharacterPosition, int[][] map) {
+    public BasicMonster(Coordinate coordinate, Coordinate mainCharacterPosition, int[][] map) {
         super(coordinate,mainCharacterPosition);
         this.map = map;
         type = ThreadLocalRandom.current().nextInt(1, 4);
