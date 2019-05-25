@@ -214,7 +214,7 @@ class GameController extends Application {
 
 						mainCharacter.display(gc);
 						mainCharacter.drawHitbox(gc, mainCharacter);
-						mainCharacter.displayHealth(gc);
+						mainCharacter.displayStatus(gc);
 
 						fpsmeter.update(now, gc);
 						lastNow = now;

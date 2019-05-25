@@ -28,16 +28,16 @@ public class BasicMonster extends Monster {
         speedY = directionY * RADIUS / 8;
         speedLimitX = RADIUS / 32;
         speedLimitY = RADIUS / 32;
-        healthBar.put(100, new Image("images/healthBar0.png"));
-        healthBar.put(90, new Image("images/healthBar1.png"));
-        healthBar.put(80, new Image("images/healthBar2.png"));
-        healthBar.put(70, new Image("images/healthBar3.png"));
-        healthBar.put(60, new Image("images/healthBar4.png"));
-        healthBar.put(50, new Image("images/healthBar5.png"));
-        healthBar.put(40, new Image("images/healthBar6.png"));
-        healthBar.put(30, new Image("images/healthBar7.png"));
-        healthBar.put(20, new Image("images/healthBar8.png"));
-        healthBar.put(10, new Image("images/healthBar9.png"));
+        healthBar.put(100, new Image("images/monsterHealthBar0.png"));
+        healthBar.put(90, new Image("images/monsterHealthBar1.png"));
+        healthBar.put(80, new Image("images/monsterHealthBar2.png"));
+        healthBar.put(70, new Image("images/monsterHealthBar3.png"));
+        healthBar.put(60, new Image("images/monsterHealthBar4.png"));
+        healthBar.put(50, new Image("images/monsterHealthBar5.png"));
+        healthBar.put(40, new Image("images/monsterHealthBar6.png"));
+        healthBar.put(30, new Image("images/monsterHealthBar7.png"));
+        healthBar.put(20, new Image("images/monsterHealthBar8.png"));
+        healthBar.put(10, new Image("images/monsterHealthBar9.png"));
         hitbox.setRadius(2 * RADIUS);
     }
 

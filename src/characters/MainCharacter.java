@@ -14,13 +14,15 @@ public class MainCharacter extends Character {
 	private final Image fullHeart = new Image("resources/images/heartFull.png");
 	private final Image emptyHeart = new Image("resources/images/heartEmpty.png");
 	private final Image halfHeart = new Image("resources/images/heartHalf.png");
-	private double stamina = 100;
+	private double staminaPoint = 100;
 	private boolean isRunning = false;
 	private double baseSpeedLimitX = SIDE / 3;
 	private double baseSpeedLimitY = SIDE / 3;
 	private final double runningSpeedLimitX;
 	private final double runningSpeedLimitY;
-    private int compteurinvicible = 300 ;
+    private int invincibilityFrames = 300 ;
+    private HashMap<Integer, Image> staminaBar = new HashMap<>();
+
 	public MainCharacter(Coordinate position, Map map ) {
 		super(position);
 		this.map=map;
@@ -47,29 +49,46 @@ public class MainCharacter extends Character {
 		runningSpeedLimitY = speedLimitY * 2;
 		healthPoint = 100;
 		this.type = 0;
+
+		for (int i = 0; i < 101; i++) {
+			String healthPath = "resources/images/healthBar";
+			String staminaPath = "resources/images/staminaBar";
+			if (i < 10) {
+				healthPath += "0" + i;
+				staminaPath += "0" + i;
+			} if (i >= 10 && i< 100) {
+				healthPath += "0" + i;
+				staminaPath += "0" + i;
+			} else {
+				healthPath += i;
+				staminaPath += i;
+			}
+			healthBar.put(100 - i, new Image(healthPath + ".png"));
+			staminaBar.put(100 - i, new Image(staminaPath + ".png"));
+		}
 	}
 	public void startRun() { isRunning = true; }
 
 	public void stopRun() { isRunning =false; }
 
 	public void dash(){
-		if (stamina > 25) {
+		if (staminaPoint > 25) {
 			this.speedX = sign(speedX) * baseSpeedLimitX * 10;
 			this.speedY = sign(speedY) * baseSpeedLimitY * 10;
-			stamina -= 20;
+			staminaPoint -= 20;
 		}
 	}
 
 	private void displacement(HashMap<CharacterActions, Boolean> inputs) {
-		if(isRunning && stamina > 0){
+		if(isRunning && staminaPoint > 0){
 			speedLimitX= runningSpeedLimitX;
 			speedLimitY= runningSpeedLimitY;
-			stamina -= 40.0/60;
+			staminaPoint -= 40.0/60;
 		}else{
 			speedLimitX = baseSpeedLimitX;
 			speedLimitY = baseSpeedLimitY;
-			if (stamina < 100 && !isRunning){
-			 	stamina = stamina+ 15.0/60;
+			if (staminaPoint < 100 && !isRunning){
+			 	staminaPoint = staminaPoint + 15.0/60;
 			}
 		}
 		if (!(inputs.get(CharacterActions.UP) && inputs.get(CharacterActions.DOWN)
@@ -105,13 +124,13 @@ public class MainCharacter extends Character {
 
 	public void update(HashMap<CharacterActions, Boolean> inputs, MonsterSet monsterSet) {
 		displacement(inputs);
-    if( compteurinvicible == 0 ) {
-        if( monsterSet.hit(hitbox)) {
-            healthPoint -= 10;
-            compteurinvicible = 120 ;
-        }
-    }else {
-        compteurinvicible--;
+    	if(invincibilityFrames == 0) {
+        	if (monsterSet.hit(hitbox)) {
+            	healthPoint -= 10;
+            	invincibilityFrames = 60;
+        	}
+    	} else {
+        	invincibilityFrames--;
     }
 		if(!collision(position,map.getCurrent().getMap())) {
 			position.add(speedX / SIDE, speedY / SIDE);
@@ -150,86 +169,9 @@ public class MainCharacter extends Character {
 		map.getCurrent().getMonsters().isHit(hitboxAttack);
 	}
 
-	public void displayHealth(GraphicsContext gc) {
-		switch (healthPoint) {
-			case 100:
-				for (int i = 1; i <= 5; i++){
-					gc.drawImage(fullHeart, WIDTH - i * RADIUS, 0, RADIUS, RADIUS);
-				}
-				break;
-			case 90:
-				for (int i = 2; i <= 5; i++){
-					gc.drawImage(fullHeart, WIDTH - i * RADIUS, 0, RADIUS, RADIUS);
-				}
-				gc.drawImage(halfHeart, WIDTH - RADIUS, 0, RADIUS, RADIUS);
-				break;
-			case 80:
-				for (int i = 2; i <= 5; i++){
-					gc.drawImage(fullHeart, WIDTH - i * RADIUS, 0, RADIUS, RADIUS);
-				}
-				gc.drawImage(emptyHeart, WIDTH - RADIUS, 0, RADIUS, RADIUS);
-				break;
-			case 70:
-				for (int i = 3; i <= 5; i++){
-					gc.drawImage(fullHeart, WIDTH - i * RADIUS, 0, RADIUS, RADIUS);
-				}
-				gc.drawImage(halfHeart, WIDTH - 2 * RADIUS, 0, RADIUS, RADIUS);
-				gc.drawImage(emptyHeart, WIDTH - RADIUS, 0, RADIUS, RADIUS);
-				break;
-			case 60:
-				for (int i = 3; i <= 5; i++){
-					gc.drawImage(fullHeart, WIDTH - i * RADIUS, 0, RADIUS, RADIUS);
-				}
-				for (int i = 1; i < 3; i++) {
-					gc.drawImage(emptyHeart, WIDTH - i * RADIUS, 0, RADIUS, RADIUS);
-				}
-				break;
-			case 50:
-				for (int i = 4; i <= 5; i++){
-					gc.drawImage(fullHeart, WIDTH - i * RADIUS, 0, RADIUS, RADIUS);
-				}
-				gc.drawImage(halfHeart, WIDTH - 3 * RADIUS, 0, RADIUS, RADIUS);
-				for (int i = 1; i < 3; i++) {
-					gc.drawImage(emptyHeart, WIDTH - i * RADIUS, 0, RADIUS, RADIUS);
-				}
-				break;
-			case 40:
-				for (int i = 4; i <= 5; i++){
-					gc.drawImage(fullHeart, WIDTH - i * RADIUS, 0, RADIUS, RADIUS);
-				}
-				for (int i = 1; i < 4; i++) {
-					gc.drawImage(emptyHeart, WIDTH - i * RADIUS, 0, RADIUS, RADIUS);
-				}
-				break;
-			case 30:
-				for (int i = 5; i <= 5; i++){
-					gc.drawImage(fullHeart, WIDTH - i * RADIUS, 0, RADIUS, RADIUS);
-				}
-				gc.drawImage(halfHeart, WIDTH - 4 * RADIUS, 0, RADIUS, RADIUS);
-				for (int i = 1; i < 4; i++) {
-					gc.drawImage(emptyHeart, WIDTH - i * RADIUS, 0, RADIUS, RADIUS);
-				}
-				break;
-			case 20:
-				for (int i = 5; i <= 5; i++){
-					gc.drawImage(fullHeart, WIDTH - i * RADIUS, 0, RADIUS, RADIUS);
-				}
-				for (int i = 1; i < 5; i++) {
-					gc.drawImage(emptyHeart, WIDTH - i * RADIUS, 0, RADIUS, RADIUS);
-				}
-				break;
-			case 10:
-				for (int i = 1; i < 5; i++){
-					gc.drawImage(emptyHeart, WIDTH - i * RADIUS, 0, RADIUS, RADIUS);
-				}
-				gc.drawImage(halfHeart, WIDTH - 5 * RADIUS, 0, RADIUS, RADIUS);
-				break;
-			case 0:
-				for (int i = 1; i <= 5; i++){
-					gc.drawImage(emptyHeart, WIDTH - i * RADIUS, 0, RADIUS, RADIUS);
-				}
-				break;
-		}
+	public void displayStatus(GraphicsContext gc) {
+		gc.drawImage(healthBar.get(healthPoint), WIDTH * 8.8 / 10, 0, WIDTH / 10, WIDTH / 40);
+		gc.drawImage(staminaBar.get((int)staminaPoint), WIDTH * 7.6 / 10, 0, WIDTH / 10, WIDTH / 40);
 	}
 
 	public int getHealth() {
