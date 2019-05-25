@@ -54,6 +54,7 @@ public class BasicMonster extends Monster {
     }
 
     public void updateDisplacement() {
+
         if(state == 0) {
             double toCharactersDistance = position.distance(mainCharactersPosition);
             if (toCharactersDistance < 500) {
@@ -75,8 +76,9 @@ public class BasicMonster extends Monster {
             speedX = directionX * speedLimitX / 13;
             speedY = directionY * speedLimitY / 13;
         }
-
         speedX = (Math.abs(speedX) < speedLimitX) ? speedX + directionX * speedLimitX / 13 : directionX * speedLimitX;
         speedY = (Math.abs(speedY) < speedLimitY) ? speedY + directionY * speedLimitY / 13 : directionY * speedLimitY;
+
+
     }
 }

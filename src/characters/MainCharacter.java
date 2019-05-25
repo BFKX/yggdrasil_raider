@@ -86,7 +86,7 @@ public class MainCharacter extends Character {
 			speedLimitX = baseSpeedLimitX;
 			speedLimitY = baseSpeedLimitY;
 			if (staminaPoint < 100 && !isRunning){
-			 	staminaPoint = staminaPoint + 15.0/60;
+			 	staminaPoint = staminaPoint + 20.0/60;
 			}
 		}
 		if (!(inputs.get(CharacterActions.UP) && inputs.get(CharacterActions.DOWN)
@@ -167,7 +167,7 @@ public class MainCharacter extends Character {
 
 	public void attack(GraphicsContext gc) {
 		Hitbox hitboxAttack = new Hitbox(new Coordinate(position.getX() + sign(speedX) * (RADIUS / SIDE) * 15 / 10,
-				position.getY() + sign(speedY) * (RADIUS / SIDE) * 15 / 10), RADIUS);
+				position.getY() + sign(speedY) * (RADIUS / SIDE) * 15 / 10), RADIUS*2);
 		hitboxAttack.draw(gc,this.getPosition());
 		map.getCurrent().getMonsters().isHit(hitboxAttack);
 	}
