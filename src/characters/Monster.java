@@ -4,6 +4,8 @@ import javafx.scene.canvas.GraphicsContext;
 import tools.Coordinate;
 import tools.Hitbox;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public abstract class Monster extends Character {
     Coordinate mainCharactersPosition;
 
@@ -31,7 +33,7 @@ public abstract class Monster extends Character {
     }
 
     void isAttacked(){
-        this.healthPoint -= 10;
+        this.healthPoint -= (ThreadLocalRandom.current().nextInt(0, 10) > 2) ? 10 : 20;
         knockBack();
     }
 
