@@ -54,11 +54,14 @@ public class BasicMonster extends Monster {
     }
 
     public void updateDisplacement() {
-        state = (state == 0 && position.distance(mainCharactersPosition) < 500) ?
-                ThreadLocalRandom.current().nextInt(0, 100) > 60 ? 1 : 2 : 0;
-
+        if(state == 0) {
+            double toCharactersDistance = position.distance(mainCharactersPosition);
+            if (toCharactersDistance < 500) {
+                state = ThreadLocalRandom.current().nextInt(0, 100) > 60 ? 1 : 2;
+            }
+        }
         if (state == 1 ) {
-            if (position.distance(mainCharactersPosition) < 200){
+            if (position.distance(mainCharactersPosition) < 40){
             double xDist = position.getX() - mainCharactersPosition.getX();
             double yDist = position.getY() - mainCharactersPosition.getY();
             directionX = (xDist > 0) ? -1 : (xDist < 0) ? 1 : 0;
