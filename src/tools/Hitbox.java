@@ -15,10 +15,16 @@ public class Hitbox {
 	public Hitbox(Coordinate origin, double radius) {
 		this.origin = origin;
 		this.radius = radius;
+		this.origin.add(- radius/2, - radius/2);
 	}
 
 	public boolean collide(Hitbox other) {
-		return this.origin.distance(other.getOrigin()) < this.radius / SIDE + other.getRadius() / SIDE;
+		 if ( this.origin.distance(other.getOrigin()) < this.radius / SIDE + other.getRadius() / SIDE){
+			System.out.println(this.origin +" ; " + other . origin + " , " + this.origin.distance(other.origin) + " : "+
+				this.radius/SIDE + ", " + other.radius/SIDE );
+			return true;
+		 }else{
+		 return false;}
 	}
 
 	public void draw(GraphicsContext gc, Coordinate characterPosition) {
