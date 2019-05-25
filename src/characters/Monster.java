@@ -27,12 +27,15 @@ public abstract class Monster extends Character {
     public boolean collideHitbox(Hitbox hitbox){
         return this.hitbox.collide(hitbox);
     }
+    private void knockBack(){
+        this.speedX = - this.speedX * 5 ;
+        this.speedY = - this.speedY * 5 ;
+    }
 
     public void isAttacked(){
         System.out.println("\t\t\tCOUCOU\t\t\t");
         this.healthPoint -= 200;
-        this.speedX = - this.speedX;
-        this.speedY = - this.speedY ;
+         knockBack();
     }
 
 }
