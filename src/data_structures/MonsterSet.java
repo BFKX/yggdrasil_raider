@@ -10,6 +10,7 @@ import java.util.Iterator;
 
 public class MonsterSet {
     private ArrayList<Monster> monsters= new ArrayList<>();
+    private boolean accessed = false;
 
     public MonsterSet(int n, MainCharacter mainCharacter, int[][] map) {
         for (int i = 0; i < n; i++) {
@@ -59,7 +60,6 @@ public class MonsterSet {
     }
 
     boolean hit(Hitbox hitbox) {
-        int k = 0;
         Iterator<Monster> it = monsters.iterator();
         Monster curr;
         while (it.hasNext()) {
