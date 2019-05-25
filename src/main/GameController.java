@@ -237,7 +237,7 @@ class GameController extends Application {
 	private void starter() {
 		mainCharacter = new MainCharacter(new Coordinate(0,0),map);
 		this.map = new Map(100, mainCharacter);
-		mainCharacter.startposition(map.getCurrent());
+		mainCharacter.startPosition(map.getCurrent());
 		mainCharacter.setMap(map);
 	}
 }

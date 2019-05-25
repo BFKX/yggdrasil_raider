@@ -4,7 +4,6 @@ import javafx.scene.canvas.GraphicsContext;
 import mapping.Room;
 import tools.Coordinate;
 import tools.Hitbox;
-import mapping.Map;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -14,8 +13,8 @@ public class MonsterSet {
 
     public MonsterSet(int n, MainCharacter mainCharacter, int[][] map) {
         for (int i = 0; i < n; i++) {
-            monsters.add(new BasicMonster(new Coordinate( map.length*Math.random(),
-                     map[0] .length * Math.random()), mainCharacter.getPosition(), map));
+            monsters.add(new BasicMonster(new Coordinate( map.length * Math.random(),
+                     map[0].length * Math.random()), mainCharacter.getPosition(), map));
         }
     }
 
@@ -24,26 +23,19 @@ public class MonsterSet {
         Monster curr;
         while (it.hasNext()) {
             curr = it.next();
-            curr.startposition(room);
+            curr.startPosition(room);
         }
     }
 
-    public void setMainCharacterPosition( Coordinate position ){
+    void setMainCharacterPosition(Coordinate mainCharacterPosition){
         Iterator<Monster> it = monsters.iterator();
         Monster curr;
         while (it.hasNext()) {
             curr = it.next();
-            curr.setMainCharactersPosition(position);
+            curr.setMainCharactersPosition(mainCharacterPosition);
         }
     }
-    public void setMap(Map map){
-        Iterator<Monster> it = monsters.iterator();
-        Monster curr;
-        while (it.hasNext()) {
-            curr = it.next();
-            curr.setMap(map);
-        }
-    }
+
     public void update(GraphicsContext gc) {
         Iterator<Monster> it = monsters.iterator();
         Monster curr;
@@ -52,7 +44,7 @@ public class MonsterSet {
             if (curr.getHealthPoint() <= 0) {
                 monsters.remove(curr);
             } else {
-                curr.update(gc);
+                curr.update();
             }
         }
     }
@@ -66,32 +58,24 @@ public class MonsterSet {
         }
     }
 
-    public int hit(Hitbox hitbox){//retun the number of monster that hit hitbox
-        int k=0;
+    int hit(Hitbox hitbox) {
+        int k = 0;
         Iterator<Monster> it = monsters.iterator();
         Monster curr;
         while (it.hasNext()) {
             curr = it.next();
-            if (curr.collideHitbox(hitbox)) {
-                k++;
-            }
+            k = (curr.collideHitbox(hitbox)) ? k + 1 : k;
         }
         return k;
     }
 
-    public void isHit(Hitbox hitbox){
+    void isHit(Hitbox hitbox){
         Iterator<Monster> it = monsters.iterator();
         Monster curr;
         while (it.hasNext()) {
             curr = it.next();
             if (curr.collideHitbox(hitbox)) {
                 curr.isAttacked();
-            } else {
-                System.out.print("resultat " + curr.collideHitbox(hitbox));
-                System.out.print(" non : " + curr.getRADIUS());
-                System.out.print(" distance" + hitbox.getOrigin().distance(curr.position));
-                System.out.print(" radius " + curr.getRADIUS());
-                System.out.println(" Monster poss : " + curr.position  );
             }
         }
     }

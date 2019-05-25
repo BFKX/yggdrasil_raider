@@ -11,14 +11,16 @@ import tools.ImageSet;
 import java.util.HashMap;
 
 public class MainCharacter extends Character {
-	final Image fullHeart = new Image("resources/images/heartFull.png");
-	final Image emptyHeart = new Image("resources/images/heartEmpty.png");
-	final Image halfHeart = new Image("resources/images/heartHalf.png");
-	final double staminaMax = 100;
-	double stamina ;
-	private boolean isRuning = false;
-	double baseSpeedLimiteX;
-	double baseSpeedLimiteY;
+	private final Image fullHeart = new Image("resources/images/heartFull.png");
+	private final Image emptyHeart = new Image("resources/images/heartEmpty.png");
+	private final Image halfHeart = new Image("resources/images/heartHalf.png");
+	private double stamina = 100;
+	private boolean isRunning = false;
+	private double baseSpeedLimitX = SIDE / 3;
+	private double baseSpeedLimitY = SIDE / 3;
+	private final double runningSpeedLimitX;
+	private final double runningSpeedLimitY;
+
 	public MainCharacter(Coordinate position, Map map ) {
 		super(position);
 		this.map=map;
@@ -39,28 +41,25 @@ public class MainCharacter extends Character {
 		waiting = new Image("resources/images/noFootCharacter.png");
 		RADIUS = 3 * SIDE;
 		hitbox.setRadius(RADIUS);
-		baseSpeedLimiteX = SIDE / 3;
-		baseSpeedLimiteY = SIDE / 3;
-		speedLimitX =baseSpeedLimiteY;
-		speedLimitY =baseSpeedLimiteY;
-		runingSpeedLimitX=speedLimitX*2;
-		runingSpeedLimitY=speedLimitY*2;
-		stamina = 100;
+		speedLimitX = baseSpeedLimitX;
+		speedLimitY = baseSpeedLimitY;
+		runningSpeedLimitX = speedLimitX*2;
+		runningSpeedLimitY = speedLimitY*2;
 		healthPoint = 100;
 		this.type = 0;
 	}
 	public void startRun(){
-		isRuning= true ;
+		isRunning = true ;
 	}
 
 	public void stopRun(){
-		isRuning=false;
+		isRunning =false;
 	}
 
 	public void dash(){
 		if(stamina > 25 ) {
-			this.speedX =  signe(speedX) * baseSpeedLimiteX * 10;
-			this.speedY = signe(speedY) * baseSpeedLimiteY  * 10;
+			this.speedX =  signe(speedX) * baseSpeedLimitX * 10;
+			this.speedY = signe(speedY) * baseSpeedLimitY * 10;
 			stamina= stamina - 20 ;
 		}
 	}
@@ -70,15 +69,15 @@ public class MainCharacter extends Character {
 		return 0 ;
 	}
 	private void displacement(HashMap<CharacterActions, Boolean> inputs) {
-		if(isRuning && stamina > 0){
-			speedLimitX= runingSpeedLimitX;
-			speedLimitY= runingSpeedLimitY;
+		if(isRunning && stamina > 0){
+			speedLimitX= runningSpeedLimitX;
+			speedLimitY= runningSpeedLimitY;
 			stamina -= 40.0/60;
 			System.out.println("stamina : "+ stamina );
 		}else{
-			speedLimitX = baseSpeedLimiteX;
-			speedLimitY = baseSpeedLimiteY;
-			if (stamina < staminaMax && ! isRuning ){
+			speedLimitX = baseSpeedLimitX;
+			speedLimitY = baseSpeedLimitY;
+			if (stamina < 100 && !isRunning){
 			 	stamina = stamina+ 15.0/60;
 				System.out.println("Stamina: " + stamina);
 			}

@@ -18,40 +18,35 @@ public abstract class Character {
     Map map;
     final double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
     final double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-    int type; // type = 0 => perso principal
-    Coordinate position; // position en (double ) case
+    int type; // type == 0 => mainCharacter
+    Coordinate position; // position en (double) case
     final Hitbox hitbox;
     double speedX = 0, speedY = 0; // en pixel
     double speedLimitX, speedLimitY; // en pixel
-    double runingSpeedLimitX ,runingSpeedLimitY;
     double RADIUS; //en pixel
     final double SIDE = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60; //en pixel
     ImageSet sprites;
-    private Image sprite;
     Image waiting;
-    final HashMap<Integer, Image> lifeBar = new HashMap<>();
+    final HashMap<Integer, Image> healthBar = new HashMap<>();
     int healthPoint;
-    private boolean isAttacking;
     private int angle;
 
     Character(Coordinate position) {
         this.position = position;
-        this.hitbox = new Hitbox(position, RADIUS); // en case (double)
-        isAttacking = false;
+        hitbox = new Hitbox(position, RADIUS);
     }
 
     public Coordinate getPosition(){
         return this.position;
     }
 
-    public void startposition(Room room){
-        int [][] map = room.getMap();
-        int mid1 = ThreadLocalRandom.current().nextInt(map.length - (int)( map.length * 0.8), map.length);
-        int mid2 = ThreadLocalRandom.current().nextInt(map[0].length - (int)( map[0].length * 0.8), map[0].length);
-        while (map[mid1][mid2] > 0) {
-            mid1 = ThreadLocalRandom.current().nextInt(map.length - (int)( map.length * .8)  , map.length );
-            mid2 = ThreadLocalRandom.current().nextInt(map[0].length - (int)( map[0].length * .8), map[0].length );
-        }
+    public void startPosition(Room room){
+        int[][] map = room.getMap();
+        int mid1, mid2;
+         do {
+            mid1 = ThreadLocalRandom.current().nextInt(map.length - (int)( map.length * 0.8), map.length);
+            mid2 = ThreadLocalRandom.current().nextInt(map[0].length - (int)( map[0].length * 0.8), map[0].length);
+        } while (map[mid1][mid2] > 0);
         this.position.setX(mid1);
         this.position.setY(mid2);
     }
@@ -59,16 +54,12 @@ public abstract class Character {
     public void display(GraphicsContext gc) {
         gc.save();
         if (type != 0) {
-            gc.drawImage(lifeBar.get(this.healthPoint), this.position.getX() * map.getSIDE() - 30,
+            gc.drawImage(healthBar.get(this.healthPoint), this.position.getX() * map.getSIDE() - 30,
                     this.position.getY() * map.getSIDE() - 30, 2 * RADIUS, 0.25 * RADIUS);
         }
         angleSelector(gc);
-        if (Math.abs(speedY) < 1 && Math.abs(speedX) < 1) {
-            sprite = waiting;
-        } else {
-            sprite = sprites.get();
-        }
-        gc.drawImage(sprite, WIDTH / 2 - RADIUS / 2, HEIGHT / 2 - RADIUS / 2, RADIUS, RADIUS);
+        gc.drawImage((Math.abs(speedY) < 1 && Math.abs(speedX) < 1) ? waiting : sprites.get(), WIDTH / 2 - RADIUS / 2,
+                HEIGHT / 2 - RADIUS / 2, RADIUS, RADIUS);
         gc.restore();
     }
 
@@ -97,20 +88,18 @@ public abstract class Character {
     }
 
     private int signOf(double x) {
-        if (x > 0) {
-            return  1;
-        } else if (x < 0) {
-            return -1;
-        }
-        return 0;
+        return (x > 0) ? 1 : (x < 0) ? -1 : 0;
     }
 
     boolean collision(Coordinate positionInt,int[][]mapInt) {
         int signSpeedX = signOf(speedX);
         int signSpeedY = signOf(speedY);
+        int i, j;
         for (int k = -1; k < 2; k++) {
-            int i = (type == 0) ? (int) positionInt.getX() + (int) (signSpeedX * RADIUS / (2 * SIDE)) : (int) positionInt.getX() + (int) (signSpeedX * RADIUS / SIDE);
-            int j = (type == 0) ? (int) positionInt.getY() + (int) (signSpeedY * RADIUS / (2 * SIDE)) : (int) positionInt.getY() + (int) (signSpeedY * RADIUS / SIDE);
+            i = (type == 0) ? (int) positionInt.getX() + (int) (signSpeedX * RADIUS / (2 * SIDE)) :
+                    (int) positionInt.getX() + (int) (signSpeedX * RADIUS / SIDE);
+            j = (type == 0) ? (int) positionInt.getY() + (int) (signSpeedY * RADIUS / (2 * SIDE)) :
+                    (int) positionInt.getY() + (int) (signSpeedY * RADIUS / SIDE);
             if (i >= 0 && i < mapInt.length) {
                 if (j >= 0 && j < mapInt[0].length) {
                     if (mapInt[i][j] > 0) {
@@ -132,18 +121,11 @@ public abstract class Character {
         return new Coordinate(rx,ry);
     }
 
-    public double getRADIUS(){
-        return RADIUS;
-    }
     public void setMap(Map map) {
         this.map = map;
     }
 
-    public Hitbox getHitbox() {
-        return hitbox;
-    }
-
-    public int getHealthPoint() {
+    int getHealthPoint() {
         return healthPoint;
     }
 

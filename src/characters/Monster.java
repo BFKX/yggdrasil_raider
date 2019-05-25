@@ -5,34 +5,34 @@ import tools.Coordinate;
 import tools.Hitbox;
 
 public abstract class Monster extends Character {
-    Coordinate mainCharactersPosition ;
+    Coordinate mainCharactersPosition;
 
-    Monster(Coordinate position,Coordinate mainCharactersPosition){
+    Monster(Coordinate position, Coordinate mainCharacterPosition) {
         super(position);
-        this.mainCharactersPosition =  mainCharactersPosition;
+        this.mainCharactersPosition = mainCharacterPosition;
     }
 
     public abstract void updateDisplacement();
 
     public abstract void display(GraphicsContext gc, Coordinate mainCharactersPosition);
 
-    void update(GraphicsContext gc) {
+    void update() {
         updateDisplacement();
-        this.position.add( speedX/SIDE, speedY/SIDE);
+        this.position.add(speedX/SIDE, speedY/SIDE);
     }
-    public void setMainCharactersPosition(Coordinate position){
+
+    void setMainCharactersPosition(Coordinate position){
         this.mainCharactersPosition=position;
     }
 
-    public boolean collideHitbox(Hitbox hitbox){
+    boolean collideHitbox(Hitbox hitbox){
         return this.hitbox.collide(hitbox);
     }
 
-    public void isAttacked(){
-        System.out.println("\t\t\tCOUCOU\t\t\t");
-        this.healthPoint -= 200;
-        this.speedX = - this.speedX;
-        this.speedY = - this.speedY ;
+    void isAttacked(){
+        healthPoint -= 10;
+        speedX = -speedX;
+        speedY = -speedY;
     }
 
 }
