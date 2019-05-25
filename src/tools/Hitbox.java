@@ -42,6 +42,7 @@ public class Hitbox {
 
 	public void setOrigin(Coordinate origin){
 		this.origin= origin ;
+		this.origin.add(- radius/2, - radius/2);
 	}
 	public double getRadius() {
 		return radius;
