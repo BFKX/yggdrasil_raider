@@ -206,7 +206,7 @@ public class MainCharacter extends Character {
 					gc.drawImage(fullHeart, WIDTH - i * RADIUS, 0, RADIUS, RADIUS);
 				}
 				gc.drawImage(halfHeart, WIDTH - 4 * RADIUS, 0, RADIUS, RADIUS);
-				for (int i = 1; i < 5; i++) {
+				for (int i = 1; i < 4; i++) {
 					gc.drawImage(emptyHeart, WIDTH - i * RADIUS, 0, RADIUS, RADIUS);
 				}
 				break;
@@ -222,7 +222,7 @@ public class MainCharacter extends Character {
 				for (int i = 1; i < 5; i++){
 					gc.drawImage(emptyHeart, WIDTH - i * RADIUS, 0, RADIUS, RADIUS);
 				}
-				gc.drawImage(halfHeart, WIDTH - RADIUS, 0, RADIUS, RADIUS);
+				gc.drawImage(halfHeart, WIDTH - 5 * RADIUS, 0, RADIUS, RADIUS);
 				break;
 			case 0:
 				for (int i = 1; i <= 5; i++){

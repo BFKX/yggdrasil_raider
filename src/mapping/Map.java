@@ -3,6 +3,7 @@ package mapping;
 import characters.MainCharacter;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import tools.Coordinate;
 
 import java.awt.Toolkit;
@@ -15,8 +16,8 @@ public class Map {
 	private Room current;
 	private int lines;
 	private int columns;
-	final double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-	final double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+	private final double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+	private final double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	final private Image voidImage = new Image("resources/images/void.png");
 	final private Image sWall = new Image("resources/images/sWall.png");
 	final private Image eWall = new Image("resources/images/eWall.png");
@@ -50,8 +51,9 @@ public class Map {
 	private final double sideMiniMap = SIDE * 0.1;
 	private double originXMiniMap;
 	private double originYMiniMap;
-	Room [] [] mapOfRoom;
-	MainCharacter mainCharacter;
+	private Room[][] mapOfRoom;
+	private MainCharacter mainCharacter;
+	private final int roomScale = 150;
 
 	public Map(int n,MainCharacter mainCharacter) {
 
@@ -59,8 +61,8 @@ public class Map {
 		mapOfRoom = new Room [2*n+1] [2*n+1];
 		this.mainCharacter = mainCharacter;
 
-		origin = new Cave(ThreadLocalRandom.current().nextInt(100, 110),
-				ThreadLocalRandom.current().nextInt(100, 110), pseudoRandomList,new Coordinate(n, n));
+		origin = new Cave(ThreadLocalRandom.current().nextInt(roomScale, roomScale * 11 / 10),
+				ThreadLocalRandom.current().nextInt(roomScale, roomScale * 11 / 10), pseudoRandomList,new Coordinate(n, n));
 		origin.createMonsters(mainCharacter);
 
 		current = origin;
@@ -88,8 +90,8 @@ public class Map {
 	}
 	private void placeRoom (int n ) { // cree une sale
 		for ( int k = 0 ; k<n ; k++  ){
-			int tempWidth = ThreadLocalRandom.current().nextInt(100, 110);
-			int tempHeight = ThreadLocalRandom.current().nextInt(100, 110);
+			int tempWidth = ThreadLocalRandom.current().nextInt(roomScale, roomScale * 11 / 10);
+			int tempHeight = ThreadLocalRandom.current().nextInt(roomScale, roomScale * 11 / 10);
 			Cave temp = new Cave(tempWidth,tempHeight,pseudoRandomList,
 					positionOnMap(mapOfRoom,origin.getPosition().copy()));
 			temp.createMonsters(mainCharacter);
@@ -195,6 +197,7 @@ public class Map {
 	}
 
 	public void displayMiniMap(GraphicsContext gc, Coordinate characterPosition) {
+		gc.save();
 		gc.setGlobalAlpha(0.7);
 		Image sprite;
 		double sideCharacterMiniMap = SIDE / 3;
@@ -207,11 +210,27 @@ public class Map {
 				}
 			}
 		}
-		gc.drawImage(red,
-				originXMiniMap + sideMiniMap * characterPosition.getX()  - sideCharacterMiniMap / 2,
+		gc.setFill(Color.DARKORANGE);
+		gc.fillRect(originXMiniMap + sideMiniMap * characterPosition.getX()  - sideCharacterMiniMap / 2,
 				originYMiniMap + sideMiniMap * characterPosition.getY()  - sideCharacterMiniMap / 2,
 				sideCharacterMiniMap, sideCharacterMiniMap);
-		gc.setGlobalAlpha(1);
+		gc.restore();
+	}
+
+	public void fullScreenMap(GraphicsContext gc, Coordinate characterPosition) {
+		int localLines = current.getHeight() / 2;
+		int localColumns = current.getWidth() / 2;
+		gc.fillRect(0, 0, WIDTH, HEIGHT);
+		double localSide = HEIGHT / current.getHeight();
+		for (int column = 0; column < columns; column++) {
+			for (int line = 0; line < lines; line++) {
+				gc.drawImage(spriteSelector(map[column][line]), (column - localColumns) * localSide + WIDTH / 2, (line - localLines) * localSide + HEIGHT / 2, localSide, localSide);
+			}
+		}
+		gc.save();
+		gc.setFill(Color.DARKORANGE);
+		gc.fillRect((characterPosition.getX() - localColumns) * localSide + WIDTH / 2, (characterPosition.getY() - localLines) * localSide + HEIGHT / 2, localSide, localSide);
+		gc.restore();
 	}
 
 //	public void displayMapOfMap(){

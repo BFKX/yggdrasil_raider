@@ -165,4 +165,12 @@ public abstract class Room {
 	public MonsterSet getMonsters() {
 		return monsters;
 	}
+
+	int getWidth() {
+		return width;
+	}
+
+	int getHeight() {
+		return height;
+	}
 }

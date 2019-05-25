@@ -22,6 +22,7 @@ import java.awt.Toolkit;
 import java.util.HashMap;
 
 class GameController extends Application {
+	private boolean mapShown = false;
 	final private double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	private boolean gameover = false;
 	private MainCharacter mainCharacter;
@@ -122,12 +123,15 @@ class GameController extends Application {
 				case A:
 					mainCharacter.attack(gc);
 					break;
-//			case M :
-//				map.displayMapOfMap();
-//				break;
+			case M :
+				map.fullScreenMap(gc, mainCharacter.getPosition());
+				mapShown = !mapShown;
+				break;
 			case ESCAPE:
 				if (mainCharacter.getHealth() <= 0) {
 					System.exit(0);
+				} else if (mapShown) {
+					mapShown = false;
 				} else {
 					pause = !pause;
 					if (!pause) {
@@ -198,7 +202,7 @@ class GameController extends Application {
 			long lastNow = 0;
 			final FPSMeter fpsmeter = new FPSMeter();
 			public void handle(long now) {
-				if (now - lastNow >= 15000000) {
+				if (now - lastNow >= 15000000 && !mapShown) {
 					if (!pause && mainCharacter.getHealth() > 0) {
 						gc.fillRect(0, 0, WIDTH, HEIGHT);
 
