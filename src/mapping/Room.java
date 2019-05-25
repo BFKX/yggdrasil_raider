@@ -40,7 +40,7 @@ public abstract class Room {
 
 	public void createMonsters(MainCharacter mainCharacter) {
 		this.monsters = new MonsterSet(10,mainCharacter,this.map);
-		this.monsters.setStartMonster(this);
+		this.monsters.setStartMonster(this,mainCharacter.getPosition());
 	}
 
 	public int[][] getMap() {

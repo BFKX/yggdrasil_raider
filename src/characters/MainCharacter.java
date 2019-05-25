@@ -20,7 +20,7 @@ public class MainCharacter extends Character {
 	private double baseSpeedLimitY = SIDE / 3;
 	private final double runningSpeedLimitX;
 	private final double runningSpeedLimitY;
-
+    private int compteurinvicible = 300 ;
 	public MainCharacter(Coordinate position, Map map ) {
 		super(position);
 		this.map=map;
@@ -105,10 +105,14 @@ public class MainCharacter extends Character {
 
 	public void update(HashMap<CharacterActions, Boolean> inputs, MonsterSet monsterSet) {
 		displacement(inputs);
-
-		for(int k = 0 ; k < monsterSet.hit(hitbox); k++) {
-			healthPoint -= 10;
-		}
+    if( compteurinvicible == 0 ) {
+        if( monsterSet.hit(hitbox)) {
+            healthPoint -= 10;
+            compteurinvicible = 120 ;
+        }
+    }else {
+        compteurinvicible--;
+    }
 		if(!collision(position,map.getCurrent().getMap())) {
 			position.add(speedX / SIDE, speedY / SIDE);
 		}

@@ -50,6 +50,16 @@ public abstract class Character {
         this.position.setX(mid1);
         this.position.setY(mid2);
     }
+    public void startPosition(Room room,Coordinate MainCharacterPosition){
+        int[][] map = room.getMap();
+        int mid1, mid2;
+        do {
+            mid1 = ThreadLocalRandom.current().nextInt(map.length - (int)( map.length * 0.8), map.length);
+            mid2 = ThreadLocalRandom.current().nextInt(map[0].length - (int)( map[0].length * 0.8), map[0].length);
+        } while (map[mid1][mid2] > 0|| MainCharacterPosition.distance(new Coordinate(mid1,mid2)) < 10);
+        this.position.setX(mid1);
+        this.position.setY(mid2);
+    }
 
     public void display(GraphicsContext gc) {
         gc.save();

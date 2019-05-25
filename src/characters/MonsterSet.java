@@ -18,12 +18,12 @@ public class MonsterSet {
         }
     }
 
-    public void setStartMonster(Room room ){
+    public void setStartMonster(Room room, Coordinate mainCposition ){
         Iterator<Monster> it = monsters.iterator();
         Monster curr;
         while (it.hasNext()) {
             curr = it.next();
-            curr.startPosition(room);
+            curr.startPosition(room,mainCposition);
         }
     }
 
@@ -58,15 +58,17 @@ public class MonsterSet {
         }
     }
 
-    int hit(Hitbox hitbox) {
+    boolean hit(Hitbox hitbox) {
         int k = 0;
         Iterator<Monster> it = monsters.iterator();
         Monster curr;
         while (it.hasNext()) {
             curr = it.next();
-            k = (curr.collideHitbox(hitbox)) ? k + 1 : k;
+            if ((curr.collideHitbox(hitbox))) {
+                return true;
+            }
         }
-        return k;
+        return false;
     }
 
     void isHit(Hitbox hitbox){
