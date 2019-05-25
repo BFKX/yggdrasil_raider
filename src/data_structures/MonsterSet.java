@@ -13,7 +13,6 @@ import java.util.Iterator;
 
 public class MonsterSet {
     private ArrayList<Monster> monsters= new ArrayList<>();
-    private boolean accessed = false;
 
     public MonsterSet(int n, MainCharacter mainCharacter, int[][] map) {
         for (int i = 0; i < n; i++) {

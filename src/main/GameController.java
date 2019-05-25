@@ -111,7 +111,7 @@ class GameController extends Application {
 
 		scene.setOnMousePressed(event -> {
 			if (event.getButton() == MouseButton.PRIMARY) {
-				mainCharacter.attack(gc);
+				inputs.replace(CharacterActions.ATTACK, true);
 			}
 		});
 
@@ -206,7 +206,7 @@ class GameController extends Application {
 					if (!pause && mainCharacter.getHealth() > 0) {
 						gc.fillRect(0, 0, WIDTH, HEIGHT);
 
-						mainCharacter.update(inputs,map.getCurrent().getMonsters());
+						mainCharacter.update(inputs,map.getCurrent().getMonsters(), gc);
 
 						map.updateMonster(gc);
 						map.display(gc, mainCharacter.getPosition());

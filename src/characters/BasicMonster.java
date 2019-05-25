@@ -21,7 +21,7 @@ public class BasicMonster extends Monster {
         sprite = (type == 1) ? new Image("resources/images/monster1.png") : (type == 2) ?
                 new Image("resources/images/monster2.png") : new Image("resources/images/monster3.png");
         healthPoint = 100;
-        RADIUS = 2 * Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
+        RADIUS = 5 * SIDE;
         directionX = ThreadLocalRandom.current().nextInt(-1, 2);
         directionY = ThreadLocalRandom.current().nextInt(-1, 2);
         speedX = directionX * RADIUS / 8;
@@ -38,7 +38,7 @@ public class BasicMonster extends Monster {
         healthBar.put(30, new Image("images/monsterHealthBar7.png"));
         healthBar.put(20, new Image("images/monsterHealthBar8.png"));
         healthBar.put(10, new Image("images/monsterHealthBar9.png"));
-        hitbox.setRadius(2 * RADIUS);
+        hitbox.setRadius(RADIUS);
     }
 
     @Override
@@ -46,10 +46,10 @@ public class BasicMonster extends Monster {
         double xOffset = characterPosition.getX() - WIDTH / (2 * SIDE);
         double yOffset = characterPosition.getY() - HEIGHT / (2 * SIDE);
 
-        gc.drawImage(sprite, (this.position.getX() - xOffset) * SIDE - RADIUS,
-                (this.position.getY() - yOffset) * SIDE - RADIUS, 2 * RADIUS, 2 * RADIUS);
-        gc.drawImage(healthBar.get(this.healthPoint), (this.position.getX() - xOffset) * SIDE - RADIUS * 0.75,
-                (this.position.getY() - yOffset) * SIDE - 1.5 * RADIUS, 1.5 * RADIUS, 0.4 * RADIUS);
+        gc.drawImage(sprite, (this.position.getX() - xOffset) * SIDE - RADIUS / 2,
+                (this.position.getY() - yOffset) * SIDE - RADIUS / 2, RADIUS, RADIUS);
+        gc.drawImage(healthBar.get(this.healthPoint), (this.position.getX() - xOffset) * SIDE - RADIUS * 0.375,
+                (this.position.getY() - yOffset) * SIDE - 0.75 * RADIUS, 0.75 * RADIUS, 0.2 * RADIUS);
         hitbox.draw(gc, mainCharactersPosition);
     }
 

@@ -120,12 +120,12 @@ public class MainCharacter extends Character {
 		}
 	}
 
-	public void update(HashMap<CharacterActions, Boolean> inputs, MonsterSet monsterSet) {
+	public void update(HashMap<CharacterActions, Boolean> inputs, MonsterSet monsterSet, GraphicsContext gc) {
 		displacement(inputs);
     	if(invincibilityFrames == 0) {
         	if (monsterSet.hit(hitbox)) {
             	healthPoint -= 10;
-            	invincibilityFrames = 60;
+            	invincibilityFrames = 120;
         	}
     	} else {
         	invincibilityFrames--;
@@ -154,6 +154,11 @@ public class MainCharacter extends Character {
 			this.hitbox.setOrigin(this.position);
 			map.getCurrent().getMonsters().setMainCharacterPosition(position);
 		}
+
+		if (inputs.get(CharacterActions.ATTACK)) {
+			inputs.replace(CharacterActions.ATTACK, false);
+			attack(gc);
+		}
 	}
 
 	public Coordinate getPosition() {
@@ -161,8 +166,8 @@ public class MainCharacter extends Character {
 	}
 
 	public void attack(GraphicsContext gc) {
-		Hitbox hitboxAttack = new Hitbox(new Coordinate(position.getX() + sign(speedX) * (RADIUS / SIDE) / 2,
-				position.getY() + sign(speedY) * (RADIUS / SIDE) / 2), RADIUS);
+		Hitbox hitboxAttack = new Hitbox(new Coordinate(position.getX() + sign(speedX) * (RADIUS / SIDE) * 15 / 10,
+				position.getY() + sign(speedY) * (RADIUS / SIDE) * 15 / 10), RADIUS);
 		hitboxAttack.draw(gc,this.getPosition());
 		map.getCurrent().getMonsters().isHit(hitboxAttack);
 	}
