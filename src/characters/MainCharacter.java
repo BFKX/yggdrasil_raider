@@ -43,43 +43,33 @@ public class MainCharacter extends Character {
 		hitbox.setRadius(RADIUS);
 		speedLimitX = baseSpeedLimitX;
 		speedLimitY = baseSpeedLimitY;
-		runningSpeedLimitX = speedLimitX*2;
-		runningSpeedLimitY = speedLimitY*2;
+		runningSpeedLimitX = speedLimitX * 2;
+		runningSpeedLimitY = speedLimitY * 2;
 		healthPoint = 100;
 		this.type = 0;
 	}
-	public void startRun(){
-		isRunning = true ;
-	}
+	public void startRun() { isRunning = true; }
 
-	public void stopRun(){
-		isRunning =false;
-	}
+	public void stopRun() { isRunning =false; }
 
 	public void dash(){
-		if(stamina > 25 ) {
-			this.speedX =  signe(speedX) * baseSpeedLimitX * 10;
-			this.speedY = signe(speedY) * baseSpeedLimitY * 10;
-			stamina= stamina - 20 ;
+		if (stamina > 25) {
+			this.speedX = sign(speedX) * baseSpeedLimitX * 10;
+			this.speedY = sign(speedY) * baseSpeedLimitY * 10;
+			stamina -= 20;
 		}
 	}
-	private int signe (double x ){
-		if( x > 0 ) { return  1;}
-		if(x<0 ) { return -1;}
-		return 0 ;
-	}
+
 	private void displacement(HashMap<CharacterActions, Boolean> inputs) {
 		if(isRunning && stamina > 0){
 			speedLimitX= runningSpeedLimitX;
 			speedLimitY= runningSpeedLimitY;
 			stamina -= 40.0/60;
-			System.out.println("stamina : "+ stamina );
 		}else{
 			speedLimitX = baseSpeedLimitX;
 			speedLimitY = baseSpeedLimitY;
 			if (stamina < 100 && !isRunning){
 			 	stamina = stamina+ 15.0/60;
-				System.out.println("Stamina: " + stamina);
 			}
 		}
 		if (!(inputs.get(CharacterActions.UP) && inputs.get(CharacterActions.DOWN)
@@ -115,9 +105,8 @@ public class MainCharacter extends Character {
 
 	public void update(HashMap<CharacterActions, Boolean> inputs, MonsterSet monsterSet) {
 		displacement(inputs);
-		System.out.println("MAIn: " + position + this.hitbox.getOrigin());
-		for(int k = 0 ; k < monsterSet.hit(hitbox); k++){
-			System.out.println(monsterSet.hit(hitbox));
+
+		for(int k = 0 ; k < monsterSet.hit(hitbox); k++) {
 			healthPoint -= 10;
 		}
 		if(!collision(position,map.getCurrent().getMap())) {
@@ -125,37 +114,34 @@ public class MainCharacter extends Character {
 		}
 		if(position.getX() < 0 ){
 			map.moveEast();
-			position=new Coordinate(map.getMap().length - 1,position.getY());
+			position = new Coordinate(map.getMap().length - 1, position.getY());
 			this.hitbox.setOrigin(this.position);
 			map.getCurrent().getMonsters().setMainCharacterPosition(position);
-		}else if(position.getX()>map.getMap().length - 1){
+		} else if (position.getX() > map.getMap().length - 1){
 			map.moveWest();
-			position= new Coordinate(0, position.getY());
+			position = new Coordinate(0, position.getY());
 			this.hitbox.setOrigin(this.position);
 			map.getCurrent().getMonsters().setMainCharacterPosition(position);
-		}else if(position.getY() < 0){
+		} else if (position.getY() < 0){
 			map.moveNorth();
-			position = new Coordinate(position.getX(), map.getMap()[0].length-1);
+			position = new Coordinate(position.getX(), map.getMap()[0].length - 1);
 			this.hitbox.setOrigin(this.position);
 			map.getCurrent().getMonsters().setMainCharacterPosition(position);
-		}else if(position.getY() > map.getMap()[0].length - 1 ){
+		} else if (position.getY() > map.getMap()[0].length - 1) {
 			map.moveSouth();
 			position = new Coordinate(position.getX(), 0);
 			this.hitbox.setOrigin(this.position);
 			map.getCurrent().getMonsters().setMainCharacterPosition(position);
 		}
-
-
 	}
 
 	public Coordinate getPosition() {
 		return position;
 	}
 
-	public void attack(GraphicsContext gc){
-		Hitbox hitboxAttack = new Hitbox(new Coordinate(position.getX() + signe(speedX)*(RADIUS/SIDE)/2,
-				position.getY() + signe(speedY)*(RADIUS/SIDE)/2)
-				, RADIUS  );
+	public void attack(GraphicsContext gc) {
+		Hitbox hitboxAttack = new Hitbox(new Coordinate(position.getX() + sign(speedX) * (RADIUS / SIDE) / 2,
+				position.getY() + sign(speedY) * (RADIUS / SIDE) / 2), RADIUS);
 		hitboxAttack.draw(gc,this.getPosition());
 		map.getCurrent().getMonsters().isHit(hitboxAttack);
 	}
@@ -240,5 +226,9 @@ public class MainCharacter extends Character {
 				}
 				break;
 		}
+	}
+
+	public int getHealth() {
+		return healthPoint;
 	}
 }

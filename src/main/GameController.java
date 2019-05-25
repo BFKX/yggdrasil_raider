@@ -23,6 +23,7 @@ import java.util.HashMap;
 
 class GameController extends Application {
 	final private double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+	private boolean gameover = false;
 	private MainCharacter mainCharacter;
 	final private double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	private Canvas canvas = new Canvas(WIDTH, HEIGHT);
@@ -121,13 +122,17 @@ class GameController extends Application {
 				case A:
 					mainCharacter.attack(gc);
 					break;
-			case M :
-				map.displayMapOfMap();
-				break;
+//			case M :
+//				map.displayMapOfMap();
+//				break;
 			case ESCAPE:
-				pause = !pause;
-				if (!pause) {
-					pause(gc);
+				if (mainCharacter.getHealth() <= 0) {
+					System.exit(0);
+				} else {
+					pause = !pause;
+					if (!pause) {
+						pause(gc);
+					}
 				}
 				break;
 			case UP:
@@ -194,7 +199,7 @@ class GameController extends Application {
 			final FPSMeter fpsmeter = new FPSMeter();
 			public void handle(long now) {
 				if (now - lastNow >= 15000000) {
-					if (!pause) {
+					if (!pause && mainCharacter.getHealth() > 0) {
 						gc.fillRect(0, 0, WIDTH, HEIGHT);
 
 						mainCharacter.update(inputs,map.getCurrent().getMonsters());
@@ -209,6 +214,8 @@ class GameController extends Application {
 
 						fpsmeter.update(now, gc);
 						lastNow = now;
+					} else if (!pause && mainCharacter.getHealth() <= 0) {
+						gameOver();
 					} else if (!pauseShown) {
 						pause(gc);
 					}
@@ -234,9 +241,20 @@ class GameController extends Application {
 		}
 	}
 
+	private void gameOver() {
+		if (!gameover) {
+			gc.drawImage(pauseBackground, 0, 0);
+			text.setText("Game Over press ESC to quit");
+			text.setLayoutX(WIDTH / 2 - text.getLayoutBounds().getWidth() / 2);
+			text.setLayoutY(HEIGHT / 2 + text.getLayoutBounds().getHeight() / 2);
+			game.getChildren().add(text);
+			gameover = true;
+		}
+	}
+
 	private void starter() {
 		mainCharacter = new MainCharacter(new Coordinate(0,0),map);
-		this.map = new Map(100, mainCharacter);
+		this.map = new Map(20, mainCharacter);
 		mainCharacter.startPosition(map.getCurrent());
 		mainCharacter.setMap(map);
 	}

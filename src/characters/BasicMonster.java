@@ -10,7 +10,7 @@ public class BasicMonster extends Monster {
     private int directionX;
     private int directionY;
     private int[][] map;
-    final private double SIDE = HEIGHT / 60;
+    private final double SIDE = HEIGHT / 60;
     private int state = 0;
     private Image sprite;
 

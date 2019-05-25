@@ -87,13 +87,13 @@ public abstract class Character {
         }
     }
 
-    private int signOf(double x) {
+    int sign(double x) {
         return (x > 0) ? 1 : (x < 0) ? -1 : 0;
     }
 
     boolean collision(Coordinate positionInt,int[][]mapInt) {
-        int signSpeedX = signOf(speedX);
-        int signSpeedY = signOf(speedY);
+        int signSpeedX = sign(speedX);
+        int signSpeedY = sign(speedY);
         int i, j;
         for (int k = -1; k < 2; k++) {
             i = (type == 0) ? (int) positionInt.getX() + (int) (signSpeedX * RADIUS / (2 * SIDE)) :

@@ -96,7 +96,6 @@ public abstract class Room {
 				map[min+k][i] = 0 ;
 			}
 		}
-		System.out.print(j);
 	}
 
 	public void southVoid(int min){

@@ -214,19 +214,20 @@ public class Map {
 		gc.setGlobalAlpha(1);
 	}
 
-	public void displayMapOfMap(){
-		for( int i = 0 ;  i < mapOfRoom.length ; i++){
-			for( int j =0 ; j < mapOfRoom[0].length ; j++) {
-				if ( mapOfRoom[j][i] == null ) {
-						System.out.print(0);}
-				else {
-					System.out.print(1);
-					//.out.println(" "+j+";"+i);
-				}
-			}
-			System.out.println();
-		}
-	}
+//	public void displayMapOfMap(){
+//		for( int i = 0 ;  i < mapOfRoom.length ; i++){
+//			for( int j =0 ; j < mapOfRoom[0].length ; j++) {
+//				if ( mapOfRoom[j][i] == null ) {
+//						System.out.print(0);}
+//				else {
+//					System.out.print(1);
+//					//.out.println(" "+j+";"+i);
+//				}
+//			}
+//			System.out.println();
+//		}
+//	}
+
 	/**
 	 * @param value value of a area on the map
 	 * @return sprite of selected value
@@ -287,10 +288,8 @@ public class Map {
 			return sCorners;
 		case 61:
 			return wCorners;
-			//return wCorners;
 
 		default:
-			System.out.println(value);
 			 return red;
 		}
 	}
