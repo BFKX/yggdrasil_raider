@@ -63,7 +63,6 @@ public abstract class Character {
 
     public void display(GraphicsContext gc) {
         gc.save();
-        map.getCurrent().getMap()[(int)position.getX()][(int)position.getY()] = 1000 ;
         if (type != 0) {
             gc.drawImage(healthBar.get(this.healthPoint), this.position.getX() * map.getSIDE() - 30,
                     this.position.getY() * map.getSIDE() - 30, 2 * RADIUS, 0.25 * RADIUS);
