@@ -11,9 +11,6 @@ import tools.ImageSet;
 import java.util.HashMap;
 
 public class MainCharacter extends Character {
-	private final Image fullHeart = new Image("resources/images/heartFull.png");
-	private final Image emptyHeart = new Image("resources/images/heartEmpty.png");
-	private final Image halfHeart = new Image("resources/images/heartHalf.png");
 	private double staminaPoint = 100;
 	private boolean isRunning = false;
 	private double baseSpeedLimitX = SIDE / 3;
