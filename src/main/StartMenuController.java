@@ -22,6 +22,7 @@ class StartMenuController {
 	final private Font customFont = Font.loadFont(
 			StartMenuController.class.getResource("../resources/fonts/VIKING-N.TTF").toExternalForm(),
 			HEIGHT / 15);
+	final private Text title = new Text("Yggdrasil Raider");
 
 	@FXML
 	private Button playButton;
@@ -31,8 +32,6 @@ class StartMenuController {
 	private Button muteButton;
 	@FXML
 	private AnchorPane startMenu;
-	@FXML
-	private Text title;
 
 	StartMenuController(Stage primaryStage) {
 		this.primaryStage = primaryStage;
@@ -50,9 +49,9 @@ class StartMenuController {
 		title.setFill(Color.DARKORANGE);
 		title.setStroke(Color.DARKRED);
 		title.setStrokeWidth(startMenu.getPrefHeight() / 360);
-		title.setText("Yggdrasil Raider");
 		title.setLayoutX(startMenu.getPrefWidth() / 2 - title.getLayoutBounds().getWidth() / 2);
 		title.setLayoutY(startMenu.getPrefHeight() / 2 + title.getLayoutBounds().getHeight() / 2);
+		startMenu.getChildren().add(title);
 
 		playButton.setBackground(new Background(new BackgroundImage(
 				new Image("images/playButton.png", startMenu.getPrefWidth() / 3, startMenu.getPrefHeight() / 9,
