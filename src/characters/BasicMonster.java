@@ -51,7 +51,6 @@ public class BasicMonster extends Monster {
                 (this.position.getY() - yOffset) * SIDE - RADIUS / 2, RADIUS, RADIUS);
         gc.drawImage(healthBar.get(this.healthPoint), (this.position.getX() - xOffset) * SIDE - RADIUS * 0.375,
                 (this.position.getY() - yOffset) * SIDE - 0.75 * RADIUS, 0.75 * RADIUS, 0.2 * RADIUS);
-        hitbox.draw(gc, mainCharactersPosition);
     }
 
     public void updateDisplacement() {

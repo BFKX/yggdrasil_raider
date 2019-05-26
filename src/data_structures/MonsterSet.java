@@ -47,6 +47,7 @@ public class MonsterSet {
             if (curr.getHealthPoint() <= 0) {
                 monsters.remove(curr);
                 mainCharacter.addHealth(5);
+                mainCharacter.improveStamina();
             } else {
                 curr.update();
             }

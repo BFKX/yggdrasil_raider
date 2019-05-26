@@ -20,6 +20,7 @@ public class MainCharacter extends Character {
 	private final double runningSpeedLimitY;
     private int invincibilityFrames = 120;
     private HashMap<Integer, Image> staminaBar = new HashMap<>();
+    private double staminaCost = 0.5;
 
 
 	public MainCharacter(Coordinate position, Map map ) {
@@ -74,7 +75,7 @@ public class MainCharacter extends Character {
 		if (staminaPoint > 25) {
 			this.speedX = sign(speedX) * baseSpeedLimitX * 10;
 			this.speedY = sign(speedY) * baseSpeedLimitY * 10;
-			staminaPoint -= 20;
+			staminaPoint -= staminaCost * 40;
 		}
 	}
 
@@ -82,7 +83,7 @@ public class MainCharacter extends Character {
 		if(isRunning && staminaPoint > 0){
 			speedLimitX= runningSpeedLimitX;
 			speedLimitY= runningSpeedLimitY;
-			staminaPoint -= 40.0/60;
+			staminaPoint -= staminaCost;
 		}else{
 			speedLimitX = baseSpeedLimitX;
 			speedLimitY = baseSpeedLimitY;
@@ -182,7 +183,6 @@ public class MainCharacter extends Character {
 	    Coordinate direction = angleToDirection();
 		Hitbox hitboxAttack = new Hitbox(new Coordinate(position.getX() + direction.getX() * (RADIUS / SIDE) * 1.3,
 				position.getY() + direction.getY() * (RADIUS / SIDE) * 1.3), RADIUS*2);
-		hitboxAttack.draw(gc,this.getPosition());
 		if (speedX != 0 ||speedY != 0){
             map.getCurrent().getMonsters().isHit(hitboxAttack,new Coordinate(this.speedX,this.speedY));
 		}else {
@@ -200,6 +200,10 @@ public class MainCharacter extends Character {
 	}
 
 	public void addHealth(int toAdd) {
-		healthPoint += toAdd;
+		healthPoint = (healthPoint + toAdd > 100) ? 100 : healthPoint + toAdd;
+	}
+
+	public void improveStamina() {
+		staminaCost *= 0.97;
 	}
 }

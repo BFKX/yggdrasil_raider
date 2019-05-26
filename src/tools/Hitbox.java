@@ -18,12 +18,7 @@ public class Hitbox {
 	}
 
 	public boolean collide(Hitbox other) {
-		 if ( this.origin.distance(other.origin)*2  < this.radius / SIDE + other.radius / SIDE){
-			System.out.println(this.origin +" ; " + other . origin + " , " + this.origin.distance(other.origin) + " : "+
-				this.radius/SIDE + ", " + other.radius/SIDE );
-			return true;
-		 }else{
-		 return false;}
+		 return this.origin.distance(other.origin)*2  < this.radius / SIDE + other.radius / SIDE;
 	}
 
 	public void draw(GraphicsContext gc, Coordinate characterPosition) {

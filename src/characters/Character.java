@@ -138,12 +138,4 @@ public abstract class Character {
     public int getHealthPoint() {
         return healthPoint;
     }
-
-    public void drawHitbox(GraphicsContext gc, MainCharacter mainCharacter) {
-        if (type == 0) {
-            hitbox.draw(gc, this.getPosition());
-        } else {
-            hitbox.draw(gc, mainCharacter.getPosition());
-        }
-    }
 }
