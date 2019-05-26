@@ -53,7 +53,6 @@ public class BasicMonster extends Monster {
     }
 
     public void updateDisplacement() {
-
         if(state == 0) {
             double toCharactersDistance = position.distance(mainCharactersPosition);
             if (toCharactersDistance < 500) {
