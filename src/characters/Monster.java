@@ -27,14 +27,15 @@ public abstract class Monster extends Character {
         return this.hitbox.collide(hitbox);
     }
 
-    private void knockBack(){
-        this.speedX = - this.speedX * 5 ;
-        this.speedY = - this.speedY * 5 ;
+    private void knockBack(Coordinate speed){
+
+        this.speedX = speed.getX() * 2 ;
+        this.speedY = speed.getY() * 2 ;
     }
 
-    public void isAttacked(){
+    public void isAttacked(Coordinate speed ){
         this.healthPoint -= (ThreadLocalRandom.current().nextInt(0, 10) > 2) ? 10 : 20;
-        knockBack();
+        knockBack( speed);
     }
 
     public void setMainCharactersPosition(Coordinate position){

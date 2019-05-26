@@ -73,13 +73,13 @@ public class MonsterSet {
         return false;
     }
 
-    public void isHit(Hitbox hitbox){
+    public void isHit(Hitbox hitbox,Coordinate speed ){
         Iterator<Monster> it = monsters.iterator();
         Monster curr;
         while (it.hasNext()) {
             curr = it.next();
             if (curr.collideHitbox(hitbox)) {
-                curr.isAttacked();
+                curr.isAttacked( speed);
             }
         }
     }

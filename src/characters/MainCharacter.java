@@ -179,10 +179,15 @@ public class MainCharacter extends Character {
 	}
 
 	public void attack(GraphicsContext gc) {
-		Hitbox hitboxAttack = new Hitbox(new Coordinate(position.getX() + sign(speedX) * (RADIUS / SIDE) * 15 / 10,
-				position.getY() + sign(speedY) * (RADIUS / SIDE) * 15 / 10), RADIUS*2);
+	    Coordinate direction = angleToDirection();
+		Hitbox hitboxAttack = new Hitbox(new Coordinate(position.getX() + direction.getX() * (RADIUS / SIDE) * 15 / 10,
+				position.getY() + direction.getY() * (RADIUS / SIDE) * 15 / 10), RADIUS*2);
 		hitboxAttack.draw(gc,this.getPosition());
-		map.getCurrent().getMonsters().isHit(hitboxAttack);
+		if (speedX != 0 ||speedY != 0){
+            map.getCurrent().getMonsters().isHit(hitboxAttack,new Coordinate(this.speedX,this.speedY));
+		}else {
+            map.getCurrent().getMonsters().isHit(hitboxAttack,direction);
+        }
 	}
 
 	public void displayStatus(GraphicsContext gc) {
