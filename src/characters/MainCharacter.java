@@ -22,7 +22,6 @@ public class MainCharacter extends Character {
     private HashMap<Integer, Image> staminaBar = new HashMap<>();
     private double staminaCost = 0.5;
 
-
 	public MainCharacter(Coordinate position, Map map ) {
 		super(position);
 		this.map=map;
@@ -67,6 +66,7 @@ public class MainCharacter extends Character {
 			staminaBar.put(100 - i, new Image(staminaPath + ".png"));
 		}
 	}
+
 	public void startRun() { isRunning = true; }
 
 	public void stopRun() { isRunning =false; }

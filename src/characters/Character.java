@@ -31,6 +31,7 @@ public abstract class Character {
     int healthPoint;
     int angle;
     int state = 0;
+
     Character(Coordinate position) {
         this.position = position;
         hitbox = new Hitbox(position, RADIUS);
@@ -50,6 +51,7 @@ public abstract class Character {
         this.position.setX(mid1);
         this.position.setY(mid2);
     }
+
     public void startPosition(Room room,Coordinate MainCharacterPosition){// for monsters
         int[][] map = room.getMap();
         int mid1, mid2;
@@ -119,16 +121,6 @@ public abstract class Character {
             }
         }
         return false;
-    }
-
-    public Coordinate matrixRotation(Coordinate originCharacter, Coordinate originAttack, double angle ){
-        double xCenteredPosition = originAttack.getX() - originCharacter.getX();
-        double yCenteredPosition = originAttack.getY() - originCharacter.getY();
-        double rx = xCenteredPosition * Math.cos(angle) - yCenteredPosition *Math.sin(angle);
-        double ry = xCenteredPosition * Math.sin(angle) + yCenteredPosition *Math.cos(angle);
-        rx += originCharacter.getX();
-        ry += originCharacter.getY();
-        return new Coordinate(rx,ry);
     }
 
     public void setMap(Map map) {

@@ -13,7 +13,6 @@ public class BasicMonster extends Monster {
     private final double SIDE = HEIGHT / 60;
     private Image sprite;
 
-
     public BasicMonster(Coordinate coordinate, Coordinate mainCharacterPosition, int[][] map) {
         super(coordinate,mainCharacterPosition);
         this.map = map;
