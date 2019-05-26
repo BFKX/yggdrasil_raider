@@ -21,13 +21,10 @@ class StartMenuController {
 	private final double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	final private Font customFont = new Font("Viking-Normal", HEIGHT / 15);
 	final private Text title = new Text("Yggdrasil Raider");
+	private Button playButton = new Button();
+	private Button quitButton = new Button();
+	private Button muteButton = new Button();
 
-	@FXML
-	private Button playButton;
-	@FXML
-	private Button quitButton;
-	@FXML
-	private Button muteButton;
 	@FXML
 	private AnchorPane startMenu;
 
@@ -38,7 +35,7 @@ class StartMenuController {
 	@FXML
 	void initialize() {
 		startMenu.setPrefSize(WIDTH, HEIGHT);
-		MusicPlayer music = new MusicPlayer("/resources/audio/startMenu.mp3", HEIGHT / 15);
+		MusicPlayer music = new MusicPlayer("/resources/audio/startMenu.mp3", HEIGHT / 15, muteButton);
 		startMenu.setBackground(new Background(new BackgroundImage(
 				new Image("images/menuBackground.png", WIDTH, HEIGHT, false, false), BackgroundRepeat.NO_REPEAT,
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
@@ -64,7 +61,7 @@ class StartMenuController {
 			@Override
 			public void handle(ActionEvent e) {
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/gameView.fxml"));
-				loader.setController(new GameController(primaryStage));
+				loader.setController(new GameController(primaryStage, music));
 				music.stop();
 				try {
 					primaryStage.getScene().setRoot(loader.load());
@@ -92,6 +89,10 @@ class StartMenuController {
 		muteButton.setLayoutX(WIDTH - muteButton.getPrefWidth());
 		muteButton.setLayoutY(HEIGHT - muteButton.getPrefHeight());
 		muteButton.setOnAction(actionEvent -> music.muteAction(muteButton));
+
+		startMenu.getChildren().add(playButton);
+		startMenu.getChildren().add(muteButton);
+		startMenu.getChildren().add(quitButton);
 		music.start();
 	}
 }

@@ -35,10 +35,10 @@ class GameController extends Application {
 	private boolean pauseShown = false;
 	private final Button resumeButton = new Button();
 	private final Button quitButton = new Button();
-	private final Button muteButton = new Button();
+	private Button muteButton = new Button();
 	private final Text text = new Text("Pause");
 	private final HashMap<CharacterActions, Boolean> inputs = new HashMap<>();
-	private final MusicPlayer music = new MusicPlayer("/resources/audio/inGame.mp3", HEIGHT / 15);
+	private MusicPlayer music;
 	private Map map;
 	final private Image pauseBackground = new Image("resources/images/menuBackground.png", WIDTH, HEIGHT, false,
 			true);
@@ -46,7 +46,7 @@ class GameController extends Application {
 	@FXML
 	private AnchorPane game;
 
-	GameController(Stage primaryStage) {
+	GameController(Stage primaryStage, MusicPlayer musicPlayer) {
 		this.primaryStage = primaryStage;
 		this.scene = primaryStage.getScene();
 		inputs.put(CharacterActions.UP, false);
@@ -54,6 +54,9 @@ class GameController extends Application {
 		inputs.put(CharacterActions.LEFT, false);
 		inputs.put(CharacterActions.RIGHT, false);
 		inputs.put(CharacterActions.ATTACK, false);
+		music = musicPlayer;
+		music.setPath("/resources/audio/inGame.mp3");
+		muteButton = music.getMuteButton();
 	}
 
 	@FXML
@@ -90,13 +93,6 @@ class GameController extends Application {
 		quitButton.setLayoutY(HEIGHT * 0.75 - resumeButton.getPrefHeight() / 2);
 		quitButton.setOnAction(e -> System.exit(0));
 
-		muteButton.setBackground(new Background(new BackgroundImage(new Image("images/unmutedButton.png",
-				HEIGHT / 15, HEIGHT / 15, false, false), BackgroundRepeat.NO_REPEAT,
-				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
-		muteButton.setPrefSize(HEIGHT / 15, HEIGHT / 15);
-		muteButton.setLayoutX(WIDTH - muteButton.getPrefWidth());
-		muteButton.setLayoutY(HEIGHT - muteButton.getPrefHeight());
-		muteButton.setOnAction(actionEvent -> music.muteAction(muteButton));
 		music.start();
 		start(this.primaryStage);
 	}
