@@ -8,7 +8,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Monster extends Character {
     Coordinate mainCharactersPosition;
-
+    boolean knocBack = false ;
     Monster(Coordinate position, Coordinate mainCharactersPosition){
         super(position);
         this.mainCharactersPosition = mainCharactersPosition;
@@ -28,9 +28,9 @@ public abstract class Monster extends Character {
     }
 
     private void knockBack(Coordinate speed){
-
-        this.speedX = speed.getX() * 10;
-        this.speedY = speed.getY() * 10 ;
+        knocBack = true;
+        this.speedX = speed.getX() ;
+        this.speedY = speed.getY() ;
     }
 
     public void isAttacked(Coordinate speed ){

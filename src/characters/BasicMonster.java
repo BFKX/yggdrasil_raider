@@ -14,6 +14,7 @@ public class BasicMonster extends Monster {
     private int state = 0;
     private Image sprite;
 
+
     public BasicMonster(Coordinate coordinate, Coordinate mainCharacterPosition, int[][] map) {
         super(coordinate,mainCharacterPosition);
         this.map = map;
@@ -76,9 +77,17 @@ public class BasicMonster extends Monster {
             speedX = directionX * speedLimitX / 13;
             speedY = directionY * speedLimitY / 13;
         }
-        speedX = (Math.abs(speedX) < speedLimitX) ? speedX + directionX * speedLimitX / 13 : directionX * speedLimitX;
-        speedY = (Math.abs(speedY) < speedLimitY) ? speedY + directionY * speedLimitY / 13 : directionY * speedLimitY;
-
-
-    }
+        if ( ! knocBack ) {
+            speedX = (Math.abs(speedX) < speedLimitX) ? speedX + directionX * speedLimitX / 13 : directionX*speedLimitX;
+            speedY = (Math.abs(speedY) < speedLimitY) ? speedY + directionY * speedLimitY / 13 : directionY*speedLimitY;
+        }else {
+            if ( speedX > speedLimitX )
+                speedX = speedX + directionX * speedLimitX / 13;
+            if ( speedY > speedLimitY )
+                speedY= speedY + directionY * speedLimitY / 13 ;
+            if ( speedX < speedLimitX && speedY < speedLimitY){
+                knocBack = false;
+            }
+        }
+        }
 }
