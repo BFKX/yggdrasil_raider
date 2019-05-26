@@ -1,4 +1,4 @@
-/*package tests;
+package tests;
 
 import org.junit.*;
 import tools.Coordinate;
@@ -53,4 +53,4 @@ public class HitboxTest {
     }
 
 
-}*/
+}

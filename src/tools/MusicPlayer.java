@@ -24,31 +24,25 @@ public class MusicPlayer {
 	}
 
 	public void setPath(String path) {
+		if (player != null) {
+			player.setMute(true);
+			player.stop();
+		}
 		player = new MediaPlayer(new Media(getClass().getResource(path).toString()));
-		player.setVolume((running) ? 1 : 0);
 		player.setOnEndOfMedia(() -> player.seek(Duration.ZERO));
+		player.setMute(!running);
+		start();
 	}
 
-	public void start() {
+	private void start() {
 		player.play();
 		running = true;
 	}
 
-	public void stop() {
-		player.stop();
-		running = false;
-	}
-
 	public void muteAction(Button muteButton) {
-		if(running) {
-			player.setVolume(0);
-			running = false;
-			muteButton.setBackground(mutedButton);
-		} else {
-			player.setVolume(1);
-			running = true;
-			muteButton.setBackground(unmutedButton);
-		}
+		player.setMute(running);
+		running = !running;
+		muteButton.setBackground((running) ? unmutedButton : mutedButton);
 	}
 
 	public Button getMuteButton() {

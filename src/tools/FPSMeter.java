@@ -14,9 +14,8 @@ public class FPSMeter {
 		long oldFrameTime = frameTimes[frameTimeIndex];
 		frameTimes[frameTimeIndex] = now;
 		frameTimeIndex = (frameTimeIndex + 1) % frameTimes.length;
-		if (frameTimeIndex == 0) {
+		if (frameTimeIndex == 0)
 			arrayFilled = true;
-		}
 		if (arrayFilled) {
 			double height = gc.getCanvas().getHeight();
 			double width = gc.getCanvas().getWidth();
@@ -26,7 +25,7 @@ public class FPSMeter {
 			double frameRate = 1000000000. / elapsedNanosPerFrame;
 
 			gc.save();
-			gc.setFill(Color.CHARTREUSE);
+			gc.setFill(Color.GREENYELLOW);
 			gc.setFont(Font.font("Helvetica", FontWeight.BOLD, height / 50));
 			gc.fillText(Integer.toString((int) frameRate), width / 1000, height / 60);
 			gc.restore();

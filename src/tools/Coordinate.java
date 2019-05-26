@@ -1,18 +1,12 @@
 package tools;
 
-
 public class Coordinate {
-
 	private double x;
 	private double y;
 
 	public Coordinate(double x, double y) {
 		this.x = x;
 		this.y = y;
-	}
-
-	public Coordinate sum(double x, double y) {
-		return new Coordinate(this.getX() + x, this.getY() + y);
 	}
 
 	public void add(double x, double y) {
@@ -44,6 +38,7 @@ public class Coordinate {
 		return y;
 	}
 
+	@Override
 	public String toString() {
 		return "(" + x + "," + y + ")";
 	}
