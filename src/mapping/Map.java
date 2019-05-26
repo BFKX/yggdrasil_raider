@@ -67,17 +67,17 @@ public class Map {
 
 		current = origin;
 		update();
-		mapOfRoom[n][n] = origin ;
+		mapOfRoom[n][n] = origin;
 		update();
 		placeRoom(n);
 		placeWall();
 	}
 
 	private void placeWall(){
-		for (int i = 0; i < mapOfRoom.length; i++){
-			for(int j = 0 ; j<mapOfRoom[0].length ; j++){
-				if(mapOfRoom[i][j] != null){
-					for ( int k = 0 ; i <6 ; i++){
+		for (int i = 0; i < mapOfRoom.length; i++) {
+			for(int j = 0; j<mapOfRoom[0].length; j++) {
+				if(mapOfRoom[i][j] != null) {
+					for ( int k = 0; i <6; i++) {
 						mapOfRoom[i][j].delete25(1);
 					}
 					mapOfRoom[i][j].delete25(0);
@@ -90,9 +90,9 @@ public class Map {
 	}
 
 	private void placeRoom (int n ) { // cree une sale
-		for ( int k = 0 ; k<n ; k++  ){
-			int tempWidth = ThreadLocalRandom.current().nextInt(roomScale, roomScale * 11 / 10);
-			int tempHeight = ThreadLocalRandom.current().nextInt(roomScale, roomScale * 11 / 10);
+		for ( int k = 0; k<n; k++ ){
+			int tempWidth = ThreadLocalRandom.current().nextInt(roomScale,roomScale * 11 / 10);
+			int tempHeight = ThreadLocalRandom.current().nextInt(roomScale,roomScale * 11 / 10);
 			Cave temp = new Cave(tempWidth,tempHeight,pseudoRandomList,
 					positionOnMap(mapOfRoom,origin.getPosition().copy()));
 			temp.createMonsters(mainCharacter);
@@ -122,20 +122,21 @@ public class Map {
 	private void placeRoom(Room current){
 		int currentPositionX = (int) current.getPosition().getX();
 		int currentPositionY = (int) current.getPosition().getY();
-		mapOfRoom[currentPositionX][currentPositionY] = current ;
-		if(mapOfRoom[currentPositionX][currentPositionY+1] != null){ //créé le lien avec le sud
+		mapOfRoom[currentPositionX][currentPositionY] = current;
+
+		if(mapOfRoom[currentPositionX][currentPositionY+1] != null) { //créé le lien avec le sud
 			mapOfRoom[currentPositionX][currentPositionY+1].setNorth(current);
 			current.setSouth(mapOfRoom[currentPositionX][currentPositionY+1]);
 			int index = verticalIndiceLink(current,mapOfRoom[currentPositionX][currentPositionY+1]);
 			current.southVoid(index);
 			mapOfRoom[currentPositionX][currentPositionY+1].northVoid(index);
 		}
-		if(mapOfRoom[currentPositionX][currentPositionY-1] != null){ // cree le lien avec le nord
-			mapOfRoom[currentPositionX][currentPositionY-1].setSouth(current);
-			current.setNorth(mapOfRoom[currentPositionX][currentPositionY-1]);
-			int indic = verticalIndiceLink(current,mapOfRoom[currentPositionX][currentPositionY-1]);
+		if(mapOfRoom[currentPositionX][currentPositionY-1] != null) { // cree le lien avec le nord
+			mapOfRoom[currentPositionX][currentPositionY - 1].setSouth(current);
+			current.setNorth(mapOfRoom[currentPositionX][currentPositionY - 1]);
+			int indic = verticalIndiceLink(current, mapOfRoom[currentPositionX][currentPositionY - 1]);
 			current.northVoid(indic);
-			mapOfRoom[currentPositionX][currentPositionY-1].southVoid(indic);
+			mapOfRoom[currentPositionX][currentPositionY - 1].southVoid(indic);
 		}
 		if(mapOfRoom[currentPositionX+1][currentPositionY] != null){ // cree le lien a l'est
 			mapOfRoom[currentPositionX+1][currentPositionY].setWest(current);
@@ -154,12 +155,12 @@ public class Map {
 	}
 
 	private int horizontalIndiceLink(Room room1, Room room2){
-		int min = room1.height < room2.height ? room1.height : room2.height ;
+		int min = room1.height < room2.height ? room1.height : room2.height;
 		return ThreadLocalRandom.current().nextInt( min / 3, min * 2 /3 );
 	}
 
 	private int verticalIndiceLink(Room room1, Room room2){
-		int min = room1.width < room2.width ? room1.width : room2.width ;
+		int min = room1.width < room2.width ? room1.width : room2.width;
 		return ThreadLocalRandom.current().nextInt( min / 3, min * 2 /3 );
 	}
 
