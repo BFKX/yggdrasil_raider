@@ -22,27 +22,27 @@ import java.awt.Toolkit;
 import java.util.HashMap;
 
 class GameController extends Application {
-	private boolean mapShown = false;
 	final private double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-	private boolean gameover = false;
+    final private double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	private MainCharacter mainCharacter;
-	final private double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	private Canvas canvas = new Canvas(WIDTH, HEIGHT);
 	private GraphicsContext gc = canvas.getGraphicsContext2D();
 	private final Scene scene;
 	private final Stage primaryStage;
 	private boolean pause = false;
 	private boolean pauseShown = false;
+    private boolean gameOverShown = false;
+    private boolean mapShown = false;
 	private final Button resumeButton = new Button();
 	private final Button quitButton = new Button();
-	private Button muteButton = new Button();
+	private Button muteButton;
 	private final Text text = new Text("Pause");
 	private final HashMap<CharacterActions, Boolean> inputs = new HashMap<>();
 	private MusicPlayer music;
 	private Map map;
-	final private Image pauseBackground = new Image("resources/images/menuBackground.png", WIDTH, HEIGHT, false,
-			true);
+	final private Image background = new Image("resources/images/menuBackground.png", WIDTH, HEIGHT, false, true);
 	final private Font customFont = new Font("Viking-Normal", HEIGHT / 15);
+
 	@FXML
 	private AnchorPane game;
 
@@ -93,7 +93,6 @@ class GameController extends Application {
 		quitButton.setLayoutY(HEIGHT * 0.75 - resumeButton.getPrefHeight() / 2);
 		quitButton.setOnAction(e -> System.exit(0));
 
-		music.start();
 		start(this.primaryStage);
 	}
 
@@ -222,7 +221,7 @@ class GameController extends Application {
 
 	private void pause(GraphicsContext gc) {
 		if (pause) {
-			gc.drawImage(pauseBackground, 0, 0);
+			gc.drawImage(background, 0, 0);
 			game.getChildren().add(quitButton);
 			game.getChildren().add(resumeButton);
 			game.getChildren().add(muteButton);
@@ -238,18 +237,18 @@ class GameController extends Application {
 	}
 
 	private void gameOver() {
-		if (!gameover) {
-			gc.drawImage(pauseBackground, 0, 0);
+		if (!gameOverShown) {
+			gc.drawImage(background, 0, 0);
 			text.setText("Game Over press ESC to quit");
 			text.setLayoutX(WIDTH / 2 - text.getLayoutBounds().getWidth() / 2);
 			text.setLayoutY(HEIGHT / 2 + text.getLayoutBounds().getHeight() / 2);
 			game.getChildren().add(text);
-			gameover = true;
+			gameOverShown = true;
 		}
 	}
 
 	private void starter() {
-		mainCharacter = new MainCharacter(new Coordinate(0,0),map);
+		mainCharacter = new MainCharacter(new Coordinate(0, 0), map);
 		this.map = new Map(20, mainCharacter);
 		mainCharacter.startPosition(map.getCurrent());
 		mainCharacter.setMap(map);

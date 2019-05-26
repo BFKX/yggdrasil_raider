@@ -62,7 +62,6 @@ class StartMenuController {
 			public void handle(ActionEvent e) {
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/gameView.fxml"));
 				loader.setController(new GameController(primaryStage, music));
-				music.stop();
 				try {
 					primaryStage.getScene().setRoot(loader.load());
 				} catch (IOException err) {
@@ -93,6 +92,5 @@ class StartMenuController {
 		startMenu.getChildren().add(playButton);
 		startMenu.getChildren().add(muteButton);
 		startMenu.getChildren().add(quitButton);
-		music.start();
 	}
 }

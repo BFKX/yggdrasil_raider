@@ -15,22 +15,21 @@ public class MonsterSet {
     private ArrayList<Monster> monsters= new ArrayList<>();
 
     public MonsterSet(int n, MainCharacter mainCharacter, int[][] map) {
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++)
             monsters.add(new BasicMonster(new Coordinate( map.length * Math.random(),
                      map[0].length * Math.random()), mainCharacter.getPosition(), map));
-        }
     }
 
-    public void setStartMonster(Room room, Coordinate mainCposition ){
+    public void setStartMonster(Room room, Coordinate mainCharacterPposition){
         Iterator<Monster> it = monsters.iterator();
         Monster curr;
         while (it.hasNext()) {
             curr = it.next();
-            curr.startPosition(room,mainCposition);
+            curr.startPosition(room, mainCharacterPposition);
         }
     }
 
-    public void setMainCharacterPosition(Coordinate mainCharacterPosition){
+    public void setMainCharacterPosition(Coordinate mainCharacterPosition) {
         Iterator<Monster> it = monsters.iterator();
         Monster curr;
         while (it.hasNext()) {
@@ -48,13 +47,12 @@ public class MonsterSet {
                 monsters.remove(curr);
                 mainCharacter.addHealth(5);
                 mainCharacter.improveStamina();
-            } else {
+            } else
                 curr.update();
-            }
         }
     }
 
-    public void display(GraphicsContext gc, MainCharacter mainCharacter){
+    public void display(GraphicsContext gc, MainCharacter mainCharacter) {
         Iterator<Monster> it = monsters.iterator();
         Monster curr;
         while (it.hasNext()) {
@@ -68,21 +66,19 @@ public class MonsterSet {
         Monster curr;
         while (it.hasNext()) {
             curr = it.next();
-            if ((curr.collideHitbox(hitbox))) {
+            if ((curr.collideHitbox(hitbox)))
                 return true;
-            }
         }
         return false;
     }
 
-    public void isHit(Hitbox hitbox,Coordinate speed ){
+    public void isHit(Hitbox hitbox, Coordinate speed) {
         Iterator<Monster> it = monsters.iterator();
         Monster curr;
         while (it.hasNext()) {
             curr = it.next();
-            if (curr.collideHitbox(hitbox)) {
+            if (curr.collideHitbox(hitbox))
                 curr.isAttacked( speed);
-            }
         }
     }
 }
