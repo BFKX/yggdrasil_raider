@@ -9,16 +9,17 @@ import java.util.concurrent.ThreadLocalRandom;
 public class BasicMonster extends Monster {
     private int directionX;
     private int directionY;
-    private int[][] map;
+    private final int[][] map;
     private final double SIDE = HEIGHT / 60;
-    private Image sprite;
+    private final Image sprite;
 
     public BasicMonster(Coordinate coordinate, Coordinate mainCharacterPosition, int[][] map) {
         super(coordinate,mainCharacterPosition);
         this.map = map;
         type = ThreadLocalRandom.current().nextInt(1, 4);
-        sprite = (type == 1) ? new Image("resources/images/monster1.png") : (type == 2) ?
-                new Image("resources/images/monster2.png") : new Image("resources/images/monster3.png");
+        sprite = (type == 1) ?
+                new Image("resources/images/monster1.png") : ((type == 2) ?
+                new Image("resources/images/monster2.png") : new Image("resources/images/monster3.png"));
         healthPoint = 100;
         RADIUS = 5 * SIDE;
         directionX = ThreadLocalRandom.current().nextInt(-1, 2);
@@ -54,18 +55,16 @@ public class BasicMonster extends Monster {
     public void updateDisplacement() {
         if(state == 0) {
             double toCharactersDistance = position.distance(mainCharactersPosition);
-            if (toCharactersDistance < 500) {
+            if (toCharactersDistance < 500)
                 state = ThreadLocalRandom.current().nextInt(0, 100) > 60 ? 1 : 2;
-            }
         }
-        if (state == 1 ) {
+        if (state == 1 )
             if (position.distance(mainCharactersPosition) < 40){
                 double xDist = position.getX() - mainCharactersPosition.getX();
                 double yDist = position.getY() - mainCharactersPosition.getY();
                 directionX = (xDist > 0) ? -1 : (xDist < 0) ? 1 : 0;
                 directionY = (yDist > 0) ? -1 : (yDist < 0) ? 1 : 0;
             }
-        }
 
         if (collision(position, map)) {
             directionX = -directionX;
@@ -82,9 +81,8 @@ public class BasicMonster extends Monster {
                 speedX = speedX / 1.2 ;
             if ( Math.abs(speedY) > speedLimitY )
                 speedY= speedY / 1.2 ;
-            if (Math.abs(speedX) < speedLimitX && Math.abs(speedY) < speedLimitY){
+            if (Math.abs(speedX) < speedLimitX && Math.abs(speedY) < speedLimitY)
                 knockBack = false;
-            }
         }
     }
 }

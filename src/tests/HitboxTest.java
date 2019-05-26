@@ -1,5 +1,3 @@
-package tests;
-
 import org.junit.*;
 import tools.Coordinate;
 import tools.Hitbox;

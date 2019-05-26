@@ -12,7 +12,7 @@ public class MusicPlayer {
 	private boolean running = true;
 	final private Background mutedButton;
 	final private Background unmutedButton;
-	private Button muteButton;
+	private final Button muteButton;
 
 	public MusicPlayer(String path, double side, Button muteButton) {
 		setPath(path);

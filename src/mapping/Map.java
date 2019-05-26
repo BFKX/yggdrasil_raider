@@ -49,10 +49,10 @@ public class Map {
 	private int columns;
 	private final Random pseudoRandomList;
 	private double originXMiniMap, originYMiniMap;
-	private Room[][] mapOfRoom;
+	private final Room[][] mapOfRoom;
 	private Room current;
 	private final Room origin;
-	private MainCharacter mainCharacter;
+	private final MainCharacter mainCharacter;
 
 	public Map(int n,MainCharacter mainCharacter) {
 
@@ -73,18 +73,17 @@ public class Map {
 	}
 
 	private void placeWall() {
-		for (int i = 0; i < mapOfRoom.length; i++) {
-			for(int j = 0; j<mapOfRoom[0].length; j++) {
-				if(mapOfRoom[i][j] != null) {
-					for ( int k = 0; i <6; i++)
-						mapOfRoom[i][j].delete25(1);
-					mapOfRoom[i][j].delete25(0);
-					mapOfRoom[i][j].placeWall();
-					mapOfRoom[i][j].addGroundVariation(new int[] {0, -1, 0}, 5000);
+		for (Room[] rooms : mapOfRoom) {
+			for (int j = 0; j < mapOfRoom[0].length; j++) {
+				if (rooms[j] != null) {
+					for (int k = 0; k < 6; k++)
+						rooms[j].delete25(1);
+					rooms[j].delete25(0);
+					rooms[j].placeWall();
+					rooms[j].addGroundVariation(new int[]{0, -1, 0});
 				}
 			}
 		}
-
 	}
 
 	private void placeRoom (int n ) {
@@ -120,33 +119,33 @@ public class Map {
 		int index;
 
 		if(mapOfRoom[currentPositionX][currentPositionY + 1] != null) {
-			index = verticalIndiceLink(current, mapOfRoom[currentPositionX][currentPositionY + 1]);
+			index = verticalIndexLink(current, mapOfRoom[currentPositionX][currentPositionY + 1]);
 			current.southVoid(index);
 			mapOfRoom[currentPositionX][currentPositionY + 1].northVoid(index);
 		}
 		if(mapOfRoom[currentPositionX][currentPositionY - 1] != null) {
-			index = verticalIndiceLink(current, mapOfRoom[currentPositionX][currentPositionY - 1]);
+			index = verticalIndexLink(current, mapOfRoom[currentPositionX][currentPositionY - 1]);
 			current.northVoid(index);
 			mapOfRoom[currentPositionX][currentPositionY - 1].southVoid(index);
 		}
 		if(mapOfRoom[currentPositionX + 1][currentPositionY] != null) {
-			index = horizontalIndiceLink(current,mapOfRoom[currentPositionX+1][currentPositionY]);
+			index = horizontalIndexLink(current,mapOfRoom[currentPositionX+1][currentPositionY]);
 			current.eastVoid(index);
 			mapOfRoom[currentPositionX + 1][currentPositionY].westVoid(index);
 		}
 		if(mapOfRoom[currentPositionX - 1][currentPositionY] != null) {
-			index = horizontalIndiceLink(current,mapOfRoom[currentPositionX-1][currentPositionY]);
+			index = horizontalIndexLink(current,mapOfRoom[currentPositionX-1][currentPositionY]);
 			current.westVoid(index);
 			mapOfRoom[currentPositionX - 1][currentPositionY].eastVoid(index);
 		}
 	}
 
-	private int horizontalIndiceLink(Room room1, Room room2) {
+	private int horizontalIndexLink(Room room1, Room room2) {
 		int min = room1.height < room2.height ? room1.height : room2.height;
 		return ThreadLocalRandom.current().nextInt(min / 3, min * 2 / 3);
 	}
 
-	private int verticalIndiceLink(Room room1, Room room2) {
+	private int verticalIndexLink(Room room1, Room room2) {
 		int min = room1.width < room2.width ? room1.width : room2.width;
 		return ThreadLocalRandom.current().nextInt(min / 3, min * 2 / 3);
 	}

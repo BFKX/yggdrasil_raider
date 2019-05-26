@@ -7,12 +7,12 @@ import tools.Coordinate;
 import java.util.Random;
 
 public abstract class Room {
-	Random pseudoRandomList;
+	final Random pseudoRandomList;
 	int[][] map;
 	int width;
 	int height;
-	private Coordinate position;
-    private int holeWidth = 3;
+	private final Coordinate position;
+    private final int holeWidth = 3;
 	private MonsterSet monsters;
 
 	Room(int width, int height, Coordinate position, Random pseudoRandomList) {
@@ -29,12 +29,12 @@ public abstract class Room {
 		this.monsters.setStartMonster(this, mainCharacter.getPosition());
 	}
 
-	void applyFiltering(int[][] mapFiltering, int limit) {
+	void applyFiltering(int[][] mapFiltering) {
 		for (int i = 0; i < width; i++)
 			for (int j = 0; j < height; j++) {
-				if (mapFiltering[i][j] >= limit)
+				if (mapFiltering[i][j] >= 6)
 					map[i][j] = 1;
-				if (mapFiltering[i][j] < limit)
+				if (mapFiltering[i][j] < 6)
 					map[i][j] = 0;
 			}
 	}
@@ -102,7 +102,7 @@ public abstract class Room {
 				map[i][min + k] = 0;
 	}
 
-	public abstract void addGroundVariation(int [] seed, int i );
+	abstract void addGroundVariation(int [] seed);
 
 	public int[][] getMap() {
 		return map;

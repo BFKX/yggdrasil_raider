@@ -25,8 +25,8 @@ class GameController extends Application {
 	final private double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
     final private double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	private MainCharacter mainCharacter;
-	private Canvas canvas = new Canvas(WIDTH, HEIGHT);
-	private GraphicsContext gc = canvas.getGraphicsContext2D();
+	private final Canvas canvas = new Canvas(WIDTH, HEIGHT);
+	private final GraphicsContext gc = canvas.getGraphicsContext2D();
 	private final Scene scene;
 	private final Stage primaryStage;
 	private boolean pause = false;
@@ -35,10 +35,9 @@ class GameController extends Application {
     private boolean mapShown = false;
 	private final Button resumeButton = new Button();
 	private final Button quitButton = new Button();
-	private Button muteButton;
+	private final Button muteButton;
 	private final Text text = new Text("Pause");
 	private final HashMap<CharacterActions, Boolean> inputs = new HashMap<>();
-	private MusicPlayer music;
 	private Map map;
 	final private Image background = new Image("resources/images/menuBackground.png", WIDTH, HEIGHT, false, true);
 	final private Font customFont = new Font("Viking-Normal", HEIGHT / 15);
@@ -54,9 +53,8 @@ class GameController extends Application {
 		inputs.put(CharacterActions.LEFT, false);
 		inputs.put(CharacterActions.RIGHT, false);
 		inputs.put(CharacterActions.ATTACK, false);
-		music = musicPlayer;
-		music.setPath("/resources/audio/inGame.mp3");
-		muteButton = music.getMuteButton();
+		musicPlayer.setPath("/resources/audio/inGame.mp3");
+		muteButton = musicPlayer.getMuteButton();
 	}
 
 	@FXML
@@ -113,7 +111,7 @@ class GameController extends Application {
 				starter();
 				break;
 				case A:
-					mainCharacter.attack(gc);
+					mainCharacter.attack();
 					break;
 			case M :
 				map.fullScreenMap(gc, mainCharacter.getPosition());
@@ -184,7 +182,7 @@ class GameController extends Application {
 
 						map.display(gc, mainCharacter.getPosition());
 
-						mainCharacter.update(inputs,map.getCurrent().getMonsters(), gc);
+						mainCharacter.update(inputs,map.getCurrent().getMonsters());
 						mainCharacter.display(gc);
 
 						map.updateMonster();

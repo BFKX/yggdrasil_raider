@@ -21,9 +21,9 @@ class StartMenuController {
 	private final double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	final private Font customFont = new Font("Viking-Normal", HEIGHT / 15);
 	final private Text title = new Text("Yggdrasil Raider");
-	private Button playButton = new Button();
-	private Button quitButton = new Button();
-	private Button muteButton = new Button();
+	private final Button playButton = new Button();
+	private final Button quitButton = new Button();
+	private final Button muteButton = new Button();
 
 	@FXML
 	private AnchorPane startMenu;

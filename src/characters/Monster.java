@@ -15,7 +15,7 @@ public abstract class Monster extends Character {
         this.mainCharactersPosition = mainCharactersPosition;
     }
 
-    public abstract void updateDisplacement();
+    abstract void updateDisplacement();
 
     public abstract void display(GraphicsContext gc, Coordinate mainCharactersPosition);
 

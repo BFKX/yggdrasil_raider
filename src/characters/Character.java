@@ -37,10 +37,6 @@ public abstract class Character {
         hitbox = new Hitbox(position, RADIUS);
     }
 
-    public Coordinate getPosition(){
-        return this.position;
-    }
-
     public void startPosition(Room room){
         int[][] map = room.getMap();
         int mid1, mid2;
@@ -99,11 +95,11 @@ public abstract class Character {
         }
     }
 
-    int sign(double x) {
-        return (x > 0) ? 1 : (x < 0) ? -1 : 0;
+    int sign(double var) {
+        return (var > 0) ? 1 : (var < 0) ? -1 : 0;
     }
 
-    boolean collision(Coordinate positionInt,int[][]mapInt) {
+    boolean collision(Coordinate positionInt, int[][]mapInt) {
         int signSpeedX = sign(speedX);
         int signSpeedY = sign(speedY);
         int i, j;
@@ -112,13 +108,10 @@ public abstract class Character {
                     (int) positionInt.getX() + (int) (signSpeedX * RADIUS / SIDE);
             j = (type == 0) ? (int) positionInt.getY() + (int) (signSpeedY * RADIUS / (2 * SIDE)) :
                     (int) positionInt.getY() + (int) (signSpeedY * RADIUS / SIDE);
-            if (i >= 0 && i < mapInt.length) {
-                if (j >= 0 && j < mapInt[0].length) {
-                    if (mapInt[i][j] > 0) {
+            if (i >= 0 && i < mapInt.length)
+                if (j >= 0 && j < mapInt[0].length)
+                    if (mapInt[i][j] > 0)
                         return true;
-                    }
-                }
-            }
         }
         return false;
     }

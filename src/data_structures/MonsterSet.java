@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class MonsterSet {
-    private ArrayList<Monster> monsters= new ArrayList<>();
+    private final ArrayList<Monster> monsters= new ArrayList<>();
 
     public MonsterSet(int n, MainCharacter mainCharacter, int[][] map) {
         for (int i = 0; i < n; i++)
@@ -20,12 +20,12 @@ public class MonsterSet {
                      map[0].length * Math.random()), mainCharacter.getPosition(), map));
     }
 
-    public void setStartMonster(Room room, Coordinate mainCharacterPposition){
+    public void setStartMonster(Room room, Coordinate mainCharacterPosition){
         Iterator<Monster> it = monsters.iterator();
         Monster curr;
         while (it.hasNext()) {
             curr = it.next();
-            curr.startPosition(room, mainCharacterPposition);
+            curr.startPosition(room, mainCharacterPosition);
         }
     }
 

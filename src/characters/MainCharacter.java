@@ -14,12 +14,12 @@ import java.util.HashMap;
 public class MainCharacter extends Character {
 	private double staminaPoint = 100;
 	private boolean isRunning = false;
-	private double baseSpeedLimitX = SIDE / 3;
-	private double baseSpeedLimitY = SIDE / 3;
+	private final double baseSpeedLimitX = SIDE / 3;
+	private final double baseSpeedLimitY = SIDE / 3;
 	private final double runningSpeedLimitX;
 	private final double runningSpeedLimitY;
     private int invincibilityFrames = 120;
-    private HashMap<Integer, Image> staminaBar = new HashMap<>();
+    private final HashMap<Integer, Image> staminaBar = new HashMap<>();
     private double staminaCost = 0.5;
 
 	public MainCharacter(Coordinate position, Map map ) {
@@ -134,7 +134,7 @@ public class MainCharacter extends Character {
             default:return null ;
         }
     }
-	public void update(HashMap<CharacterActions, Boolean> inputs, MonsterSet monsterSet, GraphicsContext gc) {
+	public void update(HashMap<CharacterActions, Boolean> inputs, MonsterSet monsterSet) {
 		displacement(inputs);
     	if(invincibilityFrames == 0) {
         	if (monsterSet.hit(hitbox)) {
@@ -171,7 +171,7 @@ public class MainCharacter extends Character {
 
 		if (inputs.get(CharacterActions.ATTACK)) {
 			inputs.replace(CharacterActions.ATTACK, false);
-			attack(gc);
+			attack();
 		}
 	}
 
@@ -179,7 +179,7 @@ public class MainCharacter extends Character {
 		return position;
 	}
 
-	public void attack(GraphicsContext gc) {
+	public void attack() {
 	    Coordinate direction = angleToDirection();
 		Hitbox hitboxAttack = new Hitbox(new Coordinate(position.getX() + direction.getX() * (RADIUS / SIDE) ,
 				position.getY() + direction.getY() * (RADIUS / SIDE) ), RADIUS*2);

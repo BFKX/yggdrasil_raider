@@ -5,8 +5,8 @@ import javafx.scene.image.Image;
 import java.util.HashMap;
 
 public class ImageSet {
-    private HashMap<Integer, Image> spriteSet;
-    private int[] sequence;
+    private final HashMap<Integer, Image> spriteSet;
+    private final int[] sequence;
     private int current = 0;
 
     public ImageSet(HashMap<Integer, Image> spriteSet, int[] sequence) {

@@ -18,12 +18,12 @@ class Cave extends Room {
 		randomFill(fillPercentage);
 		for (int l = 0; l < 2; l++) {
 			for (int k = 0; k < 2; k++) {
-				applyFiltering(fullRangeFiltering(1), 6);
+				applyFiltering(fullRangeFiltering(1));
 			}
 			for (int i = 0; i < 10; i++) {
 				additiveFiltering();
 			}
-			applyFiltering(fullRangeFiltering(1), 6);
+			applyFiltering(fullRangeFiltering(1));
 		}
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
@@ -42,11 +42,11 @@ class Cave extends Room {
 		}
 
 		delete25(1);
-		applyFiltering(fullRangeFiltering(1), 6);
+		applyFiltering(fullRangeFiltering(1));
 
 	}
 
-	public void addGroundVariation(int[] seeds, int limit) {
+	public void addGroundVariation(int[] seeds) {
 		Coordinate[] seedsCoordinates = new Coordinate[seeds.length];
 		for (int i = 0; i < seeds.length; i++) {
 			int x = pseudoRandomList.nextInt(width);
@@ -79,7 +79,7 @@ class Cave extends Room {
 			 possibleValues.add(i);
 		 }
 	}
-	public void delete25(int range) {
+	void delete25(int range) {
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
 				if (!(possibleValues.contains(map[i][j]))) {
