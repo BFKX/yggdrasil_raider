@@ -39,13 +39,14 @@ public class MonsterSet {
         }
     }
 
-    public void update(GraphicsContext gc) {
+    public void update(MainCharacter mainCharacter) {
         Iterator<Monster> it = monsters.iterator();
         Monster curr;
         while (it.hasNext()) {
             curr = it.next();
             if (curr.getHealthPoint() <= 0) {
                 monsters.remove(curr);
+                mainCharacter.addHealth(5);
             } else {
                 curr.update();
             }

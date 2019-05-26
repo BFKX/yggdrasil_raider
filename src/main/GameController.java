@@ -208,7 +208,7 @@ class GameController extends Application {
 
 						mainCharacter.update(inputs,map.getCurrent().getMonsters(), gc);
 
-						map.updateMonster(gc);
+						map.updateMonster();
 						map.display(gc, mainCharacter.getPosition());
 						map.displayMiniMap(gc, mainCharacter.getPosition());
 

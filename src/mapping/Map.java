@@ -168,8 +168,8 @@ public class Map {
 		originYMiniMap = HEIGHT - lines * sideMiniMap;
 	}
 
-	public void updateMonster(GraphicsContext gc){
-		current.getMonsters().update(gc);
+	public void updateMonster(){
+		current.getMonsters().update(mainCharacter);
 	}
 
 	public void display(GraphicsContext gc, Coordinate characterPosition) {
@@ -233,24 +233,6 @@ public class Map {
 		gc.restore();
 	}
 
-//	public void displayMapOfMap(){
-//		for( int i = 0 ;  i < mapOfRoom.length ; i++){
-//			for( int j =0 ; j < mapOfRoom[0].length ; j++) {
-//				if ( mapOfRoom[j][i] == null ) {
-//						System.out.print(0);}
-//				else {
-//					System.out.print(1);
-//					//.out.println(" "+j+";"+i);
-//				}
-//			}
-//			System.out.println();
-//		}
-//	}
-
-	/**
-	 * @param value value of a area on the map
-	 * @return sprite of selected value
-	 */
 	private Image spriteSelector(int value) {
 		switch (value) {
 		case -5:
@@ -265,8 +247,6 @@ public class Map {
 			return groundVar1;
 		case 0:
 			return groundVar0;
-		case 1:
-			return voidImage;
 		case 2:
 			return nWall;
 		case 3:
@@ -307,9 +287,8 @@ public class Map {
 			return sCorners;
 		case 61:
 			return wCorners;
-
 		default:
-			 return red;
+			 return voidImage;
 		}
 	}
 
@@ -339,18 +318,6 @@ public class Map {
 
 	public int[][] getMap() {
 		return map;
-	}
-
-	public Room getOrigin() {
-		return origin;
-	}
-
-	public double getWIDTH() {
-		return WIDTH;
-	}
-
-	public double getHEIGHT() {
-		return HEIGHT;
 	}
 
 	public double getSIDE() {

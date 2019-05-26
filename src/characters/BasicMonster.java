@@ -3,7 +3,7 @@ package characters;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import tools.Coordinate;
-import java.awt.Toolkit;
+
 import java.util.concurrent.ThreadLocalRandom;
 
 public class BasicMonster extends Monster {
@@ -77,7 +77,7 @@ public class BasicMonster extends Monster {
             speedX = directionX * speedLimitX / 13;
             speedY = directionY * speedLimitY / 13;
         }
-        if ( ! knocBack ) {
+        if ( !knockBack) {
             speedX = (Math.abs(speedX) < speedLimitX) ? speedX + directionX * speedLimitX / 13 : directionX*speedLimitX;
             speedY = (Math.abs(speedY) < speedLimitY) ? speedY + directionY * speedLimitY / 13 : directionY*speedLimitY;
         }else {
@@ -86,7 +86,7 @@ public class BasicMonster extends Monster {
             if ( Math.abs(speedY) > speedLimitY )
                 speedY= speedY / 1.2 ;
             if ( speedX < speedLimitX && speedY < speedLimitY){
-                knocBack = false;
+                knockBack = false;
             }
         }
         }

@@ -18,7 +18,7 @@ public class MainCharacter extends Character {
 	private double baseSpeedLimitY = SIDE / 3;
 	private final double runningSpeedLimitX;
 	private final double runningSpeedLimitY;
-    private int invincibilityFrames = 300 ;
+    private int invincibilityFrames = 120;
     private HashMap<Integer, Image> staminaBar = new HashMap<>();
 
 
@@ -120,7 +120,7 @@ public class MainCharacter extends Character {
 			speedY = speedY/ 1.4;
 		}
 	}
-    public Coordinate angleToDirection(){
+    private Coordinate angleToDirection(){
         switch (angle){
             case  135 : return new Coordinate(1,1);
             case  -135 : return  new Coordinate(-1,1);
@@ -138,7 +138,7 @@ public class MainCharacter extends Character {
     	if(invincibilityFrames == 0) {
         	if (monsterSet.hit(hitbox)) {
             	healthPoint -= 10;
-            	invincibilityFrames = 120;
+            	invincibilityFrames = 60;
         	}
     	} else {
         	invincibilityFrames--;
@@ -180,8 +180,8 @@ public class MainCharacter extends Character {
 
 	public void attack(GraphicsContext gc) {
 	    Coordinate direction = angleToDirection();
-		Hitbox hitboxAttack = new Hitbox(new Coordinate(position.getX() + direction.getX() * (RADIUS / SIDE) * 15 / 10,
-				position.getY() + direction.getY() * (RADIUS / SIDE) * 15 / 10), RADIUS*2);
+		Hitbox hitboxAttack = new Hitbox(new Coordinate(position.getX() + direction.getX() * (RADIUS / SIDE) * 1.3,
+				position.getY() + direction.getY() * (RADIUS / SIDE) * 1.3), RADIUS*2);
 		hitboxAttack.draw(gc,this.getPosition());
 		if (speedX != 0 ||speedY != 0){
             map.getCurrent().getMonsters().isHit(hitboxAttack,new Coordinate(this.speedX,this.speedY));
@@ -197,5 +197,9 @@ public class MainCharacter extends Character {
 
 	public int getHealth() {
 		return healthPoint;
+	}
+
+	public void addHealth(int toAdd) {
+		healthPoint += toAdd;
 	}
 }
