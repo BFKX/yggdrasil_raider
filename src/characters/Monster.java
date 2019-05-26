@@ -9,6 +9,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public abstract class Monster extends Character {
     Coordinate mainCharactersPosition;
     boolean knockBack = false ;
+
     Monster(Coordinate position, Coordinate mainCharactersPosition){
         super(position);
         this.mainCharactersPosition = mainCharactersPosition;

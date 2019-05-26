@@ -7,7 +7,7 @@ import tools.Coordinate;
 import java.util.Random;
 
 public abstract class Room {
-	private MainCharacter mainCharacter;
+
 	private Room north;
 	private Room south;
 	private Room east;
@@ -23,6 +23,7 @@ public abstract class Room {
 	int indiceminWest;
     int largeur = 3;
 	private MonsterSet monsters;
+
 	Room(int width, int height, Coordinate position, Random pseudoRandomList) {
 		this.width = width;
 		this.height = height;
@@ -33,9 +34,6 @@ public abstract class Room {
 		indiceminEast = - 1;
 		indiceminWest= - 1;
 		indiceminSouth = - 1;
-	}
-	public void setMainCharacter(MainCharacter mainCharacter){
-		this.mainCharacter=mainCharacter;
 	}
 
 	public void createMonsters(MainCharacter mainCharacter) {
@@ -136,7 +134,6 @@ public abstract class Room {
 			}
 		}
 	}
-
 
 	public void setNorth(Room north) {
 		this.north = north;

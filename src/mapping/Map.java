@@ -73,7 +73,6 @@ public class Map {
 		placeWall();
 	}
 
-
 	private void placeWall(){
 		for (int i = 0; i < mapOfRoom.length; i++){
 			for(int j = 0 ; j<mapOfRoom[0].length ; j++){
@@ -81,6 +80,7 @@ public class Map {
 					for ( int k = 0 ; i <6 ; i++){
 						mapOfRoom[i][j].delete25(1);
 					}
+					mapOfRoom[i][j].delete25(0);
 					mapOfRoom[i][j].placeWall();
 					mapOfRoom[i][j].addGroundVariation(new int[] {0,-1,0}, 5000);
 				}
@@ -88,6 +88,7 @@ public class Map {
 		}
 
 	}
+
 	private void placeRoom (int n ) { // cree une sale
 		for ( int k = 0 ; k<n ; k++  ){
 			int tempWidth = ThreadLocalRandom.current().nextInt(roomScale, roomScale * 11 / 10);
@@ -98,6 +99,7 @@ public class Map {
 			placeRoom(temp);
 		}
 	}
+
 	private Coordinate positionOnMap(Room[][]MapofRoom, Coordinate coordinate){//la position de la room dans map
 		int val = ThreadLocalRandom.current().nextInt(0, 4);
 		switch (val) {
@@ -116,6 +118,7 @@ public class Map {
 			return coordinate;
 		}
 	}
+
 	private void placeRoom(Room current){
 		int currentPositionX = (int) current.getPosition().getX();
 		int currentPositionY = (int) current.getPosition().getY();
