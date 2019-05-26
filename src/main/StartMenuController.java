@@ -19,7 +19,7 @@ class StartMenuController {
 	private final Stage primaryStage;
 	private final double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	private final double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-	private final Font titleFont = Font.loadFont(
+	final private Font customFont = Font.loadFont(
 			StartMenuController.class.getResource("../resources/fonts/VIKING-N.TTF").toExternalForm(),
 			HEIGHT / 15);
 
@@ -46,7 +46,7 @@ class StartMenuController {
 				new Image("images/menuBackground.png", WIDTH, HEIGHT, false, false), BackgroundRepeat.NO_REPEAT,
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
 
-		title.setFont(titleFont);
+		title.setFont(customFont);
 		title.setFill(Color.DARKORANGE);
 		title.setStroke(Color.DARKRED);
 		title.setStrokeWidth(startMenu.getPrefHeight() / 360);
