@@ -21,6 +21,7 @@ public class MainCharacter extends Character {
     private int invincibilityFrames = 300 ;
     private HashMap<Integer, Image> staminaBar = new HashMap<>();
 
+
 	public MainCharacter(Coordinate position, Map map ) {
 		super(position);
 		this.map=map;
@@ -119,7 +120,19 @@ public class MainCharacter extends Character {
 			speedY = speedY/ 1.4;
 		}
 	}
-
+    public Coordinate angleToDirection(){
+        switch (angle){
+            case  135 : return new Coordinate(1,1);
+            case  -135 : return  new Coordinate(-1,1);
+            case 90 : return new Coordinate(1,0);
+            case 45 : return new Coordinate(1,-1);
+            case -45 : return new Coordinate(-1,-1);
+            case 0 : return new Coordinate(0,0);
+            case -90 : return new Coordinate(-1,0);
+            case 180 : return new Coordinate(-1,1);
+            default:return null ;
+        }
+    }
 	public void update(HashMap<CharacterActions, Boolean> inputs, MonsterSet monsterSet, GraphicsContext gc) {
 		displacement(inputs);
     	if(invincibilityFrames == 0) {

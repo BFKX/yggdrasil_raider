@@ -29,7 +29,7 @@ public abstract class Character {
     Image waiting;
     final HashMap<Integer, Image> healthBar = new HashMap<>();
     int healthPoint;
-    private int angle;
+    int angle;
 
     Character(Coordinate position) {
         this.position = position;

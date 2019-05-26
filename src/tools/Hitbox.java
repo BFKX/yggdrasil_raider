@@ -8,14 +8,13 @@ import java.awt.*;
 public class Hitbox {
 	private  Coordinate origin;
 	private double radius;
-	final double SIDE = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
+	private final double SIDE = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 60;
 	private final double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	private final double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 
 	public Hitbox(Coordinate origin, double radius) {
 		this.origin = origin;
 		this.radius = radius;
-		this.origin.add(- radius/2, - radius/2);
 	}
 
 	public boolean collide(Hitbox other) {
@@ -42,7 +41,6 @@ public class Hitbox {
 
 	public void setOrigin(Coordinate origin){
 		this.origin= origin ;
-		this.origin.add(- radius/2, - radius/2);
 	}
 	public double getRadius() {
 		return radius;
