@@ -84,9 +84,9 @@ public class BasicMonster extends Monster {
                 speedX = speedX / 1.2 ;
             if ( Math.abs(speedY) > speedLimitY )
                 speedY= speedY / 1.2 ;
-            if ( speedX < speedLimitX && speedY < speedLimitY){
+            if (Math.abs(speedX) < speedLimitX && Math.abs(speedY) < speedLimitY){
                 knockBack = false;
             }
         }
-        }
+    }
 }

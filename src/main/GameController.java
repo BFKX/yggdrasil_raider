@@ -42,10 +42,7 @@ class GameController extends Application {
 	private Map map;
 	final private Image pauseBackground = new Image("resources/images/menuBackground.png", WIDTH, HEIGHT, false,
 			true);
-	final private Font customFont = Font.loadFont(
-			StartMenuController.class.getResource("../resources/fonts/VIKING-N.TTF").toExternalForm(),
-			HEIGHT / 15);
-
+	final private Font customFont = new Font("Viking-Normal", HEIGHT / 15);
 	@FXML
 	private AnchorPane game;
 

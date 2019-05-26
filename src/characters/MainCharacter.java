@@ -181,9 +181,9 @@ public class MainCharacter extends Character {
 
 	public void attack(GraphicsContext gc) {
 	    Coordinate direction = angleToDirection();
-		Hitbox hitboxAttack = new Hitbox(new Coordinate(position.getX() + direction.getX() * (RADIUS / SIDE) * 1.3,
-				position.getY() + direction.getY() * (RADIUS / SIDE) * 1.3), RADIUS*2);
-		if (speedX != 0 ||speedY != 0){
+		Hitbox hitboxAttack = new Hitbox(new Coordinate(position.getX() + direction.getX() * (RADIUS / SIDE) ,
+				position.getY() + direction.getY() * (RADIUS / SIDE) ), RADIUS*2);
+		if ( Math.abs (speedX) >1 || Math.abs (speedY) > 1){
             map.getCurrent().getMonsters().isHit(hitboxAttack,new Coordinate(this.speedX,this.speedY));
 		}else {
             map.getCurrent().getMonsters().isHit(hitboxAttack,direction);

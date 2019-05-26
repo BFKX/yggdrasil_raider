@@ -19,9 +19,7 @@ class StartMenuController {
 	private final Stage primaryStage;
 	private final double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	private final double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-	final private Font customFont = Font.loadFont(
-			StartMenuController.class.getResource("../resources/fonts/VIKING-N.TTF").toExternalForm(),
-			HEIGHT / 15);
+	final private Font customFont = new Font("Viking-Normal", HEIGHT / 15);
 	final private Text title = new Text("Yggdrasil Raider");
 
 	@FXML
