@@ -30,7 +30,7 @@ public abstract class Character {
     final HashMap<Integer, Image> healthBar = new HashMap<>();
     int healthPoint;
     int angle;
-
+    int state = 0;
     Character(Coordinate position) {
         this.position = position;
         hitbox = new Hitbox(position, RADIUS);

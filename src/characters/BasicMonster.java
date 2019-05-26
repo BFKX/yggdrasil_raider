@@ -11,7 +11,6 @@ public class BasicMonster extends Monster {
     private int directionY;
     private int[][] map;
     private final double SIDE = HEIGHT / 60;
-    private int state = 0;
     private Image sprite;
 
 
@@ -63,10 +62,10 @@ public class BasicMonster extends Monster {
         }
         if (state == 1 ) {
             if (position.distance(mainCharactersPosition) < 40){
-            double xDist = position.getX() - mainCharactersPosition.getX();
-            double yDist = position.getY() - mainCharactersPosition.getY();
-            directionX = (xDist > 0) ? -1 : (xDist < 0) ? 1 : 0;
-            directionY = (yDist > 0) ? -1 : (yDist < 0) ? 1 : 0;
+                double xDist = position.getX() - mainCharactersPosition.getX();
+                double yDist = position.getY() - mainCharactersPosition.getY();
+                directionX = (xDist > 0) ? -1 : (xDist < 0) ? 1 : 0;
+                directionY = (yDist > 0) ? -1 : (yDist < 0) ? 1 : 0;
             }
         }
 
@@ -80,6 +79,7 @@ public class BasicMonster extends Monster {
             speedX = (Math.abs(speedX) < speedLimitX) ? speedX + directionX * speedLimitX / 13 : directionX*speedLimitX;
             speedY = (Math.abs(speedY) < speedLimitY) ? speedY + directionY * speedLimitY / 13 : directionY*speedLimitY;
         }else {
+            state = 1 ;
             if ( Math.abs(speedX) > speedLimitX )
                 speedX = speedX / 1.2 ;
             if ( Math.abs(speedY) > speedLimitY )

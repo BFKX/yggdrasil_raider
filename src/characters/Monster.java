@@ -34,6 +34,7 @@ public abstract class Monster extends Character {
     }
 
     public void isAttacked(Coordinate speed ){
+        this.state =
         this.healthPoint -= (ThreadLocalRandom.current().nextInt(0, 10) > 2) ? 10 : 20;
         knockBack( speed);
     }
