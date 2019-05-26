@@ -129,7 +129,7 @@ public class MainCharacter extends Character {
             case -45 : return new Coordinate(-1,-1);
             case 0 : return new Coordinate(0,0);
             case -90 : return new Coordinate(-1,0);
-            case 180 : return new Coordinate(-1,1);
+            case 180 : return new Coordinate(0,1);
             default:return null ;
         }
     }

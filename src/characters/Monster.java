@@ -29,8 +29,8 @@ public abstract class Monster extends Character {
 
     private void knockBack(Coordinate speed){
 
-        this.speedX = speed.getX() * 2 ;
-        this.speedY = speed.getY() * 2 ;
+        this.speedX = speed.getX() * 5 ;
+        this.speedY = speed.getY() * 5 ;
     }
 
     public void isAttacked(Coordinate speed ){
