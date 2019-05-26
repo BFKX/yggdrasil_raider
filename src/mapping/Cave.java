@@ -7,6 +7,7 @@ import java.util.Random;
 
 class Cave extends Room {
 	private final ArrayList< Integer> possibleValues = new ArrayList<>();
+
 	Cave(int width, int height, Random pseudoRandomList, Coordinate position) {
 		super(width, height,position,pseudoRandomList);
 		initPossibleValues();
@@ -39,9 +40,12 @@ class Cave extends Room {
 				}
 			}
 		}
+
 		delete25(1);
 		applyFiltering(fullRangeFiltering(1), 6);
+
 	}
+
 	public void addGroundVariation(int[] seeds, int limit) {
 		Coordinate[] seedsCoordinates = new Coordinate[seeds.length];
 		for (int i = 0; i < seeds.length; i++) {
@@ -56,10 +60,9 @@ class Cave extends Room {
 					int k = 0;
 					for (Coordinate c : seedsCoordinates) {
 						double d = Math.pow(c.distance(ij), 2);
-						double u1 = pseudoRandomList.nextDouble()  ;
+						double u1 = pseudoRandomList.nextDouble();
 						double u2 = pseudoRandomList.nextDouble();
 						double nb = Math.sqrt((-2)*Math.log(u1))*Math.cos(u2); // gausien centrer en 0 de'ecartipe 1
-
 						nb = Math.abs(nb)*d/900;
 						if (nb < 4  ){
 							map[i][j] = seeds[k] - (4-(int)(nb));
@@ -174,5 +177,4 @@ class Cave extends Room {
 				System.arraycopy(temp[i], 0, map[i], 0, height);
 		}
 	}
-
 }

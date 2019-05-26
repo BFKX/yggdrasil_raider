@@ -28,8 +28,10 @@ public abstract class Room {
 		this.width = width;
 		this.height = height;
 		this.pseudoRandomList = pseudoRandomList;
-		this.position = position ;
+		this.position = position;
+
 		map = new int[width][height];
+
 		indiceminNorth = -1;
 		indiceminEast = - 1;
 		indiceminWest= - 1;
@@ -41,13 +43,9 @@ public abstract class Room {
 		this.monsters.setStartMonster(this,mainCharacter.getPosition());
 	}
 
-	public int[][] getMap() {
-		return map;
-	}
-
 	void applyFiltering(int[][] mapFiltering, int limit) {
-		for (int i = 0; i < width ; i++) {
-			for (int j = 0; j < height ; j++) {
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
 				if (mapFiltering[i][j] >= limit) {
 					map[i][j] = 1;
 				}
@@ -89,9 +87,9 @@ public abstract class Room {
                 && map[min][j+4] <= 0)){
 			j++;
 		}
-		for (int i= 0 ; i < j+1 ; i++){
-			for ( int k = -largeur ; k<largeur+1 ; k++ ){
-				map[min+k][i] = 0 ;
+		for (int i= 0; i < j+1; i++){
+			for ( int k = -largeur; k < largeur + 1; k++ ){
+				map[min+k][i] = 0;
 			}
 		}
 	}
@@ -102,9 +100,9 @@ public abstract class Room {
                 && map[min][j-4] <= 0 ) ){
 			j--;
 		}
-		for (int i= height-1 ; i >= j-1 ; i--){
-			for ( int k = -largeur ; k<largeur+1 ; k++ ){
-				map[min+k][i] = 0 ;
+		for (int i= height-1; i >= j-1; i--){
+			for ( int k = -largeur; k<largeur+1; k++ ){
+				map[min+k][i] = 0;
 			}
 		}
 	}
@@ -115,9 +113,9 @@ public abstract class Room {
                 && map[j+3][min] <= 0 &&  map[j+4][min] <= 0) ){
 			j++;
 		}
-		for (int i= 0 ; i < j+1 ; i++){
-			for ( int k = -largeur ; k<largeur+1 ; k++ ){
-				map[i][min+k] = 0 ;
+		for (int i= 0; i < j+1; i++){
+			for ( int k = -largeur; k<largeur+1; k++ ){
+				map[i][min+k] = 0;
 			}
 		}
 	}
@@ -128,9 +126,9 @@ public abstract class Room {
                 && map[j-4][min] <= 0 ) ){
 			j--;
 		}
-		for (int i= width-1 ; i >= j-1 ; i--){
-			for ( int k = -largeur ; k<largeur+1 ; k++ ){
-				map[i][min+k] = 0 ;
+		for (int i= width-1; i >= j-1; i--){
+			for ( int k = -largeur; k<largeur+1; k++ ){
+				map[i][min+k] = 0;
 			}
 		}
 	}
@@ -154,6 +152,9 @@ public abstract class Room {
 		this.west = west;
 	}
 
+	public int[][] getMap() {
+		return map;
+	}
 
 	public Coordinate getPosition() {
 		return position;
