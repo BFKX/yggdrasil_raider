@@ -19,6 +19,9 @@ class StartMenuController {
 	private final Stage primaryStage;
 	private final double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	private final double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+	private final Font titleFont = Font.loadFont(
+			StartMenuController.class.getResource("../resources/fonts/VIKING-N.TTF").toExternalForm(),
+			HEIGHT / 15);
 
 	@FXML
 	private Button playButton;
@@ -38,9 +41,6 @@ class StartMenuController {
 	@FXML
 	void initialize() {
 		startMenu.setPrefSize(WIDTH, HEIGHT);
-		Font titleFont = Font.loadFont(
-				StartMenuController.class.getResource("../resources/fonts/VIKING-N.TTF").toExternalForm(),
-				startMenu.getPrefHeight() / 12);
 		MusicPlayer music = new MusicPlayer("/resources/audio/startMenu.mp3", HEIGHT / 15);
 		startMenu.setBackground(new Background(new BackgroundImage(
 				new Image("images/menuBackground.png", WIDTH, HEIGHT, false, false), BackgroundRepeat.NO_REPEAT,

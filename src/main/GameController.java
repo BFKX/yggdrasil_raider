@@ -44,7 +44,7 @@ class GameController extends Application {
 			true);
 	final private Font customFont = Font.loadFont(
 			StartMenuController.class.getResource("../resources/fonts/VIKING-N.TTF").toExternalForm(),
-			HEIGHT / 12);
+			HEIGHT / 15);
 
 	@FXML
 	private AnchorPane game;
