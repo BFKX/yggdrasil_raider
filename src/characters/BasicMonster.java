@@ -81,10 +81,10 @@ public class BasicMonster extends Monster {
             speedX = (Math.abs(speedX) < speedLimitX) ? speedX + directionX * speedLimitX / 13 : directionX*speedLimitX;
             speedY = (Math.abs(speedY) < speedLimitY) ? speedY + directionY * speedLimitY / 13 : directionY*speedLimitY;
         }else {
-            if ( speedX > speedLimitX )
-                speedX = speedX + directionX * speedLimitX / 13;
-            if ( speedY > speedLimitY )
-                speedY= speedY + directionY * speedLimitY / 13 ;
+            if ( Math.abs(speedX) > speedLimitX )
+                speedX = speedX / 1.2 ;
+            if ( Math.abs(speedY) > speedLimitY )
+                speedY= speedY / 1.2 ;
             if ( speedX < speedLimitX && speedY < speedLimitY){
                 knocBack = false;
             }
