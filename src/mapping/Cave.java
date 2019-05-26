@@ -62,10 +62,10 @@ class Cave extends Room {
 						double d = Math.pow(c.distance(ij), 2);
 						double u1 = pseudoRandomList.nextDouble();
 						double u2 = pseudoRandomList.nextDouble();
-						double nb = Math.sqrt((-2)*Math.log(u1))*Math.cos(u2); // gausien centrer en 0 de'ecartipe 1
-						nb = Math.abs(nb)*d/900;
+						double nb = Math.sqrt((-2)*Math.log(u1)) * Math.cos(u2);
+						nb = Math.abs(nb) * d / 900;
 						if (nb < 4  ){
-							map[i][j] = seeds[k] - (4-(int)(nb));
+							map[i][j] = seeds[k] - (4 - (int)nb);
 						}
 						k++;
 					}

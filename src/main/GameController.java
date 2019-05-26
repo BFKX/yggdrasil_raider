@@ -131,33 +131,17 @@ class GameController extends Application {
 					}
 				}
 				break;
-			case UP:
+			case Z:
 				inputs.replace(CharacterActions.UP, true);
 				break;
-			case DOWN:
+			case S:
 				inputs.replace(CharacterActions.DOWN, true);
 				break;
-			case LEFT:
+			case Q:
 				inputs.replace(CharacterActions.LEFT, true);
 				break;
-			case RIGHT:
-				inputs.replace(CharacterActions.RIGHT, true);
-				break;
-			case Z:
-				map.moveNorth();
-				mainCharacter.setMap(map);
-				break;
-			case S:
-				map.moveSouth();
-				mainCharacter.setMap(map);
-				break;
-			case Q:
-				map.moveEast();
-				mainCharacter.setMap(map);
-				break;
 			case D:
-				map.moveWest();
-				mainCharacter.setMap(map);
+				inputs.replace(CharacterActions.RIGHT, true);
 				break;
 			case SHIFT:
 				mainCharacter.startRun();
@@ -171,21 +155,21 @@ class GameController extends Application {
 
 		scene.setOnKeyReleased(e -> {
 			switch (e.getCode()) {
-			case UP:
+			case Z:
 				inputs.replace(CharacterActions.UP, false);
 				break;
-			case DOWN:
+			case S:
 				inputs.replace(CharacterActions.DOWN, false);
 				break;
-			case LEFT:
+			case Q:
 				inputs.replace(CharacterActions.LEFT, false);
 				break;
-			case RIGHT:
+			case D:
 				inputs.replace(CharacterActions.RIGHT, false);
 				break;
-				case SHIFT:
-					mainCharacter.stopRun();
-					break;
+			case SHIFT:
+				mainCharacter.stopRun();
+				break;
 			default:
 			}
 		});
@@ -198,14 +182,16 @@ class GameController extends Application {
 					if (!pause && mainCharacter.getHealth() > 0) {
 						gc.fillRect(0, 0, WIDTH, HEIGHT);
 
+						map.display(gc, mainCharacter.getPosition());
+
 						mainCharacter.update(inputs,map.getCurrent().getMonsters(), gc);
+						mainCharacter.display(gc);
 
 						map.updateMonster();
-						map.display(gc, mainCharacter.getPosition());
-						map.displayMiniMap(gc, mainCharacter.getPosition());
+						map.displayMonsters(gc, mainCharacter);
 
-						mainCharacter.display(gc);
 						mainCharacter.displayStatus(gc);
+						map.displayMiniMap(gc, mainCharacter.getPosition());
 
 						fpsmeter.update(now, gc);
 						lastNow = now;

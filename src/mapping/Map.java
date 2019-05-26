@@ -180,6 +180,9 @@ public class Map {
 						SIDE,
 						SIDE);
 			}
+	}
+
+	public void displayMonsters(GraphicsContext gc, MainCharacter mainCharacter) {
 		current.getMonsters().display(gc, mainCharacter);
 	}
 
