@@ -1,4 +1,4 @@
-import org.junit.*;
+/*import org.junit.*;
 import tools.Coordinate;
 import tools.Hitbox;
 
@@ -51,4 +51,4 @@ public class HitboxTest {
     }
 
 
-}
+}*/
