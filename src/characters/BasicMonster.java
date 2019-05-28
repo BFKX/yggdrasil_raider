@@ -97,8 +97,8 @@ public class BasicMonster extends Monster {
             if (position.distance(mainCharactersPosition) < 40){
                 double xDist = position.getX() - mainCharactersPosition.getX();
                 double yDist = position.getY() - mainCharactersPosition.getY();
-                directionX = (xDist > 0) ? -1 : (xDist < 0) ? 1 : 0;
-                directionY = (yDist > 0) ? -1 : (yDist < 0) ? 1 : 0;
+                directionX = (xDist >= 0 ) ? -1 : (xDist < -1) ? 1 : 0;
+                directionY = (yDist >= 0) ? -1 : (yDist < -1) ? 1 : 0;
             }
 
         if (collision(position, map)) {
@@ -119,27 +119,5 @@ public class BasicMonster extends Monster {
             if (Math.abs(speedX) < speedLimitX && Math.abs(speedY) < speedLimitY)
                 knockBack = false;
         }
-    }
-
-    private void angleSelector(GraphicsContext gc, double xOffset, double yOffset) {
-        if (speedY > 1 && speedX > 1) {
-            angle = 135;
-        } else if (speedY > 1 && speedX < -1) {
-            angle = -135;
-        } else if (Math.abs(speedY) < 1 && speedX > 1) {
-            angle = 90;
-        } else if (Math.abs(speedY) < 1 && speedX < -1) {
-            angle = -90;
-        } else if (speedY < -1 && speedX > 1) {
-            angle = 45;
-        } else if (speedY < -1 && speedX < -1) {
-            angle = -45;
-        } else if (speedY < -1 && Math.abs(speedX) < 1) {
-            angle = 0;
-        } else if (speedY > 1 && Math.abs(speedX) < 1) {
-            angle = 180;
-        }
-        Rotate r = new Rotate(angle, (this.position.getX() - xOffset) * SIDE - RADIUS / 2, (this.position.getY() - yOffset) * SIDE - RADIUS / 2);
-        gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
     }
 }

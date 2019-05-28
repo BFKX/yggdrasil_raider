@@ -219,26 +219,4 @@ public class MainCharacter extends Character {
 				HEIGHT / 2 - RADIUS / 2, RADIUS, RADIUS);
 		gc.restore();
 	}
-
-	private void angleSelector(GraphicsContext gc) {
-		if (speedY > 1 && speedX > 1) {
-			angle = 135;
-		} else if (speedY > 1 && speedX < -1) {
-			angle = -135;
-		} else if (Math.abs(speedY) < 1 && speedX > 1) {
-			angle = 90;
-		} else if (Math.abs(speedY) < 1 && speedX < -1) {
-			angle = -90;
-		} else if (speedY < -1 && speedX > 1) {
-			angle = 45;
-		} else if (speedY < -1 && speedX < -1) {
-			angle = -45;
-		} else if (speedY < -1 && Math.abs(speedX) < 1) {
-			angle = 0;
-		} else if (speedY > 1 && Math.abs(speedX) < 1) {
-			angle = 180;
-		}
-		Rotate r = new Rotate(angle, WIDTH / 2, HEIGHT / 2);
-		gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
-	}
 }

@@ -110,9 +110,6 @@ class GameController extends Application {
 			case R:
 				starter();
 				break;
-				case A:
-					mainCharacter.attack();
-					break;
 			case M :
 				map.fullScreenMap(gc, mainCharacter.getPosition());
 				mapShown = !mapShown;

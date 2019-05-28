@@ -80,6 +80,33 @@ public abstract class Character {
         return false;
     }
 
+    void angleSelector(GraphicsContext gc) {
+        angleSelector(gc, 0, 0);
+    }
+
+    void angleSelector(GraphicsContext gc, double xOffset, double yOffset) {
+        if (speedY > 1 && speedX > 1) {
+            angle = 135;
+        } else if (speedY > 1 && speedX < -1) {
+            angle = -135;
+        } else if (Math.abs(speedY) < 1 && speedX > 1) {
+            angle = 90;
+        } else if (Math.abs(speedY) < 1 && speedX < -1) {
+            angle = -90;
+        } else if (speedY < -1 && speedX > 1) {
+            angle = 45;
+        } else if (speedY < -1 && speedX < -1) {
+            angle = -45;
+        } else if (speedY < -1 && Math.abs(speedX) < 1) {
+            angle = 0;
+        } else if (speedY > 1 && Math.abs(speedX) < 1) {
+            angle = 180;
+        }
+        Rotate r = (type == 0) ? new Rotate(angle, WIDTH / 2, HEIGHT / 2) :
+        new Rotate(angle, (this.position.getX() - xOffset) * SIDE, (this.position.getY() - yOffset) * SIDE);
+        gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
+    }
+
     public void setMap(Map map) {
         this.map = map;
     }
