@@ -3,6 +3,7 @@ package characters;
 import data_structures.ImageSet;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.transform.Rotate;
 import tools.Coordinate;
 
 import java.util.HashMap;
@@ -27,9 +28,8 @@ public class BasicMonster extends Monster {
         images.put(2, new Image("resources/images/monsterWithHeadType_" + type + "_LeftHand_2.png"));
         images.put(11, new Image("resources/images/monsterWithHeadType_" + type + "_RightHand_1.png"));
         images.put(12, new Image("resources/images/monsterWithHeadType_" + type + "_RightHand_2.png"));
-        int[] sequence = {0, 1, 2, 1, 0, 11, 12, 11};
+        int[] sequence = {0, 0, 0, 1, 1, 1, 2, 2, 2, 1, 1, 1, 0, 0, 0, 11, 11, 11, 12, 12, 12, 11, 11, 11};
         sprites = new ImageSet(images, sequence);
-
         images = new HashMap<>();
         images.put(0, new Image("resources/images/monsterWithoutHeadType_" + type + "_Waiting.png"));
         images.put(1, new Image("resources/images/monsterWithoutHeadType_" + type + "_LeftHand_1.png"));
@@ -69,23 +69,22 @@ public class BasicMonster extends Monster {
         double yOffset = characterPosition.getY() - HEIGHT / (2 * SIDE);
         Image localWaiting;
         ImageSet localSprites;
-
-        angleSelector(gc);
         if (healthPoint > 50) {
             localSprites = sprites;
             localWaiting = waiting;
-        }else {
+        } else {
             localSprites = midLifeSprites;
             localWaiting = midLifeWaiting;
         }
+        angleSelector(gc, xOffset, yOffset);
         gc.drawImage((Math.abs(speedY) < 1 && Math.abs(speedX) < 1) ? localWaiting : localSprites.get(),
                 (this.position.getX() - xOffset) * SIDE - RADIUS / 2,
                 (this.position.getY() - yOffset) * SIDE - RADIUS / 2,
                 RADIUS,
                 RADIUS);
+        gc.restore();
         gc.drawImage(healthBar.get(this.healthPoint), (this.position.getX() - xOffset) * SIDE - RADIUS * 0.375,
                 (this.position.getY() - yOffset) * SIDE - 0.75 * RADIUS, 0.75 * RADIUS, 0.2 * RADIUS);
-        gc.restore();
     }
 
     public void updateDisplacement() {
@@ -108,11 +107,11 @@ public class BasicMonster extends Monster {
             speedX = directionX * speedLimitX / 13;
             speedY = directionY * speedLimitY / 13;
         }
-        if ( !knockBack) {
+        if (!knockBack) {
             speedX = (Math.abs(speedX) < speedLimitX) ? speedX + directionX * speedLimitX / 13 : directionX*speedLimitX;
             speedY = (Math.abs(speedY) < speedLimitY) ? speedY + directionY * speedLimitY / 13 : directionY*speedLimitY;
         }else {
-            state = 1 ;
+            state = 1;
             if ( Math.abs(speedX) > speedLimitX )
                 speedX = speedX / 1.2 ;
             if ( Math.abs(speedY) > speedLimitY )
@@ -120,5 +119,27 @@ public class BasicMonster extends Monster {
             if (Math.abs(speedX) < speedLimitX && Math.abs(speedY) < speedLimitY)
                 knockBack = false;
         }
+    }
+
+    private void angleSelector(GraphicsContext gc, double xOffset, double yOffset) {
+        if (speedY > 1 && speedX > 1) {
+            angle = 135;
+        } else if (speedY > 1 && speedX < -1) {
+            angle = -135;
+        } else if (Math.abs(speedY) < 1 && speedX > 1) {
+            angle = 90;
+        } else if (Math.abs(speedY) < 1 && speedX < -1) {
+            angle = -90;
+        } else if (speedY < -1 && speedX > 1) {
+            angle = 45;
+        } else if (speedY < -1 && speedX < -1) {
+            angle = -45;
+        } else if (speedY < -1 && Math.abs(speedX) < 1) {
+            angle = 0;
+        } else if (speedY > 1 && Math.abs(speedX) < 1) {
+            angle = 180;
+        }
+        Rotate r = new Rotate(angle, (this.position.getX() - xOffset) * SIDE - RADIUS / 2, (this.position.getY() - yOffset) * SIDE - RADIUS / 2);
+        gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
     }
 }

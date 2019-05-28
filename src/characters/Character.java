@@ -59,42 +59,6 @@ public abstract class Character {
         this.position.setY(mid2);
     }
 
-    public void display(GraphicsContext gc) {
-        gc.save();
-        if (type != 0) {
-            gc.drawImage(healthBar.get(this.healthPoint), this.position.getX() * map.getSIDE() - 30,
-                    this.position.getY() * map.getSIDE() - 30, 2 * RADIUS, 0.25 * RADIUS);
-        }
-        angleSelector(gc);
-        gc.drawImage((Math.abs(speedY) < 1 && Math.abs(speedX) < 1) ? waiting : sprites.get(), WIDTH / 2 - RADIUS / 2,
-                HEIGHT / 2 - RADIUS / 2, RADIUS, RADIUS);
-        gc.restore();
-    }
-
-    void angleSelector(GraphicsContext gc) {
-        if (speedY > 1 && speedX > 1) {
-            angle = 135;
-        } else if (speedY > 1 && speedX < -1) {
-            angle = -135;
-        } else if (Math.abs(speedY) < 1 && speedX > 1) {
-            angle = 90;
-        } else if (Math.abs(speedY) < 1 && speedX < -1) {
-            angle = -90;
-        } else if (speedY < -1 && speedX > 1) {
-            angle = 45;
-        } else if (speedY < -1 && speedX < -1) {
-            angle = -45;
-        } else if (speedY < -1 && Math.abs(speedX) < 1) {
-            angle = 0;
-        } else if (speedY > 1 && Math.abs(speedX) < 1) {
-            angle = 180;
-        }
-        if (type == 0) {
-            Rotate r = new Rotate(angle, WIDTH / 2, HEIGHT / 2);
-            gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
-        }
-    }
-
     int sign(double var) {
         return (var > 0) ? 1 : (var < 0) ? -1 : 0;
     }
