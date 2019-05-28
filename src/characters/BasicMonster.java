@@ -1,9 +1,11 @@
 package characters;
 
+import data_structures.ImageSet;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import tools.Coordinate;
 
+import java.util.HashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class BasicMonster extends Monster {
@@ -11,15 +13,34 @@ public class BasicMonster extends Monster {
     private int directionY;
     private final int[][] map;
     private final double SIDE = HEIGHT / 60;
-    private final Image sprite;
+    private ImageSet midLifeSprites;
+    private Image midLifeWaiting;
 
     public BasicMonster(Coordinate coordinate, Coordinate mainCharacterPosition, int[][] map) {
         super(coordinate,mainCharacterPosition);
         this.map = map;
         type = ThreadLocalRandom.current().nextInt(1, 4);
-        sprite = (type == 1) ?
-                new Image("resources/images/monster1.png") : ((type == 2) ?
-                new Image("resources/images/monster2.png") : new Image("resources/images/monster3.png"));
+
+        HashMap<Integer, Image> images = new HashMap<>();
+        images.put(0, new Image("resources/images/monsterWithHeadType_" + type + "_Waiting.png"));
+        images.put(1, new Image("resources/images/monsterWithHeadType_" + type + "_LeftHand_1.png"));
+        images.put(2, new Image("resources/images/monsterWithHeadType_" + type + "_LeftHand_2.png"));
+        images.put(11, new Image("resources/images/monsterWithHeadType_" + type + "_RightHand_1.png"));
+        images.put(12, new Image("resources/images/monsterWithHeadType_" + type + "_RightHand_2.png"));
+        int[] sequence = {0, 1, 2, 1, 0, 11, 12, 11};
+        sprites = new ImageSet(images, sequence);
+
+        images = new HashMap<>();
+        images.put(0, new Image("resources/images/monsterWithoutHeadType_" + type + "_Waiting.png"));
+        images.put(1, new Image("resources/images/monsterWithoutHeadType_" + type + "_LeftHand_1.png"));
+        images.put(2, new Image("resources/images/monsterWithoutHeadType_" + type + "_LeftHand_2.png"));
+        images.put(11, new Image("resources/images/monsterWithoutHeadType_" + type + "_RightHand_1.png"));
+        images.put(12, new Image("resources/images/monsterWithoutHeadType_" + type + "_RightHand_2.png"));
+        midLifeSprites = new ImageSet(images, sequence);
+
+        waiting = new Image("resources/images/monsterWithHeadType_" + type + "_Waiting.png");
+        midLifeWaiting = new Image("resources/images/monsterWithoutHeadType_" + type + "_Waiting.png");
+
         healthPoint = 100;
         RADIUS = 5 * SIDE;
         directionX = ThreadLocalRandom.current().nextInt(-1, 2);
@@ -43,13 +64,28 @@ public class BasicMonster extends Monster {
 
     @Override
     public void display(GraphicsContext gc, Coordinate characterPosition) {
+        gc.save();
         double xOffset = characterPosition.getX() - WIDTH / (2 * SIDE);
         double yOffset = characterPosition.getY() - HEIGHT / (2 * SIDE);
+        Image localWaiting;
+        ImageSet localSprites;
 
-        gc.drawImage(sprite, (this.position.getX() - xOffset) * SIDE - RADIUS / 2,
-                (this.position.getY() - yOffset) * SIDE - RADIUS / 2, RADIUS, RADIUS);
+        angleSelector(gc);
+        if (healthPoint > 50) {
+            localSprites = sprites;
+            localWaiting = waiting;
+        }else {
+            localSprites = midLifeSprites;
+            localWaiting = midLifeWaiting;
+        }
+        gc.drawImage((Math.abs(speedY) < 1 && Math.abs(speedX) < 1) ? localWaiting : localSprites.get(),
+                (this.position.getX() - xOffset) * SIDE - RADIUS / 2,
+                (this.position.getY() - yOffset) * SIDE - RADIUS / 2,
+                RADIUS,
+                RADIUS);
         gc.drawImage(healthBar.get(this.healthPoint), (this.position.getX() - xOffset) * SIDE - RADIUS * 0.375,
                 (this.position.getY() - yOffset) * SIDE - 0.75 * RADIUS, 0.75 * RADIUS, 0.2 * RADIUS);
+        gc.restore();
     }
 
     public void updateDisplacement() {

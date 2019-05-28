@@ -57,5 +57,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="junit-4.13-beta-3" level="application" />
+    <orderEntry type="library" name="lib" level="application" />
   </component>
 </module>

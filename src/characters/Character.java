@@ -71,7 +71,7 @@ public abstract class Character {
         gc.restore();
     }
 
-    private void angleSelector(GraphicsContext gc) {
+    void angleSelector(GraphicsContext gc) {
         if (speedY > 1 && speedX > 1) {
             angle = 135;
         } else if (speedY > 1 && speedX < -1) {
